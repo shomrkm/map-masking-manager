@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  api:
+    container_name: map-tasking-manager-api
+    build: .
+    tty: true
+    working_dir: /usr/src/api
+    ports:
+      - 5000:5000
+    volumes:
+      - .:/usr/src/app:cached
+      - node_modules:/usr/src/app/node_modules
+      - dist:/usr/src/app/dist
+
+volumes:
+  node_modules: {}
+  dist: {}
