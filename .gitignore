@@ -108,3 +108,4 @@ dist
 
 # Drawio file
 doc/.drawio-chrome/
+backend/config/.env
