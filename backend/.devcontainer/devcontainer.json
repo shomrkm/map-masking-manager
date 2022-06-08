@@ -10,7 +10,7 @@
   "service": "api",
   "extensions": [
     "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode",
+    "esbenp.prettier-vscode"
   ],
   // "postCreateCommand": "yarn build",
   "workspaceFolder": "/usr/src/app",
