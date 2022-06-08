@@ -1,9 +1,9 @@
-import express, { Application, Request, Response } from 'express'
+import express, { Application, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import colors from 'colors';
 import { connectDB } from './config/db';
 
-dotenv.config({ path: './config/.env' })
+dotenv.config({ path: './config/.env' });
 
 connectDB();
 
@@ -21,11 +21,11 @@ app.get('/', async (_req: Request, res: Response) => {
 const PORT = process.env.PORT || 5000;
 
 const server = app.listen(PORT, () => {
-  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold)
+  console.log(colors.yellow.bold(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`));
 });
 
 // Handle unhandled rejections
 process.on('unhandledRejection', (err: Error, promise) => {
-  console.log(`Error: ${err.message}`.red.bold);
+  console.log(colors.red.bold(`Error: ${err.message}`));
   server.close(() => process.exit(1));
 });
