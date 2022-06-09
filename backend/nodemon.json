@@ -1,6 +1,6 @@
 {
   "ignore": ["**/*.test.ts", "**/*.spec.ts", "node_modules"],
-  "watch": ["server.ts", "src"],
+  "watch": ["server.ts", "./"],
   "exec": "npm start",
   "ext": "ts"
 }
