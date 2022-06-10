@@ -10,6 +10,7 @@ type TaskSchemaFields = {
   target: ('road' | 'map' | 'poi')[];
   level: 'expert' | 'intermediate' | 'beginner';
   priority: 'high' | 'normal' | 'low';
+  createUser: Schema.Types.ObjectId;
   createdAt: Date;
   slug: String;
 };
@@ -62,16 +63,18 @@ const taskSchemaFields: SchemaDefinition<TaskSchemaFields> = {
     type: String,
     enum: ['high', 'normal', 'low'],
   },
+  createUser: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
   createdAt: {
     type: Date,
     default: Date.now(),
   },
   // project
   // source
-  // createUser
   // users
-  // previousTasks
-  // nextTasks
 };
 
 export type TaskSchemaProperties = TaskSchemaFields & {
