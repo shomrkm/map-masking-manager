@@ -11,7 +11,7 @@ type TaskSchemaFields = {
   level: 'expert' | 'intermediate' | 'beginner';
   priority: 'high' | 'normal' | 'low';
   createUser: Schema.Types.ObjectId;
-  assignedUser: [Schema.Types.ObjectId];
+  assignedUsers: [Schema.Types.ObjectId];
   createdAt: Date;
   slug: String;
 };
@@ -69,7 +69,7 @@ const taskSchemaFields: SchemaDefinition<TaskSchemaFields> = {
     ref: 'User',
     required: true,
   },
-  assignedUser: [
+  assignedUsers: [
     {
       type: Schema.Types.ObjectId,
       ref: 'User',

@@ -1,5 +1,5 @@
 import express from 'express';
-import { advancedResults } from '../middleware/advancedResults';
+import { advancedResults } from '../middleware';
 import { getUsers } from '../controller/users';
 import { User } from '../models/Users';
 
