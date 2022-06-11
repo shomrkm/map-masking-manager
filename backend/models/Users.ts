@@ -30,7 +30,12 @@ const userSchemaFields: SchemaDefinition<UserSchemaFields> = {
     enum: ['admin', 'publisher', 'mapper'],
     default: 'mapper',
   },
-    password: {
+  level: {
+    type: String,
+    enum: ['expert', 'intermediate', 'beginner'],
+    default: 'beginner',
+  },
+  password: {
     type: String,
     required: [true, 'Please add a password'],
     minlength: 6,
