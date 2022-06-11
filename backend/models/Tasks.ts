@@ -11,6 +11,7 @@ type TaskSchemaFields = {
   level: 'expert' | 'intermediate' | 'beginner';
   priority: 'high' | 'normal' | 'low';
   createUser: Schema.Types.ObjectId;
+  assignedUser: [Schema.Types.ObjectId];
   createdAt: Date;
   slug: String;
 };
@@ -66,8 +67,14 @@ const taskSchemaFields: SchemaDefinition<TaskSchemaFields> = {
   createUser: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-    required: true
+    required: true,
   },
+  assignedUser: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    },
+  ],
   createdAt: {
     type: Date,
     default: Date.now(),
@@ -87,5 +94,13 @@ TaskSchema.pre('save', function (next) {
   this.slug = slugify(this.title, { lower: true });
   next();
 });
+
+// Reverse populate with virtuals
+// TaskSchema.virtual('users', {
+//   ref: 'User',
+//   localField: '_id',
+//   foreignField: 'createUser',
+//   justOne: false,
+// });
 
 export const Task = model('Task', TaskSchema);
