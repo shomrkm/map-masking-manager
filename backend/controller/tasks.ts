@@ -24,3 +24,15 @@ export const getTask = asyncHandler(async (req: Request, res: Response, next: Ne
 
   res.status(200).json({ success: true, data: task });
 });
+
+// @desc Create new task
+// @route POST /api/v1/tasks
+// @access Private
+export const createTask = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+  const task = await Task.create(req.body);
+
+  res.status(201).json({
+    success: true,
+    data: task,
+  });
+});
