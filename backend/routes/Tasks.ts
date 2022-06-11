@@ -5,4 +5,4 @@ import { Task } from '../models/Tasks';
 
 export const router = express.Router();
 
-router.route('/').get(advancedResults(Task), getTasks);
+router.route('/').get(advancedResults(Task, { path: 'createUser', select: 'name' }), getTasks);
