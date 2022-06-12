@@ -5,14 +5,25 @@ type TaskSchemaFields = {
   title: string;
   description: string;
   detail: string;
-  location?: any;
+  area: {
+    type: {
+      type: 'Polygon';
+      required: true;
+    };
+    coordinates: {
+      type: [[[number]]];
+      required: true;
+    };
+    status: 'todo' | 'in-progress' | 'completed';
+  };
   status: 'unassigned' | 'mapping' | 'validating' | 'finished';
   target: ('road' | 'map' | 'poi')[];
   level: 'expert' | 'intermediate' | 'beginner';
   priority: 'high' | 'normal' | 'low';
   createUser: Schema.Types.ObjectId;
+  assignedUsers: [Schema.Types.ObjectId];
   createdAt: Date;
-  slug: String;
+  slug: string;
 };
 
 const taskSchemaFields: SchemaDefinition<TaskSchemaFields> = {
@@ -33,16 +44,16 @@ const taskSchemaFields: SchemaDefinition<TaskSchemaFields> = {
   detail: {
     type: String,
   },
-  location: {
+  area: {
     // GeoJSON
     type: {
       type: String,
-      enum: ['Point'],
-      required: false,
+      enum: ['Polygon'],
+      required: true,
     },
     coordinates: {
-      type: [Number],
-      required: false,
+      type: [[[Number]]],
+      required: true,
       index: '2dsphere',
     },
   },
@@ -66,15 +77,20 @@ const taskSchemaFields: SchemaDefinition<TaskSchemaFields> = {
   createUser: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-    required: true
+    required: true,
   },
+  assignedUsers: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    },
+  ],
   createdAt: {
     type: Date,
     default: Date.now(),
   },
   // project
   // source
-  // users
 };
 
 export type TaskSchemaProperties = TaskSchemaFields & {
@@ -87,5 +103,13 @@ TaskSchema.pre('save', function (next) {
   this.slug = slugify(this.title, { lower: true });
   next();
 });
+
+// Reverse populate with virtuals
+// TaskSchema.virtual('users', {
+//   ref: 'User',
+//   localField: '_id',
+//   foreignField: 'createUser',
+//   justOne: false,
+// });
 
 export const Task = model('Task', TaskSchema);

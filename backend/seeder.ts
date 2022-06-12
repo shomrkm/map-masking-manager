@@ -4,7 +4,7 @@ import colors from 'colors';
 import dotenv from 'dotenv';
 dotenv.config({ path: './config/.env' });
 
-import { Task } from './models/Tasks';
+import { Task, User } from './models';
 
 // Usage
 // npx ts-node seeder <option>
@@ -14,12 +14,13 @@ connect(process.env.MONGO_URI as string);
 
 // Read JSON files
 const tasks = JSON.parse(fs.readFileSync(`${__dirname}/_data/tasks.json`, 'utf-8'));
-console.log(tasks);
+const users = JSON.parse(fs.readFileSync(`${__dirname}/_data/users.json`, 'utf-8'));
 
 // Import into DB
 const importData = async () => {
   try {
     await Task.create(tasks);
+    await User.create(users);
     console.log(colors.green.inverse('Data Imported...'));
     process.exit();
   } catch (err) {
@@ -31,6 +32,7 @@ const importData = async () => {
 const deleteData = async () => {
   try {
     await Task.deleteMany();
+    await User.deleteMany();
     console.log(colors.red.inverse('Data Destroyed...'));
     process.exit();
   } catch (err) {

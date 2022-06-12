@@ -2,7 +2,7 @@ import { Request, NextFunction } from 'express';
 import { AdvancedResponse } from '../types';
 
 export const advancedResults =
-  (model: any, populate: string | undefined = undefined) =>
+  (model: any, populate: string | object | undefined = undefined) =>
   async (req: Request, res: AdvancedResponse, next: NextFunction) => {
     // Copy req.query
     const reqQuery = { ...req.query };
