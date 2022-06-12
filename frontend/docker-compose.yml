@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  app:
+    container_name: shomrkm-app
+    build: .
+    tty: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    working_dir: /usr/src/app
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/usr/src/app:cached
+      - node_modules:/usr/src/app/node_modules
+      - dist:/usr/src/app/dist
+
+volumes:
+  node_modules: {}
+  dist: {}
