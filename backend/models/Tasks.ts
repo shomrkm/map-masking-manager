@@ -5,7 +5,17 @@ type TaskSchemaFields = {
   title: string;
   description: string;
   detail: string;
-  location?: any;
+  area: {
+    type: {
+      type: 'Polygon';
+      required: true;
+    };
+    coordinates: {
+      type: [[[number]]];
+      required: true;
+    };
+    status: 'todo' | 'in-progress' | 'completed';
+  };
   status: 'unassigned' | 'mapping' | 'validating' | 'finished';
   target: ('road' | 'map' | 'poi')[];
   level: 'expert' | 'intermediate' | 'beginner';
@@ -13,7 +23,7 @@ type TaskSchemaFields = {
   createUser: Schema.Types.ObjectId;
   assignedUsers: [Schema.Types.ObjectId];
   createdAt: Date;
-  slug: String;
+  slug: string;
 };
 
 const taskSchemaFields: SchemaDefinition<TaskSchemaFields> = {
@@ -34,16 +44,16 @@ const taskSchemaFields: SchemaDefinition<TaskSchemaFields> = {
   detail: {
     type: String,
   },
-  location: {
+  area: {
     // GeoJSON
     type: {
       type: String,
-      enum: ['Point'],
-      required: false,
+      enum: ['Polygon'],
+      required: true,
     },
     coordinates: {
-      type: [Number],
-      required: false,
+      type: [[[Number]]],
+      required: true,
       index: '2dsphere',
     },
   },
@@ -81,7 +91,6 @@ const taskSchemaFields: SchemaDefinition<TaskSchemaFields> = {
   },
   // project
   // source
-  // users
 };
 
 export type TaskSchemaProperties = TaskSchemaFields & {
