@@ -15,7 +15,7 @@ const SideNavigation = () => {
   const navigation = [
     { name: 'Dashbard', to: '/dashboard', icon: HomeIcon },
     { name: 'Map', to: '/map', icon: MapIcon },
-    { name: 'Todos', to: '/todos', icon: DocumentTextIcon },
+    { name: 'Tasks', to: '/tasks', icon: DocumentTextIcon },
   ] as SideNavigationItem[];
 
   return (

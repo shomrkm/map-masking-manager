@@ -3,7 +3,7 @@ import { Outlet, useRoutes } from 'react-router-dom';
 import { MainLayout } from '@/components/Layout';
 import { Map } from '@/features/map';
 import { Dashboard, NotFound } from '@/features/misc';
-import { Todos } from '@/features/todos';
+import { Tasks } from '@/features/tasks';
 
 const App = () => {
   return (
@@ -21,7 +21,7 @@ export const AppRoutes = () => {
       children: [
         { path: '/dashboard', element: <Dashboard /> },
         { path: '/map', element: <Map /> },
-        { path: '/todos', element: <Todos /> },
+        { path: '/tasks', element: <Tasks /> },
         { path: '/', element: <Dashboard /> },
         { path: '*', element: <NotFound /> },
       ],
