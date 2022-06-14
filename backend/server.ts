@@ -2,6 +2,7 @@ import express, { Application, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
 import colors from 'colors';
+import mongoSanitize from 'express-mongo-sanitize';
 import cors from 'cors';
 import { connectDB } from './config/db';
 import { router as tasks } from './routes/Tasks';
@@ -23,6 +24,9 @@ app.use(express.urlencoded({ extended: true }));
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+
+// Sanitize data
+app.use(mongoSanitize());
 
 // Enable cors
 app.use(cors());
