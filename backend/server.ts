@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import morgan from 'morgan';
 import colors from 'colors';
 import mongoSanitize from 'express-mongo-sanitize';
+import helmet from 'helmet';
 import cors from 'cors';
 import { connectDB } from './config/db';
 import { router as tasks } from './routes/Tasks';
@@ -25,8 +26,11 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-// Sanitize data
+// Sanitize data (measure for NoSQL Ingection)
 app.use(mongoSanitize());
+
+// Set security headers
+app.use(helmet());
 
 // Enable cors
 app.use(cors());
