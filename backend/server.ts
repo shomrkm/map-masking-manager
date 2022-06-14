@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import colors from 'colors';
+import cors from 'cors';
 import { connectDB } from './config/db';
 import { router as tasks } from './routes/Tasks';
 import { router as users } from './routes/Users';
@@ -16,6 +17,9 @@ const app: Application = express();
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
+
+// Enable cors
+app.use(cors());
 
 // Mount Router
 app.use('/api/v1/tasks', tasks);
