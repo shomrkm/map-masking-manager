@@ -1,5 +1,6 @@
 import express, { Application, Request, Response } from 'express';
 import dotenv from 'dotenv';
+import morgan from 'morgan';
 import colors from 'colors';
 import cors from 'cors';
 import { connectDB } from './config/db';
@@ -17,6 +18,11 @@ const app: Application = express();
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
+
+// Dev logging middleware
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 
 // Enable cors
 app.use(cors());
