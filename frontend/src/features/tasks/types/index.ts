@@ -1,18 +1,11 @@
 export type Task = {
-  id: string;
+  _id: string;
   title: string;
   description: string;
   detail: string;
   area: {
-    type: {
-      type: 'Polygon';
-      required: true;
-    };
-    coordinates: {
-      type: [[[number]]];
-      required: true;
-    };
-    status: 'todo' | 'in-progress' | 'completed';
+    type: 'Polygon';
+    coordinates: number[][][];
   };
   status: 'unassigned' | 'mapping' | 'validating' | 'finished';
   target: ('road' | 'map' | 'poi')[];
@@ -20,6 +13,6 @@ export type Task = {
   priority: 'high' | 'normal' | 'low';
   createUser: string;
   assignedUsers: string[];
-  createdAt: Date;
+  createdAt: string;
   slug: string;
 };
