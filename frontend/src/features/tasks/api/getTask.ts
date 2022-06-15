@@ -6,7 +6,9 @@ import { ExtractFnReturnType, QueryConfig } from '@/lib/react-query';
 import { Task } from '../types';
 
 export const getTask = async (taskId: string): Promise<Task> => {
-  return axios.get(`/tasks/:${taskId}`);
+  return await (
+    await axios.get(`/tasks/${taskId}`)
+  ).data;
 };
 
 type QueryFnType = typeof getTask;
