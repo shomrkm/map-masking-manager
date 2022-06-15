@@ -13,7 +13,7 @@ const meta: Meta = {
 export default meta;
 
 type User = {
-  id: string;
+  _id: string;
   name: string;
   title: string;
   role: string;
@@ -22,14 +22,14 @@ type User = {
 
 const data: User[] = [
   {
-    id: '1',
+    _id: '1',
     name: 'Jane Cooper',
     title: 'Regianal Paradigm Technician',
     role: 'Admin',
     email: 'jane.cooper@example.com',
   },
   {
-    id: '2',
+    _id: '2',
     name: 'Cody Fisher',
     title: 'Product Directives Officer',
     role: 'Owner',
