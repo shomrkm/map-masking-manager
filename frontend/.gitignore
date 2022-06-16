@@ -105,3 +105,6 @@ dist
 
 # VSCode history file
 .history/
+
+# Build file
+build/
