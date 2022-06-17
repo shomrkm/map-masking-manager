@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 
-import { Spinner } from '@/components/Elements';
+import { Spinner, Map } from '@/components/Elements';
 
 import { useTask } from '../api/getTask';
 
@@ -48,12 +48,16 @@ export const Task = () => {
             <h2 className="text-2xl text-gray-700">Assigned</h2>
             <p className="text-base">{taskQuery.data.assignedUsers?.join(' ')}</p>
           </div>
-          <div className="justify-center w-[32rem] h-[32rem] text-7xl font-bold bg-red-200">
-            Map Area
-          </div>
+          {/* TODO: Fix laytout (Map displays repeatedly) */}
+          <Map
+            zoom={16}
+            center={[141.1378, 39.6987]}
+            className="justify-center w-[40rem] h-[40rem] align-middle"
+          />
         </div>
         <div className="h-96 bg-blue-200">
           <h2 className="p-4 text-2xl text-gray-700">Comments</h2>
+          <div>abcde</div>
         </div>
       </div>
     </>

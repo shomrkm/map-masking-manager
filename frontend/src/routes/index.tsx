@@ -7,7 +7,6 @@ import { lazyImport } from '@/utils/lazyImport';
 
 const { TasksRoutes } = lazyImport(() => import('@/features/tasks'), 'TasksRoutes');
 const { Dashboard } = lazyImport(() => import('@/features/misc'), 'Dashboard');
-const { Map } = lazyImport(() => import('@/features/map'), 'Map');
 
 const App = () => {
   return (
@@ -33,7 +32,6 @@ export const AppRoutes = () => {
       children: [
         { path: '/tasks/*', element: <TasksRoutes /> },
         { path: '/dashboard', element: <Dashboard /> },
-        { path: '/map', element: <Map /> },
         { path: '/', element: <Dashboard /> },
         { path: '*', element: <Navigate to="./" /> },
       ],
