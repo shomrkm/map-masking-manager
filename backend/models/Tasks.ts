@@ -1,7 +1,16 @@
-import { Schema, SchemaDefinition, Date, model } from 'mongoose';
+import mongoose, { Schema, SchemaDefinition, Date, model } from 'mongoose';
+import AutoIncrementFactory from 'mongoose-sequence';
 import slugify from 'slugify';
 
+// The @types/mongoose-sequence package is incorrect, and the dev doesn't care, so we ignore the error here. Follow docs here:
+// https://github.com/ramiel/mongoose-sequence
+// https://stackoverflow.com/a/71859686
+// https://github.com/ramiel/mongoose-sequence/issues/111
+// @ts-expect-error
+const AutoIncrement = AutoIncrementFactory(mongoose);
+
 type TaskSchemaFields = {
+  id: number;
   title: string;
   description: string;
   detail: string;
@@ -27,6 +36,7 @@ type TaskSchemaFields = {
 };
 
 const taskSchemaFields: SchemaDefinition<TaskSchemaFields> = {
+  id: Number,
   title: {
     type: String,
     required: [true, 'Please add a title'],
@@ -111,5 +121,8 @@ TaskSchema.pre('save', function (next) {
 //   foreignField: 'createUser',
 //   justOne: false,
 // });
+
+// @ts-expect-error
+TaskSchema.plugin(AutoIncrement, { inc_field: 'id' });
 
 export const Task = model('Task', TaskSchema);
