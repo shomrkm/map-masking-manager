@@ -29,7 +29,7 @@ export const Tasks = () => {
           columns={[
             {
               title: 'ID',
-              field: '_id',
+              field: 'id',
             },
             {
               title: 'Title',

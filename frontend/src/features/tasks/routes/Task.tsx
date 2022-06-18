@@ -27,7 +27,7 @@ export const Task = () => {
   return (
     <>
       <div className="overflow-y-scroll flex-col flex-wrap m-4 space-y-4">
-        <h1 className="text-4xl text-gray-700">{`#${taskId} ${taskQuery.data.title}`}</h1>
+        <h1 className="text-4xl text-gray-700">{`#${taskQuery.data.id} ${taskQuery.data.title}`}</h1>
         <div className="flex w-full bg-white shadow-sm">
           <div className="flex-col flex-1 p-4 ml-4 space-y-4">
             <h2 className="text-2xl text-gray-700 prose">Description</h2>
