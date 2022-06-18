@@ -12,7 +12,6 @@
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode"
   ],
-  "postCreateCommand": "yarn build",
   "workspaceFolder": "/usr/src/app",
   "shutdownAction": "stopCompose"
 }
