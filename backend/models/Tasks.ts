@@ -64,7 +64,6 @@ const taskSchemaFields: SchemaDefinition<TaskSchemaFields> = {
     coordinates: {
       type: [[[Number]]],
       required: true,
-      index: '2dsphere',
     },
   },
   status: {
@@ -114,13 +113,15 @@ TaskSchema.pre('save', function (next) {
   next();
 });
 
+TaskSchema.index({ area: '2dsphere' });
+
 // Reverse populate with virtuals
-// TaskSchema.virtual('users', {
-//   ref: 'User',
-//   localField: '_id',
-//   foreignField: 'createUser',
-//   justOne: false,
-// });
+TaskSchema.virtual('comments', {
+  ref: 'Comment',
+  localField: '_id',
+  foreignField: 'task',
+  justOne: false,
+});
 
 // @ts-expect-error
 TaskSchema.plugin(AutoIncrement, { inc_field: 'id' });
