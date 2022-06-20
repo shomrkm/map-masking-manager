@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 
-import { Spinner, StatusBadge, LevelBadge } from '@/components/Elements';
+import { Spinner, TaskStatusBadge, LevelBadge, PriorityBadge } from '@/components/Elements';
 import { Map } from '@/components/Map';
 
 import { useTask } from '../api/getTask';
@@ -37,13 +37,13 @@ export const Task = () => {
               <p className="text-base">{taskQuery.data.detail}</p>
             </div>
             <h2 className="text-2xl text-gray-700">Status</h2>
-            <StatusBadge status={taskQuery.data.status} />
+            <TaskStatusBadge status={taskQuery.data.status} />
             <h2 className="text-2xl text-gray-700">Target</h2>
             <p className="text-base">{taskQuery.data.target?.join(' ')}</p>
             <h2 className="text-2xl text-gray-700">Level</h2>
             <LevelBadge level={taskQuery.data.level} />
             <h2 className="text-2xl text-gray-700">Priority</h2>
-            <p className="text-base">{taskQuery.data.priority}</p>
+            <PriorityBadge priority={taskQuery.data.priority} />
             <h2 className="text-2xl text-gray-700">Assigned</h2>
             <p className="text-base">{taskQuery.data.assignedUsers?.join(' ')}</p>
           </div>
