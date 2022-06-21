@@ -27,25 +27,25 @@ export const Task = () => {
   return (
     <>
       <div className="overflow-y-scroll flex-col flex-wrap m-4 space-y-4">
-        <h1 className="text-4xl text-gray-700">{`#${taskQuery.data.id} ${taskQuery.data.title}`}</h1>
+        <h1 className="text-2xl text-gray-700">{`#${taskQuery.data.id} ${taskQuery.data.title}`}</h1>
         <div className="flex w-full bg-white shadow-sm">
           <div className="flex-col flex-1 p-4 ml-4 space-y-4">
-            <h2 className="text-2xl text-gray-700 prose">Description</h2>
+            <h2 className="text-xl text-gray-700 prose">Description</h2>
             <p className="text-base">{taskQuery.data.description}</p>
-            <h2 className="text-2xl text-gray-700">Detail</h2>
+            <h2 className="text-xl text-gray-700">Status</h2>
+            <TaskStatusBadge status={taskQuery.data.status} />
+            <h2 className="text-xl text-gray-700">Target</h2>
+            <p className="text-base">{taskQuery.data.target?.join(' ')}</p>
+            <h2 className="text-xl text-gray-700">Level</h2>
+            <LevelBadge level={taskQuery.data.level} />
+            <h2 className="text-xl text-gray-700">Priority</h2>
+            <PriorityBadge priority={taskQuery.data.priority} />
+            <h2 className="text-xl text-gray-700">Assigned</h2>
+            <p className="text-base">{taskQuery.data.assignedUsers?.join(' ')}</p>
+            <h2 className="text-xl text-gray-700">Detail</h2>
             <div className="overflow-hidden">
               <p className="text-base">{taskQuery.data.detail}</p>
             </div>
-            <h2 className="text-2xl text-gray-700">Status</h2>
-            <TaskStatusBadge status={taskQuery.data.status} />
-            <h2 className="text-2xl text-gray-700">Target</h2>
-            <p className="text-base">{taskQuery.data.target?.join(' ')}</p>
-            <h2 className="text-2xl text-gray-700">Level</h2>
-            <LevelBadge level={taskQuery.data.level} />
-            <h2 className="text-2xl text-gray-700">Priority</h2>
-            <PriorityBadge priority={taskQuery.data.priority} />
-            <h2 className="text-2xl text-gray-700">Assigned</h2>
-            <p className="text-base">{taskQuery.data.assignedUsers?.join(' ')}</p>
           </div>
           <Map
             zoom={14}
