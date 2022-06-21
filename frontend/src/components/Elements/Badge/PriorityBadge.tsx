@@ -6,7 +6,7 @@ const priorities = {
   low: 'bg-blue-400 text-white',
 };
 
-type PriorityBadgeProps = {
+export type PriorityBadgeProps = {
   priority: keyof typeof priorities;
 };
 

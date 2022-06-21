@@ -7,11 +7,11 @@ const statuses = {
   finished: 'bg-green-400 text-white',
 };
 
-type StatusBadgeProps = {
+export type TaskStatusBadgeProps = {
   status: keyof typeof statuses;
 };
 
-export const TaskStatusBadge: React.VFC<StatusBadgeProps> = ({ status }) => {
+export const TaskStatusBadge: React.VFC<TaskStatusBadgeProps> = ({ status }) => {
   return (
     <div className="text-left">
       <span

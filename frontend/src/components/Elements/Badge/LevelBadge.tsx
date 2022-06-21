@@ -6,7 +6,7 @@ const levels = {
   beginner: 'bg-green-500 text-white',
 };
 
-type LevelBadgeProps = {
+export type LevelBadgeProps = {
   level: keyof typeof levels;
 };
 
