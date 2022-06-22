@@ -4,6 +4,7 @@ import { Spinner, TaskStatusBadge, LevelBadge, PriorityBadge } from '@/component
 import { Map } from '@/components/Map';
 
 import { useTask } from '../api/getTask';
+import { MapTargets } from '../components/MapTargets';
 
 export const Task = () => {
   const { taskId } = useParams();
@@ -35,7 +36,7 @@ export const Task = () => {
             <h2 className="text-xl text-gray-700">Status</h2>
             <TaskStatusBadge status={taskQuery.data.status} />
             <h2 className="text-xl text-gray-700">Target</h2>
-            <p className="text-base">{taskQuery.data.target?.join(' ')}</p>
+            <MapTargets targets={taskQuery.data.target} />
             <h2 className="text-xl text-gray-700">Level</h2>
             <LevelBadge level={taskQuery.data.level} />
             <h2 className="text-xl text-gray-700">Priority</h2>

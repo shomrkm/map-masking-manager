@@ -1,5 +1,5 @@
 {
-  "name": "shomrkm-app",
+  "name": "map-tasking-manager",
   "dockerComposeFile": ["../docker-compose.yml"],
   "settings": {
     "editor.formatOnSave": true,
