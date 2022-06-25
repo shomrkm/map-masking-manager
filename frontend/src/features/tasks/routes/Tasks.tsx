@@ -1,6 +1,11 @@
-import { CheckIcon } from '@heroicons/react/outline';
-
-import { Spinner, Table, Link } from '@/components/Elements';
+import {
+  Spinner,
+  Table,
+  Link,
+  TaskStatusBadge,
+  PriorityBadge,
+  LevelBadge,
+} from '@/components/Elements';
 
 import { useTasks } from '../api/getTasks';
 import { Task } from '../types';
@@ -22,7 +27,7 @@ export const Tasks = () => {
 
   return (
     <>
-      <h1 className="p-4 text-2xl">Your tasks</h1>
+      <h1 className="p-4 text-2xl font-bold">Your tasks</h1>
       <div className="flex flex-col justify-start ml-8">
         <Table<Task>
           data={taskQuery.data}
@@ -32,25 +37,35 @@ export const Tasks = () => {
               field: 'id',
             },
             {
+              title: 'Status',
+              field: 'status',
+              Cell({ entry: { status } }) {
+                return <TaskStatusBadge status={status} />;
+              },
+            },
+            {
               title: 'Title',
               field: 'title',
             },
             {
-              title: 'level',
+              title: 'Priority',
+              field: 'priority',
+              Cell({ entry: { priority } }) {
+                return <PriorityBadge priority={priority} />;
+              },
+            },
+            {
+              title: 'Level',
               field: 'level',
+              Cell({ entry: { level } }) {
+                return <LevelBadge level={level} />;
+              },
             },
             {
               title: '',
               field: '_id',
               Cell({ entry: { _id } }) {
                 return <Link to={`./${_id}`}>View</Link>;
-              },
-            },
-            {
-              title: 'Completed',
-              field: 'status',
-              Cell({ entry: { status } }) {
-                return status === 'finished' ? <CheckIcon className="w-4 h-4" /> : <></>;
               },
             },
           ]}
