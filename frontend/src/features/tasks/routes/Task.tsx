@@ -1,3 +1,4 @@
+import { UserIcon } from '@heroicons/react/outline';
 import { useParams } from 'react-router-dom';
 
 import { Spinner, TaskStatusBadge, LevelBadge, PriorityBadge } from '@/components/Elements';
@@ -28,22 +29,38 @@ export const Task = () => {
   return (
     <>
       <div className="overflow-y-scroll flex-col flex-wrap m-4 space-y-4">
-        <h1 className="text-2xl text-gray-700">{`#${taskQuery.data.id} ${taskQuery.data.title}`}</h1>
+        <h1 className="text-2xl font-bold text-gray-700">{`#${taskQuery.data.id} ${taskQuery.data.title}`}</h1>
         <div className="flex w-full bg-white shadow-sm">
           <div className="flex-col flex-1 p-4 ml-4 space-y-4">
-            <h2 className="text-xl text-gray-700 prose">Description</h2>
+            <div className="grid grid-cols-3 gap-3 items-center p-4 mb-2 rounded-xl border border-gray-100 shadow-sm">
+              <h3 className="col-span-1 text-base text-gray-700">Status</h3>
+              <div className="col-span-2">
+                <TaskStatusBadge status={taskQuery.data.status} />
+              </div>
+              <h3 className="col-span-1 text-base text-gray-700">Level</h3>
+              <div className="col-span-2">
+                <LevelBadge level={taskQuery.data.level} />
+              </div>
+              <h3 className="col-span-1 text-base text-gray-700">Priority</h3>
+              <div className="col-span-2">
+                <PriorityBadge priority={taskQuery.data.priority} />
+              </div>
+              <h3 className="col-span-1 text-base text-gray-700">Target</h3>
+              <div className="col-span-2">
+                <MapTargets targets={taskQuery.data.target} />
+              </div>
+              <h3 className="col-span-1 text-base text-gray-700">Assigned User</h3>
+              <div className="col-span-2 justify-items-center items-center">
+                <div className="flex gap-2 justify-start">
+                  <UserIcon className="p-1 w-8 h-8 bg-gray-200 rounded-full" />
+                  <UserIcon className="p-1 w-8 h-8 bg-gray-200 rounded-full" />
+                  <UserIcon className="p-1 w-8 h-8 bg-gray-200 rounded-full" />
+                </div>
+              </div>
+            </div>
+            <h2 className="text-xl font-bold text-gray-700 prose">Description</h2>
             <p className="text-base">{taskQuery.data.description}</p>
-            <h2 className="text-xl text-gray-700">Status</h2>
-            <TaskStatusBadge status={taskQuery.data.status} />
-            <h2 className="text-xl text-gray-700">Target</h2>
-            <MapTargets targets={taskQuery.data.target} />
-            <h2 className="text-xl text-gray-700">Level</h2>
-            <LevelBadge level={taskQuery.data.level} />
-            <h2 className="text-xl text-gray-700">Priority</h2>
-            <PriorityBadge priority={taskQuery.data.priority} />
-            <h2 className="text-xl text-gray-700">Assigned</h2>
-            <p className="text-base">{taskQuery.data.assignedUsers?.join(' ')}</p>
-            <h2 className="text-xl text-gray-700">Detail</h2>
+            <h2 className="text-xl font-bold text-gray-700 prose">Detail</h2>
             <div className="overflow-hidden">
               <p className="text-base">{taskQuery.data.detail}</p>
             </div>
@@ -52,7 +69,7 @@ export const Task = () => {
             zoom={14}
             center={[39.6987, 141.1378]}
             data={taskQuery.data.area.coordinates}
-            className="justify-center w-[40rem] h-[40rem] align-middle"
+            className="hidden lg:flex justify-center w-[40rem] h-[40rem] align-middle"
           />
         </div>
         <div className="h-96 bg-blue-200">
