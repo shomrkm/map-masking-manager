@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { Spinner, TaskStatusBadge, LevelBadge, PriorityBadge } from '@/components/Elements';
 import { Map } from '@/components/Map';
+import { Comments } from '@/features/comments/';
 
 import { useTask } from '../api/getTask';
 import { MapTargets } from '../components/MapTargets';
@@ -72,9 +73,8 @@ export const Task = () => {
             className="hidden lg:flex justify-center w-[40rem] h-[40rem] align-middle"
           />
         </div>
-        <div className="h-96 bg-blue-200">
-          <h2 className="p-4 text-2xl text-gray-700">Comments</h2>
-          <div>abcde</div>
+        <div className="h-96 bg-gray-100">
+          <Comments taskId={taskQuery.data._id} />
         </div>
       </div>
     </>
