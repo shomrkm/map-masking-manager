@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express-serve-static-core';
 import { asyncHandler } from '../middleware';
 import { ErrorResponse } from '../utils/errorResponse';
 import { User, UserDoc } from '../models';
@@ -75,5 +75,18 @@ export const logout = asyncHandler(async (req: Request, res: Response, next: Nex
   res.status(200).json({
     success: true,
     data: {},
+  });
+});
+
+// @desc      Get current logged in user
+// @route     GET /api/v1/auth/me
+// @access    Private
+export const getMe = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+  // user is already available in req due to the protect middleware (middleware/auth)
+  const user = req.user;
+
+  res.status(200).json({
+    success: true,
+    data: user,
   });
 });
