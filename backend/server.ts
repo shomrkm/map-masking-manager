@@ -9,6 +9,7 @@ import cors from 'cors';
 import { connectDB } from './config/db';
 import { router as tasks } from './routes/Tasks';
 import { router as users } from './routes/Users';
+import { router as auth } from './routes/Auth';
 import { router as comments } from './routes/Comments';
 import { errorHandler } from './middleware';
 
@@ -41,6 +42,7 @@ app.use(cors());
 // Mount Router
 app.use('/api/v1/tasks', tasks);
 app.use('/api/v1/comments', comments);
+app.use('/api/v1/auth', auth);
 app.use('/api/v1/users', users);
 
 app.use(errorHandler);

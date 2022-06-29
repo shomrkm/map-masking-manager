@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 import bcrypt from 'bcryptjs';
-import { NextFunction } from 'express';
-import { Schema, SchemaDefinition, Date, model } from 'mongoose';
+import jwt from 'jsonwebtoken';
+import { Schema, SchemaDefinition, Date, model, Model } from 'mongoose';
 
 type UserSchemaFields = {
   name: string;
@@ -13,6 +13,12 @@ type UserSchemaFields = {
   resetPasswordExpire: Date;
   createdAt: Date;
 };
+
+type UserMethod = {
+  getSignedJwtToken(): string;
+};
+
+export type UserModel = Model<UserSchemaFields, {}, UserMethod> & UserMethod;
 
 const userSchemaFields: SchemaDefinition<UserSchemaFields> = {
   name: {
@@ -52,11 +58,7 @@ const userSchemaFields: SchemaDefinition<UserSchemaFields> = {
   },
 };
 
-export type UserSchemaProperties = UserSchemaFields & {
-  foo: () => void;
-};
-
-const UserSchema: Schema<UserSchemaProperties> = new Schema(userSchemaFields);
+const UserSchema = new Schema<UserSchemaFields, UserModel, UserMethod>(userSchemaFields);
 
 // Encrypt password using bcypt
 UserSchema.pre('save', async function (next) {
@@ -67,4 +69,11 @@ UserSchema.pre('save', async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-export const User = model('User', UserSchema);
+// Sign JWT and return token.
+UserSchema.method('getSignedJwtToken', function () {
+  return jwt.sign({ id: this._id }, process.env.JWT_SECRET as string, {
+    expiresIn: process.env.JWT_EXPIRE,
+  });
+});
+
+export const User = model<UserSchemaFields>('User', UserSchema);
