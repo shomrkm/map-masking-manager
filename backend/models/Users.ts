@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { Schema, SchemaDefinition, Date, model, Model } from 'mongoose';
+import { Schema, SchemaDefinition, Date, model, Model, Document, Types } from 'mongoose';
 
 type UserSchemaFields = {
   name: string;
@@ -16,9 +16,10 @@ type UserSchemaFields = {
 
 type UserMethod = {
   getSignedJwtToken(): string;
+  matchPassword(password: string): boolean;
 };
 
-export type UserModel = Model<UserSchemaFields, {}, UserMethod> & UserMethod;
+type UserModel = Model<UserSchemaFields, {}, UserMethod>;
 
 const userSchemaFields: SchemaDefinition<UserSchemaFields> = {
   name: {
@@ -58,7 +59,15 @@ const userSchemaFields: SchemaDefinition<UserSchemaFields> = {
   },
 };
 
-const UserSchema = new Schema<UserSchemaFields, UserModel, UserMethod>(userSchemaFields);
+export type UserDoc = Document<unknown, any, UserSchemaFields & UserMethod> &
+  UserSchemaFields &
+  UserMethod & {
+    _id: Types.ObjectId;
+  };
+
+const UserSchema = new Schema<UserSchemaFields & UserMethod, UserModel, UserMethod>(
+  userSchemaFields
+);
 
 // Encrypt password using bcypt
 UserSchema.pre('save', async function (next) {
@@ -76,4 +85,9 @@ UserSchema.method('getSignedJwtToken', function () {
   });
 });
 
-export const User = model<UserSchemaFields>('User', UserSchema);
+// Match user entered password to hashed password in database
+UserSchema.method('matchPassword', async function (password: string) {
+  return await bcrypt.compare(password, this.password);
+});
+
+export const User = model<UserSchemaFields & UserMethod>('User', UserSchema);
