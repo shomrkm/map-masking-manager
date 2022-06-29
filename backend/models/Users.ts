@@ -1,3 +1,6 @@
+import crypto from 'crypto';
+import bcrypt from 'bcryptjs';
+import { NextFunction } from 'express';
 import { Schema, SchemaDefinition, Date, model } from 'mongoose';
 
 type UserSchemaFields = {
@@ -54,5 +57,14 @@ export type UserSchemaProperties = UserSchemaFields & {
 };
 
 const UserSchema: Schema<UserSchemaProperties> = new Schema(userSchemaFields);
+
+// Encrypt password using bcypt
+UserSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) {
+    next();
+  }
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
 
 export const User = model('User', UserSchema);
