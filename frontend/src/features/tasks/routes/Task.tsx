@@ -33,7 +33,7 @@ export const Task = () => {
         <h1 className="text-2xl font-bold text-gray-700">{`#${taskQuery.data.id} ${taskQuery.data.title}`}</h1>
         <div className="flex w-full bg-white shadow-sm">
           <div className="flex-col flex-1 p-4 ml-4 space-y-4">
-            <div className="grid grid-cols-3 gap-3 items-center p-4 mb-2 rounded-xl border border-gray-100 shadow-sm">
+            <div className="grid grid-cols-3 gap-4 items-center p-4 mb-2 rounded-xl border border-gray-100 shadow-sm">
               <h3 className="col-span-1 text-base text-gray-700">Status</h3>
               <div className="col-span-2">
                 <TaskStatusBadge status={taskQuery.data.status} />
