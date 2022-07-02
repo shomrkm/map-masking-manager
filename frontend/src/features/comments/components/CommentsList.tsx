@@ -1,4 +1,4 @@
-import { ArchiveIcon } from '@heroicons/react/outline';
+import { ArchiveIcon, UserIcon } from '@heroicons/react/outline';
 
 import { Spinner, MDPreview } from '@/components/Elements';
 import { formatDate } from '@/utils/format';
@@ -41,12 +41,23 @@ export const CommentsList = ({ taskId }: CommentsListProps) => {
           key={comment._id || index}
           className="p-4 w-full bg-white shadow-sm"
         >
-          <div className="flex justify-between">
-            <span className="text-xs font-semibold">{formatDate(comment.createdAt)}</span>
-            {/* <DeleteComment discussionId={taskId} id={comment.id} /> */}
+          <div className="flex">
+            <div className="justify-start w-14">
+              <UserIcon className="p-1 w-10 h-10 bg-gray-200 rounded-full" />
+            </div>
+            <div className="flex-1">
+              <div className="flex-col flex-1 justify-between">
+                <div className="flex items-center px-3">
+                  <span className="flex-1 text-gray-700">{comment.user}</span>
+                  <span className="text-xs font-semibold text-right text-gray-500">
+                    {formatDate(comment.createdAt)}
+                  </span>
+                  {/* <DeleteComment discussionId={taskId} id={comment.id} /> */}
+                </div>
+              </div>
+              <MDPreview value={comment.text} />
+            </div>
           </div>
-
-          <MDPreview value={comment.text} />
         </li>
       ))}
     </ul>
