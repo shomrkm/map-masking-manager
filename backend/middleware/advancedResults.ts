@@ -1,7 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 
+type Populate = {
+  path: string;
+  select: string;
+};
+
 export const advancedResults =
-  (model: any, populate: string | object | undefined = undefined) =>
+  (model: any, populate?: Populate[]) =>
   async (req: Request, res: Response, next: NextFunction) => {
     // Copy req.query
     const reqQuery = { ...req.query };
@@ -38,7 +43,7 @@ export const advancedResults =
     query.skip(startIndex).limit(limit);
 
     if (populate) {
-      query.populate(populate);
+      populate.forEach((p) => query.populate(p));
     }
 
     // Executing query

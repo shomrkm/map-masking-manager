@@ -11,7 +11,7 @@ router.use('/:taskid/comments', commentRouter);
 
 router
   .route('/')
-  .get(advancedResults(Task, { path: 'createUser', select: 'name' }), getTasks)
+  .get(advancedResults(Task, [{ path: 'createUser', select: 'name' }]), getTasks)
   .post(createTask);
 
 router.route('/:id').get(getTask).put(updateTask).delete(deleteTask);
