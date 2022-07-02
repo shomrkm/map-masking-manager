@@ -7,7 +7,7 @@ interface AdvancedResults {
 
 declare namespace Express {
   export interface Request {
-    user: string;
+    user: any;
   }
   export interface Response {
     advancedResults: AdvancedResults;
