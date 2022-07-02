@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import { Comment } from '../models/Comments';
-import { AdvancedResponse } from '../types';
 import { asyncHandler } from '../middleware';
 import { ErrorResponse } from '../utils';
 
@@ -8,21 +7,19 @@ import { ErrorResponse } from '../utils';
 // @route GET /api/v1/comments
 // @route GET /api/v1/tasks/:taskId/comments
 // @access Public
-export const getComments = asyncHandler(
-  async (req: Request, res: AdvancedResponse, next: NextFunction) => {
-    if (req.params.taskid) {
-      const comments = await Comment.find({ task: req.params.taskid });
+export const getComments = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+  if (req.params.taskid) {
+    const comments = await Comment.find({ task: req.params.taskid });
 
-      return res.status(200).json({
-        success: true,
-        count: comments.length,
-        data: comments,
-      });
-    }
-
-    res.status(200).json(res.advancedResults);
+    return res.status(200).json({
+      success: true,
+      count: comments.length,
+      data: comments,
+    });
   }
-);
+
+  res.status(200).json(res.advancedResults);
+});
 
 // @desc Get single comment
 // @route GET /api/v1/comments/:id

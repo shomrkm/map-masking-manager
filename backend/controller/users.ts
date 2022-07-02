@@ -1,13 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import { asyncHandler } from '../middleware';
-import { AdvancedResponse } from '../types';
 import { User } from '../models';
 
 // @desc Get all users
 // @route GET /api/v1/users
 // @access Public
 export const getUsers = asyncHandler(
-  async (req: Request, res: AdvancedResponse, next: NextFunction) => {
+  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     res.status(200).json(res.advancedResults);
   }
 );
@@ -15,7 +14,7 @@ export const getUsers = asyncHandler(
 // @desc      Get single user
 // @route     GET /api/v1/users/:id
 // @access    Private/Admin
-export const getUser = asyncHandler(async (req, res, next) => {
+export const getUser = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
   const user = await User.findById(req.params.id);
 
   res.status(200).json({
@@ -27,7 +26,7 @@ export const getUser = asyncHandler(async (req, res, next) => {
 // @desc      Create user
 // @route     POST /api/v1/users
 // @access    Private/Admin
-export const createUser = asyncHandler(async (req, res, next) => {
+export const createUser = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
   const user = await User.create(req.body);
 
   res.status(201).json({
@@ -39,7 +38,7 @@ export const createUser = asyncHandler(async (req, res, next) => {
 // @desc      Update user
 // @route     PUT /api/v1/users/:id
 // @access    Private/Admin
-export const updateUser = asyncHandler(async (req, res, next) => {
+export const updateUser = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
   const user = await User.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
@@ -54,7 +53,7 @@ export const updateUser = asyncHandler(async (req, res, next) => {
 // @desc      Delete user
 // @route     DELETE /api/v1/users/:id
 // @access    Private/Admin
-export const deleteUser = asyncHandler(async (req, res, next) => {
+export const deleteUser = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
   await User.findByIdAndDelete(req.params.id);
 
   res.status(200).json({

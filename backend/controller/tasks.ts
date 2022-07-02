@@ -1,17 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
 import { Task } from '../models/Tasks';
-import { AdvancedResponse } from '../types';
 import { asyncHandler } from '../middleware';
 import { ErrorResponse } from '../utils';
 
 // @desc Get all tasks
 // @route GET /api/v1/tasks
 // @access Public
-export const getTasks = asyncHandler(
-  async (req: Request, res: AdvancedResponse, next: NextFunction) => {
-    res.status(200).json(res.advancedResults);
-  }
-);
+export const getTasks = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+  res.status(200).json(res.advancedResults);
+});
 
 // @desc Get single task
 // @route GET /api/v1/tasks/:id
