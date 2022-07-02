@@ -112,3 +112,27 @@ export const updatePassword = asyncHandler(
     sendTokenResponse(user, 200, res);
   }
 );
+
+// @desc Update user details
+// @route PUT /api/v1/auth/updatedetails
+// @access Private
+export const updateDetails = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const fieldsToUpdate = {
+      name: req.body.name,
+      email: req.body.email,
+      role: req.body.role,
+      level: req.body.level,
+    };
+
+    const user = await User.findByIdAndUpdate(req.user.id, fieldsToUpdate, {
+      new: true,
+      runValidators: true,
+    });
+
+    res.status(200).json({
+      success: true,
+      data: user,
+    });
+  }
+);
