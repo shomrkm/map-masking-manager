@@ -1,5 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { HomeIcon, DocumentTextIcon, XIcon } from '@heroicons/react/outline';
+import { HomeIcon, ShareIcon, DocumentTextIcon, XIcon } from '@heroicons/react/outline';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
@@ -14,6 +14,7 @@ type SideNavigationItem = {
 const SideNavigation = () => {
   const navigation = [
     { name: 'Dashbard', to: '/dashboard', icon: HomeIcon },
+    { name: 'workflows', to: '/workflows', icon: ShareIcon },
     { name: 'Tasks', to: '/tasks', icon: DocumentTextIcon },
   ] as SideNavigationItem[];
 

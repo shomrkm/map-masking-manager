@@ -5,6 +5,7 @@ import { Spinner } from '@/components/Elements';
 import { MainLayout } from '@/components/Layout';
 import { lazyImport } from '@/utils/lazyImport';
 
+const { WorkflowsRoutes } = lazyImport(() => import('@/features/workflows'), 'WorkflowsRoutes');
 const { TasksRoutes } = lazyImport(() => import('@/features/tasks'), 'TasksRoutes');
 const { Dashboard } = lazyImport(() => import('@/features/misc'), 'Dashboard');
 
@@ -30,6 +31,7 @@ export const AppRoutes = () => {
       path: '/',
       element: <App />,
       children: [
+        { path: '/workflows/*', element: <WorkflowsRoutes /> },
         { path: '/tasks/*', element: <TasksRoutes /> },
         { path: '/dashboard', element: <Dashboard /> },
         { path: '/', element: <Dashboard /> },
