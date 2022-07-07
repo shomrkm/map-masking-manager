@@ -9,31 +9,70 @@ import ReactFlow, {
   EdgeChange,
   NodeChange,
   Connection,
+  MarkerType,
 } from 'react-flow-renderer';
+
+const TaskComponent = () => {
+  return (
+    <>
+      <div># 102 Task2</div>
+      <span>
+        This is a{' '}
+        <a className="text-blue-500" href="https://www.google.com/">
+          link
+        </a>{' '}
+        for google
+      </span>
+    </>
+  );
+};
 
 const initialNodes: Node[] = [
   {
     id: '100',
     type: 'input',
-    data: { label: '# 100 Task1' },
+    data: { label: '# 100 Task' },
     position: { x: 250, y: 25 },
   },
   {
     id: '101',
-    data: { label: <div className="text-red-500"># 101 Task2</div> },
+    data: { label: <div className="text-red-500"># 101 Task</div> },
     position: { x: 100, y: 125 },
   },
   {
     id: '102',
+    data: { label: <TaskComponent /> },
+    position: { x: 400, y: 125 },
+  },
+  {
+    id: '103',
     type: 'output',
-    data: { label: '#102 Task2' },
+    data: { label: '#103 Task' },
     position: { x: 250, y: 250 },
   },
 ];
 
 const initialEdges: Edge[] = [
-  { id: 'e101-102', source: '100', target: '101' },
-  { id: 'e102-103', source: '101', target: '102', animated: true },
+  { id: 'e100-101', source: '100', target: '101', markerEnd: { type: MarkerType.ArrowClosed } },
+  { id: 'e100-102', source: '100', target: '102', markerEnd: { type: MarkerType.ArrowClosed } },
+  {
+    id: 'e101-103',
+    source: '101',
+    target: '103',
+    markerEnd: {
+      type: MarkerType.ArrowClosed,
+    },
+  },
+  {
+    id: 'e102-103',
+    source: '102',
+    target: '103',
+    markerEnd: { type: MarkerType.ArrowClosed },
+    style: { stroke: '#f6ab6c' },
+    label: 'executing batch',
+    labelStyle: { fill: '#f6ab6c', fontWeight: 700 },
+    animated: true,
+  },
 ];
 
 const fitViewOptions: FitViewOptions = {
