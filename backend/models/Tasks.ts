@@ -1,4 +1,4 @@
-import mongoose, { Schema, SchemaDefinition, Date, model } from 'mongoose';
+import mongoose, { Schema, SchemaDefinition, Document, Date, model, Model } from 'mongoose';
 import AutoIncrementFactory from 'mongoose-sequence';
 import slugify from 'slugify';
 
@@ -9,7 +9,7 @@ import slugify from 'slugify';
 // @ts-expect-error
 const AutoIncrement = AutoIncrementFactory(mongoose);
 
-type TaskSchemaFields = {
+type TaskSchemaFields = Document & {
   id: number;
   title: string;
   description: string;
@@ -34,6 +34,10 @@ type TaskSchemaFields = {
   createdAt: Date;
   slug: string;
 };
+
+type TaskMethod = {};
+
+type TaskModel = Model<TaskSchemaFields, {}, TaskMethod>;
 
 const taskSchemaFields: SchemaDefinition<TaskSchemaFields> = {
   id: Number,
@@ -102,14 +106,19 @@ const taskSchemaFields: SchemaDefinition<TaskSchemaFields> = {
   // source
 };
 
-export type TaskSchemaProperties = TaskSchemaFields & {
-  foo: () => void;
-};
-
-const TaskSchema: Schema<TaskSchemaProperties> = new Schema(taskSchemaFields);
+const TaskSchema = new Schema<TaskSchemaFields & TaskMethod, TaskModel, TaskMethod>(
+  taskSchemaFields
+);
 
 TaskSchema.pre('save', function (next) {
   this.slug = slugify(this.title, { lower: true });
+  next();
+});
+
+// Cascade delete courses when a bootcamp is deleted
+TaskSchema.pre('remove', async function (next) {
+  console.log(`Comments being removed from task${this._id}`);
+  await this.$model('Comment').deleteMany({ task: this._id });
   next();
 });
 
