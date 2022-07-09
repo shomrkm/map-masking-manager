@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { Task } from '../models/Tasks';
+import { Comment } from '../models/Comments';
 import { asyncHandler } from '../middleware';
 import { ErrorResponse } from '../utils';
 
@@ -60,6 +61,13 @@ export const deleteTask = asyncHandler(async (req: Request, res: Response, next:
   const task = await Task.findByIdAndDelete(id);
   if (!task) {
     return next(new ErrorResponse(`Task not found with id of ${id}`, 404));
+  }
+
+  // Make sure user is task owner
+  if (task.user.toString() !== req.user.id && req.user.role !== 'admin') {
+    return next(
+      new ErrorResponse(`User ${req.user.id} is not authorized to delete this bootcamp`, 401)
+    );
   }
 
   task.remove();
