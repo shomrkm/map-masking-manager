@@ -1,5 +1,5 @@
 import express from 'express';
-import { advancedResults } from '../middleware';
+import { advancedResults, protect, authorize } from '../middleware';
 import { getTasks, getTask, createTask, updateTask, deleteTask } from '../controller/tasks';
 import { Task } from '../models/Tasks';
 import { router as commentRouter } from './Comments';
@@ -12,6 +12,10 @@ router.use('/:taskid/comments', commentRouter);
 router
   .route('/')
   .get(advancedResults(Task, [{ path: 'createUser', select: 'name' }]), getTasks)
-  .post(createTask);
+  .post(protect, authorize('publisher', 'admin'), createTask);
 
-router.route('/:id').get(getTask).put(updateTask).delete(deleteTask);
+router
+  .route('/:id')
+  .get(getTask)
+  .put(protect, authorize('publisher', 'admin'), updateTask)
+  .delete(protect, authorize('publisher', 'admin'), deleteTask);
