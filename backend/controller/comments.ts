@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { Comment } from '../models/Comments';
+import { Task } from '../models/Tasks';
 import { asyncHandler } from '../middleware';
 import { ErrorResponse } from '../utils';
 
@@ -31,4 +32,26 @@ export const getComment = asyncHandler(async (req: Request, res: Response, next:
   }
 
   res.status(200).json({ success: true, data: comment });
+});
+
+// @desc      Add comment
+// @route     POST /api/v1/tasks/:taskid/comments
+// @access    Private
+export const addComment = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+  console.log(req.params);
+  req.body.task = req.params.taskid;
+  req.body.user = req.user.id;
+
+  const task = await Task.findById(req.params.taskid);
+
+  if (!task) {
+    return next(new ErrorResponse(`No task with the id of ${req.params.taskid}`, 404));
+  }
+
+  const comment = await Comment.create(req.body);
+
+  res.status(200).json({
+    success: true,
+    data: comment,
+  });
 });
