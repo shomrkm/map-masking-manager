@@ -10,7 +10,10 @@ import { ErrorResponse } from '../utils';
 // @access Public
 export const getComments = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
   if (req.params.taskid) {
-    const comments = await Comment.find({ task: req.params.taskid });
+    const comments = await Comment.find({ task: req.params.taskid }).populate({
+      path: 'user',
+      select: 'name avatar',
+    });
 
     return res.status(200).json({
       success: true,
@@ -26,7 +29,10 @@ export const getComments = asyncHandler(async (req: Request, res: Response, next
 // @route GET /api/v1/comments/:id
 // @access Public
 export const getComment = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-  const comment = await Comment.findById(req.params.id);
+  const comment = await Comment.findById(req.params.id).populate({
+    path: 'user',
+    select: 'name avatar',
+  });
   if (!comment) {
     return next(new ErrorResponse(`Comment not found with id of ${req.params.id}`, 404));
   }
