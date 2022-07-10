@@ -8,6 +8,7 @@ type UserSchemaFields = {
   email: string;
   role: 'admin' | 'publisher' | 'mapper';
   level: 'expert' | 'intermediate' | 'beginner';
+  avatar: string;
   password: string;
   resetPasswordToken: string;
   resetPasswordExpire: Date;
@@ -44,6 +45,10 @@ const userSchemaFields: SchemaDefinition<UserSchemaFields> = {
     type: String,
     enum: ['expert', 'intermediate', 'beginner'],
     default: 'beginner',
+  },
+  avatar: {
+    type: String,
+    default: 'uploads/default_avatar.png',
   },
   password: {
     type: String,

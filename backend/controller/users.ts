@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { asyncHandler } from '../middleware';
 import { User } from '../models';
+import { ErrorResponse } from '../utils';
 
 // @desc Get all users
 // @route GET /api/v1/users
@@ -61,3 +62,24 @@ export const deleteUser = asyncHandler(async (req: Request, res: Response, next:
     data: {},
   });
 });
+
+// @desc      Upload image for user icon
+// @route     POST /api/v1/users/:id/avatar
+// @access    Private
+export const updateAvator = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return next(new ErrorResponse(`User not found with id of ${req.params.id}`, 404));
+    }
+
+    user.avatar = `uploads/${req.params.filename}`;
+    user.save();
+
+    res.status(200).json({
+      success: true,
+      data: user,
+    });
+  }
+);
