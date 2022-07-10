@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 
 type Populate = {
   path: string;
-  select: string;
+  select?: string;
 };
 
 export const advancedResults =

@@ -11,7 +11,13 @@ router.use('/:taskid/comments', commentRouter);
 
 router
   .route('/')
-  .get(advancedResults(Task, [{ path: 'createUser', select: 'name' }]), getTasks)
+  .get(
+    advancedResults(Task, [
+      { path: 'createUser', select: 'name avatar' },
+      { path: 'assignedUsers', select: 'name avatar' },
+    ]),
+    getTasks
+  )
   .post(protect, authorize('publisher', 'admin'), createTask);
 
 router
