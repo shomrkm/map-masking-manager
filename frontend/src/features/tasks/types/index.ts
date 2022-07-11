@@ -12,8 +12,16 @@ export type Task = {
   target: ('road' | 'map' | 'poi')[];
   level: 'expert' | 'intermediate' | 'beginner';
   priority: 'high' | 'normal' | 'low';
-  createUser: string;
-  assignedUsers: string[];
+  createUser: {
+    _id: string;
+    name: string;
+    avatar: string;
+  };
+  assignedUsers: {
+    _id: string;
+    name: string;
+    avatar: string;
+  }[];
   createdAt: string;
   slug: string;
 };

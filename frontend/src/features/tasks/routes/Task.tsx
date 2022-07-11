@@ -1,6 +1,6 @@
-import { UserIcon } from '@heroicons/react/outline';
 import { useParams } from 'react-router-dom';
 
+import { Avatar } from '@/components/Avatar';
 import { Spinner, TaskStatusBadge, LevelBadge, PriorityBadge } from '@/components/Elements';
 import { Map } from '@/components/Map';
 import { Comments } from '@/features/comments/';
@@ -53,9 +53,9 @@ export const Task = () => {
               <h3 className="col-span-1 text-base text-gray-700">Assigned User</h3>
               <div className="col-span-2 justify-items-center items-center">
                 <div className="flex gap-2 justify-start">
-                  <UserIcon className="p-1 w-8 h-8 bg-gray-200 rounded-full" />
-                  <UserIcon className="p-1 w-8 h-8 bg-gray-200 rounded-full" />
-                  <UserIcon className="p-1 w-8 h-8 bg-gray-200 rounded-full" />
+                  {taskQuery.data.assignedUsers.map((user) => (
+                    <Avatar key={user._id} name={user.name} avatar={user.avatar} />
+                  ))}
                 </div>
               </div>
             </div>
