@@ -26,6 +26,7 @@ type TaskSchemaFields = Document & {
     status: 'todo' | 'in-progress' | 'completed';
   };
   status: 'unassigned' | 'mapping' | 'validating' | 'finished';
+  workflow: Schema.Types.ObjectId;
   target: ('road' | 'map' | 'poi')[];
   level: 'expert' | 'intermediate' | 'beginner';
   priority: 'high' | 'normal' | 'low';
@@ -79,6 +80,11 @@ const taskSchemaFields: SchemaDefinition<TaskSchemaFields> = {
     type: [String],
     enum: ['map', 'road', 'poi'],
   },
+  workflow: {
+    type: Schema.Types.ObjectId,
+    ref: 'Workflow',
+    required: false, // TODO: true
+  },
   level: {
     type: String,
     enum: ['expert', 'intermediate', 'beginner'],
@@ -102,7 +108,6 @@ const taskSchemaFields: SchemaDefinition<TaskSchemaFields> = {
     type: Date,
     default: Date.now(),
   },
-  // project
   // source
 };
 
