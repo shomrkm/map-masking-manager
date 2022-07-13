@@ -20,7 +20,7 @@ const fitViewOptions: FitViewOptions = {
   padding: 0.2,
 };
 
-export const SampleFlow = () => {
+export const TaskWorkflow = () => {
   const [nodes, setNodes] = useState<TaskNode[]>(initialNodes);
   const [edges, setEdges] = useState<Edge[]>(initialEdges);
 
