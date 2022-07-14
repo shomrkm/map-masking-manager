@@ -1,20 +1,64 @@
-import { useState, useCallback } from 'react';
+import dagre from 'dagre';
+import { useState, useCallback, useEffect } from 'react';
 import ReactFlow, {
   addEdge,
   FitViewOptions,
   applyEdgeChanges,
   applyNodeChanges,
+  Node,
   Edge,
   EdgeChange,
   NodeChange,
   Connection,
   NodeTypes,
+  Position,
+  Controls,
 } from 'react-flow-renderer';
 
-import { initialNodes, initialEdges } from './nodes-edges';
-import { TaskComponent, TaskNode } from './TaskComponent';
+import { Button } from '@/components/Elements';
 
-const nodeTypes: NodeTypes = { task: TaskComponent };
+import { initialNodes, initialEdges } from './nodes-edges';
+import { TaskNodeCard, TaskNode } from './TaskNodeCard';
+
+const NODE_WIDTH = 172;
+const NODE_HEIGHT = 36;
+
+const dagreGraph = new dagre.graphlib.Graph();
+dagreGraph.setDefaultEdgeLabel(() => ({}));
+
+const getLayoutedElements = (nodes: Node[], edges: Edge[], direction = 'TB') => {
+  const isHorizontal = direction === 'LR';
+  dagreGraph.setGraph({ rankdir: direction });
+
+  nodes.forEach((node) => {
+    dagreGraph.setNode(node.id, { width: NODE_WIDTH, height: NODE_HEIGHT });
+  });
+
+  edges.forEach((edge) => {
+    dagreGraph.setEdge(edge.source, edge.target);
+  });
+
+  dagre.layout(dagreGraph);
+
+  nodes.forEach((node: Node) => {
+    const nodeWithPosition = dagreGraph.node(node.id);
+    node.targetPosition = isHorizontal ? Position.Left : Position.Top;
+    node.sourcePosition = isHorizontal ? Position.Right : Position.Bottom;
+
+    // We are shifting the dagre node position (anchor=center center) to the top left
+    // so it matches the React Flow node anchor point (top left).
+    node.position = {
+      x: nodeWithPosition.x - NODE_WIDTH / 2,
+      y: nodeWithPosition.y - NODE_HEIGHT / 2,
+    };
+
+    return node;
+  });
+
+  return { nodes, edges };
+};
+
+const nodeTypes: NodeTypes = { task: TaskNodeCard };
 
 const fitViewOptions: FitViewOptions = {
   padding: 0.2,
@@ -37,8 +81,24 @@ export const TaskWorkflow = () => {
     [setEdges]
   );
 
+  const onLayout = useCallback(
+    (direction) => {
+      const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
+        nodes,
+        edges,
+        direction
+      );
+
+      setNodes([...layoutedNodes]);
+      setEdges([...layoutedEdges]);
+    },
+    [nodes, edges]
+  );
+
+  useEffect(() => onLayout('TB'), [onLayout]);
+
   return (
-    <div className="w-auto h-[700px]">
+    <div className="w-[700px] h-[700px]">
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -48,7 +108,12 @@ export const TaskWorkflow = () => {
         nodeTypes={nodeTypes}
         fitView
         fitViewOptions={fitViewOptions}
-      />
+      >
+        <Controls />
+      </ReactFlow>
+      <Button size="sm" variant="inverse" onClick={() => onLayout('TB')}>
+        layout
+      </Button>
     </div>
   );
 };

@@ -12,7 +12,7 @@ export type TaskData = {
 
 export type TaskNode = Node<TaskData>;
 
-export const TaskComponent = ({ data }: TaskData) => {
+export const TaskNodeCard = ({ data }: TaskData) => {
   const { _id, id, title } = data;
   return (
     <>
