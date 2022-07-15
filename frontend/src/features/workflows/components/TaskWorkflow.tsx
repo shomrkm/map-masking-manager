@@ -8,9 +8,11 @@ import ReactFlow, {
   EdgeChange,
   NodeChange,
   Connection,
+  updateEdge,
   NodeTypes,
   Controls,
   ControlButton,
+  MarkerType,
 } from 'react-flow-renderer';
 
 import { getLayoutedElements } from '../utils/getLayoutedElement';
@@ -34,6 +36,11 @@ export const TaskWorkflow: VFC<TaskWorkflowProps> = ({ nodes, edges }) => {
   const [taskNodes, setTaskNodes] = useState<TaskNode[]>(layoutedNodes);
   const [taskEdges, setTaskEdges] = useState<Edge[]>(layoutedEdges);
 
+  const onEdgeUpdate = useCallback(
+    (oldEdge, newConnection) => setTaskEdges((els) => updateEdge(oldEdge, newConnection, els)),
+    []
+  );
+
   const onNodesChange = useCallback(
     (changes: NodeChange[]) => setTaskNodes((nds) => applyNodeChanges(changes, nds)),
     [setTaskNodes]
@@ -43,7 +50,10 @@ export const TaskWorkflow: VFC<TaskWorkflowProps> = ({ nodes, edges }) => {
     [setTaskEdges]
   );
   const onConnect = useCallback(
-    (connection: Connection) => setTaskEdges((eds) => addEdge(connection, eds)),
+    (connection: Connection) =>
+      setTaskEdges((eds) =>
+        addEdge({ ...connection, markerEnd: { type: MarkerType.ArrowClosed } }, eds)
+      ),
     [setTaskEdges]
   );
 
@@ -69,6 +79,7 @@ export const TaskWorkflow: VFC<TaskWorkflowProps> = ({ nodes, edges }) => {
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
+        onEdgeUpdate={onEdgeUpdate}
         nodeTypes={nodeTypes}
         fitView
         fitViewOptions={fitViewOptions}
