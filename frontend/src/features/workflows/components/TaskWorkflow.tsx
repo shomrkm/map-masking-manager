@@ -1,5 +1,5 @@
 import dagre from 'dagre';
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import ReactFlow, {
   addEdge,
   FitViewOptions,
@@ -13,9 +13,8 @@ import ReactFlow, {
   NodeTypes,
   Position,
   Controls,
+  ControlButton,
 } from 'react-flow-renderer';
-
-import { Button } from '@/components/Elements';
 
 import { initialNodes, initialEdges } from './nodes-edges';
 import { TaskNodeCard, TaskNode } from './TaskNodeCard';
@@ -64,9 +63,14 @@ const fitViewOptions: FitViewOptions = {
   padding: 0.2,
 };
 
+const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
+  initialNodes,
+  initialEdges
+);
+
 export const TaskWorkflow = () => {
-  const [nodes, setNodes] = useState<TaskNode[]>(initialNodes);
-  const [edges, setEdges] = useState<Edge[]>(initialEdges);
+  const [nodes, setNodes] = useState<TaskNode[]>(layoutedNodes);
+  const [edges, setEdges] = useState<Edge[]>(layoutedEdges);
 
   const onNodesChange = useCallback(
     (changes: NodeChange[]) => setNodes((nds) => applyNodeChanges(changes, nds)),
@@ -95,7 +99,7 @@ export const TaskWorkflow = () => {
     [nodes, edges]
   );
 
-  useEffect(() => onLayout('TB'), [onLayout]);
+  // useEffect(() => onLayout('TB'), [onLayout]);
 
   return (
     <div className="w-[700px] h-[700px]">
@@ -109,11 +113,10 @@ export const TaskWorkflow = () => {
         fitView
         fitViewOptions={fitViewOptions}
       >
-        <Controls />
+        <Controls showInteractive={false}>
+          <ControlButton onClick={() => onLayout('TB')}>↓</ControlButton>
+        </Controls>
       </ReactFlow>
-      <Button size="sm" variant="inverse" onClick={() => onLayout('TB')}>
-        layout
-      </Button>
     </div>
   );
 };
