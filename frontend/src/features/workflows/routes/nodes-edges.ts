@@ -6,25 +6,45 @@ export const initialNodes: Node[] = [
   {
     id: '100',
     type: 'task',
-    data: { _id: '5d713a66ec8f2b88b8f830b8', id: '63', title: 'Create new POIs' },
+    data: {
+      _id: '5d713a66ec8f2b88b8f830b8',
+      id: '63',
+      title: 'Create new POIs',
+      status: 'finished',
+    },
     position,
   },
   {
     id: '101',
     type: 'task',
-    data: { _id: '5d725a037b292f5f8ceff787', id: '58', title: 'Create new POIs' },
+    data: {
+      _id: '5d725a037b292f5f8ceff787',
+      id: '58',
+      title: 'Create new POIs',
+      status: 'validating',
+    },
     position,
   },
   {
     id: '102',
     type: 'task',
-    data: { _id: '5d713995b721c3bb38c1f5d0', id: '60', title: 'Create new roads' },
+    data: {
+      _id: '5d713995b721c3bb38c1f5d0',
+      id: '60',
+      title: 'Create new roads',
+      status: 'mapping',
+    },
     position,
   },
   {
     id: '103',
     type: 'task',
-    data: { _id: '5d713995b721c3bb38c1f5d0', id: '60', title: 'Create new roads' },
+    data: {
+      _id: '5d713995b721c3bb38c1f5d0',
+      id: '60',
+      title: 'Create new roads',
+      status: 'unassigned',
+    },
     position,
   },
 ];
