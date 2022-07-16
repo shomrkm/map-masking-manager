@@ -1,7 +1,7 @@
 import React from 'react';
 
 const statuses = {
-  new: 'bg-gray-100 text-gray-600',
+  new: 'bg-gray-200 text-gray-600',
   inProgress: 'bg-indigo-400 text-white',
   completed: 'bg-yellow-400 text-white',
   closed: 'bg-green-400 text-white',

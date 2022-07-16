@@ -28,9 +28,14 @@ const fitViewOptions: FitViewOptions = {
 type TaskWorkflowProps = {
   nodes: TaskNode[];
   edges: Edge[];
+  className?: string;
 };
 
-export const TaskWorkflow: VFC<TaskWorkflowProps> = ({ nodes, edges }) => {
+export const TaskWorkflow: VFC<TaskWorkflowProps> = ({
+  nodes,
+  edges,
+  className = 'w-[700px] h-[700px]',
+}) => {
   const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(nodes, edges);
 
   const [taskNodes, setTaskNodes] = useState<TaskNode[]>(layoutedNodes);
@@ -72,7 +77,7 @@ export const TaskWorkflow: VFC<TaskWorkflowProps> = ({ nodes, edges }) => {
   );
 
   return (
-    <div className="w-[700px] h-[700px]">
+    <div className={`${className}`}>
       <ReactFlow
         nodes={taskNodes}
         edges={taskEdges}

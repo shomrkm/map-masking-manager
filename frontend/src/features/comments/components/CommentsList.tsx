@@ -43,7 +43,7 @@ export const CommentsList = ({ taskId }: CommentsListProps) => {
             className="p-4 w-full bg-white shadow-sm"
           >
             <div className="flex">
-              <div className="justify-start w-14">
+              <div className="justify-start mr-3 w-14">
                 <Avatar name={comment.user.name} avatar={comment.user.avatar} size="md" />
               </div>
               <div className="flex-1">
