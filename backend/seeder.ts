@@ -4,7 +4,7 @@ import colors from 'colors';
 import dotenv from 'dotenv';
 dotenv.config({ path: './config/.env' });
 
-import { Task, User, Comment } from './models';
+import { Workflow, Task, User, Comment } from './models';
 
 // Usage
 // npx ts-node seeder <option>
@@ -13,6 +13,7 @@ import { Task, User, Comment } from './models';
 connect(process.env.MONGO_URI as string);
 
 // Read JSON files
+const workflows = JSON.parse(fs.readFileSync(`${__dirname}/_data/workflows.json`, 'utf-8'));
 const tasks = JSON.parse(fs.readFileSync(`${__dirname}/_data/tasks.json`, 'utf-8'));
 const users = JSON.parse(fs.readFileSync(`${__dirname}/_data/users.json`, 'utf-8'));
 const comments = JSON.parse(fs.readFileSync(`${__dirname}/_data/comments.json`, 'utf-8'));
@@ -20,6 +21,7 @@ const comments = JSON.parse(fs.readFileSync(`${__dirname}/_data/comments.json`, 
 // Import into DB
 const importData = async () => {
   try {
+    await Workflow.create(workflows);
     await Task.create(tasks);
     await User.create(users);
     await Comment.create(comments);
@@ -33,6 +35,7 @@ const importData = async () => {
 // Delete data
 const deleteData = async () => {
   try {
+    await Workflow.deleteMany();
     await Task.deleteMany();
     await User.deleteMany();
     await Comment.deleteMany();
