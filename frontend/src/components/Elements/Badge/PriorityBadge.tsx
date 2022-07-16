@@ -6,15 +6,22 @@ const priorities = {
   low: 'bg-blue-400 text-white',
 };
 
-export type PriorityBadgeProps = {
-  priority: keyof typeof priorities;
+const sizes = {
+  sm: 'py-1 px-2 mr-3 text-xs',
+  md: 'py-2 px-3 mr-3 text-sm',
+  lg: 'py-3 px-4 mr-3 text-md',
 };
 
-export const PriorityBadge: React.VFC<PriorityBadgeProps> = ({ priority }) => {
+export type PriorityBadgeProps = {
+  priority: keyof typeof priorities;
+  size?: keyof typeof sizes;
+};
+
+export const PriorityBadge: React.VFC<PriorityBadgeProps> = ({ priority, size = 'md' }) => {
   return (
     <div className="text-left">
       <span
-        className={`inline-block py-1 px-2 mr-3 text-xs font-bold ${priorities[priority]} rounded-full`}
+        className={`inline-block mr-3 font-bold ${sizes[size]} ${priorities[priority]} rounded-lg`}
       >
         {priority}
       </span>
