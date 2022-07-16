@@ -55,23 +55,18 @@ const workflowSchemaFields: SchemaDefinition<WorkflowSchemaFields> = {
   },
 };
 
-const WorkflowSchema = new Schema<WorkflowSchemaFields & WorkflowMethod, WorkflowModel, WorkflowMethod>(
-  workflowSchemaFields
-);
+const WorkflowSchema = new Schema<
+  WorkflowSchemaFields & WorkflowMethod,
+  WorkflowModel,
+  WorkflowMethod
+>(workflowSchemaFields);
 
 WorkflowSchema.pre('save', function (next) {
   this.slug = slugify(this.title, { lower: true });
   next();
 });
 
-// Cascade delete courses when a bootcamp is deleted
-WorkflowSchema.pre('remove', async function (next) {
-  console.log(`Comments being removed from task${this._id}`);
-  await this.$model('Task').deleteMany({ workflow: this._id });
-  next();
-});
-
 // @ts-expect-error
-WorkflowSchema.plugin(AutoIncrement, { inc_field: 'id' });
+WorkflowSchema.plugin(AutoIncrement, { id: 'workflow_counter', inc_field: 'id' });
 
 export const Workflow = model('Workflow', WorkflowSchema);

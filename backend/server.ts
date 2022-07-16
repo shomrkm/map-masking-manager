@@ -7,6 +7,7 @@ import helmet from 'helmet';
 // import xss from 'xss-clean';
 import cors from 'cors';
 import { connectDB } from './config/db';
+import { router as workflows } from './routes/Workflows';
 import { router as tasks } from './routes/Tasks';
 import { router as users } from './routes/Users';
 import { router as auth } from './routes/Auth';
@@ -44,6 +45,7 @@ app.use(express.static(__dirname + '/public'));
 app.use('/uploads', express.static('uploads'));
 
 // Mount Router
+app.use('/api/v1/workflows', workflows);
 app.use('/api/v1/tasks', tasks);
 app.use('/api/v1/comments', comments);
 app.use('/api/v1/auth', auth);
