@@ -25,8 +25,6 @@ export const Task = () => {
     return <div>No Tasks</div>;
   }
 
-  console.log(taskQuery.data);
-
   return (
     <>
       <div className="overflow-y-scroll flex-col flex-wrap m-4 space-y-4">
