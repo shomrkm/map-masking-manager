@@ -138,6 +138,6 @@ TaskSchema.virtual('comments', {
 });
 
 // @ts-expect-error
-TaskSchema.plugin(AutoIncrement, { inc_field: 'id' });
+TaskSchema.plugin(AutoIncrement, { id: 'task_counter', inc_field: 'id' });
 
 export const Task = model('Task', TaskSchema);

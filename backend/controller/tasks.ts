@@ -29,6 +29,7 @@ export const getTask = asyncHandler(async (req: Request, res: Response, next: Ne
 // @route POST /api/v1/tasks
 // @access Private
 export const createTask = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+  req.body.createUser = req.user.id;
   const task = await Task.create(req.body);
 
   res.status(201).json({
@@ -47,7 +48,7 @@ export const updateTask = asyncHandler(async (req: Request, res: Response, next:
     return next(new ErrorResponse(`Task not found with id of ${req.params.id}`, 404));
   }
 
-  const task = await Task.findOneAndUpdate({ id }, req.body, {
+  const task = await Task.findOneAndUpdate({ _id: id }, req.body, {
     new: true,
     runValidators: true,
   });
