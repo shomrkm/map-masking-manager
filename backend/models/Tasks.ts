@@ -23,7 +23,6 @@ type TaskSchemaFields = Document & {
       type: [[[number]]];
       required: true;
     };
-    status: 'todo' | 'in-progress' | 'completed';
   };
   status: 'unassigned' | 'mapping' | 'validating' | 'finished';
   workflow: Schema.Types.ObjectId;

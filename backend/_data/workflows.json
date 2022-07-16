@@ -3,7 +3,7 @@
     "_id": "99993995b721c3bb38c1f5d0",
     "title": "Workflow A",
     "description": "This is a sample data.",
-    "status": "in-progress",
+    "status": "inProgress",
     "createUser": "5d7a514b5d2c12c7449be042"
   },
   {

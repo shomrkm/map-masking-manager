@@ -13,7 +13,7 @@ type WorkflowSchemaFields = Document & {
   id: number;
   title: string;
   description: string;
-  status: 'new' | 'in-progress' | 'completed' | 'closed';
+  status: 'new' | 'inProgress' | 'completed' | 'closed';
   createUser: Schema.Types.ObjectId;
   createdAt: Date;
   slug: string;
@@ -42,7 +42,7 @@ const workflowSchemaFields: SchemaDefinition<WorkflowSchemaFields> = {
   status: {
     type: String,
     required: true,
-    enum: ['new', 'in-progress', 'completed', 'closed'],
+    enum: ['new', 'inProgress', 'completed', 'closed'],
   },
   createUser: {
     type: Schema.Types.ObjectId,
