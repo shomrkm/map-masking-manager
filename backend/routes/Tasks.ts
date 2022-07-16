@@ -7,7 +7,7 @@ import { router as commentRouter } from './Comments';
 export const router = express.Router();
 
 // Re-route into other resource routers
-router.use('/:id/comments', commentRouter);
+router.use('/:taskid/comments', commentRouter);
 
 router
   .route('/')
