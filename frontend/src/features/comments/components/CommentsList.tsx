@@ -16,7 +16,7 @@ export const CommentsList = ({ taskId }: CommentsListProps) => {
   if (commentsQuery.isLoading) {
     return (
       <div className="flex justify-center items-center w-full h-48">
-        <Spinner size="lg" />
+        <Spinner size="xl" />
       </div>
     );
   }
@@ -37,29 +37,30 @@ export const CommentsList = ({ taskId }: CommentsListProps) => {
   return (
     <ul aria-label="comments" className="flex flex-col space-y-3">
       {commentsQuery.data.map((comment, index) => (
-        <li
-          aria-label={`comment-${comment.text}-${index}`}
-          key={comment._id || index}
-          className="p-4 w-full bg-white shadow-sm"
-        >
-          <div className="flex">
-            <div className="justify-start w-14">
-              <Avatar name={comment.user.name} avatar={comment.user.avatar} size="md" />
-            </div>
-            <div className="flex-1">
-              <div className="flex-col flex-1 justify-between">
-                <div className="flex items-center px-3">
-                  <span className="flex-1 text-gray-700">{comment.user.name}</span>
-                  <span className="text-xs font-semibold text-right text-gray-500">
-                    {formatDate(comment.createdAt)}
-                  </span>
-                  {/* <DeleteComment discussionId={taskId} id={comment.id} /> */}
-                </div>
+        <div key={comment._id || index} className="mx-2 rounded-md">
+          <li
+            aria-label={`comment-${comment.text}-${index}`}
+            className="p-4 w-full bg-white shadow-sm"
+          >
+            <div className="flex">
+              <div className="justify-start w-14">
+                <Avatar name={comment.user.name} avatar={comment.user.avatar} size="md" />
               </div>
-              <MDPreview value={comment.text} />
+              <div className="flex-1">
+                <div className="flex-col flex-1 justify-between">
+                  <div className="flex items-center px-3">
+                    <span className="flex-1 text-gray-700">{comment.user.name}</span>
+                    <span className="text-xs font-semibold text-right text-gray-500">
+                      {formatDate(comment.createdAt)}
+                    </span>
+                    {/* <DeleteComment discussionId={taskId} id={comment.id} /> */}
+                  </div>
+                </div>
+                <MDPreview value={comment.text} />
+              </div>
             </div>
-          </div>
-        </li>
+          </li>
+        </div>
       ))}
     </ul>
   );
