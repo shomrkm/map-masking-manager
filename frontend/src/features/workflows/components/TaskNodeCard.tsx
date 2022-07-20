@@ -7,7 +7,7 @@ import { TaskStatusBadge } from '@/components/Elements';
 export type TaskData = {
   data: {
     _id: string;
-    id: string;
+    id: number;
     title: string;
     status: 'unassigned' | 'mapping' | 'validating' | 'finished';
   };

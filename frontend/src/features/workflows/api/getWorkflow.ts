@@ -5,21 +5,22 @@ import { ExtractFnReturnType, QueryConfig } from '@/lib/react-query';
 
 import { Workflow } from '../types';
 
-export const getWorkflows = async (): Promise<Workflow[]> => {
-  const res = await axios.get('/workflows');
+export const getWorkflow = async (id: string): Promise<Workflow[]> => {
+  const res = await axios.get(`/workflows/${id}/`);
   return res.data;
 };
 
-type QueryFnType = typeof getWorkflows;
+type QueryFnType = typeof getWorkflow;
 
 type UseWorkflowsOptions = {
+  workflowId: string;
   config?: QueryConfig<QueryFnType>;
 };
 
-export const useWorkflows = ({ config }: UseWorkflowsOptions = {}) => {
+export const useWorkflow = ({ workflowId, config }: UseWorkflowsOptions) => {
   return useQuery<ExtractFnReturnType<QueryFnType>>({
     ...config,
-    queryKey: ['workflows'],
-    queryFn: () => getWorkflows(),
+    queryKey: ['workflow'],
+    queryFn: () => getWorkflow(workflowId),
   });
 };
