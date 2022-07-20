@@ -1,5 +1,8 @@
 import { useParams } from 'react-router-dom';
 
+import { Spinner } from '@/components/Elements';
+
+import { useWorkflow } from '../api/getWorkflow';
 import { TaskWorkflow } from '../components/TaskWorkflow';
 
 import { initialNodes, initialEdges } from './nodes-edges';
@@ -7,7 +10,22 @@ import { initialNodes, initialEdges } from './nodes-edges';
 export const Workflow = () => {
   const { workflowId } = useParams();
 
-  // TODO: Search Workflow
+  const workflowQuery = useWorkflow({ workflowId: workflowId as string });
+
+  // TODO:
+
+  if (workflowQuery.isLoading) {
+    return (
+      <div className="flex justify-center items-center w-full h-full">
+        <Spinner className="w-32 h-32" />
+      </div>
+    );
+  }
+
+  if (!workflowQuery.data) {
+    return <div>No Workflows</div>;
+  }
+
   // TODO: Search Tasks with with workflow id
   // TODO: Create TaskNodes by Tasks
 
