@@ -11,6 +11,8 @@ export type Task = {
   status: 'unassigned' | 'mapping' | 'validating' | 'finished';
   target: ('road' | 'map' | 'poi')[];
   level: 'expert' | 'intermediate' | 'beginner';
+  previous: string[];
+  next: string[];
   priority: 'high' | 'normal' | 'low';
   createUser: {
     _id: string;
