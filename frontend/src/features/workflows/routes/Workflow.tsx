@@ -26,7 +26,7 @@ export const Workflow = () => {
     return <div>No Workflows</div>;
   }
 
-  // TODO: Search Tasks with with workflow id
+  // TODO: Search Tasks with workflow id
   // TODO: Create TaskNodes by Tasks
 
   return (
