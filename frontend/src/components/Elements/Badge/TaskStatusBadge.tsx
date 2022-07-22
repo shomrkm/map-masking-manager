@@ -21,9 +21,7 @@ export type TaskStatusBadgeProps = {
 export const TaskStatusBadge: React.VFC<TaskStatusBadgeProps> = ({ status, size = 'md' }) => {
   return (
     <div className="text-left">
-      <span
-        className={`inline-block text-sm font-bold ${sizes[size]} ${statuses[status]} rounded-lg`}
-      >
+      <span className={`inline-block font-bold ${sizes[size]} ${statuses[status]} rounded-lg`}>
         {status}
       </span>
     </div>
