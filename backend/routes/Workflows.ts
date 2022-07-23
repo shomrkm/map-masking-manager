@@ -8,8 +8,11 @@ import {
   deleteWorkflow,
 } from '../controller/workflows';
 import { Workflow } from '../models/Workflows';
+import { router as taskRouter } from './Tasks';
 
 export const router = express.Router();
+
+router.use('/:workflowid/tasks', taskRouter);
 
 router
   .route('/')

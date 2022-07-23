@@ -6,8 +6,17 @@ import { ErrorResponse } from '../utils';
 
 // @desc Get all tasks
 // @route GET /api/v1/tasks
+// @route GET /api/v1/workflows/:workflowid/tasks
 // @access Public
 export const getTasks = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+  if (req.params.workflowid) {
+    const tasks = await Task.find({ workflow: req.params.workflowid });
+    return res.status(200).json({
+      success: true,
+      count: tasks.length,
+      data: tasks,
+    });
+  }
   res.status(200).json(res.advancedResults);
 });
 
