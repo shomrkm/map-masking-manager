@@ -3,9 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Spinner } from '@/components/Elements';
 
 import { useWorkflow } from '../api/getWorkflow';
-import { TaskWorkflow } from '../components/TaskWorkflow';
-
-import { initialNodes, initialEdges } from './nodes-edges';
+import { TaskWorkflowView } from '../components/TaskWorkflowView';
 
 export const Workflow = () => {
   const { workflowId } = useParams();
@@ -26,18 +24,17 @@ export const Workflow = () => {
     return <div>No Workflows</div>;
   }
 
-  // TODO: Search Tasks with workflow id
-  // TODO: Create TaskNodes by Tasks
-
   return (
-    <div className="overflow-y-scroll flex-col m-4">
+    <div className="overflow-y-scroll flex-col m-4 h-full">
       <div className="text-2xl font-bold">Workflow Page</div>
-      <div>{`workflow id: ${workflowId}`}</div>
-      <TaskWorkflow
-        nodes={initialNodes}
-        edges={initialEdges}
-        className="w-[700px] h-[700px] rounded-sm border border-gray-300 border-solid shadow-sm"
-      />
+      <div className="flex m-4">
+        <div className="flex-1">{`workflow id: ${workflowId}`}</div>
+        <div className="hidden lg:flex">
+          <div className="justify-center items-center w-[700px] h-[750px] rounded-md border border-gray-300 border-solid shadow-sm">
+            <TaskWorkflowView workflowId={workflowId as string} />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

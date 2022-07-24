@@ -31,11 +31,7 @@ type TaskWorkflowProps = {
   className?: string;
 };
 
-export const TaskWorkflow: VFC<TaskWorkflowProps> = ({
-  nodes,
-  edges,
-  className = 'w-[700px] h-[700px]',
-}) => {
+export const TaskWorkflow: VFC<TaskWorkflowProps> = ({ nodes, edges, className = '' }) => {
   const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(nodes, edges);
 
   const [taskNodes, setTaskNodes] = useState<TaskNode[]>(layoutedNodes);
