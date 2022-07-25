@@ -40,7 +40,7 @@ export const Tasks = () => {
               title: 'Status',
               field: 'status',
               Cell({ entry: { status } }) {
-                return <TaskStatusBadge status={status} />;
+                return <TaskStatusBadge status={status} size="sm" />;
               },
             },
             {
@@ -51,14 +51,14 @@ export const Tasks = () => {
               title: 'Priority',
               field: 'priority',
               Cell({ entry: { priority } }) {
-                return <PriorityBadge priority={priority} />;
+                return <PriorityBadge priority={priority} size="sm" />;
               },
             },
             {
               title: 'Level',
               field: 'level',
               Cell({ entry: { level } }) {
-                return <LevelBadge level={level} />;
+                return <LevelBadge level={level} size="sm" />;
               },
             },
             {

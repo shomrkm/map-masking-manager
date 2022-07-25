@@ -33,7 +33,7 @@ export const Workflows = () => {
               title: 'Status',
               field: 'status',
               Cell({ entry: { status } }) {
-                return <WorkflowStatusBadge status={status} />;
+                return <WorkflowStatusBadge status={status} size="sm" />;
               },
             },
             {
