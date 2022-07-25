@@ -25,9 +25,9 @@ export const TaskWorkflowView: React.VFC<Props> = ({ workflowId }) => {
 
   if (!data || !data.length) {
     return (
-      <div className="flex flex-col justify-center items-center text-gray-500 bg-white">
-        <ArchiveIcon className="w-10 h-10" />
-        <h4>No Tasks Found</h4>
+      <div className="flex flex-col justify-center items-center text-gray-500">
+        <ArchiveIcon className="w-20 h-20" />
+        <h4 className="text-2xl font-bold">No Tasks Found</h4>
       </div>
     );
   }

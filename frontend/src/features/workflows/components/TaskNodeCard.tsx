@@ -28,7 +28,7 @@ export const TaskNodeCard = ({ data }: TaskData) => {
   }
 
   if (!taskQuery.data) {
-    return <div>No Reading Error</div>;
+    return <div>Error</div>;
   }
 
   const { _id, id, title, status } = taskQuery.data;

@@ -30,7 +30,7 @@ export const Workflow = () => {
       <div className="flex m-4">
         <div className="flex-1">{`workflow id: ${workflowId}`}</div>
         <div className="hidden lg:flex">
-          <div className="justify-center items-center w-[700px] h-[750px] rounded-md border border-gray-300 border-solid shadow-sm">
+          <div className="flex justify-center items-center w-[700px] h-[750px] rounded-md border border-gray-300 border-solid shadow-sm">
             <TaskWorkflowView workflowId={workflowId as string} />
           </div>
         </div>
