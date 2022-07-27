@@ -6,12 +6,7 @@ export const createTaskNodes = (tasks: Task[]): Node[] => {
   return tasks.map((task) => ({
     id: task._id,
     type: 'task',
-    data: {
-      _id: task._id,
-      id: task.id,
-      title: task.title,
-      status: task.status,
-    },
+    data: { task },
     position: { x: 0, y: 0 },
   }));
 };

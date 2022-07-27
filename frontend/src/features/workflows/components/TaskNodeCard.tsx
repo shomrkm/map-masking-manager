@@ -2,36 +2,19 @@ import React from 'react';
 import { Node, Handle, Position } from 'react-flow-renderer';
 import { Link } from 'react-router-dom';
 
-import { Spinner, TaskStatusBadge } from '@/components/Elements';
-import { useTask } from '@/features/tasks/api/getTask';
+import { TaskStatusBadge } from '@/components/Elements';
+import { Task } from '@/features/tasks/types';
 
 export type TaskData = {
   data: {
-    _id: string;
+    task: Task;
   };
 };
 
 export type TaskNode = Node<TaskData>;
 
 export const TaskNodeCard = ({ data }: TaskData) => {
-  const taskQuery = useTask({ taskId: data._id });
-
-  if (taskQuery.isLoading) {
-    return (
-      <div className="flex justify-center p-3 w-[150px] bg-gray-100 rounded-md border border-gray-800 border-solid">
-        <div className="flex-col justify-center items-center">
-          <Spinner className="w-10 h-10" />
-          <div className="p-1 text-xs text-center text-gray-400">Loading</div>
-        </div>
-      </div>
-    );
-  }
-
-  if (!taskQuery.data) {
-    return <div>Error</div>;
-  }
-
-  const { _id, id, title, status } = taskQuery.data;
+  const { _id, id, title, status } = data.task;
 
   return (
     <>
