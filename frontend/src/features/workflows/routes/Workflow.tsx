@@ -10,8 +10,6 @@ export const Workflow = () => {
 
   const workflowQuery = useWorkflow({ workflowId: workflowId as string });
 
-  // TODO:
-
   if (workflowQuery.isLoading) {
     return (
       <div className="flex justify-center items-center w-full h-full">
