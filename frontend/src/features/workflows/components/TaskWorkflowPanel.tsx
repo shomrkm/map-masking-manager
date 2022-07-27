@@ -12,7 +12,7 @@ interface Props {
   workflowId: string;
 }
 
-export const TaskWorkflowView: React.VFC<Props> = ({ workflowId }) => {
+export const TaskWorkflowPanel: React.VFC<Props> = ({ workflowId }) => {
   const { data, isLoading } = useTasksForWorkflow({ workflowId });
 
   if (isLoading) {
