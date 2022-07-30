@@ -12,6 +12,9 @@ module.exports = {
       height: {
         '(screen-map)': 'calc(100vh - 4rem)',
       },
+      backgroundImage: {
+        login: "url('@/assets/login-image.jpg')",
+      },
     },
   },
   variants: {

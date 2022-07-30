@@ -1,4 +1,5 @@
 import { UserIcon } from '@heroicons/react/outline';
+import { useNavigate } from 'react-router-dom';
 
 import { Button } from '@/components/Elements';
 
@@ -9,6 +10,7 @@ type UserNavigationItem = {
 };
 
 export const UserNavigation = () => {
+  const navigate = useNavigate();
   const userNavigation = [
     { name: 'Your Profile', to: '' },
     { name: 'Sign out', to: '' },
@@ -21,7 +23,7 @@ export const UserNavigation = () => {
       <div className="flex flex-col justify-items-center items-center mr-2 w-10 h-10 bg-gray-100 rounded-full">
         <UserIcon className="flex-1 w-8 h-8 text-gray-300" />
       </div>
-      <Button size="xs" variant="inverse">
+      <Button onClick={() => navigate('/auth/login')} size="xs" variant="inverse">
         Login
       </Button>
     </div>
