@@ -3,21 +3,29 @@ import React from 'react';
 import { Button } from '@/components/Elements';
 import { Form, InputField } from '@/components/Form';
 
+import { loginWithEmailAndPassword } from '../api/login';
+
 type UserValue = {
   email: string;
   password: string;
 };
 
 type LoginFormProps = {
-  onSubmit: () => void;
+  onSuccess: () => void;
 };
 
-export const LoginForm: React.VFC<LoginFormProps> = ({ onSubmit }) => {
+export const LoginForm: React.VFC<LoginFormProps> = ({ onSuccess }) => {
   return (
     <div className="flex flex-col items-center py-5 md:py-8 px-4 w-full md:w-1/2 bg-white">
       <h3 className="flex items-center mb-4 text-3xl font-bold text-blue-500">LOGIN</h3>
       <div className="flex flex-col justify-start w-2/3">
-        <Form<UserValue> onSubmit={onSubmit}>
+        <Form<UserValue>
+          onSubmit={async (values) => {
+            const ret = await loginWithEmailAndPassword(values);
+            console.log(ret);
+            onSuccess();
+          }}
+        >
           {({ register }) => (
             <>
               <InputField type="email" label="Email" registration={register('email')} />

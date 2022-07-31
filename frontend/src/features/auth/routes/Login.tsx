@@ -1,9 +1,10 @@
-import React, { useCallback } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { LoginForm } from '../components/LoginForm';
 
 export const Login = () => {
-  const onSubmit = useCallback(() => {}, []);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -15,7 +16,7 @@ export const Login = () => {
             </h1>
             <p className="hidden md:block mb-2 font-mono text-white">create new maps</p>
           </div>
-          <LoginForm onSubmit={onSubmit} />
+          <LoginForm onSuccess={() => navigate('/')} />
         </div>
       </div>
     </>
