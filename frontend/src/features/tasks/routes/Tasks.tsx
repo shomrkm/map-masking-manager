@@ -6,6 +6,7 @@ import {
   PriorityBadge,
   LevelBadge,
 } from '@/components/Elements';
+import { ContentLayout } from '@/components/Layout';
 
 import { useTasks } from '../api/getTasks';
 import { Task } from '../types';
@@ -27,8 +28,7 @@ export const Tasks = () => {
 
   return (
     <>
-      <h1 className="p-4 text-2xl font-bold">Your tasks</h1>
-      <div className="flex flex-col justify-start ml-8">
+      <ContentLayout title="Tasks">
         <Table<Task>
           data={taskQuery.data}
           columns={[
@@ -70,7 +70,7 @@ export const Tasks = () => {
             },
           ]}
         />
-      </div>
+      </ContentLayout>
     </>
   );
 };

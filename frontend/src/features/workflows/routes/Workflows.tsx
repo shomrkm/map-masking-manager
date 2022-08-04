@@ -1,4 +1,5 @@
 import { Spinner, Table, Link, WorkflowStatusBadge } from '@/components/Elements';
+import { ContentLayout } from '@/components/Layout';
 
 import { useWorkflows } from '../api/getWorkflows';
 import { Workflow } from '../types';
@@ -20,8 +21,7 @@ export const Workflows = () => {
 
   return (
     <>
-      <h1 className="p-4 text-2xl font-bold">Workflows</h1>
-      <div className="flex flex-col justify-start ml-8">
+      <ContentLayout title="Workflows">
         <Table<Workflow>
           data={data}
           columns={[
@@ -53,7 +53,7 @@ export const Workflows = () => {
             },
           ]}
         />
-      </div>
+      </ContentLayout>
     </>
   );
 };

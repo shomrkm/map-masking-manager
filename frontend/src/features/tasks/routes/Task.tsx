@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 
 import { Avatar } from '@/components/Avatar';
 import { Spinner, TaskStatusBadge, LevelBadge, PriorityBadge } from '@/components/Elements';
+import { ContentLayout } from '@/components/Layout';
 import { Map } from '@/components/Map';
 import { Comments } from '@/features/comments/';
 
@@ -27,8 +28,7 @@ export const Task = () => {
 
   return (
     <>
-      <div className="overflow-y-scroll flex-col flex-wrap m-4 space-y-4">
-        <h1 className="text-2xl font-bold text-gray-700">{`#${taskQuery.data.id} ${taskQuery.data.title}`}</h1>
+      <ContentLayout title={`#${taskQuery.data.id} ${taskQuery.data.title}`}>
         <div className="flex w-full bg-white shadow-sm">
           <div className="flex-col flex-1 p-4 ml-4 space-y-4">
             <div className="grid grid-cols-3 gap-4 items-center p-4 mb-2 rounded-xl border border-gray-100 shadow-sm">
@@ -74,7 +74,7 @@ export const Task = () => {
         <div className="h-96 bg-gray-100">
           <Comments taskId={taskQuery.data._id} />
         </div>
-      </div>
+      </ContentLayout>
     </>
   );
 };
