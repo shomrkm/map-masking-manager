@@ -1,4 +1,5 @@
 import React from 'react';
+import { HelmetProvider } from 'react-helmet-async';
 import { QueryClientProvider } from 'react-query';
 import { BrowserRouter as Router } from 'react-router-dom';
 
@@ -11,9 +12,11 @@ type Props = {
 
 export const AppProvider: React.VFC<Props> = ({ children }) => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <Notifications />
-      <Router>{children}</Router>
-    </QueryClientProvider>
+    <HelmetProvider>
+      <QueryClientProvider client={queryClient}>
+        <Notifications />
+        <Router>{children}</Router>
+      </QueryClientProvider>
+    </HelmetProvider>
   );
 };
