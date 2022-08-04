@@ -1,5 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { HomeIcon, ShareIcon, DocumentTextIcon, XIcon } from '@heroicons/react/outline';
+import clsx from 'clsx';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
@@ -25,7 +26,12 @@ const SideNavigation = () => {
           end={index === 0}
           key={item.name}
           to={item.to}
-          className="group flex items-center p-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 rounded-md"
+          className={({ isActive }) =>
+            clsx(
+              isActive ? 'text-white bg-gray-900' : 'text-gray-300',
+              'group flex items-center p-2 text-base font-medium hover:text-white hover:bg-gray-700 rounded-md'
+            )
+          }
         >
           <item.icon
             className="flex-shrink-0 mr-4 w-6 h-6 text-gray-400 group-hover:text-gray-300"
