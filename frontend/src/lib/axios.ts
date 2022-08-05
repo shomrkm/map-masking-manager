@@ -1,11 +1,17 @@
 import Axios, { AxiosRequestConfig } from 'axios';
 
 import { API_URL } from '@/config';
+import { useNotificationStore } from '@/stores/notifications';
+import storage from '@/utils/storage';
 
 function authRequestInterceptor(config: AxiosRequestConfig) {
-  if (config.headers) {
-    config.headers.Accept = 'application/json';
+  if (!config.headers) return config;
+
+  const token = storage.getToken();
+  if (token) {
+    config.headers.authorization = `${token}`;
   }
+  config.headers.Accept = 'application/json';
   return config;
 }
 
@@ -19,6 +25,13 @@ axios.interceptors.response.use(
     return response.data;
   },
   (error) => {
+    const message = error.response?.data?.message || error.message;
+    useNotificationStore.getState().addNotification({
+      type: 'error',
+      title: 'Error',
+      message,
+    });
+
     return Promise.reject(error);
   }
 );
