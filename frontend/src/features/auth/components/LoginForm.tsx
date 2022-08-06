@@ -2,16 +2,17 @@ import React from 'react';
 
 import { Button } from '@/components/Elements';
 import { Form, InputField } from '@/components/Form';
-import { useNotificationStore } from '@/stores/notifications';
+import { useAuth } from '@/hooks/useAuth';
 
-import { loginWithEmailAndPassword, LoginCredentialsDTO } from '../api/login';
+import { LoginCredentialsDTO } from '../api/login';
 
 type LoginFormProps = {
   onSuccess: () => void;
 };
 
 export const LoginForm: React.VFC<LoginFormProps> = ({ onSuccess }) => {
-  const { addNotification } = useNotificationStore();
+  const { login, user } = useAuth();
+  console.log(user);
 
   return (
     <div className="flex flex-col items-center py-5 md:py-8 px-4 w-full md:w-1/2 bg-white">
@@ -19,12 +20,8 @@ export const LoginForm: React.VFC<LoginFormProps> = ({ onSuccess }) => {
       <div className="flex flex-col justify-start w-2/3">
         <Form<LoginCredentialsDTO>
           onSubmit={async (values) => {
-            try {
-              await loginWithEmailAndPassword(values);
-              onSuccess();
-            } catch (err) {
-              addNotification({ type: 'error', title: 'Login Failed' });
-            }
+            const { success } = await login(values);
+            if (success) onSuccess();
           }}
         >
           {({ register }) => (

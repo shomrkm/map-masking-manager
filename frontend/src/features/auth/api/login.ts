@@ -5,6 +5,13 @@ export type LoginCredentialsDTO = {
   password: string;
 };
 
-export const loginWithEmailAndPassword = (data: LoginCredentialsDTO) => {
-  return axios.post('/auth/login', data);
+type LoginReturnType = {
+  success: boolean;
+  token: string;
+};
+
+export const loginWithEmailAndPassword = async (
+  data: LoginCredentialsDTO
+): Promise<LoginReturnType> => {
+  return await axios.post('/auth/login', data);
 };
