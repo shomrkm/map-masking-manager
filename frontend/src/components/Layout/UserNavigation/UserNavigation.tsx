@@ -5,6 +5,7 @@ import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
 import { Button } from '@/components/Elements';
+import { useAuth } from '@/hooks/useAuth';
 
 type UserNavigationItem = {
   name: string;
@@ -13,6 +14,7 @@ type UserNavigationItem = {
 };
 
 export const UserNavigation = () => {
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
   const userNavigation = [
     { name: 'Your Profile', to: '' },
@@ -67,9 +69,15 @@ export const UserNavigation = () => {
           </>
         )}
       </Menu>
-      <Button onClick={() => navigate('/auth/login')} size="xs" variant="inverse">
-        Login
-      </Button>
+      {user ? (
+        <Button onClick={async () => await logout()} size="xs" variant="inverse">
+          Logout
+        </Button>
+      ) : (
+        <Button onClick={() => navigate('/auth/login')} size="xs" variant="inverse">
+          Login
+        </Button>
+      )}
     </div>
   );
 };

@@ -10,13 +10,14 @@ export const useAuth = () => {
   const queryClient = useQueryClient();
   const [token, setToken] = useState<string>();
 
-  const { data: user, error, refetch } = useQuery('auth-user', () => getUser(token));
+  const { data: user, error, refetch } = useQuery(['auth-user'], () => getUser(token));
 
   useEffect(() => {
     const getAuthUser = async (token: string) => await getUser(token);
 
     if (!token) {
       queryClient.clear();
+      storage.clearToken();
       return;
     }
     storage.setToken(token);
