@@ -14,10 +14,14 @@ const sendTokenResponse = (user: UserDoc, statusCode: number, res: Response) => 
     secure: process.env.NODE_ENV === 'production' && true,
   };
 
-  res.status(statusCode).cookie('token', token, options).json({
-    success: true,
-    token,
-  });
+  res
+    .status(statusCode)
+    .cookie('token', token, options)
+    .json({
+      success: true,
+      data: user,
+      token,
+    });
 };
 
 // @desc Resister user
