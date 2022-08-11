@@ -11,8 +11,7 @@ type LoginFormProps = {
 };
 
 export const LoginForm: React.VFC<LoginFormProps> = ({ onSuccess }) => {
-  const { login, user } = useAuth();
-  console.log(user);
+  const { login } = useAuth();
 
   return (
     <div className="flex flex-col items-center py-5 md:py-8 px-4 w-full md:w-1/2 bg-white">

@@ -2,9 +2,8 @@ import { Menu, Transition } from '@headlessui/react';
 import { UserIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import React from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import { Button } from '@/components/Elements';
 import { useAuth } from '@/hooks/useAuth';
 
 type UserNavigationItem = {
@@ -14,11 +13,14 @@ type UserNavigationItem = {
 };
 
 export const UserNavigation = () => {
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
+  const { logout } = useAuth();
   const userNavigation = [
     { name: 'Your Profile', to: '' },
-    { name: 'Sign out', to: '' },
+    {
+      name: 'Sign out',
+      to: '',
+      onClick: () => logout(),
+    },
   ] as UserNavigationItem[];
 
   userNavigation.map((user) => user);
@@ -69,15 +71,6 @@ export const UserNavigation = () => {
           </>
         )}
       </Menu>
-      {user ? (
-        <Button onClick={async () => await logout()} size="xs" variant="inverse">
-          Logout
-        </Button>
-      ) : (
-        <Button onClick={() => navigate('/auth/login')} size="xs" variant="inverse">
-          Login
-        </Button>
-      )}
     </div>
   );
 };

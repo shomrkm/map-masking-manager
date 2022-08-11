@@ -15,7 +15,7 @@ export const Login = () => {
             </h1>
             <p className="hidden md:block mb-2 font-mono text-white">create new maps</p>
           </div>
-          <LoginForm onSuccess={() => navigate('/')} />
+          <LoginForm onSuccess={() => navigate('/app')} />
         </div>
       </div>
     </>

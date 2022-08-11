@@ -21,7 +21,6 @@ export const CommentsList = ({ taskId }: CommentsListProps) => {
     );
   }
 
-  console.log(commentsQuery);
   if (!commentsQuery?.data?.length)
     return (
       <div

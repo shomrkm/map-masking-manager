@@ -1,51 +1,58 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 import { getUser } from '@/features/auth/api/getUser';
 import { loginWithEmailAndPassword } from '@/features/auth/api/login';
 import { logout } from '@/features/auth/api/logout';
+import { User } from '@/features/users';
 import storage from '@/utils/storage';
 
 export const useAuth = () => {
   const queryClient = useQueryClient();
-  const [token, setToken] = useState<string>();
 
-  const { data: user, error, refetch } = useQuery(['auth-user'], () => getUser(token));
-
-  useEffect(() => {
-    const getAuthUser = async (token: string) => await getUser(token);
-
-    if (!token) {
-      queryClient.clear();
-      storage.clearToken();
-      return;
+  const loadUser = useCallback(() => {
+    if (!storage.getToken()) {
+      return null;
     }
-    storage.setToken(token);
-    const user = getAuthUser(token);
-    if (!user) return;
+    const data = getUser();
+    return data;
+  }, []);
 
-    queryClient.setQueryData('auth-user', user);
-  }, [token, queryClient]);
+  const { data: user, error } = useQuery({
+    queryKey: 'auth-user',
+    queryFn: loadUser,
+  });
+
+  const setUser = useCallback(
+    (data: User) => queryClient.setQueryData('auth-user', data),
+    [queryClient]
+  );
 
   const loginMutation = useMutation({
     mutationFn: loginWithEmailAndPassword,
-    onSuccess: ({ token }) => setToken(token),
+    onSuccess: ({ data, token }) => {
+      setUser(data);
+      storage.setToken(token);
+    },
   });
 
   const logoutMutation = useMutation({
     mutationFn: logout,
-    onSuccess: () => setToken(undefined),
+    onSuccess: () => {
+      queryClient.clear();
+      storage.clearToken();
+      window.location.assign(window.location.origin as unknown as string);
+    },
   });
 
   const value = React.useMemo(
     () => ({
       user,
       error,
-      refetch,
       login: loginMutation.mutateAsync,
       logout: logoutMutation.mutateAsync,
     }),
-    [user, error, refetch, loginMutation.mutateAsync, logoutMutation.mutateAsync]
+    [user, error, loginMutation.mutateAsync, logoutMutation.mutateAsync]
   );
 
   return value;

@@ -1,46 +1,18 @@
-import { Suspense } from 'react';
-import { Navigate, Outlet, useRoutes } from 'react-router-dom';
+import { useRoutes } from 'react-router-dom';
 
-import { Spinner } from '@/components/Elements';
-import { MainLayout } from '@/components/Layout';
-import { lazyImport } from '@/utils/lazyImport';
+import { Landing } from '@/features/misc/routes/Landing';
 
-const { AuthRoutes } = lazyImport(() => import('@/features/auth'), 'AuthRoutes');
-const { WorkflowsRoutes } = lazyImport(() => import('@/features/workflows'), 'WorkflowsRoutes');
-const { TasksRoutes } = lazyImport(() => import('@/features/tasks'), 'TasksRoutes');
-const { Dashboard } = lazyImport(() => import('@/features/misc'), 'Dashboard');
+import { useAuth } from '../hooks/useAuth';
 
-const App = () => {
-  return (
-    <MainLayout>
-      <Suspense
-        fallback={
-          <div className="flex justify-center items-center w-full h-full">
-            <Spinner />
-          </div>
-        }
-      >
-        <Outlet />
-      </Suspense>
-    </MainLayout>
-  );
-};
+import { protectedRoutes } from './protected';
+import { publicRoutes } from './public';
 
 export const AppRoutes = () => {
-  const element = useRoutes([
-    {
-      path: '/',
-      element: <App />,
-      children: [
-        { path: '/auth/*', element: <AuthRoutes /> },
-        { path: '/workflows/*', element: <WorkflowsRoutes /> },
-        { path: '/tasks/*', element: <TasksRoutes /> },
-        { path: '/dashboard', element: <Dashboard /> },
-        { path: '/', element: <Dashboard /> },
-        { path: '*', element: <Navigate to="./" /> },
-      ],
-    },
-  ]);
+  const auth = useAuth();
 
-  return element;
+  const commonRoutes = [{ path: '/', element: <Landing /> }];
+  const routes = auth.user ? protectedRoutes : publicRoutes;
+  const element = useRoutes([...routes, ...commonRoutes]);
+
+  return <>{element}</>;
 };

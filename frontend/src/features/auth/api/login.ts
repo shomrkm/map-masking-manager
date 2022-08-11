@@ -1,3 +1,4 @@
+import { User } from '@/features/users';
 import { axios } from '@/lib/axios';
 
 export type LoginCredentialsDTO = {
@@ -5,8 +6,9 @@ export type LoginCredentialsDTO = {
   password: string;
 };
 
-type LoginReturnType = {
+export type LoginReturnType = {
   success: boolean;
+  data: User;
   token: string;
 };
 
