@@ -1,9 +1,9 @@
 import { Menu, Transition } from '@headlessui/react';
-import { UserIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { Avatar } from '@/components/Avatar';
 import { useAuth } from '@/hooks/useAuth';
 
 type UserNavigationItem = {
@@ -13,7 +13,7 @@ type UserNavigationItem = {
 };
 
 export const UserNavigation = () => {
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
   const userNavigation = [
     { name: 'Your Profile', to: '' },
     {
@@ -31,9 +31,9 @@ export const UserNavigation = () => {
         {({ open }) => (
           <>
             <div>
-              <Menu.Button className="flex items-center p-2 max-w-xs text-sm bg-gray-200 rounded-full focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none">
+              <Menu.Button className="flex items-center max-w-xs text-sm bg-gray-200 rounded-full focus:ring-2 hover:ring-indigo-500 hover:ring-offset-2 hover:outline-none">
                 <span className="sr-only">Open user menu</span>
-                <UserIcon className="w-8 h-8 rounded-full" />
+                <Avatar name={user?.name} avatar={user?.avatar ?? ''} size="sm" />
               </Menu.Button>
             </div>
             <Transition
