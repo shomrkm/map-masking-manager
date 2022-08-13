@@ -1,3 +1,4 @@
+import { XCircleIcon } from '@heroicons/react/outline';
 import { Meta, Story } from '@storybook/react';
 
 import { Button, ButtonProps } from './Button';
@@ -32,4 +33,5 @@ Danger.args = {
   children: 'Danger',
   variant: 'danger',
   size: 'md',
+  startIcon: <XCircleIcon className="w-4 h-4" />,
 };
