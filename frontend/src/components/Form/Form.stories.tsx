@@ -4,6 +4,7 @@ import React from 'react';
 import { Button } from '../Elements';
 
 import { Form } from './Form';
+import { FromDrawer } from './FormDrawer';
 import { InputField } from './InputField';
 import { SelectField } from './SelectField';
 import { TextareaField } from './TextareaField';
@@ -55,4 +56,23 @@ export default meta;
 
 const Template: Story = () => <MyForm />;
 
-export const SampleForm = Template.bind({});
+export const Default = Template.bind({});
+Default.args = {};
+
+export const AsFormDrawer = () => {
+  return (
+    <FromDrawer
+      triggerButton={<Button>Open Form</Button>}
+      isDone={true}
+      title="My Form"
+      size="lg"
+      submitButton={
+        <Button form="my-form" type="submit">
+          Submit
+        </Button>
+      }
+    >
+      <MyForm hideSubmit />
+    </FromDrawer>
+  );
+};
