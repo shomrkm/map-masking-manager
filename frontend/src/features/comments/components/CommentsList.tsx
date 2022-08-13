@@ -16,7 +16,7 @@ export const CommentsList = ({ taskId }: CommentsListProps) => {
   if (commentsQuery.isLoading) {
     return (
       <div className="flex justify-center items-center w-full h-48">
-        <Spinner size="xl" />
+        <Spinner />
       </div>
     );
   }

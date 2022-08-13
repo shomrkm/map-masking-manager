@@ -31,7 +31,7 @@ export const AppProvider: React.VFC<Props> = ({ children }) => {
     <React.Suspense
       fallback={
         <div className="flex justify-center items-center w-screen h-screen">
-          <Spinner size="xl" />
+          <Spinner />
         </div>
       }
     >

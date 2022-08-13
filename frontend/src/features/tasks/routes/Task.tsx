@@ -17,7 +17,7 @@ export const Task = () => {
   if (taskQuery.isLoading) {
     return (
       <div className="flex justify-center items-center w-full h-full">
-        <Spinner className="w-32 h-32" />
+        <Spinner />
       </div>
     );
   }
