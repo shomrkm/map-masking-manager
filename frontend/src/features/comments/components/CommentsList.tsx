@@ -36,10 +36,10 @@ export const CommentsList = ({ taskId }: CommentsListProps) => {
   return (
     <ul aria-label="comments" className="flex flex-col space-y-3">
       {commentsQuery.data.map((comment, index) => (
-        <div key={comment._id || index} className="mx-2 rounded-md">
+        <div key={comment._id || index} className="mx-2">
           <li
             aria-label={`comment-${comment.text}-${index}`}
-            className="p-4 w-full bg-white shadow-sm"
+            className="p-4 w-full bg-white rounded-xl shadow-sm"
           >
             <div className="flex">
               <div className="justify-start mr-3 w-14">
