@@ -6,7 +6,7 @@ import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
   zoom: number;
-  center: number[]; // [lon, lat]
+  center: number[]; // [lat, lon]
   data?: number[][][];
   className?: string;
 };
@@ -16,7 +16,7 @@ const convertToLatLng = (coordinates: number[][][]) => {
 };
 
 export const Map: React.FC<MapProps> = ({ zoom, center, data = [], className }: MapProps) => {
-  const position = new LatLng(center[0], center[1]);
+  const position = new LatLng(center[1], center[0]);
 
   return (
     <MapContainer className={`${className}`} center={position} zoom={zoom}>

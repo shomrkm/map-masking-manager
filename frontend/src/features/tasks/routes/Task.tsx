@@ -1,3 +1,5 @@
+import centroid from '@turf/centroid';
+import { polygon } from '@turf/helpers';
 import { useParams } from 'react-router-dom';
 
 import { Avatar } from '@/components/Avatar';
@@ -66,7 +68,7 @@ export const Task = () => {
           </div>
           <Map
             zoom={14}
-            center={[39.6987, 141.1378]}
+            center={centroid(polygon(taskQuery.data.area.coordinates)).geometry.coordinates}
             data={taskQuery.data.area.coordinates}
             className="hidden lg:flex justify-center w-[40rem] h-[40rem] align-middle"
           />
