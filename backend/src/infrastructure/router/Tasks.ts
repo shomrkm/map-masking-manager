@@ -1,7 +1,14 @@
 import express from 'express';
-import { advancedResults, protect, authorize } from '../middleware';
-import { getTasks, getTask, createTask, updateTask, deleteTask } from '../controller/tasks';
-import { Task } from '../models/Tasks';
+import {
+  getTasks,
+  getTask,
+  createTask,
+  updateTask,
+  deleteTask,
+} from '@/interface/controller/tasks';
+import { advancedResults } from '@/interface/controller/advancedResults';
+import { protect, authorize } from '@/interface/controller/authorization';
+import { Task } from '@/infrastructure/database/models/Tasks';
 import { router as commentRouter } from './Comments';
 
 export const router = express.Router({ mergeParams: true });

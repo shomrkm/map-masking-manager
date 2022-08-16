@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import { Comment } from '../models/Comments';
-import { Task } from '../models/Tasks';
-import { asyncHandler } from '../middleware';
-import { ErrorResponse } from '../utils';
+import { Comment } from '@/infrastructure/database/models/Comments';
+import { Task } from '@/infrastructure/database/models/Tasks';
+import { ErrorResponse } from './errorResponse';
+import { asyncHandler } from './asyncHandler';
 
 // @desc Get all comments
 // @route GET /api/v1/comments

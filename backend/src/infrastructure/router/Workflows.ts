@@ -1,13 +1,14 @@
 import express from 'express';
-import { advancedResults, protect, authorize } from '../middleware';
 import {
   getWorkflows,
   getWorkflow,
   createWorkflow,
   updateWorkflow,
   deleteWorkflow,
-} from '../controller/workflows';
-import { Workflow } from '../models/Workflows';
+} from '@/interface/controller/workflows';
+import { advancedResults } from '@/interface/controller/advancedResults';
+import { protect, authorize } from '@/interface/controller/authorization';
+import { Workflow } from '@/infrastructure/database/models/Workflows';
 import { router as taskRouter } from './Tasks';
 
 export const router = express.Router();

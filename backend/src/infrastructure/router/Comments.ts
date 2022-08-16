@@ -1,7 +1,8 @@
 import express from 'express';
-import { advancedResults, protect, authorize } from '../middleware';
-import { getComments, getComment, addComment } from '../controller/comments';
-import { Comment } from '../models/Comments';
+import { getComments, getComment, addComment } from '@/interface/controller/comments';
+import { advancedResults } from '@/interface/controller/advancedResults';
+import { protect, authorize } from '@/interface/controller/authorization';
+import { Comment } from '@/infrastructure/database/models/Comments';
 
 export const router = express.Router({ mergeParams: true });
 

@@ -1,5 +1,4 @@
 import express from 'express';
-import { advancedResults } from '../middleware';
 import {
   getUsers,
   getUser,
@@ -7,10 +6,11 @@ import {
   updateUser,
   deleteUser,
   updateAvator,
-} from '../controller/users';
-import { User } from '../models/Users';
-import { protect } from '../middleware';
-import { upload } from '../utils/uploadImage';
+} from '@/interface/controller/users';
+import { advancedResults } from '@/interface/controller/advancedResults';
+import { User } from '@/infrastructure/database/models/Users';
+import { protect } from '@/interface/controller/authorization';
+import { upload } from '@/interface/controller/uploadImage';
 
 export const router = express.Router();
 

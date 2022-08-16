@@ -1,6 +1,13 @@
 import express from 'express';
-import { register, login, logout, getMe, updatePassword, updateDetails } from '../controller/auth';
-import { protect } from '../middleware/auth';
+import {
+  register,
+  login,
+  logout,
+  getMe,
+  updatePassword,
+  updateDetails,
+} from '@/interface/controller/auth';
+import { protect } from '@/interface/controller/authorization';
 
 export const router = express.Router();
 

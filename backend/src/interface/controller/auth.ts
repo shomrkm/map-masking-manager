@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express-serve-static-core';
-import { asyncHandler } from '../middleware';
-import { ErrorResponse } from '../utils/errorResponse';
-import { User, UserDoc } from '../models';
+import { User, UserDoc } from '@/infrastructure/database/models';
+import { ErrorResponse } from './errorResponse';
+import { asyncHandler } from './asyncHandler';
 
 // Get token from model, create cookie and send response
 const sendTokenResponse = (user: UserDoc, statusCode: number, res: Response) => {
@@ -14,14 +14,11 @@ const sendTokenResponse = (user: UserDoc, statusCode: number, res: Response) => 
     secure: process.env.NODE_ENV === 'production' && true,
   };
 
-  res
-    .status(statusCode)
-    .cookie('token', token, options)
-    .json({
-      success: true,
-      data: user,
-      token,
-    });
+  res.status(statusCode).cookie('token', token, options).json({
+    success: true,
+    data: user,
+    token,
+  });
 };
 
 // @desc Resister user

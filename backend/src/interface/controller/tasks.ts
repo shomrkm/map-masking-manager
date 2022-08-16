@@ -1,8 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import { Task } from '../models/Tasks';
-import { Comment } from '../models/Comments';
-import { asyncHandler } from '../middleware';
-import { ErrorResponse } from '../utils';
+import { Task } from '@/infrastructure/database/models/Tasks';
+import { ErrorResponse } from './errorResponse';
+import { asyncHandler } from './asyncHandler';
 
 // @desc Get all tasks
 // @route GET /api/v1/tasks

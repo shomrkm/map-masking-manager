@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import { Workflow } from '../models/Workflows';
-import { asyncHandler } from '../middleware';
-import { ErrorResponse } from '../utils';
+import { Workflow } from '@/infrastructure/database/models/Workflows';
+import { ErrorResponse } from './errorResponse';
+import { asyncHandler } from './asyncHandler';
 
 // @desc Get all workflows
 // @route GET /api/v1/workflows

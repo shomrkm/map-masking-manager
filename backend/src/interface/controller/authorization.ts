@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
+import { User } from '@/infrastructure/database/models/Users';
+import { ErrorResponse } from './errorResponse';
 import { asyncHandler } from './asyncHandler';
-import { ErrorResponse } from '../utils';
-import { User } from '../models/Users';
 
 // Protect routes
 export const protect = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {

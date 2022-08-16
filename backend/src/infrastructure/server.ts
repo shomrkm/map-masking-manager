@@ -6,13 +6,13 @@ import mongoSanitize from 'express-mongo-sanitize';
 import helmet from 'helmet';
 // import xss from 'xss-clean';
 import cors from 'cors';
-import { connectDB } from './config/db';
-import { router as workflows } from './routes/Workflows';
-import { router as tasks } from './routes/Tasks';
-import { router as users } from './routes/Users';
-import { router as auth } from './routes/Auth';
-import { router as comments } from './routes/Comments';
-import { errorHandler } from './middleware';
+import { errorHandler } from '@/interface/controller/error';
+import { router as workflows } from './router//Workflows';
+import { router as tasks } from './router//Tasks';
+import { router as users } from './router//Users';
+import { router as auth } from './router//Auth';
+import { router as comments } from './router//Comments';
+import { connectDB } from './database/db';
 
 dotenv.config({ path: './config/.env' });
 
