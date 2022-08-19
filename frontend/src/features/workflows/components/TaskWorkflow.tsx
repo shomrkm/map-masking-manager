@@ -15,6 +15,7 @@ import ReactFlow, {
   MarkerType,
 } from 'react-flow-renderer';
 
+import { ConnectionLine } from '../utils/connectionLine';
 import { getLayoutedElements } from '../utils/getLayoutedElement';
 
 import { TaskNodeCard, TaskNode } from './TaskNodeCard';
@@ -79,6 +80,7 @@ export const TaskWorkflow: VFC<TaskWorkflowProps> = ({ nodes, edges, className =
         edges={taskEdges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
+        connectionLineComponent={ConnectionLine}
         onConnect={onConnect}
         onEdgeUpdate={onEdgeUpdate}
         nodeTypes={nodeTypes}
