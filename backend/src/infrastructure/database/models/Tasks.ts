@@ -101,10 +101,12 @@ const taskSchemaFields: SchemaDefinition<TaskSchemaFields> = {
   level: {
     type: String,
     enum: ['expert', 'intermediate', 'beginner'],
+    required: true,
   },
   priority: {
     type: String,
     enum: ['high', 'normal', 'low'],
+    required: true,
   },
   createUser: {
     type: Schema.Types.ObjectId,
