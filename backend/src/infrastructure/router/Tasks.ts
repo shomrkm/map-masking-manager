@@ -45,17 +45,3 @@ router
   .get(getTask)
   .put(protect, authorize('publisher', 'admin'), updateTask)
   .delete(protect, authorize('publisher', 'admin'), deleteTask);
-
-router.route('/test').post(
-  protect,
-  authorize('publisher', 'admin'),
-  asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-    req.body.createUser = req.user.id;
-
-    const result = await taskController.createTask(req);
-    res.status(201).json({
-      success: true,
-      data: result,
-    });
-  })
-);
