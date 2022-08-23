@@ -31,4 +31,30 @@ export class TaskRepository extends ITaskRepository {
 
     return task;
   }
+
+  public async delete(taskId: string): Promise<Task | undefined> {
+    const taskDto = await this.dbConnection.deleteTask(taskId);
+    if (!taskDto) {
+      return undefined;
+    }
+
+    const task = new Task(
+      taskDto.title,
+      taskDto.description,
+      taskDto.workflow,
+      taskDto.priority,
+      taskDto.target,
+      taskDto.level,
+      taskDto.createUser,
+      taskDto.detail,
+      taskDto.area,
+      taskDto.previous,
+      taskDto.next,
+      taskDto.assignedUsers,
+      taskDto._id,
+      taskDto.id
+    );
+
+    return task;
+  }
 }

@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { getTasks, getTask, updateTask, deleteTask } from '@/interface/controller/tasks';
+import { getTasks, getTask, updateTask } from '@/interface/controller/tasks';
 import { advancedResults } from '@/interface/controller/advancedResults';
 import { protect, authorize } from '@/interface/controller/authorization';
 import { asyncHandler } from '@/interface/controller/asyncHandler';
@@ -27,6 +27,14 @@ export const createTask = asyncHandler(async (req: Request, res: Response, next:
     success: true,
     data: task,
   });
+});
+
+// @desc Delete task
+// @route DELETE /api/v1/tasks/:id
+// @access Private
+export const deleteTask = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+  const task = await taskController.deleteTask(req);
+  res.status(200).json({ success: true, data: task });
 });
 
 router

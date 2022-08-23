@@ -52,21 +52,21 @@ export const updateTask = asyncHandler(async (req: Request, res: Response, next:
 // @desc Delete task
 // @route DELETE /api/v1/tasks/:id
 // @access Private
-export const deleteTask = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-  const { id } = req.params;
-  const task = await Task.findById(id);
-  if (!task) {
-    return next(new ErrorResponse(`Task not found with id of ${id}`, 404));
-  }
+// export const deleteTask = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+//   const { id } = req.params;
+//   const task = await Task.findById(id);
+//   if (!task) {
+//     return next(new ErrorResponse(`Task not found with id of ${id}`, 404));
+//   }
 
-  // Make sure user is task owner
-  if (task.createUser.toString() !== req.user.id && req.user.role !== 'admin') {
-    return next(
-      new ErrorResponse(`User ${req.user.id} is not authorized to delete this task`, 401)
-    );
-  }
+//   // Make sure user is task owner
+//   if (task.createUser.toString() !== req.user.id && req.user.role !== 'admin') {
+//     return next(
+//       new ErrorResponse(`User ${req.user.id} is not authorized to delete this task`, 401)
+//     );
+//   }
 
-  task.remove();
+//   task.remove();
 
-  res.status(200).json({ success: true, data: {} });
-});
+//   res.status(200).json({ success: true, data: {} });
+// });
