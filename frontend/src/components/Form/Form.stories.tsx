@@ -4,7 +4,7 @@ import * as z from 'zod';
 import { Button } from '../Elements';
 
 import { Form } from './Form';
-import { FromDrawer } from './FormDrawer';
+import { FormDrawer } from './FormDrawer';
 import { InputField } from './InputField';
 import { SelectField } from './SelectField';
 import { TextareaField } from './TextareaField';
@@ -74,7 +74,7 @@ Default.args = {};
 
 export const AsFormDrawer = () => {
   return (
-    <FromDrawer
+    <FormDrawer
       triggerButton={<Button>Open Form</Button>}
       isDone={true}
       title="My Form"
@@ -86,6 +86,6 @@ export const AsFormDrawer = () => {
       }
     >
       <MyForm hideSubmit />
-    </FromDrawer>
+    </FormDrawer>
   );
 };

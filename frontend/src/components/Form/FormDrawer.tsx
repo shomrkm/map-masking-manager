@@ -11,7 +11,7 @@ type FormDrawerProps = {
   size?: DrawerProps['size'];
 };
 
-export const FromDrawer = ({
+export const FormDrawer = ({
   isDone,
   triggerButton,
   submitButton,
