@@ -1,5 +1,5 @@
 import { Meta, Story } from '@storybook/react';
-import React from 'react';
+import * as z from 'zod';
 
 import { Button } from '../Elements';
 
@@ -16,13 +16,26 @@ type FormValues = {
   content: string;
 };
 
+const schema = z.object({
+  title: z.string().max(20).min(1, 'Title is required'),
+  description: z.string().max(50),
+});
+
 const MyForm = ({ hideSubmit = false }: { hideSubmit?: boolean }) => {
   return (
-    <Form<FormValues> onSubmit={() => {}}>
-      {({ register }) => (
+    <Form<FormValues, typeof schema> onSubmit={() => {}} schema={schema}>
+      {({ register, formState }) => (
         <>
-          <InputField label="Title" registration={register('title')} />
-          <TextareaField label="Description" registration={register('description')} />
+          <InputField
+            label="Title"
+            error={formState.errors['title']}
+            registration={register('title')}
+          />
+          <TextareaField
+            label="Description"
+            error={formState.errors['description']}
+            registration={register('description')}
+          />
           <SelectField
             label="Team"
             registration={register('type')}
