@@ -1,3 +1,12 @@
+export const statusTypes = ['unassigned', 'mapping', 'validating', 'finished'] as const;
+export type Status = typeof statusTypes[number];
+export const targetTypes = ['road', 'map', 'poi'] as const;
+export type Target = typeof targetTypes[number];
+export const levelTypes = ['expert', 'intermediate', 'beginner'] as const;
+export type Level = typeof levelTypes[number];
+export const priorityTypes = ['high', 'normal', 'low'] as const;
+export type Priority = typeof priorityTypes[number];
+
 export type Task = {
   _id: string;
   id: number;
@@ -8,12 +17,12 @@ export type Task = {
     type: 'Polygon';
     coordinates: number[][][];
   };
-  status: 'unassigned' | 'mapping' | 'validating' | 'finished';
-  target: ('road' | 'map' | 'poi')[];
-  level: 'expert' | 'intermediate' | 'beginner';
+  status: Status;
+  target: Target[];
+  level: Level;
   previous: string[];
   next: string[];
-  priority: 'high' | 'normal' | 'low';
+  priority: Priority;
   createUser: {
     _id: string;
     name: string;

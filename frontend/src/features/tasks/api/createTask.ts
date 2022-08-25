@@ -4,7 +4,7 @@ import { axios } from '@/lib/axios';
 import { MutationConfig, queryClient } from '@/lib/react-query';
 import { useNotificationStore } from '@/stores/notifications';
 
-import { Task } from '../types';
+import { Level, Priority, Status, Target, Task } from '../types';
 
 export type CreateTaskDTO = {
   data: {
@@ -16,9 +16,10 @@ export type CreateTaskDTO = {
       coordinates: number[][][];
     };
     workflow: string;
-    target: ('road' | 'map' | 'poi')[];
-    level: 'expert' | 'intermediate' | 'biginner';
-    priority: 'high' | 'normal' | 'low';
+    status: Status;
+    target: Target[];
+    level: Level;
+    priority: Priority;
   };
 };
 
