@@ -1,8 +1,9 @@
 import { ArchiveIcon } from '@heroicons/react/outline';
 import React from 'react';
 
-import { Button, Spinner } from '@/components/Elements';
+import { Spinner } from '@/components/Elements';
 import { useTasksForWorkflow } from '@/features/tasks/api/getTasksForWorkFlow';
+import { CreateTaskButton } from '@/features/tasks/components/CreateTask';
 
 import { createTaskEdges, createTaskNodes } from '../utils/createTaskNodesEdges';
 
@@ -35,9 +36,7 @@ export const TaskWorkflowPanel: React.VFC<Props> = ({ workflowId }) => {
   return (
     <div className="flex-col justify-start w-full h-full">
       <div className="flex justify-start m-1">
-        <Button variant="inverse" size="xs">
-          + Add Task
-        </Button>
+        <CreateTaskButton />
       </div>
       <TaskWorkflow
         nodes={createTaskNodes(data)}
