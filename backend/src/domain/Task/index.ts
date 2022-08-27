@@ -1,2 +1,2 @@
 export * from './Task';
-export { StatusType } from './entities/Status';
+export { StatusType, statusTypes } from './entities/Status';

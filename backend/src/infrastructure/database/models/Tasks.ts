@@ -2,6 +2,8 @@ import mongoose, { Schema, SchemaDefinition, Document, Date, model, Model } from
 import AutoIncrementFactory from 'mongoose-sequence';
 import slugify from 'slugify';
 
+import { StatusType, statusTypes } from '@/domain/Task';
+
 // The @types/mongoose-sequence package is incorrect, and the dev doesn't care, so we ignore the error here. Follow docs here:
 // https://github.com/ramiel/mongoose-sequence
 // https://stackoverflow.com/a/71859686
@@ -24,7 +26,7 @@ type TaskSchemaFields = Document & {
       required: true;
     };
   };
-  status: 'unassigned' | 'mapping' | 'validating' | 'finished';
+  status: StatusType;
   workflow: Schema.Types.ObjectId;
   target: ('road' | 'map' | 'poi')[];
   previous: [Schema.Types.ObjectId];
@@ -75,7 +77,7 @@ const taskSchemaFields: SchemaDefinition<TaskSchemaFields> = {
   status: {
     type: String,
     required: true,
-    enum: ['unassigned', 'mapping', 'validating', 'finished'],
+    enum: statusTypes,
   },
   target: {
     type: [String],
