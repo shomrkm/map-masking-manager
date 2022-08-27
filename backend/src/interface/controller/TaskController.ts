@@ -52,7 +52,6 @@ export class TaskController {
   public async deleteTask(req: any) {
     // TODO: Error Handling
     const task = await this.taskRepository.delete(req.params.id);
-    console.log(task);
     if (!task) {
       // TODO: throw error
       return undefined;
