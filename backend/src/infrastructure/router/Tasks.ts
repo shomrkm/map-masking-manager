@@ -20,13 +20,17 @@ router.use('/:taskid/comments', commentRouter);
 // @route POST /api/v1/tasks
 // @access Private
 export const createTask = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-  req.body.createUser = req.user.id;
-  const task = await taskController.createTask(req);
+  try {
+    req.body.createUser = req.user.id;
+    const task = await taskController.createTask(req);
 
-  res.status(201).json({
-    success: true,
-    data: task,
-  });
+    res.status(201).json({
+      success: true,
+      data: task,
+    });
+  } catch (err) {
+    next(err);
+  }
 });
 
 // @desc Delete task
