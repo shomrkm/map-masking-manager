@@ -4,7 +4,7 @@ import colors from 'colors';
 import dotenv from 'dotenv';
 dotenv.config({ path: './config/.env' });
 
-import { Workflow, Task, User, Comment } from '@/infrastructure/database/models';
+import { Workflow, Task, User, Comment } from './src/infrastructure/database/models';
 
 // Usage
 // npx ts-node seeder <option>

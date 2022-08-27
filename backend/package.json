@@ -4,7 +4,9 @@
   "main": "./infrastructure/server.ts",
   "scripts": {
     "start": "ts-node -r tsconfig-paths/register ./src/infrastructure/server.ts",
-    "dev": "nodemon -L"
+    "dev": "nodemon -L",
+    "seeder-i": "ts-node -r tsconfig-paths/register ./seeder.ts -i",
+    "seeder-d": "ts-node -r tsconfig-paths/register ./seeder.ts -d"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
