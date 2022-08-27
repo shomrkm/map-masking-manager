@@ -1,9 +1,8 @@
 import moment, { Moment } from 'moment-timezone';
 import { Polygon } from 'geojson';
 
-import { Title, Description } from './entities';
+import { Title, Description, Status, StatusType } from './entities';
 
-type Status = 'unassigned' | 'mapping' | 'validating' | 'finished';
 type Target = 'road' | 'map' | 'poi';
 type Level = 'expert' | 'intermediate' | 'beginner';
 type Priority = 'high' | 'normal' | 'low';
@@ -57,7 +56,7 @@ export class Task {
     this._previous = previous;
     this._next = next;
     this._assignedUserIds = assignedUserIds;
-    this._status = 'unassigned';
+    this._status = new Status('unassigned');
     this._createdAt = moment(new Date());
   }
 
@@ -93,8 +92,8 @@ export class Task {
     return this._area;
   }
 
-  get status(): Status {
-    return this._status;
+  get status(): StatusType {
+    return this._status.get();
   }
 
   get workflowId(): string {
