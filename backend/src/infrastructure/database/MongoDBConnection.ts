@@ -13,8 +13,11 @@ export class MongoDBConnection extends IDBConnection {
     return await TaskModel.create(task);
   }
 
-  public async deleteTask(taskId: string): Promise<TaskDTO | undefined> {
+  public async deleteTask(taskId: string): Promise<TaskDTO> {
     const task = await TaskModel.findById(taskId);
+    if (!task) {
+      throw new ErrorResponse(`Task was not found with id of ${taskId}`, 404);
+    }
     task.remove();
     return task;
   }

@@ -50,19 +50,7 @@ export class TaskController {
   }
 
   public async deleteTask(req: any) {
-    // TODO: Error Handling
     const task = await this.taskRepository.delete(req.params.id);
-    if (!task) {
-      // TODO: throw error
-      return undefined;
-    }
-
-    // Make sure user is task owner
-    if (task.createdUserId.toString() !== req.user.id && req.user.role !== 'admin') {
-      // TODO: throw error
-      return undefined;
-    }
-
     return this.taskSerializer.serializeTask(task);
   }
 }

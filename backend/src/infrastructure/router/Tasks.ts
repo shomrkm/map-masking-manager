@@ -33,8 +33,12 @@ export const createTask = asyncHandler(async (req: Request, res: Response, next:
 // @route DELETE /api/v1/tasks/:id
 // @access Private
 export const deleteTask = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-  const task = await taskController.deleteTask(req);
-  res.status(200).json({ success: true, data: task });
+  try {
+    const task = await taskController.deleteTask(req);
+    res.status(200).json({ success: true, data: task });
+  } catch (err) {
+    next(err);
+  }
 });
 
 router
