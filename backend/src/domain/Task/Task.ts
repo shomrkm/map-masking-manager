@@ -1,6 +1,8 @@
 import moment, { Moment } from 'moment-timezone';
 import { Polygon } from 'geojson';
 
+import { Title, Description } from './entities';
+
 type Status = 'unassigned' | 'mapping' | 'validating' | 'finished';
 type Target = 'road' | 'map' | 'poi';
 type Level = 'expert' | 'intermediate' | 'beginner';
@@ -9,8 +11,8 @@ type Priority = 'high' | 'normal' | 'low';
 export class Task {
   private _id: string | null;
   private _no: number | null;
-  private _title: string;
-  private _description: string;
+  private _title: Title;
+  private _description: Description;
   private _detail: string;
   private _area: Polygon | null;
   private _status: Status;
@@ -42,8 +44,8 @@ export class Task {
   ) {
     this._id = id;
     this._no = no;
-    this._title = title;
-    this._description = description;
+    this._title = new Title(title);
+    this._description = new Description(description);
     this._detail = detail;
     this._workflowId = workflowId;
     this._target = target;
@@ -76,11 +78,11 @@ export class Task {
   }
 
   get title(): string {
-    return this._title;
+    return this._title.get();
   }
 
   get description(): string {
-    return this._description;
+    return this._description.get();
   }
 
   get detail(): string {
@@ -129,13 +131,5 @@ export class Task {
 
   get createdAt(): moment.Moment {
     return this._createdAt;
-  }
-
-  public isTitleValid(): boolean {
-    return this._title.length > 50;
-  }
-
-  public isDescriptionValid(): boolean {
-    return this._title.length > 500;
   }
 }
