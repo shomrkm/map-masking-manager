@@ -10,9 +10,9 @@ import {
   TargetTypes,
   Level,
   LevelType,
+  Priority,
+  PriorityType,
 } from './entities';
-
-type Priority = 'high' | 'normal' | 'low';
 
 export class Task {
   private _id: string | null;
@@ -36,9 +36,9 @@ export class Task {
     title: string,
     description: string,
     workflowId: string,
-    priority: 'high' | 'normal' | 'low',
-    targets: TargetTypes,
-    level: LevelType,
+    priority: string,
+    targets: string[],
+    level: string,
     createUserId: string,
     detail: string = '',
     area: Polygon | null = null,
@@ -56,7 +56,7 @@ export class Task {
     this._workflowId = workflowId;
     this._target = new Targets(targets);
     this._level = new Level(level);
-    this._priority = priority;
+    this._priority = new Priority(priority);
     this._createUserId = createUserId;
     this._detail = detail;
     this._area = area;
@@ -115,8 +115,8 @@ export class Task {
     return this._level.get();
   }
 
-  get priority(): Priority {
-    return this._priority;
+  get priority(): PriorityType {
+    return this._priority.get();
   }
 
   get previous(): string[] {

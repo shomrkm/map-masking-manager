@@ -9,6 +9,8 @@ import {
   targetTypes,
   LevelType,
   levelTypes,
+  PriorityType,
+  priorityTypes,
 } from '@/domain/Task';
 
 // The @types/mongoose-sequence package is incorrect, and the dev doesn't care, so we ignore the error here. Follow docs here:
@@ -39,7 +41,7 @@ type TaskSchemaFields = Document & {
   previous: [Schema.Types.ObjectId];
   next: [Schema.Types.ObjectId];
   level: LevelType;
-  priority: 'high' | 'normal' | 'low';
+  priority: PriorityType;
   createUser: Schema.Types.ObjectId;
   assignedUsers: [Schema.Types.ObjectId];
   createdAt: Date;
@@ -114,7 +116,7 @@ const taskSchemaFields: SchemaDefinition<TaskSchemaFields> = {
   },
   priority: {
     type: String,
-    enum: ['high', 'normal', 'low'],
+    enum: priorityTypes,
     required: true,
   },
   createUser: {
