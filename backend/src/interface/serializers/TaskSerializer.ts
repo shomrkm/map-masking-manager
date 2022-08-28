@@ -13,6 +13,7 @@ const serializeSingleTask = (task: Task) => {
     previous: task.previous,
     next: task.next,
     workflow: task.workflowId,
+    priority: task.priority,
     level: task.level,
     createUser: task.createdUserId,
     assinedUsers: task.assinedUserIds,
