@@ -1,9 +1,8 @@
 import moment, { Moment } from 'moment-timezone';
 import { Polygon } from 'geojson';
 
-import { Title, Description, Status, StatusType } from './entities';
+import { Title, Description, Status, StatusType, Targets, TargetTypes } from './entities';
 
-type Target = 'road' | 'map' | 'poi';
 type Level = 'expert' | 'intermediate' | 'beginner';
 type Priority = 'high' | 'normal' | 'low';
 
@@ -16,7 +15,7 @@ export class Task {
   private _area: Polygon | null;
   private _status: Status;
   private _workflowId: string;
-  private _target: Target[];
+  private _target: Targets;
   private _level: Level;
   private _priority: Priority;
   private _previous: string[];
@@ -30,7 +29,7 @@ export class Task {
     description: string,
     workflowId: string,
     priority: 'high' | 'normal' | 'low',
-    target: ('road' | 'map' | 'poi')[],
+    targets: TargetTypes,
     level: 'expert' | 'intermediate' | 'beginner',
     createUserId: string,
     detail: string = '',
@@ -47,7 +46,7 @@ export class Task {
     this._description = new Description(description);
     this._detail = detail;
     this._workflowId = workflowId;
-    this._target = target;
+    this._target = new Targets(targets);
     this._level = level;
     this._priority = priority;
     this._createUserId = createUserId;
@@ -100,8 +99,8 @@ export class Task {
     return this._workflowId;
   }
 
-  get target(): Target[] {
-    return this._target;
+  get target(): TargetTypes {
+    return this._target.get();
   }
 
   get level(): Level {
