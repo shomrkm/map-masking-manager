@@ -2,7 +2,14 @@ import mongoose, { Schema, SchemaDefinition, Document, Date, model, Model } from
 import AutoIncrementFactory from 'mongoose-sequence';
 import slugify from 'slugify';
 
-import { StatusType, statusTypes, TargetTypes, targetTypes } from '@/domain/Task';
+import {
+  StatusType,
+  statusTypes,
+  TargetTypes,
+  targetTypes,
+  LevelType,
+  levelTypes,
+} from '@/domain/Task';
 
 // The @types/mongoose-sequence package is incorrect, and the dev doesn't care, so we ignore the error here. Follow docs here:
 // https://github.com/ramiel/mongoose-sequence
@@ -31,7 +38,7 @@ type TaskSchemaFields = Document & {
   target: TargetTypes;
   previous: [Schema.Types.ObjectId];
   next: [Schema.Types.ObjectId];
-  level: 'expert' | 'intermediate' | 'beginner';
+  level: LevelType;
   priority: 'high' | 'normal' | 'low';
   createUser: Schema.Types.ObjectId;
   assignedUsers: [Schema.Types.ObjectId];
@@ -102,7 +109,7 @@ const taskSchemaFields: SchemaDefinition<TaskSchemaFields> = {
   },
   level: {
     type: String,
-    enum: ['expert', 'intermediate', 'beginner'],
+    enum: levelTypes,
     required: true,
   },
   priority: {
