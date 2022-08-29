@@ -12,14 +12,14 @@ export const ConnectionLine = ({
       <defs>
         <marker
           id="pointer"
-          markerWidth="10"
-          markerHeight="10"
+          markerWidth="20"
+          markerHeight="20"
           refX="10"
-          refY="5"
+          refY="10"
           orient="90"
           markerUnits="userSpaceOnUse"
         >
-          <polyline points="0,0 5,5 0,10 10,5" />
+          <polyline points="0,0 5,10 0,20 10,10" />
         </marker>
       </defs>
       <path
