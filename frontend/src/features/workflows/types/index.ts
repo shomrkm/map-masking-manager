@@ -1,9 +1,12 @@
+export const statusTypes = ['new', 'inProgress', 'completed', 'closed'] as const;
+export type Status = typeof statusTypes[number];
+
 export type Workflow = {
   _id: string;
   id: number;
   title: string;
   description: string;
-  status: 'new' | 'inProgress' | 'completed' | 'closed';
+  status: Status;
   createUser: {
     _id: string;
     name: string;
