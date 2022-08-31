@@ -22,7 +22,7 @@ export class CreateTask {
     previous: string[] = [],
     next: string[] = [],
     assignedUserIds: string[] = []
-  ) {
+  ): Promise<Task> {
     const task = new Task(
       title,
       description,

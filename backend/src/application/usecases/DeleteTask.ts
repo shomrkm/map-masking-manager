@@ -9,7 +9,7 @@ export class DeleteTask {
     this.taskRepository = taskRepository;
   }
 
-  public async execute(taskId: string) {
+  public async execute(taskId: string): Promise<Task> {
     return await this.taskRepository.delete(taskId);
   }
 }
