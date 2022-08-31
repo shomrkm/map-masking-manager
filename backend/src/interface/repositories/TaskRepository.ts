@@ -9,6 +9,29 @@ export class TaskRepository extends ITaskRepository {
     this.dbConnection = dbConnection;
   }
 
+  public async find(id: string): Promise<Task> {
+    const taskDto = await this.dbConnection.findTaskById(id);
+    const task = new Task(
+      taskDto.title,
+      taskDto.description,
+      taskDto.workflow,
+      taskDto.priority,
+      taskDto.target,
+      taskDto.level,
+      taskDto.createUser,
+      taskDto.detail,
+      taskDto.area,
+      taskDto.previous,
+      taskDto.next,
+      taskDto.assignedUsers,
+      taskDto._id,
+      taskDto.id,
+      taskDto.createdAt
+    );
+
+    return task;
+  }
+
   public async save(task: Task): Promise<Task> {
     const { _id, id } = await this.dbConnection.createTask({
       title: task.title,

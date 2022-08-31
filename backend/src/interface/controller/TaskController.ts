@@ -1,11 +1,11 @@
-import { Task } from '@/domain/Task';
 import { ITaskRepository } from '@/application/repositories/ITaskRepository';
+import { CreateTask } from '@/application/usecases/CreateTask';
+import { DeleteTask } from '@/application/usecases/DeleteTask';
+import { SearchTask } from '@/application/usecases/SearchTask';
 
 import { IDBConnection } from '../database/IDBConnection';
 import { TaskRepository } from '../repositories/TaskRepository';
 import { TaskSerializer } from '../serializers/TaskSerializer';
-import { CreateTask } from '@/application/usecases/CreateTask';
-import { DeleteTask } from '@/application/usecases/DeleteTask';
 
 export class TaskController {
   private taskRepository: ITaskRepository;
@@ -14,6 +14,12 @@ export class TaskController {
   constructor(dbConnection: IDBConnection) {
     this.taskRepository = new TaskRepository(dbConnection);
     this.taskSerializer = new TaskSerializer();
+  }
+
+  public async getTask(req: any) {
+    const searchTask = new SearchTask(this.taskRepository);
+    const task = await searchTask.execute(req.params.id);
+    return this.taskSerializer.serializeTask(task);
   }
 
   public async createTask(req: any) {

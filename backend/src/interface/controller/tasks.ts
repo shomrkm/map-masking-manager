@@ -19,20 +19,8 @@ export const getTasks = asyncHandler(async (req: Request, res: Response, next: N
   res.status(200).json(res.advancedResults);
 });
 
-// @desc Get single task
-// @route GET /api/v1/tasks/:id
-// @access Public
-export const getTask = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-  const task = await Task.findById(req.params.id)
-    .populate({ path: 'createUser', select: 'name avatar' })
-    .populate({ path: 'assignedUsers', select: 'name avatar' });
-  if (!task) {
-    return next(new ErrorResponse(`Task not found with id of ${req.params.id}`, 404));
-  }
-
-  res.status(200).json({ success: true, data: task });
-});
-
+// @desc Update Task
+// @route PUT /api/v1/tasks/:taskid
 // @access Private
 export const updateTask = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
   const { id } = req.params;

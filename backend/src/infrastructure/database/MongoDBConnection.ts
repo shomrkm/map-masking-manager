@@ -9,6 +9,17 @@ export class MongoDBConnection extends IDBConnection {
     super();
   }
 
+  public async findTaskById(taskId: string): Promise<TaskDTO> {
+    const task = await TaskModel.findById(taskId)
+      .populate({ path: 'createUser', select: 'name avatar' })
+      .populate({ path: 'assignedUsers', select: 'name avatar' });
+    if (!task) {
+      throw new ErrorResponse(`Task was not found with id of ${taskId}`, 404);
+    }
+
+    return task;
+  }
+
   public async createTask(task: CreateTaskDTO): Promise<TaskDTO> {
     return await TaskModel.create(task);
   }

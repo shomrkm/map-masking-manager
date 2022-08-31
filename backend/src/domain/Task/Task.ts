@@ -46,7 +46,8 @@ export class Task {
     next: string[] = [],
     assignedUserIds: string[] = [],
     id: string | null = null,
-    no: number | null = null
+    no: number | null = null,
+    createdAt: Date | null = null
   ) {
     this._id = id;
     this._no = no;
@@ -64,7 +65,7 @@ export class Task {
     this._next = next;
     this._assignedUserIds = assignedUserIds;
     this._status = new Status('unassigned');
-    this._createdAt = moment(new Date());
+    this._createdAt = createdAt ? moment(createdAt) : moment(new Date());
   }
 
   get id(): string | null {
