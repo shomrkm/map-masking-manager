@@ -4,6 +4,8 @@ import { ITaskRepository } from '@/application/repositories/ITaskRepository';
 import { IDBConnection } from '../database/IDBConnection';
 import { TaskRepository } from '../repositories/TaskRepository';
 import { TaskSerializer } from '../serializers/TaskSerializer';
+import { CreateTask } from '@/application/usecases/CreateTask';
+import { DeleteTask } from '@/application/usecases/DeleteTask';
 
 export class TaskController {
   private taskRepository: ITaskRepository;
@@ -30,7 +32,8 @@ export class TaskController {
       assignedUsers,
     } = req.body;
 
-    const task = new Task(
+    const useCase = new CreateTask(this.taskRepository);
+    const newTask = await useCase.execute(
       title,
       description,
       workflow,
@@ -44,13 +47,12 @@ export class TaskController {
       next,
       assignedUsers
     );
-
-    const newTask = await this.taskRepository.save(task);
     return this.taskSerializer.serializeTask(newTask);
   }
 
   public async deleteTask(req: any) {
-    const task = await this.taskRepository.delete(req.params.id);
+    const useCase = new DeleteTask(this.taskRepository);
+    const task = await useCase.execute(req.params.id);
     return this.taskSerializer.serializeTask(task);
   }
 }

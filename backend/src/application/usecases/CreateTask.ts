@@ -9,9 +9,7 @@ export class CreateTask {
     this.taskRepository = taskRepository;
   }
 
-  public execute(
-    id: string,
-    no: number,
+  public async execute(
     title: string,
     description: string,
     workflowId: string,
@@ -37,11 +35,9 @@ export class CreateTask {
       area,
       previous,
       next,
-      assignedUserIds,
-      id,
-      no
+      assignedUserIds
     );
     // TODO: Check authorization.
-    return this.taskRepository.save(task);
+    return await this.taskRepository.save(task);
   }
 }
