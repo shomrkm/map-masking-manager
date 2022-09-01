@@ -1,21 +1,41 @@
 import clsx from 'clsx';
 import React from 'react';
 
-type Props = {
+const radialSizes = {
+  sm: '4rem',
+  md: '8rem',
+  lg: '12rem',
+};
+
+const textSizes = {
+  sm: 'text-md',
+  md: 'text-2xl',
+  lg: 'text-4xl',
+};
+
+export type RadialProgressProps = {
   progress: number;
+  size: keyof typeof radialSizes;
   className?: string;
 };
 
-const rpStyle = (progress: number) =>
+const rpStyle = (progress: number, size: string) =>
   ({
     '--value': progress,
-    '--thickness': '0.6rem',
+    '--size': size,
   } as React.CSSProperties);
 
-export const RadialProgress: React.VFC<Props> = ({ progress, className }) => {
+export const RadialProgress: React.VFC<RadialProgressProps> = ({
+  progress,
+  size = 'sm',
+  className,
+}) => {
   return (
-    /* eslint-disable-next-line tailwindcss/no-custom-classname */
-    <div className={clsx('radial-progress', className)} style={rpStyle(progress)}>
+    <div
+      /* eslint-disable-next-line tailwindcss/no-custom-classname */
+      className={clsx('radial-progress', textSizes[size], className)}
+      style={rpStyle(progress, radialSizes[size])}
+    >
       {progress}%
     </div>
   );

@@ -36,17 +36,17 @@ export const TaskNodeCard = ({ data }: TaskData) => {
         </div>
         <div className="border-b border-gray-400 border-solid" />
         <div className="flex justify-center items-center p-3 space-x-2">
-          <div className="flex-col space-y-2">
-            <div className="flex space-x-2">
+          <div className="flex-col space-y-2 text-sm">
+            <div className="flex items-center space-x-2">
               <p>Status:</p>
               <TaskStatusBadge status={status} size="sm" />
             </div>
-            <div className="flex space-x-2">
+            <div className="flex items-center space-x-2">
               <p>Level:</p>
               <LevelBadge level={level} size="sm" />
             </div>
           </div>
-          <RadialProgress progress={40} />
+          <RadialProgress progress={40} size="sm" />
         </div>
       </div>
       <Handle type="source" position={Position.Bottom} />
