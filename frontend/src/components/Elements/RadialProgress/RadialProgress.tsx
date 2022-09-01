@@ -19,7 +19,7 @@ export type RadialProgressProps = {
   className?: string;
 };
 
-const rpStyle = (progress: number, size: string) =>
+const RadialProgresStyle = (progress: number, size: string) =>
   ({
     '--value': progress,
     '--size': size,
@@ -34,7 +34,7 @@ export const RadialProgress: React.VFC<RadialProgressProps> = ({
     <div
       /* eslint-disable-next-line tailwindcss/no-custom-classname */
       className={clsx('radial-progress', textSizes[size], className)}
-      style={rpStyle(progress, radialSizes[size])}
+      style={RadialProgresStyle(progress, radialSizes[size])}
     >
       {progress}%
     </div>
