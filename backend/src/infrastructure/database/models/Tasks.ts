@@ -76,11 +76,9 @@ const taskSchemaFields: SchemaDefinition<TaskSchemaFields> = {
     type: {
       type: String,
       enum: ['Polygon'],
-      required: true,
     },
     coordinates: {
       type: [[[Number]]],
-      required: true,
     },
   },
   status: {
