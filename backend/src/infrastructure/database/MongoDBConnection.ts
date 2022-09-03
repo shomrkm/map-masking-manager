@@ -10,12 +10,16 @@ export class MongoDBConnection extends IDBConnection {
   }
 
   public async findAllTasks(): Promise<TaskDTO[]> {
-    const tasks = await TaskModel.find();
+    const tasks = await TaskModel.find()
+      .populate({ path: 'createUser', select: 'name avatar' })
+      .populate({ path: 'assignedUsers', select: 'name avatar' });
     return tasks;
   }
 
   public async findTasksByWorkflowId(workflowId: string): Promise<TaskDTO[]> {
-    const tasks = await TaskModel.find({ workflow: workflowId });
+    const tasks = await TaskModel.find({ workflow: workflowId })
+      .populate({ path: 'createUser', select: 'name avatar' })
+      .populate({ path: 'assignedUsers', select: 'name avatar' });
     return tasks;
   }
 
