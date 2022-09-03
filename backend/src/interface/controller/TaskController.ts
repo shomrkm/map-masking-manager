@@ -8,6 +8,7 @@ import { SearchTask } from '@/application/usecases/SearchTask';
 import { IDBConnection } from '../database/IDBConnection';
 import { TaskRepository } from '../repositories/TaskRepository';
 import { TaskSerializer } from '../serializers/TaskSerializer';
+import { buildPaginationData } from './buildPaginationData';
 
 export class TaskController {
   private taskRepository: ITaskRepository;
@@ -22,11 +23,23 @@ export class TaskController {
     if (req.params.workflowid) {
       const searchTasks = new SearchTasksInWorkflow(this.taskRepository);
       const tasks = await searchTasks.execute(req.params.workflowid);
-      return this.taskSerializer.serializeTasks(tasks);
+      const { count, pagination, data } = buildPaginationData(req, tasks);
+      return {
+        success: true,
+        count,
+        pagination,
+        data: this.taskSerializer.serializeTasks(data),
+      };
     }
     const searchAllTasks = new SearchAllTasks(this.taskRepository);
     const tasks = await searchAllTasks.execute();
-    return this.taskSerializer.serializeTasks(tasks);
+    const { count, pagination, data } = buildPaginationData(req, tasks);
+    return {
+      success: true,
+      count,
+      pagination,
+      data: this.taskSerializer.serializeTasks(data),
+    };
   }
 
   public async getTask(req: any) {

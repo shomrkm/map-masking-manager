@@ -1,10 +1,8 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { updateTask } from '@/interface/controller/tasks';
-import { advancedResults } from '@/interface/controller/advancedResults';
 import { protect, authorize } from '@/interface/controller/authorization';
 import { asyncHandler } from '@/interface/controller/asyncHandler';
 import { TaskController } from '@/interface/controller/TaskController';
-import { Task } from '@/infrastructure/database/models/Tasks';
 import { MongoDBConnection } from '../database/MongoDBConnection';
 import { router as commentRouter } from './Comments';
 
@@ -23,10 +21,7 @@ router.use('/:taskid/comments', commentRouter);
 export const getTasks = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
   try {
     const tasks = await taskController.getTasks(req);
-    res.status(200).json({
-      success: true,
-      data: tasks,
-    });
+    res.status(200).json(tasks);
   } catch (err) {
     next(err);
   }
@@ -73,16 +68,7 @@ export const deleteTask = asyncHandler(async (req: Request, res: Response, next:
   }
 });
 
-router
-  .route('/')
-  .get(
-    advancedResults(Task, [
-      { path: 'createUser', select: 'name avatar' },
-      { path: 'assignedUsers', select: 'name avatar' },
-    ]),
-    getTasks
-  )
-  .post(protect, authorize('publisher', 'admin'), createTask);
+router.route('/').get(getTasks).post(protect, authorize('publisher', 'admin'), createTask);
 
 router
   .route('/:id')
