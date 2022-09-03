@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { getTasks, updateTask } from '@/interface/controller/tasks';
+import { updateTask } from '@/interface/controller/tasks';
 import { advancedResults } from '@/interface/controller/advancedResults';
 import { protect, authorize } from '@/interface/controller/authorization';
 import { asyncHandler } from '@/interface/controller/asyncHandler';
@@ -15,6 +15,22 @@ export const router = express.Router({ mergeParams: true });
 
 // Re-route into other resource routers
 router.use('/:taskid/comments', commentRouter);
+
+// @desc Get all tasks
+// @route GET /api/v1/tasks
+// @route GET /api/v1/workflows/:workflowid/tasks
+// @access Public
+export const getTasks = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const tasks = await taskController.getTasks(req);
+    res.status(200).json({
+      success: true,
+      data: tasks,
+    });
+  } catch (err) {
+    next(err);
+  }
+});
 
 // @desc Get single task
 // @route GET /api/v1/tasks/:id

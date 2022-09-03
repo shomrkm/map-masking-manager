@@ -1,6 +1,8 @@
 import { ITaskRepository } from '@/application/repositories/ITaskRepository';
 import { CreateTask } from '@/application/usecases/CreateTask';
 import { DeleteTask } from '@/application/usecases/DeleteTask';
+import { SearchAllTasks } from '@/application/usecases/SearchAllTasks';
+import { SearchTasksInWorkflow } from '@/application/usecases/SearchTasksInWorkflow';
 import { SearchTask } from '@/application/usecases/SearchTask';
 
 import { IDBConnection } from '../database/IDBConnection';
@@ -14,6 +16,17 @@ export class TaskController {
   constructor(dbConnection: IDBConnection) {
     this.taskRepository = new TaskRepository(dbConnection);
     this.taskSerializer = new TaskSerializer();
+  }
+
+  public async getTasks(req: any) {
+    if (req.params.workflowid) {
+      const searchTasks = new SearchTasksInWorkflow(this.taskRepository);
+      const tasks = await searchTasks.execute(req.params.workflowid);
+      return this.taskSerializer.serializeTasks(tasks);
+    }
+    const searchAllTasks = new SearchAllTasks(this.taskRepository);
+    const tasks = await searchAllTasks.execute();
+    return this.taskSerializer.serializeTasks(tasks);
   }
 
   public async getTask(req: any) {

@@ -9,6 +9,32 @@ export class TaskRepository extends ITaskRepository {
     this.dbConnection = dbConnection;
   }
 
+  public async findAll(): Promise<Task[]> {
+    const taskDtos = await this.dbConnection.findAllTasks();
+    const tasks = taskDtos.map(
+      (taskDto) =>
+        new Task(
+          taskDto.title,
+          taskDto.description,
+          taskDto.workflow,
+          taskDto.priority,
+          taskDto.target,
+          taskDto.level,
+          taskDto.createUser,
+          taskDto.detail,
+          taskDto.area,
+          taskDto.previous,
+          taskDto.next,
+          taskDto.assignedUsers,
+          taskDto._id,
+          taskDto.id,
+          taskDto.createdAt
+        )
+    );
+
+    return tasks;
+  }
+
   public async find(id: string): Promise<Task> {
     const taskDto = await this.dbConnection.findTaskById(id);
     const task = new Task(
@@ -30,6 +56,31 @@ export class TaskRepository extends ITaskRepository {
     );
 
     return task;
+  }
+
+  public async findByWorkflowId(workflowId: string): Promise<Task[]> {
+    const taskDtos = await this.dbConnection.findTasksByWorkflowId(workflowId);
+    const tasks = taskDtos.map(
+      (taskDto) =>
+        new Task(
+          taskDto.title,
+          taskDto.description,
+          taskDto.workflow,
+          taskDto.priority,
+          taskDto.target,
+          taskDto.level,
+          taskDto.createUser,
+          taskDto.detail,
+          taskDto.area,
+          taskDto.previous,
+          taskDto.next,
+          taskDto.assignedUsers,
+          taskDto._id,
+          taskDto.id,
+          taskDto.createdAt
+        )
+    );
+    return tasks;
   }
 
   public async save(task: Task): Promise<Task> {
