@@ -4,8 +4,10 @@ import React from 'react';
 import { Node, Handle, Position } from 'react-flow-renderer';
 import { Link } from 'react-router-dom';
 
-import { TaskStatusBadge } from '@/components/Elements';
+import { LevelBadge, TaskStatusBadge } from '@/components/Elements';
 import { Task } from '@/features/tasks/types';
+
+import { RadialProgress } from '../../../components/Elements/RadialProgress/RadialProgress';
 
 export type TaskData = {
   data: {
@@ -16,7 +18,7 @@ export type TaskData = {
 export type TaskNode = Node<TaskData>;
 
 export const TaskNodeCard = ({ data }: TaskData) => {
-  const { _id, id, title, status } = data.task;
+  const { _id, id, title, status, level } = data.task;
 
   return (
     <>
@@ -27,14 +29,24 @@ export const TaskNodeCard = ({ data }: TaskData) => {
           'flex-col justify-center items-center bg-gray-100 rounded-md border border-gray-400 border-solid shadow-sm'
         )}
       >
-        <div className="flex justify-center items-center px-3 pt-2 pb-1">
+        <div className="flex justify-center items-center px-3 pt-2 pb-1 font-bold">
           <PencilAltIcon className="p-1 mr-2 w-6 h-6 text-gray-800 bg-gray-300 rounded-full" />
-          <Link to={`../../tasks/${_id}`} className="pr-2 text-xs text-blue-700">{`#${id}`}</Link>
+          <Link to={`../../tasks/${_id}`} className="pr-2 text-sm text-blue-700">{`#${id}`}</Link>
           <p className="text-sm text-gray-700">{title}</p>
         </div>
         <div className="border-b border-gray-400 border-solid" />
-        <div className="flex justify-center items-center p-3">
-          <TaskStatusBadge status={status} size="sm" />
+        <div className="flex justify-center items-center p-3 space-x-2">
+          <div className="flex-col space-y-2 text-sm">
+            <div className="flex items-center space-x-2">
+              <p>Status:</p>
+              <TaskStatusBadge status={status} size="sm" />
+            </div>
+            <div className="flex items-center space-x-2">
+              <p>Level:</p>
+              <LevelBadge level={level} size="sm" />
+            </div>
+          </div>
+          <RadialProgress progress={40} size="sm" />
         </div>
       </div>
       <Handle type="source" position={Position.Bottom} />
