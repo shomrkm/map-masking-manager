@@ -45,7 +45,10 @@ export class TaskController {
   public async getTask(req: any) {
     const searchTask = new SearchTask(this.taskRepository);
     const task = await searchTask.execute(req.params.id);
-    return this.taskSerializer.serializeTask(task);
+    return {
+      success: true,
+      data: this.taskSerializer.serializeTask(task),
+    };
   }
 
   public async createTask(req: any) {
@@ -79,12 +82,18 @@ export class TaskController {
       next,
       assignedUsers
     );
-    return this.taskSerializer.serializeTask(newTask);
+    return {
+      success: true,
+      data: this.taskSerializer.serializeTask(newTask),
+    };
   }
 
   public async deleteTask(req: any) {
     const useCase = new DeleteTask(this.taskRepository);
     const task = await useCase.execute(req.params.id);
-    return this.taskSerializer.serializeTask(task);
+    return {
+      success: true,
+      data: this.taskSerializer.serializeTask(task),
+    };
   }
 }

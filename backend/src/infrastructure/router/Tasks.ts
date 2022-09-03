@@ -33,7 +33,7 @@ export const getTasks = asyncHandler(async (req: Request, res: Response, next: N
 export const getTask = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
   try {
     const task = await taskController.getTask(req);
-    res.status(200).json({ success: true, data: task });
+    res.status(200).json(task);
   } catch (err) {
     next(err);
   }
@@ -46,11 +46,7 @@ export const createTask = asyncHandler(async (req: Request, res: Response, next:
   try {
     req.body.createUser = req.user.id;
     const task = await taskController.createTask(req);
-
-    res.status(201).json({
-      success: true,
-      data: task,
-    });
+    res.status(201).json(task);
   } catch (err) {
     next(err);
   }
@@ -62,7 +58,7 @@ export const createTask = asyncHandler(async (req: Request, res: Response, next:
 export const deleteTask = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
   try {
     const task = await taskController.deleteTask(req);
-    res.status(200).json({ success: true, data: task });
+    res.status(200).json(task);
   } catch (err) {
     next(err);
   }
