@@ -1,4 +1,3 @@
-import { Task } from '@/domain/Task';
 import { Task as TaskModel } from './models';
 import { IDBConnection } from '@/interface/database/IDBConnection';
 import { TaskDTO, CreateTaskDTO } from '@/interface/database/dto/taskDto';

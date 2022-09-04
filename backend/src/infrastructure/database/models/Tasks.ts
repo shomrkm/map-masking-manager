@@ -28,11 +28,9 @@ type TaskSchemaFields = Document & {
   area: {
     type: {
       type: 'Polygon';
-      required: true;
     };
     coordinates: {
       type: [[[number]]];
-      required: true;
     };
   };
   status: StatusType;
