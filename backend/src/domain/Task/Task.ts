@@ -146,7 +146,7 @@ export class Task {
     return this._next;
   }
 
-  get assinedUsers(): string[] {
+  get assignedUsers(): string[] {
     return this._assignedUsers;
   }
 

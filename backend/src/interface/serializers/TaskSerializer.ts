@@ -16,7 +16,7 @@ const serializeSingleTask = (task: Task) => {
     priority: task.priority,
     level: task.level,
     createUser: task.createdUser,
-    assinedUsers: task.assinedUsers,
+    assignedUsers: task.assignedUsers,
     createdAt: task.createdAt,
   };
 };
