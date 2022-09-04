@@ -34,11 +34,11 @@ export class MongoDBConnection extends IDBConnection {
   }
 
   public async createTask(task: CreateTaskDTO): Promise<TaskDTO> {
-    const newTask = (await TaskModel.create(task)) as TaskDTO;
+    const newTask = (await TaskModel.create(task));
     if (!newTask) {
       throw new ErrorResponse('CreatingTask Failed', 400);
     }
-    return newTask;
+    return newTask as any;
   }
 
   public async deleteTask(taskId: string): Promise<TaskDTO> {
