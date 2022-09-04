@@ -23,7 +23,7 @@ export class MongoDBConnection extends IDBConnection {
   }
 
   public async findTaskById(taskId: string): Promise<TaskDTO> {
-    const task: TaskDTO = await TaskModel.findById(taskId)
+    const task: TaskDTO | null = await TaskModel.findById(taskId)
       .populate({ path: 'createUser', select: 'name avatar' })
       .populate({ path: 'assignedUsers', select: 'name avatar' });
     if (!task) {
@@ -34,11 +34,15 @@ export class MongoDBConnection extends IDBConnection {
   }
 
   public async createTask(task: CreateTaskDTO): Promise<TaskDTO> {
-    return (await TaskModel.create(task)) as TaskDTO;
+    const newTask: TaskDTO | null = (await TaskModel.create(task)) as TaskDTO;
+    if (!newTask) {
+      throw new ErrorResponse('CreatingTask Failed', 400);
+    }
+    return newTask;
   }
 
   public async deleteTask(taskId: string): Promise<TaskDTO> {
-    const task = await TaskModel.findById(taskId);
+    const task: TaskDTO | null = await TaskModel.findById(taskId);
     if (!task) {
       throw new ErrorResponse(`Task was not found with id of ${taskId}`, 404);
     }
