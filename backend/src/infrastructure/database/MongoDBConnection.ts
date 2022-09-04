@@ -34,7 +34,7 @@ export class MongoDBConnection extends IDBConnection {
   }
 
   public async createTask(task: CreateTaskDTO): Promise<TaskDTO> {
-    const newTask: TaskDTO | null = (await TaskModel.create(task)) as TaskDTO;
+    const newTask = (await TaskModel.create(task)) as TaskDTO;
     if (!newTask) {
       throw new ErrorResponse('CreatingTask Failed', 400);
     }
@@ -47,6 +47,6 @@ export class MongoDBConnection extends IDBConnection {
       throw new ErrorResponse(`Task was not found with id of ${taskId}`, 404);
     }
     task.remove();
-    return task as TaskDTO;
+    return task as any;
   }
 }
