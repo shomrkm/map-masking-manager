@@ -14,6 +14,24 @@ import {
   PriorityType,
 } from './entities';
 
+type Params = {
+  title: string;
+  description: string;
+  workflow: string;
+  priority: string;
+  target: string[];
+  level: string;
+  createUser: string;
+  detail?: string;
+  area?: Polygon | null;
+  previous?: string[];
+  next?: string[];
+  assignedUsers?: string[];
+  id?: string | null;
+  no?: number | null;
+  createdAt?: Date | null;
+};
+
 export class Task {
   private _id: string | null;
   private _no: number | null;
@@ -22,48 +40,48 @@ export class Task {
   private _detail: string;
   private _area: Polygon | null;
   private _status: Status;
-  private _workflowId: string;
+  private _workflow: string;
   private _target: Targets;
   private _level: Level;
   private _priority: Priority;
   private _previous: string[];
   private _next: string[];
-  private _createUserId: string;
-  private _assignedUserIds: string[];
+  private _createUser: string;
+  private _assignedUsers: string[];
   private _createdAt: moment.Moment;
 
-  constructor(
-    title: string,
-    description: string,
-    workflowId: string,
-    priority: string,
-    targets: string[],
-    level: string,
-    createUserId: string,
-    detail: string = '',
-    area: Polygon | null = null,
-    previous: string[] = [],
-    next: string[] = [],
-    assignedUserIds: string[] = [],
-    id: string | null = null,
-    no: number | null = null,
-    createdAt: Date | null = null
-  ) {
+  constructor({
+    title,
+    description,
+    workflow,
+    priority,
+    target,
+    level,
+    createUser,
+    detail = '',
+    area = null,
+    previous = [],
+    next = [],
+    assignedUsers = [],
+    id = null,
+    no = null,
+    createdAt = null,
+  }: Params) {
     this._id = id;
     this._no = no;
     this._title = new Title(title);
     this._description = new Description(description);
     this._detail = detail;
-    this._workflowId = workflowId;
-    this._target = new Targets(targets);
+    this._workflow = workflow;
+    this._target = new Targets(target);
     this._level = new Level(level);
     this._priority = new Priority(priority);
-    this._createUserId = createUserId;
+    this._createUser = createUser;
     this._detail = detail;
     this._area = area;
     this._previous = previous;
     this._next = next;
-    this._assignedUserIds = assignedUserIds;
+    this._assignedUsers = assignedUsers;
     this._status = new Status('unassigned');
     this._createdAt = createdAt ? moment(createdAt) : moment(new Date());
   }
@@ -104,8 +122,8 @@ export class Task {
     return this._status.get();
   }
 
-  get workflowId(): string {
-    return this._workflowId;
+  get workflow(): string {
+    return this._workflow;
   }
 
   get target(): TargetTypes {
@@ -128,12 +146,12 @@ export class Task {
     return this._next;
   }
 
-  get assinedUserIds(): string[] {
-    return this._assignedUserIds;
+  get assinedUsers(): string[] {
+    return this._assignedUsers;
   }
 
-  get createdUserId(): string {
-    return this._createUserId;
+  get createdUser(): string {
+    return this._createUser;
   }
 
   get createdAt(): moment.Moment {

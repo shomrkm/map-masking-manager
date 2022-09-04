@@ -12,11 +12,11 @@ const serializeSingleTask = (task: Task) => {
     target: task.target,
     previous: task.previous,
     next: task.next,
-    workflow: task.workflowId,
+    workflow: task.workflow,
     priority: task.priority,
     level: task.level,
-    createUser: task.createdUserId,
-    assinedUsers: task.assinedUserIds,
+    createUser: task.createdUser,
+    assinedUsers: task.assinedUsers,
     createdAt: task.createdAt,
   };
 };

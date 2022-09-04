@@ -12,31 +12,31 @@ export class CreateTask {
   public async execute(
     title: string,
     description: string,
-    workflowId: string,
+    workflow: string,
     priority: 'high' | 'normal' | 'low',
     target: ('road' | 'map' | 'poi')[],
     level: 'expert' | 'intermediate' | 'beginner',
-    createUserId: string,
+    createUser: string,
     detail: string = '',
     area: Polygon | null = null,
     previous: string[] = [],
     next: string[] = [],
-    assignedUserIds: string[] = []
+    assignedUsers: string[] = []
   ): Promise<Task> {
-    const task = new Task(
+    const task = new Task({
       title,
       description,
-      workflowId,
+      workflow,
       priority,
       target,
       level,
-      createUserId,
+      createUser,
       detail,
       area,
       previous,
       next,
-      assignedUserIds
-    );
+      assignedUsers,
+    });
     // TODO: Check authorization.
     return await this.taskRepository.save(task);
   }

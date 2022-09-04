@@ -13,23 +13,23 @@ export class TaskRepository extends ITaskRepository {
     const taskDtos = await this.dbConnection.findAllTasks();
     const tasks = taskDtos.map(
       (taskDto) =>
-        new Task(
-          taskDto.title,
-          taskDto.description,
-          taskDto.workflow,
-          taskDto.priority,
-          taskDto.target,
-          taskDto.level,
-          taskDto.createUser,
-          taskDto.detail,
-          taskDto.area,
-          taskDto.previous,
-          taskDto.next,
-          taskDto.assignedUsers,
-          taskDto._id,
-          taskDto.id,
-          taskDto.createdAt
-        )
+        new Task({
+          title: taskDto.title,
+          description: taskDto.description,
+          workflow: taskDto.workflow,
+          priority: taskDto.priority,
+          target: taskDto.target,
+          level: taskDto.level,
+          createUser: taskDto.createUser,
+          detail: taskDto.detail,
+          area: taskDto.area,
+          previous: taskDto.previous,
+          next: taskDto.next,
+          assignedUsers: taskDto.assignedUsers,
+          id: taskDto._id,
+          no: taskDto.id,
+          createdAt: taskDto.createdAt,
+        })
     );
 
     return tasks;
@@ -37,23 +37,23 @@ export class TaskRepository extends ITaskRepository {
 
   public async find(id: string): Promise<Task> {
     const taskDto = await this.dbConnection.findTaskById(id);
-    const task = new Task(
-      taskDto.title,
-      taskDto.description,
-      taskDto.workflow,
-      taskDto.priority,
-      taskDto.target,
-      taskDto.level,
-      taskDto.createUser,
-      taskDto.detail,
-      taskDto.area,
-      taskDto.previous,
-      taskDto.next,
-      taskDto.assignedUsers,
-      taskDto._id,
-      taskDto.id,
-      taskDto.createdAt
-    );
+    const task = new Task({
+      title: taskDto.title,
+      description: taskDto.description,
+      workflow: taskDto.workflow,
+      priority: taskDto.priority,
+      target: taskDto.target,
+      level: taskDto.level,
+      createUser: taskDto.createUser,
+      detail: taskDto.detail,
+      area: taskDto.area,
+      previous: taskDto.previous,
+      next: taskDto.next,
+      assignedUsers: taskDto.assignedUsers,
+      id: taskDto._id,
+      no: taskDto.id,
+      createdAt: taskDto.createdAt,
+    });
 
     return task;
   }
@@ -62,23 +62,23 @@ export class TaskRepository extends ITaskRepository {
     const taskDtos = await this.dbConnection.findTasksByWorkflowId(workflowId);
     const tasks = taskDtos.map(
       (taskDto) =>
-        new Task(
-          taskDto.title,
-          taskDto.description,
-          taskDto.workflow,
-          taskDto.priority,
-          taskDto.target,
-          taskDto.level,
-          taskDto.createUser,
-          taskDto.detail,
-          taskDto.area,
-          taskDto.previous,
-          taskDto.next,
-          taskDto.assignedUsers,
-          taskDto._id,
-          taskDto.id,
-          taskDto.createdAt
-        )
+        new Task({
+          title: taskDto.title,
+          description: taskDto.description,
+          workflow: taskDto.workflow,
+          priority: taskDto.priority,
+          target: taskDto.target,
+          level: taskDto.level,
+          createUser: taskDto.createUser,
+          detail: taskDto.detail,
+          area: taskDto.area,
+          previous: taskDto.previous,
+          next: taskDto.next,
+          assignedUsers: taskDto.assignedUsers,
+          id: taskDto._id,
+          no: taskDto.id,
+          createdAt: taskDto.createdAt,
+        })
     );
     return tasks;
   }
@@ -90,13 +90,13 @@ export class TaskRepository extends ITaskRepository {
       detail: task.detail,
       area: task.area ?? undefined,
       status: task.status,
-      workflow: task.workflowId,
+      workflow: task.workflow,
       target: task.target,
       previous: task.previous,
       next: task.next,
       level: task.level,
       priority: task.priority,
-      createUser: task.createdUserId,
+      createUser: task.createdUser,
       createdAt: task.createdAt.toDate(),
     });
 
@@ -108,22 +108,23 @@ export class TaskRepository extends ITaskRepository {
 
   public async delete(taskId: string): Promise<Task> {
     const taskDto = await this.dbConnection.deleteTask(taskId);
-    const task = new Task(
-      taskDto.title,
-      taskDto.description,
-      taskDto.workflow,
-      taskDto.priority,
-      taskDto.target,
-      taskDto.level,
-      taskDto.createUser,
-      taskDto.detail,
-      taskDto.area,
-      taskDto.previous,
-      taskDto.next,
-      taskDto.assignedUsers,
-      taskDto._id,
-      taskDto.id
-    );
+    const task = new Task({
+      title: taskDto.title,
+      description: taskDto.description,
+      workflow: taskDto.workflow,
+      priority: taskDto.priority,
+      target: taskDto.target,
+      level: taskDto.level,
+      createUser: taskDto.createUser,
+      detail: taskDto.detail,
+      area: taskDto.area,
+      previous: taskDto.previous,
+      next: taskDto.next,
+      assignedUsers: taskDto.assignedUsers,
+      id: taskDto._id,
+      no: taskDto.id,
+      createdAt: taskDto.createdAt,
+    });
 
     return task;
   }
