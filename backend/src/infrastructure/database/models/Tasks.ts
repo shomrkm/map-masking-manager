@@ -1,6 +1,7 @@
 import mongoose, { Schema, SchemaDefinition, Document, Date, model, Model } from 'mongoose';
 import AutoIncrementFactory from 'mongoose-sequence';
 import slugify from 'slugify';
+import { Polygon } from 'geojson';
 
 import {
   StatusType,
@@ -25,14 +26,7 @@ type TaskSchemaFields = Document & {
   title: string;
   description: string;
   detail: string;
-  area: {
-    type: {
-      type: 'Polygon';
-    };
-    coordinates: {
-      type: [[[number]]];
-    };
-  };
+  area: Polygon;
   status: StatusType;
   workflow: Schema.Types.ObjectId;
   target: TargetTypes;
