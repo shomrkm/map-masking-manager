@@ -41,7 +41,7 @@ app.use(helmet());
 app.use(cors());
 
 // Set static folder, and make it accesible through "{BASE URL}:{PORT}/uploads"
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/../../public'));
 app.use('/uploads', express.static('uploads'));
 
 // Mount Router
