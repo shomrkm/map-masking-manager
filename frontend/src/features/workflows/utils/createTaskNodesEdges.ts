@@ -12,13 +12,15 @@ export const createTaskNodes = (tasks: Task[]): Node[] => {
 };
 
 export const createTaskEdges = (tasks: Task[]): Edge[] => {
-  const edges = tasks.map((task) => {
-    return task.next.map((nextId) => ({
-      id: `${task._id}-${nextId}`,
-      source: `${task._id}`,
-      target: `${nextId}`,
-      markerEnd: { type: MarkerType.ArrowClosed },
-    }));
-  });
+  const edges = tasks
+    .filter((task) => task.next)
+    .map((task) => {
+      return task.next.map((nextId) => ({
+        id: `${task._id}-${nextId}`,
+        source: `${task._id}`,
+        target: `${nextId}`,
+        markerEnd: { type: MarkerType.ArrowClosed },
+      }));
+    });
   return edges.flat();
 };
