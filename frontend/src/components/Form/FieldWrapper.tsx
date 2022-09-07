@@ -1,11 +1,11 @@
 import React from 'react';
-import { FieldError } from 'react-hook-form';
+import { FieldError, Merge } from 'react-hook-form';
 
 type Props = {
   label?: string;
   className?: string;
   children: React.ReactNode;
-  error?: FieldError | undefined;
+  error?: FieldError | Merge<FieldError, undefined> | undefined;
 };
 
 export type FieldWrapperPassThroughProps = Omit<Props, 'className' | 'children'>;
