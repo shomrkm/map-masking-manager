@@ -3,6 +3,7 @@ import * as z from 'zod';
 
 import { Button } from '@/components/Elements';
 import { Form, FormDrawer, InputField, SelectField, TextareaField } from '@/components/Form';
+import { MultiSelectField } from '@/components/Form/MultiSelectField';
 import { Authorization, ROLES } from '@/lib/authorization';
 
 import { CreateTaskDTO, useCreateTask } from '../api/createTask';
@@ -12,20 +13,17 @@ const schema = z.object({
   title: z.string().min(1, 'Required').max(50),
   description: z.string().min(1, 'Required').max(500),
   detail: z.string(),
-  // area: z.object({
-  // type: z.enum(['Polygon']),
-  // coordinates: z.array(z.string()),
-  // }),
-  // workflowId: z.string(),
   status: z.enum(statusTypes),
-  target: z.enum(targetTypes),
+  target: z.array(z.enum(targetTypes)).min(1, 'More than 1 target required'),
   level: z.enum(levelTypes),
   priority: z.enum(priorityTypes),
 });
 
-// type CreateTaskWithWorkflowDTO = Omit<CreateTaskDTO, 'area' | 'worklowId'>;
+type CreateTaskButtonProps = {
+  workflowId: string;
+};
 
-export const CreateTaskButton = () => {
+export const CreateTaskByWorkflowId = ({ workflowId }: CreateTaskButtonProps) => {
   const createDiscussionMutation = useCreateTask();
 
   return (
@@ -50,9 +48,10 @@ export const CreateTaskButton = () => {
         }
       >
         <Form<CreateTaskDTO['data'], typeof schema>
-          id="create-discussion"
+          id="create-task"
           onSubmit={async (values) => {
-            await createDiscussionMutation.mutateAsync({ data: values });
+            const data = { ...values, workflow: workflowId };
+            await createDiscussionMutation.mutateAsync({ data });
           }}
           schema={schema}
         >
@@ -82,8 +81,9 @@ export const CreateTaskButton = () => {
                   value: status,
                 }))}
               />
-              <SelectField
+              <MultiSelectField
                 label="Target"
+                error={formState.errors['target']}
                 registration={register('target')}
                 options={targetTypes.map((target) => ({
                   label: target,
