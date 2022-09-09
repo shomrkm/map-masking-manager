@@ -51,6 +51,7 @@ export const CreateTaskByWorkflowId = ({ workflowId }: CreateTaskButtonProps) =>
           id="create-task"
           onSubmit={async (values) => {
             const data = { ...values, workflow: workflowId };
+            console.log('submit', data);
             await createDiscussionMutation.mutateAsync({ data });
           }}
           schema={schema}

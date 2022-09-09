@@ -1,4 +1,4 @@
-import { useState, useCallback, VFC } from 'react';
+import { useState, useCallback, useMemo, VFC, useEffect } from 'react';
 import ReactFlow, {
   addEdge,
   FitViewOptions,
@@ -33,8 +33,10 @@ type TaskWorkflowProps = {
 };
 
 export const TaskWorkflow: VFC<TaskWorkflowProps> = ({ nodes, edges, className = '' }) => {
-  const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(nodes, edges);
-
+  const { nodes: layoutedNodes, edges: layoutedEdges } = useMemo(
+    () => getLayoutedElements(nodes, edges),
+    [nodes, edges]
+  );
   const [taskNodes, setTaskNodes] = useState<TaskNode[]>(layoutedNodes);
   const [taskEdges, setTaskEdges] = useState<Edge[]>(layoutedEdges);
 
@@ -61,18 +63,23 @@ export const TaskWorkflow: VFC<TaskWorkflowProps> = ({ nodes, edges, className =
 
   const onLayout = useCallback(
     (direction) => {
-      const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
+      const { nodes: _layoutedNodes, edges: _layoutedEdges } = getLayoutedElements(
         nodes,
         edges,
         direction
       );
 
-      setTaskNodes([...layoutedNodes]);
-      setTaskEdges([...layoutedEdges]);
+      setTaskNodes([..._layoutedNodes]);
+      setTaskEdges([..._layoutedEdges]);
     },
     [nodes, edges]
   );
 
+  useEffect(() => {
+    onLayout('TB');
+  }, [onLayout]);
+
+  console.log('taskNodes before render: ', taskNodes);
   return (
     <div className={`${className}`}>
       <ReactFlow
