@@ -4,7 +4,7 @@ const serializeSingleTask = (task: Task) => {
   return {
     _id: task.id,
     id: task.no,
-    title: task.description,
+    title: task.title,
     description: task.description,
     detail: task.detail,
     area: task.area,
