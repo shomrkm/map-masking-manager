@@ -1,6 +1,7 @@
 import { ITaskRepository } from '@/application/repositories/ITaskRepository';
 import { CreateTask } from '@/application/usecases/CreateTask';
 import { DeleteTask } from '@/application/usecases/DeleteTask';
+import { UpdateTask } from '@/application/usecases/UpdateTask';
 import { SearchAllTasks } from '@/application/usecases/SearchAllTasks';
 import { SearchTasksInWorkflow } from '@/application/usecases/SearchTasksInWorkflow';
 import { SearchTask } from '@/application/usecases/SearchTask';
@@ -91,6 +92,15 @@ export class TaskController {
   public async deleteTask(req: any) {
     const useCase = new DeleteTask(this.taskRepository);
     const task = await useCase.execute(req.params.id);
+    return {
+      success: true,
+      data: this.taskSerializer.serializeTask(task),
+    };
+  }
+
+  public async updateTask(req: any) {
+    const useCase = new UpdateTask(this.taskRepository);
+    const task = await useCase.execute(req.params.id, req.body);
     return {
       success: true,
       data: this.taskSerializer.serializeTask(task),

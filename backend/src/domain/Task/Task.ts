@@ -77,7 +77,6 @@ export class Task {
     this._level = new Level(level);
     this._priority = new Priority(priority);
     this._createUser = createUser;
-    this._detail = detail;
     this._area = area;
     this._previous = previous;
     this._next = next;
@@ -106,12 +105,24 @@ export class Task {
     return this._title.get();
   }
 
+  set title(title: string) {
+    this._title = new Title(title);
+  }
+
   get description(): string {
     return this._description.get();
   }
 
+  set description(description: string) {
+    this._description = new Description(description);
+  }
+
   get detail(): string {
     return this._detail;
+  }
+
+  set detail(detail: string) {
+    this._detail = detail;
   }
 
   get area(): Polygon | null {
@@ -122,6 +133,10 @@ export class Task {
     return this._status.get();
   }
 
+  set status(status: string) {
+    this._status = new Status(status);
+  }
+
   get workflow(): string {
     return this._workflow;
   }
@@ -130,12 +145,24 @@ export class Task {
     return this._target.get();
   }
 
+  set target(target: string[]) {
+    this._target = new Targets(target);
+  }
+
   get level(): LevelType {
     return this._level.get();
   }
 
+  set level(level: string) {
+    this._level = new Level(level);
+  }
+
   get priority(): PriorityType {
     return this._priority.get();
+  }
+
+  set priority(priority: string) {
+    this._priority = new Priority(priority);
   }
 
   get previous(): string[] {
@@ -150,7 +177,7 @@ export class Task {
     return this._assignedUsers;
   }
 
-  get createdUser(): string {
+  get createUser(): string {
     return this._createUser;
   }
 

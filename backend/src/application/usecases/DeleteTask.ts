@@ -1,6 +1,6 @@
-import { Polygon } from 'geojson';
 import { Task } from '@/domain/Task';
 import { ITaskRepository } from '../repositories/ITaskRepository';
+import { ErrorResponse } from '@/interface/controller/errorResponse';
 
 export class DeleteTask {
   private taskRepository: ITaskRepository;
@@ -10,6 +10,9 @@ export class DeleteTask {
   }
 
   public async execute(taskId: string): Promise<Task> {
+    if (!(await this.taskRepository.find(taskId))) {
+      throw new ErrorResponse(`Task was not found with id of ${taskId}`, 404);
+    }
     return await this.taskRepository.delete(taskId);
   }
 }

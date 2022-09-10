@@ -1,13 +1,9 @@
 import { Task as TaskModel } from './models';
 import { IDBConnection } from '@/interface/database/IDBConnection';
-import { TaskDTO, CreateTaskDTO } from '@/interface/database/dto/taskDto';
+import { TaskDTO, CreateTaskDTO, UpdateTaskDTO } from '@/interface/database/dto/taskDto';
 import { ErrorResponse } from '@/interface/controller/errorResponse';
 
-export class MongoDBConnection extends IDBConnection {
-  constructor() {
-    super();
-  }
-
+export class MongoDBConnection implements IDBConnection {
   public async findAllTasks(): Promise<TaskDTO[]> {
     const tasks: TaskDTO[] = await TaskModel.find()
       .populate({ path: 'createUser', select: 'name avatar' })
@@ -29,12 +25,11 @@ export class MongoDBConnection extends IDBConnection {
     if (!task) {
       throw new ErrorResponse(`Task was not found with id of ${taskId}`, 404);
     }
-
     return task;
   }
 
   public async createTask(task: CreateTaskDTO): Promise<TaskDTO> {
-    const newTask = (await TaskModel.create(task));
+    const newTask = await TaskModel.create(task);
     if (!newTask) {
       throw new ErrorResponse('CreatingTask Failed', 400);
     }
@@ -47,6 +42,17 @@ export class MongoDBConnection extends IDBConnection {
       throw new ErrorResponse(`Task was not found with id of ${taskId}`, 404);
     }
     task.remove();
+    return task as any;
+  }
+
+  public async updateTask(taskId: string, values: UpdateTaskDTO): Promise<TaskDTO> {
+    if (!(await TaskModel.findById(taskId))) {
+      throw new ErrorResponse(`Task was not found with id of ${taskId}`, 404);
+    }
+    const task = await TaskModel.findOneAndUpdate({ _id: taskId }, values, {
+      new: true,
+      runValidators: true,
+    });
     return task as any;
   }
 }

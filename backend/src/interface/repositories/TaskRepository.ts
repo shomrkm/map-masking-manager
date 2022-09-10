@@ -2,10 +2,9 @@ import { Task } from '@/domain/Task';
 import { ITaskRepository } from '@/application/repositories/ITaskRepository';
 import { IDBConnection } from '../database/IDBConnection';
 
-export class TaskRepository extends ITaskRepository {
+export class TaskRepository implements ITaskRepository {
   private dbConnection: IDBConnection;
   constructor(dbConnection: IDBConnection) {
-    super();
     this.dbConnection = dbConnection;
   }
 
@@ -84,7 +83,7 @@ export class TaskRepository extends ITaskRepository {
   }
 
   public async save(task: Task): Promise<Task> {
-    const { _id, id } = await this.dbConnection.createTask({
+    const taskDto = {
       title: task.title,
       description: task.description,
       detail: task.detail,
@@ -96,14 +95,34 @@ export class TaskRepository extends ITaskRepository {
       next: task.next,
       level: task.level,
       priority: task.priority,
-      createUser: task.createdUser,
+      createUser: task.createUser,
       createdAt: task.createdAt.toDate(),
+    };
+    if (!task.id) {
+      const { _id, id } = await this.dbConnection.createTask(taskDto);
+      task.id = _id;
+      task.no = id;
+      return task;
+    }
+
+    const updatedTask = await this.dbConnection.updateTask(task.id, taskDto);
+    return new Task({
+      title: updatedTask.title,
+      description: updatedTask.description,
+      workflow: updatedTask.workflow,
+      priority: updatedTask.priority,
+      target: updatedTask.target,
+      level: updatedTask.level,
+      createUser: updatedTask.createUser,
+      detail: updatedTask.detail,
+      area: updatedTask.area,
+      previous: updatedTask.previous,
+      next: updatedTask.next,
+      assignedUsers: updatedTask.assignedUsers,
+      id: updatedTask._id,
+      no: updatedTask.id,
+      createdAt: updatedTask.createdAt,
     });
-
-    task.id = _id;
-    task.no = id;
-
-    return task;
   }
 
   public async delete(taskId: string): Promise<Task> {
