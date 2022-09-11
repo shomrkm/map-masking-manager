@@ -9,6 +9,8 @@ import { Task } from '@/features/tasks/types';
 
 import { RadialProgress } from '../../../components/Elements/RadialProgress/RadialProgress';
 
+import { ModifyTaskNodeMenu } from './ModifyTaskNodeMenu';
+
 export type TaskData = {
   data: {
     task: Task;
@@ -32,7 +34,8 @@ export const TaskNodeCard = ({ data }: TaskData) => {
         <div className="flex justify-center items-center px-3 pt-2 pb-1 font-bold">
           <PencilAltIcon className="p-1 mr-2 w-6 h-6 text-gray-800 bg-gray-300 rounded-full" />
           <Link to={`../../tasks/${_id}`} className="pr-2 text-sm text-blue-700">{`#${id}`}</Link>
-          <p className="text-sm text-gray-700">{title}</p>
+          <p className="flex-1 text-sm text-gray-700">{title}</p>
+          <ModifyTaskNodeMenu />
         </div>
         <div className="border-b border-gray-400 border-solid" />
         <div className="flex justify-center items-center p-3 space-x-2">
