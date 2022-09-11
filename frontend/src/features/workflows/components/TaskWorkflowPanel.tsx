@@ -15,7 +15,6 @@ interface Props {
 
 export const TaskWorkflowPanel: React.VFC<Props> = ({ workflowId }) => {
   const { data, isLoading } = useTasksForWorkflow({ workflowId });
-  console.log(data);
 
   if (isLoading) {
     return (
