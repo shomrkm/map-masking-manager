@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { ErrorResponse } from './errorResponse';
+import { ErrorResponse } from '@/interface/controller/errorResponse';
 
 export const errorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
   let error = { ...err };

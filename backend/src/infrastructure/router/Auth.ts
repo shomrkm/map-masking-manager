@@ -7,7 +7,7 @@ import {
   updatePassword,
   updateDetails,
 } from '@/interface/controller/auth';
-import { protect } from '@/interface/controller/authorization';
+import { protect } from '../middleware/authorization';
 
 export const router = express.Router();
 

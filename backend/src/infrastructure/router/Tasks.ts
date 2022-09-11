@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { protect, authorize } from '@/interface/controller/authorization';
 import { asyncHandler } from '@/interface/controller/asyncHandler';
 import { TaskController } from '@/interface/controller/TaskController';
+import { protect, authorize } from '../middleware/authorization';
 import { MongoDBConnection } from '../database/MongoDBConnection';
 import { router as commentRouter } from './Comments';
 
@@ -32,7 +32,7 @@ export const getTasks = asyncHandler(async (req: Request, res: Response, next: N
 export const getTask = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
   try {
     const task = await taskController.getTask(req);
-   res.status(200).json(task);
+    res.status(200).json(task);
   } catch (err) {
     next(err);
   }

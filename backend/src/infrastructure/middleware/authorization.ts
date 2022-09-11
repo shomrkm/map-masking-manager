@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
+import { ErrorResponse } from '@/interface/controller/errorResponse';
+import { asyncHandler } from '@/interface/controller/asyncHandler';
+// TODO: Remove dependency to User model.
 import { User } from '@/infrastructure/database/models/Users';
-import { ErrorResponse } from './errorResponse';
-import { asyncHandler } from './asyncHandler';
 
 // Protect routes
 export const protect = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {

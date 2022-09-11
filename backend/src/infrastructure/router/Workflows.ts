@@ -7,8 +7,8 @@ import {
   deleteWorkflow,
 } from '@/interface/controller/workflows';
 import { advancedResults } from '@/interface/controller/advancedResults';
-import { protect, authorize } from '@/interface/controller/authorization';
 import { Workflow } from '@/infrastructure/database/models/Workflows';
+import { protect, authorize } from '../middleware/authorization';
 import { router as taskRouter } from './Tasks';
 
 export const router = express.Router();

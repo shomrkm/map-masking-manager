@@ -6,7 +6,7 @@ import mongoSanitize from 'express-mongo-sanitize';
 import helmet from 'helmet';
 // import xss from 'xss-clean';
 import cors from 'cors';
-import { errorHandler } from '@/interface/controller/error';
+import { errorHandler } from './middleware/error';
 import { router as workflows } from './router//Workflows';
 import { router as tasks } from './router//Tasks';
 import { router as users } from './router//Users';
