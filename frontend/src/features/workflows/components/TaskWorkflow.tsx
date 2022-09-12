@@ -79,7 +79,6 @@ export const TaskWorkflow: VFC<TaskWorkflowProps> = ({ nodes, edges, className =
     onLayout('TB');
   }, [onLayout]);
 
-  console.log('taskNodes before render: ', taskNodes);
   return (
     <div className={`${className}`}>
       <ReactFlow
