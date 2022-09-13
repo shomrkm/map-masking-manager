@@ -24,12 +24,12 @@ type CreateTaskButtonProps = {
 };
 
 export const CreateTaskByWorkflowId = ({ workflowId }: CreateTaskButtonProps) => {
-  const createDiscussionMutation = useCreateTask();
+  const createTaskMutation = useCreateTask();
 
   return (
     <Authorization allowedRoles={[ROLES.admin]}>
       <FormDrawer
-        isDone={createDiscussionMutation.isSuccess}
+        isDone={createTaskMutation.isSuccess}
         triggerButton={
           <Button size="xs" startIcon={<PlusIcon className="w-4 h-4" />}>
             Create Task
@@ -41,7 +41,7 @@ export const CreateTaskByWorkflowId = ({ workflowId }: CreateTaskButtonProps) =>
             form="create-task"
             type="submit"
             size="sm"
-            isLoading={createDiscussionMutation.isLoading}
+            isLoading={createTaskMutation.isLoading}
           >
             Submit
           </Button>
@@ -52,7 +52,7 @@ export const CreateTaskByWorkflowId = ({ workflowId }: CreateTaskButtonProps) =>
           onSubmit={async (values) => {
             const data = { ...values, workflow: workflowId };
             console.log('submit', data);
-            await createDiscussionMutation.mutateAsync({ data });
+            await createTaskMutation.mutateAsync({ data });
           }}
           schema={schema}
         >
