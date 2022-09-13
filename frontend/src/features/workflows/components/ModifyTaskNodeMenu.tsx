@@ -3,18 +3,26 @@ import { DotsHorizontalIcon, PlusCircleIcon, TrashIcon } from '@heroicons/react/
 import clsx from 'clsx';
 import React, { VFC } from 'react';
 
+import { useDeleteTask } from '@/features/tasks/api/deleteTask';
+
 type ModifyMenuItem = {
   icon: React.ReactElement;
   name: string;
   onClick: () => void;
 };
 
-export const ModifyTaskNodeMenu: VFC = () => {
+type ModifyTaskNodeMenuProps = {
+  taskId: string;
+};
+
+export const ModifyTaskNodeMenu: VFC<ModifyTaskNodeMenuProps> = ({ taskId: taskId }) => {
+  const deleteTaskMutation = useDeleteTask();
+
   const modifyMenu: ModifyMenuItem[] = [
     {
       icon: <TrashIcon className="mr-2 w-4 h-4" />,
       name: 'Delete',
-      onClick: () => console.log('clicked delete'),
+      onClick: async () => await deleteTaskMutation.mutateAsync({ taskId }),
     },
     {
       icon: <PlusCircleIcon className="mr-2 w-4 h-4" />,

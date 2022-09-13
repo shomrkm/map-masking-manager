@@ -35,7 +35,7 @@ export const TaskNodeCard = ({ data }: TaskData) => {
           <PencilAltIcon className="p-1 mr-2 w-6 h-6 text-gray-800 bg-gray-300 rounded-full" />
           <Link to={`../../tasks/${_id}`} className="pr-2 text-sm text-blue-700">{`#${id}`}</Link>
           <p className="flex-1 text-sm text-gray-700">{title}</p>
-          <ModifyTaskNodeMenu />
+          <ModifyTaskNodeMenu taskId={_id} />
         </div>
         <div className="border-b border-gray-400 border-solid" />
         <div className="flex justify-center items-center p-3 space-x-2">
