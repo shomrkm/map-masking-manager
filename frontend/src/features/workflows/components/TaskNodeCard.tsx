@@ -1,6 +1,6 @@
 import { PencilAltIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { Node, Handle, Position } from 'react-flow-renderer';
 import { Link } from 'react-router-dom';
 
@@ -19,12 +19,20 @@ export type TaskData = {
 
 export type TaskNode = Node<TaskData>;
 
+const handleStyle: CSSProperties = {
+  width: 40,
+  height: 10,
+  borderRadius: 5,
+  backgroundColor: 'gray',
+  opacity: '50%',
+};
+
 export const TaskNodeCard = ({ data }: TaskData) => {
   const { _id, id, title, status, level } = data.task;
 
   return (
     <>
-      <Handle type="target" position={Position.Top} />
+      <Handle type="target" position={Position.Top} style={handleStyle} />
       <div
         className={clsx(
           status === 'mapping' && 'bg-blue-100',
@@ -52,7 +60,7 @@ export const TaskNodeCard = ({ data }: TaskData) => {
           <RadialProgress progress={40} size="sm" />
         </div>
       </div>
-      <Handle type="source" position={Position.Bottom} />
+      <Handle type="source" position={Position.Bottom} style={handleStyle} />
     </>
   );
 };
