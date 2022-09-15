@@ -20,10 +20,13 @@ const schema = z.object({
 });
 
 type CreateTaskButtonProps = {
-  workflowId: string;
+  buttonTitle: string;
+  fixedValues?: {
+    workflow?: string;
+  };
 };
 
-export const CreateTaskByWorkflowId = ({ workflowId }: CreateTaskButtonProps) => {
+export const CreateTask = ({ buttonTitle, fixedValues }: CreateTaskButtonProps) => {
   const createTaskMutation = useCreateTask();
 
   return (
@@ -32,7 +35,7 @@ export const CreateTaskByWorkflowId = ({ workflowId }: CreateTaskButtonProps) =>
         isDone={createTaskMutation.isSuccess}
         triggerButton={
           <Button size="xs" startIcon={<PlusIcon className="w-4 h-4" />}>
-            Create Task
+            {buttonTitle}
           </Button>
         }
         title="Create Task"
@@ -50,7 +53,7 @@ export const CreateTaskByWorkflowId = ({ workflowId }: CreateTaskButtonProps) =>
         <Form<CreateTaskDTO['data'], typeof schema>
           id="create-task"
           onSubmit={async (values) => {
-            const data = { ...values, workflow: workflowId };
+            const data = { ...values, ...fixedValues };
             console.log('submit', data);
             await createTaskMutation.mutateAsync({ data });
           }}
