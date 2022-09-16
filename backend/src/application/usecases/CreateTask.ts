@@ -37,6 +37,9 @@ export class CreateTask {
       next,
       assignedUsers,
     });
+
+    // TODO: Remove prevId/NextId from prev/next Tasks
+
     // TODO: Check authorization.
     return await this.taskRepository.save(task);
   }

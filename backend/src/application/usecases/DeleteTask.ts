@@ -13,6 +13,9 @@ export class DeleteTask {
     if (!(await this.taskRepository.find(taskId))) {
       throw new ErrorResponse(`Task was not found with id of ${taskId}`, 404);
     }
+
+    // TODO: Remove prev/next id from related tasks.
+
     return await this.taskRepository.delete(taskId);
   }
 }
