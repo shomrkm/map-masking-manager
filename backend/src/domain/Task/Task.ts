@@ -18,6 +18,7 @@ type Params = {
   title: string;
   description: string;
   workflow: string;
+  status: string;
   priority: string;
   target: string[];
   level: string;
@@ -54,6 +55,7 @@ export class Task {
     title,
     description,
     workflow,
+    status,
     priority,
     target,
     level,
@@ -81,7 +83,7 @@ export class Task {
     this._previous = previous;
     this._next = next;
     this._assignedUsers = assignedUsers;
-    this._status = new Status('unassigned');
+    this._status = new Status(status);
     this._createdAt = createdAt ? moment(createdAt) : moment(new Date());
   }
 

@@ -1,9 +1,6 @@
 import { Polygon } from 'geojson';
 
-import { StatusType } from '@/domain/Task/entities/Status';
-import { TargetType } from '@/domain/Task/entities/Targets';
-import { LevelType } from '@/domain/Task/entities/Level';
-import { PriorityType } from '@/domain/Task/entities/Priority';
+import { StatusType, TargetTypes, LevelType, PriorityType } from '@/domain/Task';
 
 export type TaskDTO = {
   _id: string;
@@ -14,7 +11,7 @@ export type TaskDTO = {
   area?: Polygon;
   status: StatusType;
   workflow: string;
-  target: TargetType[];
+  target: TargetTypes;
   previous?: string[];
   next?: string[];
   level: LevelType;
