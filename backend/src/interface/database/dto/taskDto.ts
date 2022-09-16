@@ -1,5 +1,10 @@
 import { Polygon } from 'geojson';
 
+import { StatusType } from '@/domain/Task/entities/Status';
+import { TargetType } from '@/domain/Task/entities/Targets';
+import { LevelType } from '@/domain/Task/entities/Level';
+import { PriorityType } from '@/domain/Task/entities/Priority';
+
 export type TaskDTO = {
   _id: string;
   id: number;
@@ -7,13 +12,13 @@ export type TaskDTO = {
   description: string;
   detail?: string;
   area?: Polygon;
-  status: 'unassigned' | 'mapping' | 'validating' | 'finished';
+  status: StatusType;
   workflow: string;
-  target: ('road' | 'map' | 'poi')[];
+  target: TargetType[];
   previous?: string[];
   next?: string[];
-  level: 'expert' | 'intermediate' | 'beginner';
-  priority: 'high' | 'normal' | 'low';
+  level: LevelType;
+  priority: PriorityType;
   createUser: string;
   assignedUsers?: string[];
   createdAt: Date;
