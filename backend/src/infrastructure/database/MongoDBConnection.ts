@@ -1,6 +1,7 @@
-import { Task as TaskModel } from './models';
+import { Task as TaskModel, Workflow as WorkflowModel } from './models';
 import { IDBConnection } from '@/interface/database/IDBConnection';
 import { TaskDTO, CreateTaskDTO, UpdateTaskDTO } from '@/interface/database/dto/taskDto';
+import { WorkflowDTO } from '@/interface/database/dto/workflowDto';
 import { ErrorResponse } from '@/interface/controller/errorResponse';
 
 export class MongoDBConnection implements IDBConnection {
@@ -54,5 +55,13 @@ export class MongoDBConnection implements IDBConnection {
       runValidators: true,
     });
     return task as any;
+  }
+
+  public async findAllWorkflows(): Promise<WorkflowDTO[]> {
+    const tasks: WorkflowDTO[] = await WorkflowModel.find().populate({
+      path: 'createUser',
+      select: 'name avatar',
+    });
+    return tasks;
   }
 }

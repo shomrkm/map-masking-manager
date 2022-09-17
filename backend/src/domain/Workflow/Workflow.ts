@@ -5,6 +5,7 @@ import { Title, Description, Status, StatusType } from './entities';
 type Params = {
   title: string;
   description: string;
+  status: string;
   createUser: string;
   id?: string | null;
   no?: number | null;
@@ -13,17 +14,27 @@ type Params = {
 
 export class Workflow {
   private _id: string | null;
+  private _no: number | null;
   private _title: Title;
   private _description: Description;
   private _status: Status;
   private _createUser: string;
   private _createdAt: moment.Moment;
 
-  constructor({ title, description, createUser, id = null, createdAt = null }: Params) {
+  constructor({
+    title,
+    description,
+    status,
+    createUser,
+    id = null,
+    no = null,
+    createdAt = null,
+  }: Params) {
     this._id = id;
+    this._no = no;
     this._title = new Title(title);
     this._description = new Description(description);
-    this._status = new Status('new');
+    this._status = new Status(status);
     this._createUser = createUser;
     this._createdAt = createdAt ? moment(createdAt) : moment(new Date());
   }
@@ -34,6 +45,14 @@ export class Workflow {
 
   set id(id: string | null) {
     if (id) this._id = id;
+  }
+
+  get no(): number | null {
+    return this._no;
+  }
+
+  set no(no: number | null) {
+    if (no) this._no = no;
   }
 
   get title(): string {
