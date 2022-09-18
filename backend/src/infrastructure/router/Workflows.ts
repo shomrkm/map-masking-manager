@@ -1,9 +1,9 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { asyncHandler } from '@/interface/controller/asyncHandler';
-import { deleteWorkflow } from '@/interface/controller/workflows';
 import { WorkflowController } from '@/interface/controller/WorkflowController';
 import { advancedResults } from '@/interface/controller/advancedResults';
-import { Workflow } from '@/infrastructure/database/models/Workflows';
+
+import { Workflow } from '../database/models/Workflows';
 import { MongoDBConnection } from '../database/MongoDBConnection';
 import { protect, authorize } from '../middleware/authorization';
 import { router as taskRouter } from './Tasks';
@@ -50,6 +50,20 @@ export const createWorkflow = asyncHandler(
       req.body.createUser = req.user.id;
       const workflow = await workflowController.createWorkflow(req);
       res.status(201).json(workflow);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+// @desc Delete workflow
+// @route DELETE /api/v1/workflows/:id
+// @access Private
+export const deleteWorkflow = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const workflow = await workflowController.deleteWorkflow(req);
+      res.status(200).json(workflow);
     } catch (err) {
       next(err);
     }

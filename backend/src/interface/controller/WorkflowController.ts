@@ -2,6 +2,7 @@ import { IWorkflowRepository } from '@/application/repositories/IWorkflowReposit
 import { SearchAllWorkflows } from '@/application/usecases/SearchAllWorkflows';
 import { SearchWorkflow } from '@/application/usecases/SearchWorkflow';
 import { CreateWorkflow } from '@/application/usecases/CreateWorkflow';
+import { DeleteWorkflow } from '@/application/usecases/DeleteWorkflow';
 import { UpdateWorkflow } from '@/application/usecases/UpdateWorkflow';
 
 import { IDBConnection } from '../database/IDBConnection';
@@ -47,6 +48,15 @@ export class WorkflowController {
     return {
       success: true,
       data: this.workflowSerializer.serializeWorkflow(newWorkflow),
+    };
+  }
+
+  public async deleteWorkflow(req: any) {
+    const useCase = new DeleteWorkflow(this.workflowRepository);
+    const workflow = await useCase.execute(req.params.id);
+    return {
+      success: true,
+      data: this.workflowSerializer.serializeWorkflow(workflow),
     };
   }
 

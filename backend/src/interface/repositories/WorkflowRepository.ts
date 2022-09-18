@@ -38,7 +38,7 @@ export class WorkflowRepository implements IWorkflowRepository {
       createdAt: workflowDto.createdAt,
     });
 
-    return workflow ;
+    return workflow;
   }
 
   public async save(workflow: Workflow): Promise<Workflow> {
@@ -66,5 +66,20 @@ export class WorkflowRepository implements IWorkflowRepository {
       no: updatedWorkflow.id,
       createdAt: updatedWorkflow.createdAt,
     });
+  }
+
+  public async delete(workflowId: string): Promise<Workflow> {
+    const workflowDto = await this.dbConnection.deleteWorkflow(workflowId);
+    const workflow = new Workflow({
+      title: workflowDto.title,
+      description: workflowDto.description,
+      status: workflowDto.status,
+      createUser: workflowDto.createUser,
+      id: workflowDto._id,
+      no: workflowDto.id,
+      createdAt: workflowDto.createdAt,
+    });
+
+    return workflow;
   }
 }

@@ -88,6 +88,15 @@ export class MongoDBConnection implements IDBConnection {
     return newWorkflow as any;
   }
 
+  public async deleteWorkflow(workflowId: string): Promise<WorkflowDTO> {
+    const workflow = await WorkflowModel.findById(workflowId);
+    if (!workflow) {
+      throw new ErrorResponse(`Workflow was not found with id of ${workflowId}`, 404);
+    }
+    workflow.remove();
+    return workflow as any;
+  }
+
   public async updateWorkflow(workflowId: string, values: UpdateWorkflowDTO): Promise<WorkflowDTO> {
     if (!(await WorkflowModel.findById(workflowId))) {
       throw new ErrorResponse(`Workflow was not found with id of ${workflowId}`, 404);
