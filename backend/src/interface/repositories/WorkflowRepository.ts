@@ -25,4 +25,46 @@ export class WorkflowRepository implements IWorkflowRepository {
 
     return workflows;
   }
+
+  public async find(id: string): Promise<Workflow> {
+    const workflowDto = await this.dbConnection.findWorkflowById(id);
+    const workflow = new Workflow({
+      title: workflowDto.title,
+      description: workflowDto.description,
+      status: workflowDto.status,
+      createUser: workflowDto.createUser,
+      id: workflowDto._id,
+      no: workflowDto.id,
+      createdAt: workflowDto.createdAt,
+    });
+
+    return workflow ;
+  }
+
+  public async save(workflow: Workflow): Promise<Workflow> {
+    const workflowDto = {
+      title: workflow.title,
+      description: workflow.description,
+      status: workflow.status,
+      createUser: workflow.createUser,
+      createdAt: workflow.createdAt.toDate(),
+    };
+    if (!workflow.id) {
+      const { _id, id } = await this.dbConnection.createWorkflow(workflowDto);
+      workflow.id = _id;
+      workflow.no = id;
+      return workflow;
+    }
+
+    const updatedWorkflow = await this.dbConnection.updateWorkflow(workflow.id, workflowDto);
+    return new Workflow({
+      title: updatedWorkflow.title,
+      description: updatedWorkflow.description,
+      status: updatedWorkflow.status,
+      createUser: updatedWorkflow.createUser,
+      id: updatedWorkflow._id,
+      no: updatedWorkflow.id,
+      createdAt: updatedWorkflow.createdAt,
+    });
+  }
 }

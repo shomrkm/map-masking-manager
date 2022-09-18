@@ -1,5 +1,5 @@
 import { TaskDTO, CreateTaskDTO, UpdateTaskDTO } from './dto/taskDto';
-import { WorkflowDTO } from './dto/workflowDto';
+import { WorkflowDTO, CreateWorkflowDTO, UpdateWorkflowDTO } from './dto/workflowDto';
 
 export interface IDBConnection {
   // Queries for Task Models
@@ -12,4 +12,7 @@ export interface IDBConnection {
 
   // Queries for Workflow Models
   findAllWorkflows(): Promise<WorkflowDTO[]>;
+  findWorkflowById(workflowId: string): Promise<WorkflowDTO>;
+  createWorkflow(workflow: CreateWorkflowDTO): Promise<WorkflowDTO>;
+  updateWorkflow(workflowId: string, values: UpdateWorkflowDTO): Promise<WorkflowDTO>;
 }
