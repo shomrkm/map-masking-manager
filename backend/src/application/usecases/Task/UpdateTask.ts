@@ -1,7 +1,7 @@
 import { Task } from '@/domain/Task';
 import { ErrorResponse } from '@/interface/controller/errorResponse';
 
-import { ITaskRepository } from '../repositories/ITaskRepository';
+import { ITaskRepository } from '../../repositories/ITaskRepository';
 
 export class UpdateTask {
   private taskRepository: ITaskRepository;

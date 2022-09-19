@@ -1,10 +1,12 @@
 import { ITaskRepository } from '@/application/repositories/ITaskRepository';
-import { CreateTask } from '@/application/usecases/CreateTask';
-import { DeleteTask } from '@/application/usecases/DeleteTask';
-import { UpdateTask } from '@/application/usecases/UpdateTask';
-import { SearchAllTasks } from '@/application/usecases/SearchAllTasks';
-import { SearchTasksInWorkflow } from '@/application/usecases/SearchTasksInWorkflow';
-import { SearchTask } from '@/application/usecases/SearchTask';
+import {
+  CreateTask,
+  DeleteTask,
+  UpdateTask,
+  SearchAllTasks,
+  SearchTasksInWorkflow,
+  SearchTask,
+} from '@/application/usecases/Task';
 
 import { IDBConnection } from '../database/IDBConnection';
 import { TaskRepository } from '../repositories/TaskRepository';

@@ -1,6 +1,7 @@
 import { Task } from '@/domain/Task';
-import { ITaskRepository } from '../repositories/ITaskRepository';
 import { ErrorResponse } from '@/interface/controller/errorResponse';
+
+import { ITaskRepository } from '../../repositories/ITaskRepository';
 
 export class DeleteTask {
   private taskRepository: ITaskRepository;

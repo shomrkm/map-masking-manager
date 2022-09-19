@@ -1,6 +1,6 @@
-import { Polygon } from 'geojson';
 import { Task } from '@/domain/Task';
-import { ITaskRepository } from '../repositories/ITaskRepository';
+
+import { ITaskRepository } from '../../repositories/ITaskRepository';
 
 export class SearchTask {
   private taskRepository: ITaskRepository;
