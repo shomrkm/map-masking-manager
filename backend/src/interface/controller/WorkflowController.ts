@@ -1,9 +1,11 @@
 import { IWorkflowRepository } from '@/application/repositories/IWorkflowRepository';
-import { SearchAllWorkflows } from '@/application/usecases/SearchAllWorkflows';
-import { SearchWorkflow } from '@/application/usecases/SearchWorkflow';
-import { CreateWorkflow } from '@/application/usecases/CreateWorkflow';
-import { DeleteWorkflow } from '@/application/usecases/DeleteWorkflow';
-import { UpdateWorkflow } from '@/application/usecases/UpdateWorkflow';
+import {
+  SearchAllWorkflows,
+  SearchWorkflow,
+  CreateWorkflow,
+  DeleteWorkflow,
+  UpdateWorkflow,
+} from '@/application/usecases/Workflow';
 
 import { IDBConnection } from '../database/IDBConnection';
 import { WorkflowRepository } from '../repositories/WorkflowRepository';

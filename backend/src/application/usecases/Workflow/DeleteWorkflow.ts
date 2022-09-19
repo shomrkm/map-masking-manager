@@ -1,6 +1,7 @@
 import { Workflow } from '@/domain/Workflow';
-import { IWorkflowRepository } from '../repositories/IWorkflowRepository';
 import { ErrorResponse } from '@/interface/controller/errorResponse';
+
+import { IWorkflowRepository } from '../../repositories/IWorkflowRepository';
 
 export class DeleteWorkflow {
   private workflowRepository: IWorkflowRepository;
