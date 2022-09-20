@@ -36,7 +36,7 @@ export const TaskNodeCard = ({ data }: TaskData) => {
       <Handle type="target" position={Position.Top} style={handleStyle} />
       <div
         className={clsx(
-          status === 'mapping' && 'bg-blue-100',
+          status === 'inprogress' && 'bg-blue-100',
           'flex-col justify-center items-center bg-gray-100 rounded-md border border-gray-400 border-solid shadow-sm'
         )}
       >

@@ -1,4 +1,4 @@
-export const statusTypes = ['unassigned', 'mapping', 'validating', 'finished'] as const;
+export const statusTypes = ['todo', 'inprogress', 'inReview', 'completed'] as const;
 export type Status = typeof statusTypes[number];
 export const targetTypes = ['road', 'map', 'poi'] as const;
 export type Target = typeof targetTypes[number];

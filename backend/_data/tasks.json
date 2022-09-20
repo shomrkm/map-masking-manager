@@ -16,7 +16,7 @@
         ]
       ]
     },
-    "status": "unassigned",
+    "status": "todo",
     "target": ["road"],
     "workflow": "99993995b721c3bb38c1f5d0",
     "level": "intermediate",
@@ -43,7 +43,7 @@
         ]
       ]
     },
-    "status": "unassigned",
+    "status": "todo",
     "target": ["map"],
     "workflow": "99993995b721c3bb38c1f5d0",
     "level": "intermediate",
@@ -70,7 +70,7 @@
         ]
       ]
     },
-    "status": "mapping",
+    "status": "inprogress",
     "target": ["poi"],
     "workflow": "99993995b721c3bb38c1f5d0",
     "level": "expert",

@@ -1,7 +1,7 @@
 import { ErrorResponse } from '@/interface/controller/errorResponse';
 import { ValueObject } from '../../base/ValueObject';
 
-export const statusTypes = ['new', 'inProgress', 'completed', 'closed'] as const;
+export const statusTypes = ['todo', 'inprogress', 'completed', 'closed'] as const;
 export type StatusType = typeof statusTypes[number];
 
 function isStatus(status: string): status is StatusType {

@@ -13,21 +13,21 @@ export default meta;
 
 const Template: Story<TaskStatusBadgeProps> = (props) => <TaskStatusBadge {...props} />;
 
-export const Unassigned = Template.bind({});
-Unassigned.args = {
-  status: 'unassigned',
+export const Todo = Template.bind({});
+Todo.args = {
+  status: 'todo',
 };
 
-export const Mapping = Template.bind({});
-Mapping.args = {
-  status: 'mapping',
+export const InProgress = Template.bind({});
+InProgress.args = {
+  status: 'inprogress',
 };
 
-export const Validating = Template.bind({});
-Validating.args = {
-  status: 'validating',
+export const InReview = Template.bind({});
+InReview.args = {
+  status: 'inReview',
 };
-export const Finished = Template.bind({});
-Finished.args = {
-  status: 'finished',
+export const Completed = Template.bind({});
+Completed.args = {
+  status: 'completed',
 };

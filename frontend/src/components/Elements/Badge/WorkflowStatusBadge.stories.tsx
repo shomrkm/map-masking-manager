@@ -13,14 +13,14 @@ export default meta;
 
 const Template: Story<WorkflowStatusBadgeProps> = (props) => <WorkflowStatusBadge {...props} />;
 
-export const New = Template.bind({});
-New.args = {
-  status: 'new',
+export const ToDo = Template.bind({});
+ToDo.args = {
+  status: 'todo',
 };
 
 export const inProgress = Template.bind({});
 inProgress.args = {
-  status: 'inProgress',
+  status: 'inprogress',
 };
 
 export const Completed = Template.bind({});
