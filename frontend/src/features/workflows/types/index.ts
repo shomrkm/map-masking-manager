@@ -1,4 +1,4 @@
-export const statusTypes = ['new', 'inprogress', 'completed', 'closed'] as const;
+export const statusTypes = ['todo', 'inprogress', 'completed', 'closed'] as const;
 export type Status = typeof statusTypes[number];
 
 export type Workflow = {
