@@ -65,11 +65,11 @@ export class MongoDBConnection implements IDBConnection {
   }
 
   public async findAllWorkflows(): Promise<WorkflowDTO[]> {
-    const tasks: WorkflowDTO[] = await WorkflowModel.find().populate({
+    const workflows: WorkflowDTO[] = await WorkflowModel.find().populate({
       path: 'createUser',
       select: 'name avatar',
     });
-    return tasks;
+    return workflows;
   }
 
   public async findWorkflowById(workflowId: string): Promise<WorkflowDTO> {
@@ -109,6 +109,14 @@ export class MongoDBConnection implements IDBConnection {
       runValidators: true,
     });
     return workflow as any;
+  }
+
+  public async findAllComments(): Promise<CommentDTO[]> {
+    const comments: CommentDTO[] = await CommentModel.find().populate({
+      path: 'user',
+      select: 'name avatar',
+    });
+    return comments;
   }
 
   public async findCommentsByTaskId(taskId: string): Promise<CommentDTO[]> {

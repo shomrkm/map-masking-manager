@@ -7,5 +7,6 @@ export interface ITaskRepository {
   findByWorkflowId(workflowId: string): Promise<Task[]>;
   save(task: Task): Promise<Task>;
   delete(taskId: string): Promise<Task>;
+  findAllComments(): Promise<Comment[]>;
   findComments(taskId: string): Promise<Comment[]>;
 }

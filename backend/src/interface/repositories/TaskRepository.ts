@@ -156,6 +156,21 @@ export class TaskRepository implements ITaskRepository {
     return task;
   }
 
+  public async findAllComments(): Promise<Comment[]> {
+    const commentDtos = await this.dbConnection.findAllComments();
+    const comments = commentDtos.map(
+      (comment) =>
+        new Comment({
+          task: comment.task,
+          user: comment.user,
+          text: comment.text,
+          id: comment._id,
+          createdAt: comment.createdAt,
+        })
+    );
+    return comments;
+  }
+
   public async findComments(taskId: string): Promise<Comment[]> {
     const commentDtos = await this.dbConnection.findCommentsByTaskId(taskId);
     const comments = commentDtos.map(

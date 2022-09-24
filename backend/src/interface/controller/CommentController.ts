@@ -1,5 +1,6 @@
 import { ITaskRepository } from '@/application/repositories/ITaskRepository';
 import { SearchTaskComments } from '@/application/usecases/Task';
+import { SearchAllComments } from '@/application/usecases/Task/SearchAllComments';
 
 import { IDBConnection } from '../database/IDBConnection';
 import { TaskRepository } from '../repositories/TaskRepository';
@@ -15,10 +16,18 @@ export class CommentController {
   }
 
   public async getComments(req: any) {
-    // TODO: Return All comments if req.params.taskid is undefined.
+    if (req.params.taskid) {
+      const searchTaskComments = new SearchTaskComments(this.taskRepository);
+      const comments = await searchTaskComments.execute(req.params.taskid);
+      return {
+        success: true,
+        count: comments.length,
+        data: this.commentSerializer.serializeComments(comments),
+      };
+    }
 
-    const searchTaskComments = new SearchTaskComments(this.taskRepository);
-    const comments = await searchTaskComments.execute(req.params.taskid);
+    const searchAllComments = new SearchAllComments(this.taskRepository);
+    const comments = await searchAllComments.execute();
     return {
       success: true,
       count: comments.length,
