@@ -1,5 +1,8 @@
 import { Task } from '@/domain/Task';
+import { Comment } from '@/domain/Comment';
+
 import { ITaskRepository } from '@/application/repositories/ITaskRepository';
+
 import { IDBConnection } from '../database/IDBConnection';
 
 export class TaskRepository implements ITaskRepository {
@@ -151,5 +154,20 @@ export class TaskRepository implements ITaskRepository {
     });
 
     return task;
+  }
+
+  public async findComments(taskId: string): Promise<Comment[]> {
+    const commentDtos = await this.dbConnection.findCommentsByTaskId(taskId);
+    const comments = commentDtos.map(
+      (comment) =>
+        new Comment({
+          task: comment.task,
+          user: comment.user,
+          text: comment.text,
+          id: comment._id,
+          createdAt: comment.createdAt,
+        })
+    );
+    return comments;
   }
 }

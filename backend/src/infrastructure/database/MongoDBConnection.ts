@@ -1,11 +1,14 @@
-import { Task as TaskModel, Workflow as WorkflowModel } from './models';
+import { Task as TaskModel, Workflow as WorkflowModel, Comment as CommentModel } from './models';
 import { IDBConnection } from '@/interface/database/IDBConnection';
-import { TaskDTO, CreateTaskDTO, UpdateTaskDTO } from '@/interface/database/dto/taskDto';
 import {
+  TaskDTO,
+  CreateTaskDTO,
+  UpdateTaskDTO,
   WorkflowDTO,
   CreateWorkflowDTO,
   UpdateWorkflowDTO,
-} from '@/interface/database/dto/workflowDto';
+  CommentDTO,
+} from '@/interface/database/dto';
 import { ErrorResponse } from '@/interface/controller/errorResponse';
 
 export class MongoDBConnection implements IDBConnection {
@@ -106,5 +109,16 @@ export class MongoDBConnection implements IDBConnection {
       runValidators: true,
     });
     return workflow as any;
+  }
+
+  public async findCommentsByTaskId(taskId: string): Promise<CommentDTO[]> {
+    if (!(await TaskModel.findById(taskId))) {
+      throw new ErrorResponse(`Task was not found with id of ${taskId}`, 404);
+    }
+    const comments: CommentDTO[] = await CommentModel.find({ task: taskId }).populate({
+      path: 'user',
+      select: 'name avatar',
+    });
+    return comments;
   }
 }
