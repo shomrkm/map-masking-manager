@@ -1,6 +1,7 @@
 import { ITaskRepository } from '@/application/repositories/ITaskRepository';
 import { SearchTaskComments } from '@/application/usecases/Task';
 import { SearchAllComments } from '@/application/usecases/Task/SearchAllComments';
+import { SearchTaskComment } from '@/application/usecases/Task/SearchTaskComment';
 
 import { IDBConnection } from '../database/IDBConnection';
 import { TaskRepository } from '../repositories/TaskRepository';
@@ -32,6 +33,15 @@ export class CommentController {
       success: true,
       count: comments.length,
       data: this.commentSerializer.serializeComments(comments),
+    };
+  }
+
+  public async getComment(req: any) {
+    const searchComment = new SearchTaskComment(this.taskRepository);
+    const comment = await searchComment.execute(req.params.id);
+    return {
+      success: true,
+      data: this.commentSerializer.serializeComment(comment),
     };
   }
 }

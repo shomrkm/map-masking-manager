@@ -8,5 +8,6 @@ export interface ITaskRepository {
   save(task: Task): Promise<Task>;
   delete(taskId: string): Promise<Task>;
   findAllComments(): Promise<Comment[]>;
+  findCommentById(id: string): Promise<Comment>;
   findComments(taskId: string): Promise<Comment[]>;
 }

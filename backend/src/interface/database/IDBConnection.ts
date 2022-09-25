@@ -20,5 +20,6 @@ export interface IDBConnection {
 
   // Queries for Comment Models
   findAllComments(): Promise<CommentDTO[]>;
+  findCommentById(commentId: string): Promise<CommentDTO>;
   findCommentsByTaskId(taskId: string): Promise<CommentDTO[]>;
 }

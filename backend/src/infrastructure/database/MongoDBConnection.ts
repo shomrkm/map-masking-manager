@@ -119,6 +119,17 @@ export class MongoDBConnection implements IDBConnection {
     return comments;
   }
 
+  public async findCommentById(commentId: string): Promise<CommentDTO> {
+    const comment: CommentDTO | null = await CommentModel.findById(commentId).populate({
+      path: 'user',
+      select: 'name avatar',
+    });
+    if (!comment) {
+      throw new ErrorResponse(`Comment was not found with id of ${commentId}`, 404);
+    }
+    return comment;
+  }
+
   public async findCommentsByTaskId(taskId: string): Promise<CommentDTO[]> {
     if (!(await TaskModel.findById(taskId))) {
       throw new ErrorResponse(`Task was not found with id of ${taskId}`, 404);
