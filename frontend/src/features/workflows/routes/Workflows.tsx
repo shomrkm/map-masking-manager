@@ -1,4 +1,4 @@
-import { Spinner, Table, Link, WorkflowStatusBadge } from '@/components/Elements';
+import { Spinner, Table, Link, StatusBadge } from '@/components/Elements';
 import { ContentLayout } from '@/components/Layout';
 
 import { useWorkflows } from '../api/getWorkflows';
@@ -33,7 +33,7 @@ export const Workflows = () => {
               title: 'Status',
               field: 'status',
               Cell({ entry: { status } }) {
-                return <WorkflowStatusBadge status={status} size="sm" />;
+                return <StatusBadge status={status} size="sm" />;
               },
             },
             {

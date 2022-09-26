@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react';
 import { LevelBadge, LevelBadgeProps } from './LevelBadge';
 
 const meta: Meta = {
-  title: 'Components/Elements/Badge/LevelStatusBadge',
+  title: 'Components/Elements/Badge/LevelBadge',
   parameters: {
     controls: { expand: true },
   },

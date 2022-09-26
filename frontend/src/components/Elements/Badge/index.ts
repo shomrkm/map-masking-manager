@@ -1,4 +1,3 @@
-export * from './WorkflowStatusBadge';
-export * from './TaskStatusBadge';
+export * from './StatusBadge';
 export * from './LevelBadge';
 export * from './PriorityBadge';

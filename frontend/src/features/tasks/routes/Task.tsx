@@ -3,7 +3,7 @@ import { polygon } from '@turf/helpers';
 import { useParams } from 'react-router-dom';
 
 import { Avatar } from '@/components/Avatar';
-import { Spinner, TaskStatusBadge, LevelBadge, PriorityBadge } from '@/components/Elements';
+import { Spinner, StatusBadge, LevelBadge, PriorityBadge } from '@/components/Elements';
 import { ContentLayout } from '@/components/Layout';
 import { Map } from '@/components/Map';
 import { Comments } from '@/features/comments/';
@@ -36,7 +36,7 @@ export const Task = () => {
             <div className="grid grid-cols-3 gap-4 items-center p-4 mb-2 rounded-xl border border-gray-100 shadow-sm">
               <h3 className="col-span-1 text-base text-gray-700">Status</h3>
               <div className="col-span-2">
-                <TaskStatusBadge status={taskQuery.data.status} />
+                <StatusBadge status={taskQuery.data.status} />
               </div>
               <h3 className="col-span-1 text-base text-gray-700">Level</h3>
               <div className="col-span-2">

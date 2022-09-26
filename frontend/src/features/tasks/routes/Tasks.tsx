@@ -2,7 +2,7 @@ import {
   Spinner,
   Table,
   Link,
-  TaskStatusBadge,
+  StatusBadge,
   PriorityBadge,
   LevelBadge,
 } from '@/components/Elements';
@@ -40,7 +40,7 @@ export const Tasks = () => {
               title: 'Status',
               field: 'status',
               Cell({ entry: { status } }) {
-                return <TaskStatusBadge status={status} size="sm" />;
+                return <StatusBadge status={status} size="sm" />;
               },
             },
             {

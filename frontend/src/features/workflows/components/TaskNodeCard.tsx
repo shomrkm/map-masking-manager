@@ -4,7 +4,7 @@ import { CSSProperties } from 'react';
 import { Node, Handle, Position } from 'react-flow-renderer';
 import { Link } from 'react-router-dom';
 
-import { LevelBadge, TaskStatusBadge } from '@/components/Elements';
+import { LevelBadge, StatusBadge } from '@/components/Elements';
 import { Task } from '@/features/tasks/types';
 import { Authorization, ROLES } from '@/lib/authorization';
 
@@ -53,7 +53,7 @@ export const TaskNodeCard = ({ data }: TaskData) => {
           <div className="flex-col space-y-2 text-sm">
             <div className="flex items-center space-x-2">
               <p>Status:</p>
-              <TaskStatusBadge status={status} size="sm" />
+              <StatusBadge status={status} size="sm" />
             </div>
             <div className="flex items-center space-x-2">
               <p>Level :</p>
