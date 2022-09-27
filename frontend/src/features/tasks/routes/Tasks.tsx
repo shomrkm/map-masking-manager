@@ -35,6 +35,9 @@ export const Tasks = () => {
             {
               title: 'ID',
               field: 'id',
+              Cell({ entry: { _id, id } }) {
+                return <Link to={`./${_id}`}>{id}</Link>;
+              },
             },
             {
               title: 'Status',
@@ -62,10 +65,10 @@ export const Tasks = () => {
               },
             },
             {
-              title: '',
-              field: '_id',
-              Cell({ entry: { _id } }) {
-                return <Link to={`./${_id}`}>View</Link>;
+              title: 'Created by',
+              field: 'createUser',
+              Cell({ entry: { createUser } }) {
+                return <p>{createUser.name}</p>;
               },
             },
           ]}
