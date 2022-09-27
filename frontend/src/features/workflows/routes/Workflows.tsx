@@ -28,6 +28,9 @@ export const Workflows = () => {
             {
               title: 'ID',
               field: 'id',
+              Cell({ entry: { _id, id } }) {
+                return <Link to={`./${_id}`}>{id}</Link>;
+              },
             },
             {
               title: 'Status',
@@ -45,10 +48,10 @@ export const Workflows = () => {
               field: 'description',
             },
             {
-              title: '',
-              field: '_id',
-              Cell({ entry: { _id } }) {
-                return <Link to={`./${_id}`}>View</Link>;
+              title: 'Created by',
+              field: 'createUser',
+              Cell({ entry: { createUser } }) {
+                return <p>{createUser.name}</p>;
               },
             },
           ]}
