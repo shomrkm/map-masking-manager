@@ -38,7 +38,7 @@ export class TaskRepository implements ITaskRepository {
     return tasks;
   }
 
-  public async find(id: string): Promise<Task> {
+  public async findById(id: string): Promise<Task> {
     const taskDto = await this.dbConnection.findTaskById(id);
     const task = new Task({
       title: taskDto.title,

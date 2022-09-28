@@ -10,6 +10,6 @@ export class SearchTask {
   }
 
   public async execute(taskId: string): Promise<Task> {
-    return await this.taskRepository.find(taskId);
+    return await this.taskRepository.findById(taskId);
   }
 }

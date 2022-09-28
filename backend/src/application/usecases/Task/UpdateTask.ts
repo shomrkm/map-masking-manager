@@ -11,7 +11,7 @@ export class UpdateTask {
   }
 
   public async execute(taskId: string, values: Record<string, unknown>): Promise<Task> {
-    const task = await this.taskRepository.find(taskId);
+    const task = await this.taskRepository.findById(taskId);
     if (!task) {
       throw new ErrorResponse(`Task was not found with id of ${taskId}`, 404);
     }

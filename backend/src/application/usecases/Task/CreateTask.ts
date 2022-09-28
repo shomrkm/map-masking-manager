@@ -54,7 +54,7 @@ export class CreateTask {
     // Add task id to previous/next tasks.
     if (task.next.length) {
       next.forEach(async (next) => {
-        const nextTask = await this.taskRepository.find(next);
+        const nextTask = await this.taskRepository.findById(next);
         if (!nextTask) {
           throw new ErrorResponse(`Task was not found with id of ${next}`, 404);
         }
@@ -64,7 +64,7 @@ export class CreateTask {
     }
     if (task.previous.length) {
       previous.forEach(async (prev) => {
-        const prevTask = await this.taskRepository.find(prev);
+        const prevTask = await this.taskRepository.findById(prev);
         if (!prevTask) {
           throw new ErrorResponse(`Task was not found with id of ${prev}`, 404);
         }

@@ -11,7 +11,7 @@ export class DeleteTask {
   }
 
   public async execute(taskId: string): Promise<Task> {
-    if (!(await this.taskRepository.find(taskId))) {
+    if (!(await this.taskRepository.findById(taskId))) {
       throw new ErrorResponse(`Task was not found with id of ${taskId}`, 404);
     }
 
