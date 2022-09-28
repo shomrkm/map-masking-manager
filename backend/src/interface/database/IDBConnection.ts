@@ -1,12 +1,12 @@
-import { TaskDTO, CreateTaskDTO, UpdateTaskDTO } from './dto/taskDto';
+import { TaskDTO, CreateTaskDTO, UpdateTaskDTO, OptionalTaskDTO } from './dto/taskDto';
 import { WorkflowDTO, CreateWorkflowDTO, UpdateWorkflowDTO } from './dto/workflowDto';
 import { CommentDTO } from './dto/commentDto';
 
 export interface IDBConnection {
   // Queries for Task Models
   findAllTasks(): Promise<TaskDTO[]>;
-  findTasksByWorkflowId(workflowId: string): Promise<TaskDTO[]>;
   findTaskById(taskId: string): Promise<TaskDTO>;
+  findTasks(values: OptionalTaskDTO): Promise<TaskDTO[]>;
   createTask(task: CreateTaskDTO): Promise<TaskDTO>;
   deleteTask(taskId: string): Promise<TaskDTO>;
   updateTask(taskId: string, values: UpdateTaskDTO): Promise<TaskDTO>;

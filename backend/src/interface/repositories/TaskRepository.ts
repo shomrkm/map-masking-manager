@@ -63,7 +63,7 @@ export class TaskRepository implements ITaskRepository {
   }
 
   public async findByWorkflowId(workflowId: string): Promise<Task[]> {
-    const taskDtos = await this.dbConnection.findTasksByWorkflowId(workflowId);
+    const taskDtos = await this.dbConnection.findTasks({ workflow: workflowId });
     const tasks = taskDtos.map(
       (taskDto) =>
         new Task({

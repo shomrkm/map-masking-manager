@@ -23,3 +23,4 @@ export type TaskDTO = {
 
 export type CreateTaskDTO = Omit<TaskDTO, '_id' | 'id'>;
 export type UpdateTaskDTO = Partial<CreateTaskDTO>;
+export type OptionalTaskDTO = Partial<TaskDTO>;
