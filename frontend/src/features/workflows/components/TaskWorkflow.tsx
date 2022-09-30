@@ -50,14 +50,21 @@ export const TaskWorkflow: VFC<TaskWorkflowProps> = ({ nodes, edges, className =
     [setTaskNodes]
   );
   const onEdgesChange = useCallback(
-    (changes: EdgeChange[]) => setTaskEdges((eds) => applyEdgeChanges(changes, eds)),
+    (changes: EdgeChange[]) => {
+      // TODO: Delete prev/next when the change type is 'delete'.
+      console.log(changes);
+      setTaskEdges((eds) => applyEdgeChanges(changes, eds));
+    },
     [setTaskEdges]
   );
   const onConnect = useCallback(
-    (connection: Connection) =>
+    (connection: Connection) => {
+      // TODO: Update prev/next for each node.
+      console.log(connection);
       setTaskEdges((eds) =>
         addEdge({ ...connection, markerEnd: { type: MarkerType.ArrowClosed } }, eds)
-      ),
+      );
+    },
     [setTaskEdges]
   );
 
