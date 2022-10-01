@@ -1,4 +1,4 @@
-import moment, { Moment } from 'moment-timezone';
+import moment from 'moment-timezone';
 import { Polygon } from 'geojson';
 
 import {
