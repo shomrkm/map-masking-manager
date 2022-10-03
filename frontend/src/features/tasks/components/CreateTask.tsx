@@ -2,7 +2,7 @@ import { PlusIcon } from '@heroicons/react/outline';
 import * as z from 'zod';
 
 import { Button } from '@/components/Elements';
-import { Form, FormDrawer, InputField, SelectField, TextareaField } from '@/components/Form';
+import { Form, FormDrawerButton, InputField, SelectField, TextareaField } from '@/components/Form';
 import { MultiSelectField } from '@/components/Form/MultiSelectField';
 import { Authorization, ROLES } from '@/lib/authorization';
 
@@ -31,7 +31,7 @@ export const CreateTask = ({ buttonTitle, fixedValues }: CreateTaskButtonProps) 
 
   return (
     <Authorization allowedRoles={[ROLES.admin]}>
-      <FormDrawer
+      <FormDrawerButton
         isDone={createTaskMutation.isSuccess}
         triggerButton={
           <Button size="xs" startIcon={<PlusIcon className="w-4 h-4" />}>
@@ -113,7 +113,7 @@ export const CreateTask = ({ buttonTitle, fixedValues }: CreateTaskButtonProps) 
             </>
           )}
         </Form>
-      </FormDrawer>
+      </FormDrawerButton>
     </Authorization>
   );
 };
