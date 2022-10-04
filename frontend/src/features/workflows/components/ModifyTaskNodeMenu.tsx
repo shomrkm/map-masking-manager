@@ -15,6 +15,14 @@ type ModifyTaskNodeMenuProps = {
   taskId: string;
 };
 
+/*
+ TODO: Add Menu to create task before/after the task.
+ Need to have "Create Task Drawer" in parent component(TaskNodeCard).
+ because this menu is unmounted after click the menu.
+ Thus this ModifyTaskNodeMenu need to have callback props to switch drawerOpen state.
+ ```
+*/
+
 export const ModifyTaskNodeMenu: VFC<ModifyTaskNodeMenuProps> = ({ taskId: taskId }) => {
   const deleteTaskMutation = useDeleteTask();
 
