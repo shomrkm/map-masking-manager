@@ -33,7 +33,7 @@ const handleStyle: CSSProperties = {
   opacity: '50%',
 };
 
-export const TaskNodeCard = ({ data }: TaskData) => {
+export const TaskCustomNode = ({ data }: TaskData) => {
   const { _id, id, title, status, level } = data.task;
 
   return (

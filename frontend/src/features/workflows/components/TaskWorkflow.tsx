@@ -18,9 +18,9 @@ import ReactFlow, {
 import { ConnectionLine } from '../utils/connectionLine';
 import { getLayoutedElements } from '../utils/getLayoutedElement';
 
-import { TaskNodeCard, TaskNode } from './TaskNodeCard';
+import { TaskCustomNode, TaskNode } from './TaskCustomNode';
 
-const nodeTypes: NodeTypes = { task: TaskNodeCard };
+const nodeTypes: NodeTypes = { task: TaskCustomNode };
 
 const fitViewOptions: FitViewOptions = {
   padding: 0.2,
