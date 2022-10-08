@@ -87,6 +87,22 @@ export class Task {
     this._createdAt = createdAt ? moment(createdAt) : moment(new Date());
   }
 
+  addPreviousTask(id: string) {
+    this._previous.push(id);
+  }
+
+  addNextTask(id: string) {
+    this._next.push(id);
+  }
+
+  removePreviousTask(id: string) {
+    this._previous = this.previous.filter((prevId) => prevId !== id);
+  }
+
+  removeNextTask(id: string) {
+    this._next = this.next.filter((nextId) => nextId !== id);
+  }
+
   get id(): string | null {
     return this._id;
   }
