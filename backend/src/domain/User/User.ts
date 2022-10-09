@@ -10,8 +10,8 @@ type Params = {
   avatar: string;
   password: string;
   resetPasswordToken?: string;
-  resetPasswordExpire?: moment.Moment;
-  createdAt?: moment.Moment;
+  resetPasswordExpire?: Date;
+  createdAt?: Date | null;
 };
 
 export class User {
@@ -43,7 +43,7 @@ export class User {
     this._avatar = avatar;
     this._password = password;
     this._resetPasswordToken = resetPasswordToken ?? null;
-    this._resetPasswordExpire = resetPasswordExpire ?? null;
+    this._resetPasswordExpire = resetPasswordExpire ? moment(resetPasswordExpire) : null;
     this._createdAt = createdAt ? moment(createdAt) : moment(new Date());
   }
 }
