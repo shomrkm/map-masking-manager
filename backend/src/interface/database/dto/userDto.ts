@@ -9,7 +9,7 @@ export type UserDTO = {
   level: LevelType;
   avatar: string;
   password: string;
-  resetPasswordToken: string;
-  resetPasswordExpire: Date;
+  resetPasswordToken: string | null;
+  resetPasswordExpire: Date | null;
   createdAt: Date;
 };

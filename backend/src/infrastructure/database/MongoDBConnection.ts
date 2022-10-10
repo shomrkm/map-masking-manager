@@ -1,4 +1,10 @@
-import { Task as TaskModel, Workflow as WorkflowModel, Comment as CommentModel } from './models';
+import {
+  Task as TaskModel,
+  Workflow as WorkflowModel,
+  Comment as CommentModel,
+  User as UserModel,
+  UserDoc,
+} from './models';
 import { IDBConnection } from '@/interface/database/IDBConnection';
 import {
   TaskDTO,
@@ -11,6 +17,7 @@ import {
   CommentDTO,
 } from '@/interface/database/dto';
 import { ErrorResponse } from '@/interface/controller/errorResponse';
+import { UserDTO } from '@/interface/database/dto/userDto';
 
 export class MongoDBConnection implements IDBConnection {
   public async findAllTasks(): Promise<TaskDTO[]> {
@@ -140,5 +147,32 @@ export class MongoDBConnection implements IDBConnection {
       select: 'name avatar',
     });
     return comments;
+  }
+
+  // TODO : TBC
+  public async findUserById(userId: string): Promise<UserDTO> {
+    const userDoc: UserDoc | null = await UserModel.findById(userId);
+    if (!userDoc) {
+      throw new ErrorResponse(`User was not found with id of ${userId}`, 404);
+    }
+
+    console.log(userDoc);
+
+    const user: UserDTO = {
+      _id: userDoc._id.toString(),
+      name: userDoc.name,
+      email: userDoc.email,
+      role: userDoc.role,
+      level: userDoc.level,
+      avatar: userDoc.avatar,
+      password: userDoc.password,
+      resetPasswordToken: userDoc.resetPasswordToken ?? null,
+      resetPasswordExpire: userDoc.resetPasswordExpire
+        ? new Date(userDoc.resetPasswordExpire.toString())
+        : null,
+      createdAt: new Date(userDoc.createdAt.toString()),
+    };
+
+    return user;
   }
 }
