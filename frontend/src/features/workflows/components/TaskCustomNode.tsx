@@ -1,9 +1,4 @@
-import {
-  ArrowCircleDownIcon,
-  ArrowCircleUpIcon,
-  PencilAltIcon,
-  TrashIcon,
-} from '@heroicons/react/outline';
+import { PencilAltIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import { CSSProperties } from 'react';
 import { Node, Handle, Position } from 'react-flow-renderer';
@@ -69,13 +64,6 @@ export const TaskCustomNode = ({ data }: TaskData) => {
             <RadialProgress progress={40} size="sm" />
           </div>
           <div className="border-r border-gray-400 border-solid" />
-          <Authorization allowedRoles={[ROLES.admin]}>
-            <div className="flex-col justify-center items-center p-3 space-y-2">
-              <ArrowCircleUpIcon className="p-1 w-6 h-6 text-gray-200 bg-blue-500 rounded-md" />
-              <TrashIcon className="p-1 w-6 h-6 text-gray-200 bg-red-500 rounded-md" />
-              <ArrowCircleDownIcon className="p-1 w-6 h-6 text-gray-200 bg-blue-500 rounded-md" />
-            </div>
-          </Authorization>
         </div>
       </div>
       <Handle type="source" position={Position.Bottom} style={handleStyle} />
