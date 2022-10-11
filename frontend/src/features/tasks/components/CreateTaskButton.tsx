@@ -26,7 +26,7 @@ type CreateTaskButtonProps = {
   };
 };
 
-export const CreateTask = ({ buttonTitle, fixedValues }: CreateTaskButtonProps) => {
+export const CreateTaskButton = ({ buttonTitle, fixedValues }: CreateTaskButtonProps) => {
   const createTaskMutation = useCreateTask();
 
   return (
