@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Spinner } from '@/components/Elements';
 import { useTasksForWorkflow } from '@/features/tasks/api/getTasksForWorkFlow';
-import { CreateTask as CreateTaskButton } from '@/features/tasks/components/CreateTask';
+import { CreateTaskButton } from '@/features/tasks/components/CreateTaskButton';
 
 import { createTaskEdges, createTaskNodes } from '../utils/createTaskNodesEdges';
 

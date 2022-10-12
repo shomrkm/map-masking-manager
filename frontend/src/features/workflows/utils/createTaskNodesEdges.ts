@@ -17,6 +17,7 @@ export const createTaskEdges = (tasks: Task[]): Edge[] => {
     .map((task) => {
       return task.next.map((nextId) => ({
         id: `${task._id}-${nextId}`,
+        type: 'task',
         source: `${task._id}`,
         target: `${nextId}`,
         markerEnd: { type: MarkerType.ArrowClosed },

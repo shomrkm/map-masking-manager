@@ -10,6 +10,7 @@ import ReactFlow, {
   Connection,
   updateEdge,
   NodeTypes,
+  EdgeTypes,
   Controls,
   ControlButton,
   MarkerType,
@@ -18,9 +19,11 @@ import ReactFlow, {
 import { ConnectionLine } from '../utils/connectionLine';
 import { getLayoutedElements } from '../utils/getLayoutedElement';
 
+import { TaskCustomEdge } from './TaskCustomEdge';
 import { TaskCustomNode, TaskNode } from './TaskCustomNode';
 
 const nodeTypes: NodeTypes = { task: TaskCustomNode };
+const edgeTypes: EdgeTypes = { task: TaskCustomEdge };
 
 const fitViewOptions: FitViewOptions = {
   padding: 0.2,
@@ -97,6 +100,7 @@ export const TaskWorkflow: VFC<TaskWorkflowProps> = ({ nodes, edges, className =
         onConnect={onConnect}
         onEdgeUpdate={onEdgeUpdate}
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
         fitView
         fitViewOptions={fitViewOptions}
       >
