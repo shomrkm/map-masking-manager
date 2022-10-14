@@ -7,10 +7,10 @@ const TARGET_SIDE_OFFSET = { x: -10, y: -28 };
 
 type CustomTaskEdgeProps = {
   id: string;
-  sourceX: any;
-  sourceY: any;
-  targetX: any;
-  targetY: any;
+  sourceX: number;
+  sourceY: number;
+  targetX: number;
+  targetY: number;
   sourcePosition: Position;
   targetPosition: Position;
   style?: CSSProperties;
