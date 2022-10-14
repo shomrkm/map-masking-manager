@@ -66,7 +66,7 @@ export const TaskCustomEdge = ({
       >
         <body>
           <button
-            className="flex z-20 justify-center items-center w-5 h-5 text-xs leading-none bg-gray-200 rounded-full border border-solid opacity-50 hover:opacity-80 cursor-pointer"
+            className="flex justify-center items-center w-5 h-5 text-xs leading-none bg-gray-200 rounded-full border border-solid opacity-50 hover:opacity-80 cursor-pointer"
             onClick={(event) => onClickEdgeTopButton(event, id)}
           >
             +
@@ -83,7 +83,7 @@ export const TaskCustomEdge = ({
       >
         <body>
           <button
-            className="flex z-20 justify-center items-center w-5 h-5 text-xs leading-none bg-gray-200 rounded-full border border-solid opacity-50 hover:opacity-80 cursor-pointer"
+            className="flex justify-center items-center w-5 h-5 text-xs leading-none bg-gray-200 rounded-full border border-solid opacity-50 hover:opacity-80 cursor-pointer"
             onClick={(event) => onClickEdgeTopButton(event, id)}
           >
             +
