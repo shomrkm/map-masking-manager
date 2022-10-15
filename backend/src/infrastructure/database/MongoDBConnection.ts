@@ -149,14 +149,29 @@ export class MongoDBConnection implements IDBConnection {
     return comments;
   }
 
-  // TODO : TBC
+  public async findAllUsers(): Promise<UserDTO[]> {
+    const userDocs = await UserModel.find();
+    return userDocs.map((user) => ({
+      _id: user._id.toString(),
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      level: user.level,
+      avatar: user.avatar,
+      password: user.password,
+      resetPasswordToken: user.resetPasswordToken ?? null,
+      resetPasswordExpire: user.resetPasswordExpire
+        ? new Date(user.resetPasswordExpire.toString())
+        : null,
+      createdAt: new Date(user.createdAt.toString()),
+    }));
+  }
+
   public async findUserById(userId: string): Promise<UserDTO> {
     const userDoc: UserDoc | null = await UserModel.findById(userId);
     if (!userDoc) {
       throw new ErrorResponse(`User was not found with id of ${userId}`, 404);
     }
-
-    console.log(userDoc);
 
     const user: UserDTO = {
       _id: userDoc._id.toString(),

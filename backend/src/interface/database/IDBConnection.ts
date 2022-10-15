@@ -25,5 +25,6 @@ export interface IDBConnection {
   findCommentsByTaskId(taskId: string): Promise<CommentDTO[]>;
 
   // Queries for User Models
+  findAllUsers(): Promise<UserDTO[]>;
   findUserById(userId: string): Promise<UserDTO>;
 }
