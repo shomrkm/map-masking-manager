@@ -3,27 +3,6 @@ import { User } from '@/infrastructure/database/models';
 import { ErrorResponse } from './errorResponse';
 import { asyncHandler } from './asyncHandler';
 
-// @desc Get all users
-// @route GET /api/v1/users
-// @access Public
-export const getUsers = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    res.status(200).json(res.advancedResults);
-  }
-);
-
-// @desc      Get single user
-// @route     GET /api/v1/users/:id
-// @access    Private/Admin
-export const getUser = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-  const user = await User.findById(req.params.id);
-
-  res.status(200).json({
-    success: true,
-    data: user,
-  });
-});
-
 // @desc      Create user
 // @route     POST /api/v1/users
 // @access    Private/Admin
