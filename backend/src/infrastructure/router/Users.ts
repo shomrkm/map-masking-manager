@@ -1,13 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 
 import { asyncHandler } from '@/interface/controller/asyncHandler';
-import {
-  getUsers,
-  createUser,
-  updateUser,
-  deleteUser,
-  updateAvator,
-} from '@/interface/controller/users';
+import { createUser, updateUser, deleteUser, updateAvator } from '@/interface/controller/users';
 import { UserController } from '@/interface/controller/UserController';
 import { advancedResults } from '@/interface/controller/advancedResults';
 import { upload } from '@/interface/controller/uploadImage';
@@ -20,6 +14,18 @@ export const router = express.Router();
 
 const mongoDBConnection = new MongoDBConnection();
 const userController = new UserController(mongoDBConnection);
+
+// @desc      Get All users
+// @route     GET /api/v1/users
+// @access    Private/Admin
+export const getUsers = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const users = await userController.getUsers(req);
+    res.status(200).json(users);
+  } catch (err) {
+    next(err);
+  }
+});
 
 // @desc      Get single user
 // @route     GET /api/v1/users/:id

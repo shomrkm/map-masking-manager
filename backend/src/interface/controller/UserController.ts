@@ -1,9 +1,10 @@
 import { IUserRepository } from '@/application/repositories/IUserRepository';
-import { SearchUser } from '@/application/usecases/User';
+import { SearchAllUsers, SearchUser } from '@/application/usecases/User';
 
 import { IDBConnection } from '../database/IDBConnection';
 import { UserRepository } from '../repositories/UserRepository';
 import { UserSerializer } from '../serializers/UserSerializer';
+import { buildPaginationData } from './buildPaginationData';
 
 export class UserController {
   private userRepository: IUserRepository;
@@ -12,6 +13,18 @@ export class UserController {
   constructor(dbConnection: IDBConnection) {
     this.userRepository = new UserRepository(dbConnection);
     this.userSerializer = new UserSerializer();
+  }
+
+  public async getUsers(req: any) {
+    const searchAllUsers = new SearchAllUsers(this.userRepository);
+    const users = await searchAllUsers.execute();
+    const { count, pagination, data } = buildPaginationData(req, users);
+    return {
+      success: true,
+      count,
+      pagination,
+      data: this.userSerializer.serializeUsers(data),
+    };
   }
 
   public async getUser(req: any) {
