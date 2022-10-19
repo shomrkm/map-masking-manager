@@ -2,7 +2,6 @@ import { ITaskRepository } from '@/application/repositories/ITaskRepository';
 import { SearchTaskComments } from '@/application/usecases/Task';
 import { SearchAllComments } from '@/application/usecases/Task/SearchAllComments';
 import { SearchTaskComment } from '@/application/usecases/Task/SearchTaskComment';
-
 import { IDBConnection } from '../database/IDBConnection';
 import { TaskRepository } from '../repositories/TaskRepository';
 import { CommentSerializer } from '../serializers/CommentSerializer';

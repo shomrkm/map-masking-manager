@@ -1,8 +1,6 @@
 import { Task } from '@/domain/Task';
 import { Comment } from '@/domain/Comment';
-
 import { ITaskRepository } from '@/application/repositories/ITaskRepository';
-
 import { IDBConnection } from '../database/IDBConnection';
 
 export class TaskRepository implements ITaskRepository {

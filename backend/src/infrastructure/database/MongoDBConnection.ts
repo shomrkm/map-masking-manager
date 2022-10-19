@@ -1,10 +1,3 @@
-import {
-  Task as TaskModel,
-  Workflow as WorkflowModel,
-  Comment as CommentModel,
-  User as UserModel,
-  UserDoc,
-} from './models';
 import { IDBConnection } from '@/interface/database/IDBConnection';
 import {
   TaskDTO,
@@ -18,6 +11,14 @@ import {
 } from '@/interface/database/dto';
 import { ErrorResponse } from '@/interface/controller/errorResponse';
 import { UserDTO } from '@/interface/database/dto/userDto';
+
+import {
+  Task as TaskModel,
+  Workflow as WorkflowModel,
+  Comment as CommentModel,
+  User as UserModel,
+  UserDoc,
+} from './models';
 
 export class MongoDBConnection implements IDBConnection {
   public async findAllTasks(): Promise<TaskDTO[]> {

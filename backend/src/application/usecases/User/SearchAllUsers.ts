@@ -1,5 +1,4 @@
 import { User } from '@/domain/User';
-
 import { IUserRepository } from '../../repositories/IUserRepository';
 
 export class SearchAllUsers {

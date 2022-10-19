@@ -1,5 +1,4 @@
 import { Task } from '@/domain/Task';
-
 import { ITaskRepository } from '../../repositories/ITaskRepository';
 
 export class SearchTasksInWorkflow {

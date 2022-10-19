@@ -1,6 +1,5 @@
 import { Workflow } from '@/domain/Workflow';
 import { ErrorResponse } from '@/interface/controller/errorResponse';
-
 import { IWorkflowRepository } from '../../repositories/IWorkflowRepository';
 
 export class UpdateWorkflow {

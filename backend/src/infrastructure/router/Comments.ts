@@ -1,5 +1,4 @@
 import express, { Request, Response, NextFunction } from 'express';
-
 import { asyncHandler } from '@/interface/controller/asyncHandler';
 import { addComment } from '@/interface/controller/comments';
 import { CommentController } from '@/interface/controller/CommentController';

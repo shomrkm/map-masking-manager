@@ -1,8 +1,4 @@
-import { Task } from '@/domain/Task';
 import { Comment } from '@/domain/Comment';
-
-import { ErrorResponse } from '@/interface/controller/errorResponse';
-
 import { ITaskRepository } from '../../repositories/ITaskRepository';
 
 export class SearchAllComments {

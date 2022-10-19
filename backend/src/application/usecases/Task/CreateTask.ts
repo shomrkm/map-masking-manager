@@ -1,9 +1,7 @@
 import { Polygon } from 'geojson';
-
 import { Task } from '@/domain/Task';
-
-import { ITaskRepository } from '../../repositories/ITaskRepository';
 import { ErrorResponse } from '@/interface/controller/errorResponse';
+import { ITaskRepository } from '../../repositories/ITaskRepository';
 
 export class CreateTask {
   private taskRepository: ITaskRepository;

@@ -1,6 +1,5 @@
 import { IUserRepository } from '@/application/repositories/IUserRepository';
 import { SearchAllUsers, SearchUser } from '@/application/usecases/User';
-
 import { IDBConnection } from '../database/IDBConnection';
 import { UserRepository } from '../repositories/UserRepository';
 import { UserSerializer } from '../serializers/UserSerializer';

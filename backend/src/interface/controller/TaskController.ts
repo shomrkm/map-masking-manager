@@ -7,7 +7,6 @@ import {
   SearchTasksInWorkflow,
   SearchTask,
 } from '@/application/usecases/Task';
-
 import { IDBConnection } from '../database/IDBConnection';
 import { TaskRepository } from '../repositories/TaskRepository';
 import { TaskSerializer } from '../serializers/TaskSerializer';
