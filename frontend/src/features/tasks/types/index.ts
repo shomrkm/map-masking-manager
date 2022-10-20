@@ -18,6 +18,7 @@ export type Task = {
     coordinates: number[][][];
   };
   status: Status;
+  workflow: string;
   target: Target[];
   level: Level;
   previous: string[];
