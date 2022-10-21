@@ -54,6 +54,7 @@ export const CreateTaskDrawer = ({ isOpen, close, fixedValues }: CreateTaskDrawe
             const data = { ...values, ...fixedValues };
             console.log('submit', data);
             await createTaskMutation.mutateAsync({ data });
+            close();
           }}
           schema={schema}
         >

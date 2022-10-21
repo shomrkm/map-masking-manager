@@ -1,11 +1,13 @@
 import { PencilAltIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
-import { CSSProperties } from 'react';
+import { useState, CSSProperties } from 'react';
 import { Node, Handle, Position } from 'react-flow-renderer';
 import { Link } from 'react-router-dom';
 
 import { LevelBadge, StatusBadge } from '@/components/Elements';
+import { CreateTaskDrawer } from '@/features/tasks/components/CreateTaskDrawer';
 import { Task } from '@/features/tasks/types';
+import { useDisclosure } from '@/hooks/useDisclosure';
 import { Authorization, ROLES } from '@/lib/authorization';
 
 import { RadialProgress } from '../../../components/Elements/RadialProgress/RadialProgress';
@@ -29,11 +31,33 @@ const handleStyle: CSSProperties = {
 };
 
 export const TaskCustomNode = ({ data }: TaskData) => {
-  const { _id, id, title, status, level } = data.task;
+  const { _id, id, title, status, level, workflow } = data.task;
+
+  const [fixedValues, setFixedValues] = useState({});
+  const { open, close, isOpen } = useDisclosure();
+
+  const onClickTopButton = (evt: React.MouseEvent<HTMLButtonElement>) => {
+    evt.stopPropagation();
+    setFixedValues({ workflow, next: [_id] });
+    open();
+  };
+  const onClickBottomButton = (evt: React.MouseEvent<HTMLButtonElement>) => {
+    evt.stopPropagation();
+    setFixedValues({ workflow, previous: [_id] });
+    open();
+  };
 
   return (
     <>
       <Handle type="target" position={Position.Top} style={handleStyle} />
+      <div className="flex relative justify-center items-center">
+        <button
+          className="flex absolute -top-7 justify-center items-center w-5 h-5 text-xs leading-none bg-gray-200 rounded-full border border-solid opacity-30 hover:opacity-80 cursor-pointer"
+          onClick={(event: React.MouseEvent<HTMLButtonElement>) => onClickTopButton(event)}
+        >
+          +
+        </button>
+      </div>
       <div
         className={clsx(
           status === 'inprogress' && 'bg-blue-100',
@@ -63,10 +87,18 @@ export const TaskCustomNode = ({ data }: TaskData) => {
             </div>
             <RadialProgress progress={40} size="sm" />
           </div>
-          <div className="border-r border-gray-400 border-solid" />
         </div>
       </div>
+      <div className="flex relative justify-center items-center">
+        <button
+          className="flex absolute top-2 justify-center items-center w-5 h-5 text-xs leading-none bg-gray-200 rounded-full border border-solid opacity-30 hover:opacity-80 cursor-pointer"
+          onClick={(event: React.MouseEvent<HTMLButtonElement>) => onClickBottomButton(event)}
+        >
+          +
+        </button>
+      </div>
       <Handle type="source" position={Position.Bottom} style={handleStyle} />
+      <CreateTaskDrawer isOpen={isOpen} close={close} fixedValues={fixedValues} />
     </>
   );
 };
