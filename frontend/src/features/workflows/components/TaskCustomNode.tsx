@@ -1,4 +1,4 @@
-import { PencilAltIcon } from '@heroicons/react/outline';
+import { PencilAltIcon, PlusCircleIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import { useState, CSSProperties } from 'react';
 import { Node, Handle, Position } from 'react-flow-renderer';
@@ -52,10 +52,10 @@ export const TaskCustomNode = ({ data }: TaskData) => {
       <Handle type="target" position={Position.Top} style={handleStyle} />
       <div className="flex relative justify-center items-center">
         <button
-          className="flex absolute -top-7 justify-center items-center w-5 h-5 text-xs leading-none bg-gray-200 rounded-full border border-solid opacity-30 hover:opacity-80 cursor-pointer"
+          className="flex absolute -top-7 justify-center items-center"
           onClick={(event: React.MouseEvent<HTMLButtonElement>) => onClickTopButton(event)}
         >
-          +
+          <PlusCircleIcon className="w-5 h-5 text-gray-400 hover:text-blue-400 rounded-full opacity-20 hover:opacity-80 cursor-pointer" />
         </button>
       </div>
       <div
@@ -91,10 +91,10 @@ export const TaskCustomNode = ({ data }: TaskData) => {
       </div>
       <div className="flex relative justify-center items-center">
         <button
-          className="flex absolute top-2 justify-center items-center w-5 h-5 text-xs leading-none bg-gray-200 rounded-full border border-solid opacity-30 hover:opacity-80 cursor-pointer"
+          className="flex absolute top-2 justify-center items-center"
           onClick={(event: React.MouseEvent<HTMLButtonElement>) => onClickBottomButton(event)}
         >
-          +
+          <PlusCircleIcon className="w-5 h-5 text-gray-400 hover:text-blue-400 rounded-full opacity-20 hover:opacity-80 cursor-pointer" />
         </button>
       </div>
       <Handle type="source" position={Position.Bottom} style={handleStyle} />

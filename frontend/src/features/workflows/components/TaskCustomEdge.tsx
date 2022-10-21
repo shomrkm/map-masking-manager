@@ -1,3 +1,4 @@
+import { XCircleIcon } from '@heroicons/react/outline';
 import React, { CSSProperties } from 'react';
 import { Position, getBezierPath } from 'react-flow-renderer';
 
@@ -48,19 +49,17 @@ export const TaskCustomEdge = ({
       <foreignObject
         width={FOREIGN_OBJECT_SIZE}
         height={FOREIGN_OBJECT_SIZE}
-        x={(sourceX + targetX) / 2}
-        y={(sourceY + targetY) / 2}
+        x={(sourceX + targetX) / 2 - FOREIGN_OBJECT_SIZE / 2}
+        y={(sourceY + targetY) / 2 - FOREIGN_OBJECT_SIZE / 2}
         className="flex justify-center items-center w-10 h-10 bg-transparent"
         requiredExtensions="http://www.w3.org/1999/xhtml"
       >
-        <div className="flex justify-center items-center">
-          <button
-            className="flex justify-center items-center w-5 h-5 text-xs leading-none bg-gray-200 rounded-full border border-solid opacity-30 hover:opacity-80 cursor-pointer"
-            onClick={() => console.log('clicked!')}
-          >
-            ☓
-          </button>
-        </div>
+        <button
+          className="flex justify-center items-center"
+          onClick={() => console.log('clicked!')}
+        >
+          <XCircleIcon className="w-5 h-5 text-gray-400 hover:text-red-400 rounded-full opacity-20 hover:opacity-80 cursor-pointer" />
+        </button>
       </foreignObject>
     </>
   );
