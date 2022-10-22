@@ -6,12 +6,14 @@ import {
   Description,
   Status,
   StatusType,
+  targetTypes,
   Targets,
   TargetTypes,
   Level,
   LevelType,
   Priority,
   PriorityType,
+  TargetType,
 } from './entities';
 
 type Params = {
@@ -75,7 +77,7 @@ export class Task {
     this._description = new Description(description);
     this._detail = detail;
     this._workflow = workflow;
-    this._target = new Targets(target);
+    this._target = new Targets(target as TargetTypes, targetTypes);
     this._level = new Level(level);
     this._priority = new Priority(priority);
     this._createUser = createUser;
@@ -160,11 +162,11 @@ export class Task {
   }
 
   get target(): TargetTypes {
-    return this._target.get();
+    return this._target.value;
   }
 
   set target(target: string[]) {
-    this._target = new Targets(target);
+    this._target = new Targets(target, targetTypes);
   }
 
   get level(): LevelType {

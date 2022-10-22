@@ -1,12 +1,26 @@
-export abstract class ValueObject<T> {
-  protected constructor(protected readonly value: T) {}
+import { ErrorResponse } from '@/interface/controller/errorResponse';
+
+export type Primitives = String | string | number | Boolean | boolean | Date;
+
+export abstract class ValueObject<T extends Primitives> {
+  readonly value: T;
+
+  protected constructor(value: T) {
+    this.value = value;
+    this.ensureValueIsDefined(value);
+  }
+
+  private ensureValueIsDefined(value: T): void {
+    if (value === null || value === undefined) {
+      throw new ErrorResponse('Value must be defined', 400);
+    }
+  }
 
   get(): T {
     return this.value;
   }
 
-  equal(vo: ValueObject<T>): boolean {
-    if (this.constructor.name !== vo.constructor.name) return false;
-    return this.get() === vo.get();
+  equal(other: ValueObject<T>): boolean {
+    return other.constructor.name === this.constructor.name && other.value === this.value;
   }
 }
