@@ -1,5 +1,5 @@
 import { Menu, Transition } from '@headlessui/react';
-import { DotsHorizontalIcon, PlusCircleIcon, TrashIcon } from '@heroicons/react/outline';
+import { DotsHorizontalIcon, TrashIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import React, { VFC } from 'react';
 
@@ -15,27 +15,14 @@ type ModifyTaskNodeMenuProps = {
   taskId: string;
 };
 
-/*
- TODO: Add Menu to create task before/after the task.
- Need to have "Create Task Drawer" in parent component(TaskNodeCard).
- because this menu is unmounted after click the menu.
- Thus this ModifyTaskNodeMenu need to have callback props to switch drawerOpen state.
- ```
-*/
-
 export const ModifyTaskNodeMenu: VFC<ModifyTaskNodeMenuProps> = ({ taskId: taskId }) => {
   const deleteTaskMutation = useDeleteTask();
 
   const modifyMenu: ModifyMenuItem[] = [
     {
-      icon: <TrashIcon className="mr-2 w-4 h-4" />,
+      icon: <TrashIcon className="mr-2 w-4 h-4 text-red-500" />,
       name: 'Delete',
       onClick: async () => await deleteTaskMutation.mutateAsync({ taskId }),
-    },
-    {
-      icon: <PlusCircleIcon className="mr-2 w-4 h-4" />,
-      name: 'Add Task before this',
-      onClick: () => console.log('clicked add task'),
     },
   ];
 
