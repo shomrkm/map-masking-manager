@@ -1,7 +1,7 @@
 import { ErrorResponse } from '@/interface/controller/errorResponse';
-import { ValueObject } from '../../base/ValueObject';
+import { StringValueObject } from '../../base/StringValueObject';
 
-export class Description extends ValueObject<string> {
+export class Description extends StringValueObject {
   constructor(desc: string) {
     if (desc.length > 500) {
       throw new ErrorResponse('Description can not be more than 500 characters', 400);
