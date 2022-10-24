@@ -50,14 +50,16 @@ export const TaskCustomNode = ({ data }: TaskData) => {
   return (
     <>
       <Handle type="target" position={Position.Top} style={handleStyle} />
-      <div className="flex relative justify-center items-center">
-        <button
-          className="flex absolute -top-7 justify-center items-center"
-          onClick={(event: React.MouseEvent<HTMLButtonElement>) => onClickTopButton(event)}
-        >
-          <PlusCircleIcon className="w-5 h-5 text-gray-400 hover:text-blue-400 rounded-full opacity-20 hover:opacity-80 cursor-pointer" />
-        </button>
-      </div>
+      <Authorization allowedRoles={[ROLES.admin]}>
+        <div className="flex relative justify-center items-center">
+          <button
+            className="flex absolute -top-7 justify-center items-center"
+            onClick={(event: React.MouseEvent<HTMLButtonElement>) => onClickTopButton(event)}
+          >
+            <PlusCircleIcon className="w-5 h-5 text-gray-400 hover:text-blue-400 rounded-full opacity-20 hover:opacity-80 cursor-pointer" />
+          </button>
+        </div>
+      </Authorization>
       <div
         className={clsx(
           status === 'inprogress' && 'bg-blue-100',
@@ -89,14 +91,16 @@ export const TaskCustomNode = ({ data }: TaskData) => {
           </div>
         </div>
       </div>
-      <div className="flex relative justify-center items-center">
-        <button
-          className="flex absolute top-2 justify-center items-center"
-          onClick={(event: React.MouseEvent<HTMLButtonElement>) => onClickBottomButton(event)}
-        >
-          <PlusCircleIcon className="w-5 h-5 text-gray-400 hover:text-blue-400 rounded-full opacity-20 hover:opacity-80 cursor-pointer" />
-        </button>
-      </div>
+      <Authorization allowedRoles={[ROLES.admin]}>
+        <div className="flex relative justify-center items-center">
+          <button
+            className="flex absolute top-2 justify-center items-center"
+            onClick={(event: React.MouseEvent<HTMLButtonElement>) => onClickBottomButton(event)}
+          >
+            <PlusCircleIcon className="w-5 h-5 text-gray-400 hover:text-blue-400 rounded-full opacity-20 hover:opacity-80 cursor-pointer" />
+          </button>
+        </div>
+      </Authorization>
       <Handle type="source" position={Position.Bottom} style={handleStyle} />
       <CreateTaskDrawer isOpen={isOpen} close={close} fixedValues={fixedValues} />
     </>
