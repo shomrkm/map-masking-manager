@@ -46,7 +46,7 @@ export const CreateTaskDrawer = ({ isOpen, close, fixedValues }: CreateTaskDrawe
             Submit
           </Button>
         }
-        title="Create Task"
+        title="Create New Task"
       >
         <Form<CreateTaskDTO['data'], typeof schema>
           id="create-task"
