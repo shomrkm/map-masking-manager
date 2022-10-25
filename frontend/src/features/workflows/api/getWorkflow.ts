@@ -5,7 +5,7 @@ import { ExtractFnReturnType, QueryConfig } from '@/lib/react-query';
 
 import { Workflow } from '../types';
 
-export const getWorkflow = async (id: string): Promise<Workflow[]> => {
+export const getWorkflow = async (id: string): Promise<Workflow> => {
   const res = await axios.get(`/workflows/${id}/`);
   return res.data;
 };
