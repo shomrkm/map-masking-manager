@@ -24,10 +24,13 @@ export const Workflow = () => {
   }
 
   return (
-    <ContentLayout title="Workflow">
+    <ContentLayout title={`#${workflowQuery.data.id} ${workflowQuery.data.title}`}>
       <div className="flex-col m-4">
         <div className="flex m-4">
-          <div className="flex-1">{`workflow id: ${workflowId}`}</div>
+          <div className="flex-1 space-y-4">
+            <h2 className="text-xl font-bold text-gray-700 prose">Description</h2>
+            <p className="text-base">{workflowQuery.data.description}</p>
+          </div>
           <div className="hidden lg:flex">
             <div className="flex justify-center items-center w-[700px] h-[750px] rounded-md border border-gray-300 border-solid shadow-sm">
               <TaskWorkflowPanel workflowId={workflowId as string} />
