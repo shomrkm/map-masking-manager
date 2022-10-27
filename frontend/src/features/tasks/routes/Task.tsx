@@ -11,6 +11,13 @@ import { Comments } from '@/features/comments/';
 import { useTask } from '../api/getTask';
 import { MapTargets } from '../components/MapTargets';
 
+const centerPoint = (coordinates: number[][][]): number[] => {
+  if (!coordinates) return [];
+  const poly = polygon(coordinates);
+  if (!poly) return [];
+  return centroid(poly).geometry.coordinates;
+};
+
 export const Task = () => {
   const { taskId } = useParams();
 
@@ -68,7 +75,7 @@ export const Task = () => {
           </div>
           <Map
             zoom={14}
-            center={centroid(polygon(taskQuery.data.area.coordinates)).geometry.coordinates}
+            center={centerPoint(taskQuery.data.area.coordinates)}
             data={taskQuery.data.area.coordinates}
             className="hidden lg:flex justify-center w-[40rem] h-[40rem] align-middle"
           />
