@@ -26,7 +26,7 @@ export const CommentsList = ({ taskId }: CommentsListProps) => {
       <div
         role="list"
         aria-label="comments"
-        className="flex flex-col justify-center items-center h-40 text-gray-500 bg-white"
+        className="flex flex-col justify-center items-center mx-4 h-40 text-gray-500 bg-white rounded-xl"
       >
         <ArchiveIcon className="w-10 h-10" />
         <h4>No Comments Found</h4>
@@ -36,7 +36,7 @@ export const CommentsList = ({ taskId }: CommentsListProps) => {
   return (
     <ul aria-label="comments" className="flex flex-col space-y-3">
       {commentsQuery.data.map((comment, index) => (
-        <div key={comment._id || index} className="mx-2">
+        <div key={comment._id || index} className="mx-4">
           <li
             aria-label={`comment-${comment.text}-${index}`}
             className="p-4 w-full bg-white rounded-xl shadow-sm"
