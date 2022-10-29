@@ -1,5 +1,5 @@
 import { ErrorResponse } from '@/interface/controller/errorResponse';
-import { ValueObject } from '../../base/ValueObject';
+import { ValueObject } from '../../ValueoObject/ValueObject';
 
 export const priorityTypes = ['high', 'normal', 'low'] as const;
 export type PriorityType = typeof priorityTypes[number];

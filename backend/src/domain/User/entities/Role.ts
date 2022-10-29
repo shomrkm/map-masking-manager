@@ -1,5 +1,5 @@
 import { ErrorResponse } from '@/interface/controller/errorResponse';
-import { ValueObject } from '../../base/ValueObject';
+import { ValueObject } from '../../ValueoObject/ValueObject';
 
 export const roleTypes = ['admin', 'publisher', 'mapper'] as const;
 export type RoleType = typeof roleTypes[number];

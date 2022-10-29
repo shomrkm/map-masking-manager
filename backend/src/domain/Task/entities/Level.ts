@@ -1,5 +1,5 @@
 import { ErrorResponse } from '@/interface/controller/errorResponse';
-import { ValueObject } from '../../base/ValueObject';
+import { ValueObject } from '../../ValueoObject/ValueObject';
 
 export const levelTypes = ['expert', 'intermediate', 'beginner'] as const;
 export type LevelType = typeof levelTypes[number];

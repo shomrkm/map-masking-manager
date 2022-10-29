@@ -1,5 +1,5 @@
 import { ErrorResponse } from '@/interface/controller/errorResponse';
-import { StringValueObject } from '../../base/StringValueObject';
+import { StringValueObject } from '../../ValueoObject/StringValueObject';
 
 export class Title extends StringValueObject {
   constructor(title: string) {

@@ -1,4 +1,4 @@
-import { StringValueObject } from '../../base/StringValueObject';
+import { StringValueObject } from '../../ValueoObject/StringValueObject';
 import { ErrorResponse } from '@/interface/controller/errorResponse';
 
 export class Description extends StringValueObject {
