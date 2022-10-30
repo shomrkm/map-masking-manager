@@ -35,6 +35,9 @@ type Params = {
   createdAt?: Date | null;
 };
 
+/**
+ * Task Aggregate root class
+ */
 export class Task {
   private _id: string | null;
   private _no: number | null;
