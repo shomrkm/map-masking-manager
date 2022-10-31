@@ -12,6 +12,9 @@ type Params = {
   createdAt?: Date | null;
 };
 
+/**
+ * Workflow Aggregate root class
+ */
 export class Workflow {
   private _id: string | null;
   private _no: number | null;
