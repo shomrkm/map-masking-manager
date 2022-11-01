@@ -10,6 +10,9 @@ type Params = {
   createdAt?: Date | null;
 };
 
+/**
+ * Comment Aggregate root class
+ */
 export class Comment {
   private _id: string | null;
   private _task: string;
