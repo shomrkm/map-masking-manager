@@ -13,7 +13,6 @@ import {
   LevelType,
   Priority,
   PriorityType,
-  TargetType,
 } from './entities';
 
 type Params = {
@@ -92,12 +91,16 @@ export class Task {
     this._createdAt = createdAt ? moment(createdAt) : moment(new Date());
   }
 
+  isPersisted() {
+    return this._id && this.id;
+  }
+
   addPreviousTask(id: string) {
-    this._previous.push(id);
+    this._previous = [...this._previous, id];
   }
 
   addNextTask(id: string) {
-    this._next.push(id);
+    this._next = [...this._next, id];
   }
 
   removePreviousTask(id: string) {
