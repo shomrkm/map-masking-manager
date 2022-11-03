@@ -12,10 +12,10 @@ export const addComment = asyncHandler(async (req: Request, res: Response, next:
   req.body.task = req.params.taskid;
   req.body.user = req.user.id;
 
-  const task = await Task.findById(req.params.id);
+  const task = await Task.findById(req.params.taskid);
 
   if (!task) {
-    return next(new ErrorResponse(`No task with the id of ${req.params.id}`, 404));
+    return next(new ErrorResponse(`No task with the id of ${req.params.taskid}`, 404));
   }
 
   const comment = await Comment.create(req.body);
