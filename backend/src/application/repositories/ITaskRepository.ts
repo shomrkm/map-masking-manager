@@ -10,4 +10,5 @@ export interface ITaskRepository {
   findAllComments(): Promise<Comment[]>;
   findCommentById(id: string): Promise<Comment>;
   findComments(taskId: string): Promise<Comment[]>;
+  addComment(taskId: string, comment: Comment): Promise<Comment>;
 }

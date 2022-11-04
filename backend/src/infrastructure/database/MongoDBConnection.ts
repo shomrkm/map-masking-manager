@@ -8,6 +8,7 @@ import {
   CreateWorkflowDTO,
   UpdateWorkflowDTO,
   CommentDTO,
+  CreateCommentDTO,
 } from '@/interface/database/dto';
 import { ErrorResponse } from '@/interface/controller/errorResponse';
 import { UserDTO } from '@/interface/database/dto/userDto';
@@ -137,6 +138,14 @@ export class MongoDBConnection implements IDBConnection {
       throw new ErrorResponse(`Comment was not found with id of ${commentId}`, 404);
     }
     return comment;
+  }
+
+  public async addComment(comment: CreateCommentDTO): Promise<CommentDTO> {
+    const newComment = CommentModel.create(comment);
+    if (!newComment) {
+      throw new ErrorResponse('Creating Comment Failed', 400);
+    }
+    return newComment as any;
   }
 
   public async findCommentsByTaskId(taskId: string): Promise<CommentDTO[]> {

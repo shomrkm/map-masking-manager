@@ -1,6 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { asyncHandler } from '@/interface/controller/asyncHandler';
-import { addComment } from '@/interface/controller/comments';
 import { CommentController } from '@/interface/controller/CommentController';
 import { protect, authorize } from '../middleware/authorization';
 import { MongoDBConnection } from '../database/MongoDBConnection';
@@ -29,6 +28,18 @@ export const getComments = asyncHandler(async (req: Request, res: Response, next
 export const getComment = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
   try {
     const comment = await commentController.getComment(req);
+    res.status(200).json(comment);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// @desc      Add comment
+// @route     POST /api/v1/tasks/:id/comments
+// @access    Private
+export const addComment = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const comment = await commentController.addComment(req);
     res.status(200).json(comment);
   } catch (err) {
     next(err);

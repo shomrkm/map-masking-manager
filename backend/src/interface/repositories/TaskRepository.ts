@@ -195,4 +195,22 @@ export class TaskRepository implements ITaskRepository {
     );
     return comments;
   }
+
+  public async addComment(taskId: string, comment: Comment): Promise<Comment> {
+    const commentDto = {
+      task: taskId,
+      user: comment.user,
+      text: comment.text,
+      createdAt: comment.createdAt.toDate(),
+    };
+    const newComment = await this.dbConnection.addComment(commentDto);
+    // TODO: Check if task exists.
+    return new Comment({
+      id: newComment._id,
+      task: newComment.task,
+      user: newComment.user,
+      text: newComment.text,
+      createdAt: comment.createdAt.toDate(),
+    });
+  }
 }
