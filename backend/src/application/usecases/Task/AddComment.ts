@@ -11,8 +11,6 @@ export class AddComment {
   }
 
   public async execute(task: string, user: string, text: string): Promise<Comment> {
-    console.log(text);
-    console.log(user);
     const comment = new Comment({ task, user, text });
 
     // TODO: Check authorization.

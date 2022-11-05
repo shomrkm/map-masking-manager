@@ -8,7 +8,6 @@ import { asyncHandler } from './asyncHandler';
 // @route     POST /api/v1/tasks/:id/comments
 // @access    Private
 export const addComment = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-  console.log(req.params);
   req.body.task = req.params.taskid;
   req.body.user = req.user.id;
 
