@@ -1,8 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { asyncHandler } from '@/interface/controller/asyncHandler';
 import { WorkflowController } from '@/interface/controller/WorkflowController';
-import { advancedResults } from '@/interface/controller/advancedResults';
-import { Workflow } from '../database/models/Workflows';
 import { MongoDBConnection } from '../database/MongoDBConnection';
 import { protect, authorize } from '../middleware/authorization';
 import { router as taskRouter } from './Tasks';
@@ -83,10 +81,7 @@ export const updateWorkflow = asyncHandler(
   }
 );
 
-router
-  .route('/')
-  .get(advancedResults(Workflow, [{ path: 'createUser', select: 'name avatar' }]), getWorkflows)
-  .post(protect, authorize('publisher', 'admin'), createWorkflow);
+router.route('/').get(getWorkflows).post(protect, authorize('publisher', 'admin'), createWorkflow);
 
 router
   .route('/:id')
