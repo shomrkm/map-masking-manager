@@ -78,5 +78,14 @@
     "level": "beginner",
     "avatar": "uploads/5c8a1d5b0190b214360dc036.jpg",
     "password": "123456"
+  },
+  {
+    "_id": "5c8a1d5b0190b214360dc037",
+    "name": "Aya Kikuchi",
+    "email": "ayaya@gmail.com",
+    "role": "admin",
+    "level": "expert",
+    "avatar": "uploads/5c8a1d5b0190b214360dc037.jpg",
+    "password": "123456"
   }
 ]
