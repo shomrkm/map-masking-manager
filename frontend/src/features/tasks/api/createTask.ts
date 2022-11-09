@@ -20,6 +20,8 @@ export type CreateTaskDTO = {
     target: Target[];
     level: Level;
     priority: Priority;
+    previous: string[];
+    next: string[];
   };
 };
 
