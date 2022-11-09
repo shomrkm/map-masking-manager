@@ -1,7 +1,7 @@
 import { Menu, Transition } from '@headlessui/react';
 import { DotsHorizontalIcon, TrashIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
-import React, { VFC } from 'react';
+import React, { Fragment, VFC } from 'react';
 
 import { useDeleteTask } from '@/features/tasks/api/deleteTask';
 
@@ -55,7 +55,7 @@ export const ModifyTaskNodeMenu: VFC<ModifyTaskNodeMenuProps> = ({ taskId: taskI
                 )}
               >
                 {modifyMenu.map((item) => (
-                  <Menu.Item key={item.name} onClick={() => item.onClick}>
+                  <Menu.Item key={item.name} onClick={() => item.onClick} as={Fragment}>
                     {({ active }) => (
                       <a
                         className={clsx(
