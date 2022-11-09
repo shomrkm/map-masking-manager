@@ -1,72 +1,205 @@
 [
   {
     "_id": "5d713995b721c3bb38c1f5d0",
-    "title": "Create new roads",
-    "description": "Create new roads in 2022",
-    "detail": "",
+    "title": "Create new building shapes in Morioka",
+    "description": "The task is to create new building shapes around Morioka city.",
+    "detail": "Create the new building shapes and updating existing shape by editor. And then send a review to expert members",
     "area": {
       "type": "Polygon",
       "coordinates": [
         [
-          [141.11796855926514, 39.691271298604356],
-          [141.14706516265866, 39.691271298604356],
-          [141.14706516265866, 39.70771490453351],
-          [141.11796855926514, 39.70771490453351],
-          [141.11796855926514, 39.691271298604356]
+          [
+            141.13147327783798,
+            39.70836405316092
+          ],
+          [
+            141.12590343398472,
+            39.70586794316662
+          ],
+          [
+            141.11937340742895,
+            39.70058234802377
+          ],
+          [
+            141.11747485602825,
+            39.693676780985754
+          ],
+          [
+            141.11851891460304,
+            39.68884293899666
+          ],
+          [
+            141.13649119489781,
+            39.68899490186624
+          ],
+          [
+            141.15463056515335,
+            39.692644923435665
+          ],
+          [
+            141.14794857453194,
+            39.69564332587362
+          ],
+          [
+            141.15464978770206,
+            39.69915858828358
+          ],
+          [
+            141.15654997462627,
+            39.70346362175104
+          ],
+          [
+            141.1447498645448,
+            39.70604596225695
+          ],
+          [
+            141.14089086263937,
+            39.70731664617372
+          ],
+          [
+            141.13567851542138,
+            39.71109332018139
+          ],
+          [
+            141.13147327783798,
+            39.70836405316092
+          ]
         ]
       ]
     },
-    "status": "todo",
-    "target": ["road"],
+    "status": "completed",
+    "target": ["map", "poi"],
     "workflow": "99993995b721c3bb38c1f5d0",
     "level": "intermediate",
     "priority": "normal",
     "previous":[],
-    "next":["5d713a66ec8f2b88b8f830b8", "5d725a037b292f5f8ceff787"],
+    "next":["5d713a66ec8f2b88b8f830b8"],
     "createUser": "5d7a514b5d2c12c7449be043",
     "assignedUsers": ["5c8a1d5b0190b214360dc031", "5c8a1d5b0190b214360dc032", "5c8a1d5b0190b214360dc036", "5d7a514b5d2c12c7449be044"]
   },
   {
     "_id": "5d713a66ec8f2b88b8f830b8",
-    "title": "Create new maps",
-    "description": "Create new maps in 2022",
-    "detail": "",
+    "title": "Delete Chinen's home",
+    "description": "Delete the building, poi and annotation features relevant to Chinen's home.",
+    "detail": "Please refer to procedure manual for details.",
     "area": {
       "type": "Polygon",
       "coordinates": [
         [
-          [141.12680912017822, 39.68506265359759],
-          [141.144061088562, 39.68506265359759],
-          [141.144061088562, 39.691535483879605],
-          [141.12680912017822, 39.691535483879605],
-          [141.12680912017822, 39.68506265359759]
+          [
+            141.11641244526226,
+            39.70034671773121
+          ],
+          [
+            141.11639764913446,
+            39.70024440967251
+          ],
+          [
+            141.11652213377698,
+            39.70024616014811
+          ],
+          [
+            141.11651984256883,
+            39.70019204519727
+          ],
+          [
+            141.1166012779521,
+            39.70019616684195
+          ],
+          [
+            141.1166074416514,
+            39.70026241078307
+          ],
+          [
+            141.11667180577973,
+            39.70026000237942
+          ],
+          [
+            141.11666272150927,
+            39.70035972819224
+          ],
+          [
+            141.11641244526226,
+            39.70034671773121
+          ]
         ]
       ]
     },
-    "status": "todo",
+    "status": "completed",
     "target": ["map"],
     "workflow": "99993995b721c3bb38c1f5d0",
     "level": "intermediate",
     "priority": "high",
     "previous":["5d713995b721c3bb38c1f5d0"],
-    "next": [],
+    "next": ["5d725a037b292f5f8ceff787", "5d725a037b292f5f8ceff788"],
     "createUser": "5d7a514b5d2c12c7449be043",
-    "assignedUsers": ["5c8a1d5b0190b214360dc033", "5c8a1d5b0190b214360dc034"]
+    "assignedUsers": ["5c8a1d5b0190b214360dc033", "5c8a1d5b0190b214360dc034", "5c8a1d5b0190b214360dc036"]
   },
   {
     "_id": "5d725a037b292f5f8ceff787",
-    "title": "Create new pois",
-    "description": "Create new pois in 2022",
-    "detail": "",
+    "title": "Check new building shapes",
+    "description": "Check new building shpaes and feedback to creaters.",
+    "detail": "Review new building shapes if new shapes are corret.",
     "area": {
       "type": "Polygon",
-      "coordinates": [
+         "coordinates": [
         [
-          [141.13582134246826, 39.68479844355328],
-          [141.14925384521484, 39.68479844355328],
-          [141.14925384521484, 39.691238275373884],
-          [141.13582134246826, 39.691238275373884],
-          [141.13582134246826, 39.68479844355328]
+          [
+              141.13147327783798,
+              39.70836405316092
+          ],
+          [
+              141.12590343398472,
+              39.70586794316662
+          ],
+          [
+              141.11937340742895,
+              39.70058234802377
+          ],
+          [
+              141.11747485602825,
+              39.693676780985754
+          ],
+          [
+              141.11851891460304,
+              39.68884293899666
+          ],
+          [
+              141.13649119489781,
+              39.68899490186624
+          ],
+          [
+              141.15463056515335,
+              39.692644923435665
+          ],
+          [
+              141.14794857453194,
+              39.69564332587362
+          ],
+          [
+              141.15464978770206,
+              39.69915858828358
+          ],
+          [
+              141.15654997462627,
+              39.70346362175104
+          ],
+          [
+              141.1447498645448,
+              39.70604596225695
+          ],
+          [
+              141.14089086263937,
+              39.70731664617372
+          ],
+          [
+              141.13567851542138,
+              39.71109332018139
+          ],
+          [
+              141.13147327783798,
+              39.70836405316092
+          ]
         ]
       ]
     },
@@ -75,9 +208,39 @@
     "workflow": "99993995b721c3bb38c1f5d0",
     "level": "expert",
     "priority": "high",
-    "previous":["5d713995b721c3bb38c1f5d0"],
-    "next": [],
+    "previous":["5d713a66ec8f2b88b8f830b8"],
+    "next": ["5d725a037b292f5f8ceff789"],
     "createUser": "5c8a1d5b0190b214360dc032",
     "assignedUsers": ["5c8a1d5b0190b214360dc035", "5c8a1d5b0190b214360dc034"]
+  },
+  {
+    "_id": "5d725a037b292f5f8ceff788",
+    "title": "Execute the map checker",
+    "description": "Execute the map checker in Morioka and review the log if the error log exists.",
+    "detail": "Setting details for the checker are ...",
+    "status": "todo",
+    "target": ["map"],
+    "workflow": "99993995b721c3bb38c1f5d0",
+    "level": "expert",
+    "priority": "high",
+    "previous":["5d713a66ec8f2b88b8f830b8"],
+    "next": ["5d725a037b292f5f8ceff789"],
+    "createUser": "5c8a1d5b0190b214360dc032",
+    "assignedUsers": ["5c8a1d5b0190b214360dc037","5c8a1d5b0190b214360dc035", "5c8a1d5b0190b214360dc034"]
+  },
+  {
+    "_id": "5d725a037b292f5f8ceff789",
+    "title": "Correct errors",
+    "description": "Correcting errors in the output by checker.",
+    "detail": "Details for the task are ...",
+    "status": "todo",
+    "target": ["map", "road"],
+    "workflow": "99993995b721c3bb38c1f5d0",
+    "level": "expert",
+    "priority": "high",
+    "previous":["5d725a037b292f5f8ceff787", "5d725a037b292f5f8ceff788"],
+    "next": [],
+    "createUser": "5c8a1d5b0190b214360dc032",
+    "assignedUsers": ["5c8a1d5b0190b214360dc037","5c8a1d5b0190b214360dc035", "5c8a1d5b0190b214360dc034"]
   }
 ]
