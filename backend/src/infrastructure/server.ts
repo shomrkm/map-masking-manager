@@ -42,7 +42,7 @@ app.use(cors());
 
 // Set static folder, and make it accesible through "{BASE URL}:{PORT}/uploads"
 app.use(express.static(__dirname + '/../../public'));
-app.use('/uploads', express.static('uploads'));
+app.use('/api/uploads', express.static('uploads'));
 
 // Mount Router
 app.use('/api/v1/workflows', workflows);
