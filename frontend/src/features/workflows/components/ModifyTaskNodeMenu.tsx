@@ -55,9 +55,10 @@ export const ModifyTaskNodeMenu: VFC<ModifyTaskNodeMenuProps> = ({ taskId: taskI
                 )}
               >
                 {modifyMenu.map((item) => (
-                  <Menu.Item key={item.name} onClick={() => item.onClick} as={Fragment}>
+                  <Menu.Item key={item.name} as={Fragment}>
                     {({ active }) => (
-                      <a
+                      <button
+                        onClick={item.onClick}
                         className={clsx(
                           active ? 'text-gray-900 bg-gray-100' : 'text-gray-600',
                           'inline-flex items-center py-2 px-4 w-full text-sm leading-5 text-left'
@@ -65,7 +66,7 @@ export const ModifyTaskNodeMenu: VFC<ModifyTaskNodeMenuProps> = ({ taskId: taskI
                       >
                         {item.icon}
                         {item.name}
-                      </a>
+                      </button>
                     )}
                   </Menu.Item>
                 ))}
