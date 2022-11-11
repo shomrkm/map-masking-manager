@@ -19,10 +19,10 @@ type Params = {
   title: Title;
   description: Description;
   workflow: string;
-  status: string;
-  priority: string;
+  status: Status;
+  priority: Priority;
   target: string[];
-  level: string;
+  level: Level;
   createUser: string;
   detail?: string;
   area?: Polygon | null;
@@ -80,14 +80,14 @@ export class Task {
     this._detail = detail;
     this._workflow = workflow;
     this._target = new Targets(target as TargetTypes, targetTypes);
-    this._level = new Level(level);
-    this._priority = new Priority(priority);
+    this._level = level;
+    this._priority = priority;
     this._createUser = createUser;
     this._area = area;
     this._previous = previous;
     this._next = next;
     this._assignedUsers = assignedUsers;
-    this._status = new Status(status);
+    this._status = status;
     this._createdAt = createdAt ? moment(createdAt) : moment(new Date());
   }
 
@@ -109,6 +109,24 @@ export class Task {
 
   removeNextTask(id: string) {
     this._next = this.next.filter((nextId) => nextId !== id);
+  }
+
+  toPrimitive() {
+    return {
+      title: this._title.toPrimitive(),
+      description: this._description.toPrimitive(),
+      detail: this._detail,
+      area: this._area ?? undefined,
+      status: this._status.toPrimitive(),
+      workflow: this._workflow,
+      target: this.target,
+      previous: this._previous,
+      next: this._next,
+      level: this._level.toPrimitive(),
+      priority: this._priority.toPrimitive(),
+      createUser: this._createUser,
+      createdAt: this._createdAt.toDate(),
+    };
   }
 
   get id(): string | null {
@@ -155,12 +173,12 @@ export class Task {
     return this._area;
   }
 
-  get status(): StatusType {
-    return this._status.toPrimitive();
+  get status(): Status {
+    return this._status;
   }
 
-  set status(status: string) {
-    this._status = new Status(status);
+  set status(status: Status) {
+    this._status = status;
   }
 
   get workflow(): string {
@@ -175,20 +193,20 @@ export class Task {
     this._target = new Targets(target, targetTypes);
   }
 
-  get level(): LevelType {
-    return this._level.toPrimitive();
+  get level(): Level {
+    return this._level;
   }
 
-  set level(level: string) {
-    this._level = new Level(level);
+  set level(level: Level) {
+    this._level = level;
   }
 
-  get priority(): PriorityType {
-    return this._priority.toPrimitive();
+  get priority(): Priority {
+    return this._priority;
   }
 
-  set priority(priority: string) {
-    this._priority = new Priority(priority);
+  set priority(priority: Priority) {
+    this._priority = priority;
   }
 
   get previous(): string[] {

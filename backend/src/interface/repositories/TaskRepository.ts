@@ -1,7 +1,8 @@
-import { Task, Title, Description } from '@/domain/Task';
+import { Task, Title, Description, Status, Priority, Level } from '@/domain/Task';
 import { Comment } from '@/domain/Comment';
 import { ITaskRepository } from '@/application/repositories/ITaskRepository';
 import { IDBConnection } from '../database/IDBConnection';
+import { CreateTaskDTO } from '../database/dto';
 
 export class TaskRepository implements ITaskRepository {
   private dbConnection: IDBConnection;
@@ -17,10 +18,10 @@ export class TaskRepository implements ITaskRepository {
           title: new Title(taskDto.title),
           description: new Description(taskDto.description),
           workflow: taskDto.workflow,
-          status: taskDto.status,
-          priority: taskDto.priority,
+          status: new Status(taskDto.status),
+          priority: new Priority(taskDto.priority),
           target: taskDto.target,
-          level: taskDto.level,
+          level: new Level(taskDto.level),
           createUser: taskDto.createUser,
           detail: taskDto.detail,
           area: taskDto.area,
@@ -42,10 +43,10 @@ export class TaskRepository implements ITaskRepository {
       title: new Title(taskDto.title),
       description: new Description(taskDto.description),
       workflow: taskDto.workflow,
-      status: taskDto.status,
-      priority: taskDto.priority,
+      status: new Status(taskDto.status),
+      priority: new Priority(taskDto.priority),
       target: taskDto.target,
-      level: taskDto.level,
+      level: new Level(taskDto.level),
       createUser: taskDto.createUser,
       detail: taskDto.detail,
       area: taskDto.area,
@@ -68,10 +69,10 @@ export class TaskRepository implements ITaskRepository {
           title: new Title(taskDto.title),
           description: new Description(taskDto.description),
           workflow: taskDto.workflow,
-          status: taskDto.status,
-          priority: taskDto.priority,
+          status: new Status(taskDto.status),
+          priority: new Priority(taskDto.priority),
           target: taskDto.target,
-          level: taskDto.level,
+          level: new Level(taskDto.level),
           createUser: taskDto.createUser,
           detail: taskDto.detail,
           area: taskDto.area,
@@ -87,21 +88,7 @@ export class TaskRepository implements ITaskRepository {
   }
 
   public async save(task: Task): Promise<Task> {
-    const taskDto = {
-      title: task.title.toPrimitive(),
-      description: task.description.toPrimitive(),
-      detail: task.detail,
-      area: task.area ?? undefined,
-      status: task.status,
-      workflow: task.workflow,
-      target: task.target,
-      previous: task.previous,
-      next: task.next,
-      level: task.level,
-      priority: task.priority,
-      createUser: task.createUser,
-      createdAt: task.createdAt.toDate(),
-    };
+    const taskDto = task.toPrimitive();
     if (!task.id) {
       const { _id, id } = await this.dbConnection.createTask(taskDto);
       task.id = _id;
@@ -114,10 +101,10 @@ export class TaskRepository implements ITaskRepository {
       title: new Title(updatedTask.title),
       description: new Description(updatedTask.description),
       workflow: updatedTask.workflow,
-      status: taskDto.status,
-      priority: updatedTask.priority,
+      status: new Status(taskDto.status),
+      priority: new Priority(updatedTask.priority),
       target: updatedTask.target,
-      level: updatedTask.level,
+      level: new Level(updatedTask.level),
       createUser: updatedTask.createUser,
       detail: updatedTask.detail,
       area: updatedTask.area,
@@ -136,10 +123,10 @@ export class TaskRepository implements ITaskRepository {
       title: new Title(taskDto.title),
       description: new Description(taskDto.description),
       workflow: taskDto.workflow,
-      status: taskDto.status,
-      priority: taskDto.priority,
+      status: new Status(taskDto.status),
+      priority: new Priority(taskDto.priority),
       target: taskDto.target,
-      level: taskDto.level,
+      level: new Level(taskDto.level),
       createUser: taskDto.createUser,
       detail: taskDto.detail,
       area: taskDto.area,
