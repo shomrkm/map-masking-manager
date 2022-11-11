@@ -1,5 +1,5 @@
 export abstract class EnumValueObject<T> {
-  readonly value: T;
+  protected value: T;
 
   constructor(value: T, public readonly validValues: T[]) {
     this.value = value;
@@ -10,6 +10,10 @@ export abstract class EnumValueObject<T> {
     if (!this.validValues.includes(value)) {
       this.throwErrorForInvalidValue(value);
     }
+  }
+
+  public toPrimitive(): T {
+    return this.value;
   }
 
   protected abstract throwErrorForInvalidValue(value: T): void;

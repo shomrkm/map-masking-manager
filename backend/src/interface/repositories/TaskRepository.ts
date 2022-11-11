@@ -1,4 +1,13 @@
-import { Task, Title, Description, Status, Priority, Level } from '@/domain/Task';
+import {
+  Task,
+  Title,
+  Description,
+  Status,
+  Priority,
+  Level,
+  Targets,
+  targetTypes,
+} from '@/domain/Task';
 import { Comment } from '@/domain/Comment';
 import { ITaskRepository } from '@/application/repositories/ITaskRepository';
 import { IDBConnection } from '../database/IDBConnection';
@@ -20,7 +29,7 @@ export class TaskRepository implements ITaskRepository {
           workflow: taskDto.workflow,
           status: new Status(taskDto.status),
           priority: new Priority(taskDto.priority),
-          target: taskDto.target,
+          target: new Targets(taskDto.target, targetTypes),
           level: new Level(taskDto.level),
           createUser: taskDto.createUser,
           detail: taskDto.detail,
@@ -45,7 +54,7 @@ export class TaskRepository implements ITaskRepository {
       workflow: taskDto.workflow,
       status: new Status(taskDto.status),
       priority: new Priority(taskDto.priority),
-      target: taskDto.target,
+      target: new Targets(taskDto.target, targetTypes),
       level: new Level(taskDto.level),
       createUser: taskDto.createUser,
       detail: taskDto.detail,
@@ -71,7 +80,7 @@ export class TaskRepository implements ITaskRepository {
           workflow: taskDto.workflow,
           status: new Status(taskDto.status),
           priority: new Priority(taskDto.priority),
-          target: taskDto.target,
+          target: new Targets(taskDto.target, targetTypes),
           level: new Level(taskDto.level),
           createUser: taskDto.createUser,
           detail: taskDto.detail,
@@ -103,7 +112,7 @@ export class TaskRepository implements ITaskRepository {
       workflow: updatedTask.workflow,
       status: new Status(taskDto.status),
       priority: new Priority(updatedTask.priority),
-      target: updatedTask.target,
+      target: new Targets(taskDto.target, targetTypes),
       level: new Level(updatedTask.level),
       createUser: updatedTask.createUser,
       detail: updatedTask.detail,
@@ -125,7 +134,7 @@ export class TaskRepository implements ITaskRepository {
       workflow: taskDto.workflow,
       status: new Status(taskDto.status),
       priority: new Priority(taskDto.priority),
-      target: taskDto.target,
+      target: new Targets(taskDto.target, targetTypes),
       level: new Level(taskDto.level),
       createUser: taskDto.createUser,
       detail: taskDto.detail,

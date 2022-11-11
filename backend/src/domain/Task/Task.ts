@@ -1,16 +1,7 @@
 import moment from 'moment-timezone';
 import { Polygon } from 'geojson';
 
-import {
-  Title,
-  Description,
-  Status,
-  targetTypes,
-  Targets,
-  TargetTypes,
-  Level,
-  Priority,
-} from './entities';
+import { Title, Description, Status, Targets, Level, Priority } from './entities';
 
 type Params = {
   title: Title;
@@ -18,7 +9,7 @@ type Params = {
   workflow: string;
   status: Status;
   priority: Priority;
-  target: string[];
+  target: Targets;
   level: Level;
   createUser: string;
   detail?: string;
@@ -43,7 +34,7 @@ export class Task {
   private _area: Polygon | null;
   private _status: Status;
   private _workflow: string;
-  private _target: Targets;
+  private _targets: Targets;
   private _level: Level;
   private _priority: Priority;
   private _previous: string[];
@@ -58,7 +49,7 @@ export class Task {
     workflow,
     status,
     priority,
-    target,
+    target: targets,
     level,
     createUser,
     detail = '',
@@ -76,7 +67,7 @@ export class Task {
     this._description = description;
     this._detail = detail;
     this._workflow = workflow;
-    this._target = new Targets(target as TargetTypes, targetTypes);
+    this._targets = targets;
     this._level = level;
     this._priority = priority;
     this._createUser = createUser;
@@ -116,7 +107,7 @@ export class Task {
       area: this._area ?? undefined,
       status: this._status.toPrimitive(),
       workflow: this._workflow,
-      target: this.target,
+      target: this._targets.toPrimitive(),
       previous: this._previous,
       next: this._next,
       level: this._level.toPrimitive(),
@@ -182,12 +173,12 @@ export class Task {
     return this._workflow;
   }
 
-  get target(): TargetTypes {
-    return this._target.value;
+  get target(): Targets {
+    return this._targets;
   }
 
-  set target(target: string[]) {
-    this._target = new Targets(target, targetTypes);
+  set target(targets: Targets) {
+    this._targets = targets;
   }
 
   get level(): Level {

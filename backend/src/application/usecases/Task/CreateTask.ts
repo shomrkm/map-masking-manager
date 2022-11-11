@@ -1,5 +1,5 @@
 import { Polygon } from 'geojson';
-import { Task, Title, Description, Status, Priority, Level } from '@/domain/Task';
+import { Task, Title, Description, Status, Priority, Level, Targets, targetTypes } from '@/domain/Task';
 import { ErrorResponse } from '@/interface/controller/errorResponse';
 import { ITaskRepository } from '../../repositories/ITaskRepository';
 
@@ -31,7 +31,7 @@ export class CreateTask {
       workflow,
       status: new Status(status),
       priority: new Priority(priority),
-      target,
+      target: new Targets(target, targetTypes),
       level: new Level(level),
       createUser,
       detail,

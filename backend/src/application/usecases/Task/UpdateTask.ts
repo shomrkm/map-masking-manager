@@ -1,4 +1,4 @@
-import { Task, Title, Description, Status, Priority, Level } from '@/domain/Task';
+import { Task, Title, Description, Status, Priority, Level, Targets, targetTypes } from '@/domain/Task';
 import { ErrorResponse } from '@/interface/controller/errorResponse';
 import { ITaskRepository } from '../../repositories/ITaskRepository';
 
@@ -18,7 +18,7 @@ export class UpdateTask {
     if (typeof title === 'string') task.title = new Title(title);
     if (typeof description === 'string') task.description = new Description(description);
     if (typeof detail === 'string') task.detail = detail;
-    if (Array.isArray(target)) task.target = target;
+    if (Array.isArray(target)) task.target = new Targets(target, targetTypes);
     if (typeof level === 'string') task.level = new Level(level);
     if (typeof priority === 'string') task.priority = new Priority(priority);
     if (typeof status === 'string') task.status = new Status(status);
