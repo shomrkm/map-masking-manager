@@ -5,14 +5,11 @@ import {
   Title,
   Description,
   Status,
-  StatusType,
   targetTypes,
   Targets,
   TargetTypes,
   Level,
-  LevelType,
   Priority,
-  PriorityType,
 } from './entities';
 
 type Params = {
