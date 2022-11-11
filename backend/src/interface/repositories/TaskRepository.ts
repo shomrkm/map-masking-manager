@@ -1,4 +1,4 @@
-import { Task } from '@/domain/Task';
+import { Task, Title, Description } from '@/domain/Task';
 import { Comment } from '@/domain/Comment';
 import { ITaskRepository } from '@/application/repositories/ITaskRepository';
 import { IDBConnection } from '../database/IDBConnection';
@@ -14,8 +14,8 @@ export class TaskRepository implements ITaskRepository {
     const tasks = taskDtos.map(
       (taskDto) =>
         new Task({
-          title: taskDto.title,
-          description: taskDto.description,
+          title: new Title(taskDto.title),
+          description: new Description(taskDto.description),
           workflow: taskDto.workflow,
           status: taskDto.status,
           priority: taskDto.priority,
@@ -39,8 +39,8 @@ export class TaskRepository implements ITaskRepository {
   public async findById(id: string): Promise<Task> {
     const taskDto = await this.dbConnection.findTaskById(id);
     const task = new Task({
-      title: taskDto.title,
-      description: taskDto.description,
+      title: new Title(taskDto.title),
+      description: new Description(taskDto.description),
       workflow: taskDto.workflow,
       status: taskDto.status,
       priority: taskDto.priority,
@@ -65,8 +65,8 @@ export class TaskRepository implements ITaskRepository {
     const tasks = taskDtos.map(
       (taskDto) =>
         new Task({
-          title: taskDto.title,
-          description: taskDto.description,
+          title: new Title(taskDto.title),
+          description: new Description(taskDto.description),
           workflow: taskDto.workflow,
           status: taskDto.status,
           priority: taskDto.priority,
@@ -88,8 +88,8 @@ export class TaskRepository implements ITaskRepository {
 
   public async save(task: Task): Promise<Task> {
     const taskDto = {
-      title: task.title,
-      description: task.description,
+      title: task.title.toPrimitive(),
+      description: task.description.toPrimitive(),
       detail: task.detail,
       area: task.area ?? undefined,
       status: task.status,
@@ -111,8 +111,8 @@ export class TaskRepository implements ITaskRepository {
 
     const updatedTask = await this.dbConnection.updateTask(task.id, taskDto);
     return new Task({
-      title: updatedTask.title,
-      description: updatedTask.description,
+      title: new Title(updatedTask.title),
+      description: new Description(updatedTask.description),
       workflow: updatedTask.workflow,
       status: taskDto.status,
       priority: updatedTask.priority,
@@ -133,8 +133,8 @@ export class TaskRepository implements ITaskRepository {
   public async delete(taskId: string): Promise<Task> {
     const taskDto = await this.dbConnection.deleteTask(taskId);
     const task = new Task({
-      title: taskDto.title,
-      description: taskDto.description,
+      title: new Title(taskDto.title),
+      description: new Description(taskDto.description),
       workflow: taskDto.workflow,
       status: taskDto.status,
       priority: taskDto.priority,

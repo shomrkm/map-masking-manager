@@ -16,8 +16,8 @@ import {
 } from './entities';
 
 type Params = {
-  title: string;
-  description: string;
+  title: Title;
+  description: Description;
   workflow: string;
   status: string;
   priority: string;
@@ -75,8 +75,8 @@ export class Task {
   }: Params) {
     this._id = id;
     this._no = no;
-    this._title = new Title(title);
-    this._description = new Description(description);
+    this._title = title;
+    this._description = description;
     this._detail = detail;
     this._workflow = workflow;
     this._target = new Targets(target as TargetTypes, targetTypes);
@@ -127,20 +127,20 @@ export class Task {
     if (no) this._no = no;
   }
 
-  get title(): string {
-    return this._title.get();
+  get title(): Title {
+    return this._title;
   }
 
-  set title(title: string) {
-    this._title = new Title(title);
+  set title(title: Title) {
+    this._title = title;
   }
 
-  get description(): string {
-    return this._description.get();
+  get description(): Description {
+    return this._description;
   }
 
-  set description(description: string) {
-    this._description = new Description(description);
+  set description(description: Description) {
+    this._description = description;
   }
 
   get detail(): string {
@@ -156,7 +156,7 @@ export class Task {
   }
 
   get status(): StatusType {
-    return this._status.get();
+    return this._status.toPrimitive();
   }
 
   set status(status: string) {
@@ -176,7 +176,7 @@ export class Task {
   }
 
   get level(): LevelType {
-    return this._level.get();
+    return this._level.toPrimitive();
   }
 
   set level(level: string) {
@@ -184,7 +184,7 @@ export class Task {
   }
 
   get priority(): PriorityType {
-    return this._priority.get();
+    return this._priority.toPrimitive();
   }
 
   set priority(priority: string) {

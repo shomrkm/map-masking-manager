@@ -45,7 +45,7 @@ export class Comment {
   }
 
   get text(): string {
-    return this._text.get();
+    return this._text.toPrimitive();
   }
 
   get createdAt(): moment.Moment {

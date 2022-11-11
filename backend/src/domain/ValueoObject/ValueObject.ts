@@ -16,7 +16,7 @@ export abstract class ValueObject<T extends Primitives> {
     }
   }
 
-  get(): T {
+  toPrimitive(): T {
     return this.value;
   }
 

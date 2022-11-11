@@ -59,7 +59,7 @@ export class Workflow {
   }
 
   get title(): string {
-    return this._title.get();
+    return this._title.toPrimitive();
   }
 
   set title(title: string) {
@@ -67,7 +67,7 @@ export class Workflow {
   }
 
   get description(): string {
-    return this._description.get();
+    return this._description.toPrimitive();
   }
 
   set description(description: string) {
@@ -75,7 +75,7 @@ export class Workflow {
   }
 
   get status(): StatusType {
-    return this._status.get();
+    return this._status.toPrimitive();
   }
 
   set status(status: string) {

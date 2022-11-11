@@ -1,4 +1,4 @@
-import { Task } from '@/domain/Task';
+import { Task, Title, Description } from '@/domain/Task';
 import { ErrorResponse } from '@/interface/controller/errorResponse';
 import { ITaskRepository } from '../../repositories/ITaskRepository';
 
@@ -15,8 +15,8 @@ export class UpdateTask {
       throw new ErrorResponse(`Task was not found with id of ${taskId}`, 404);
     }
     const { title, description, detail, target, level, priority, status } = values;
-    if (typeof title === 'string') task.title = title;
-    if (typeof description === 'string') task.description = description;
+    if (typeof title === 'string') task.title = new Title(title);
+    if (typeof description === 'string') task.description = new Description(description);
     if (typeof detail === 'string') task.detail = detail;
     if (Array.isArray(target)) task.target = target;
     if (typeof level === 'string') task.level = level;

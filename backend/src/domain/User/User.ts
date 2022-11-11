@@ -77,7 +77,7 @@ export class User {
   }
 
   get role(): string {
-    return this._role.get();
+    return this._role.toPrimitive();
   }
 
   set role(role: string) {
@@ -85,7 +85,7 @@ export class User {
   }
 
   get level(): string {
-    return this._level.get();
+    return this._level.toPrimitive();
   }
 
   set level(level: string) {

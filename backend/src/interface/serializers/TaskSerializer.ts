@@ -4,8 +4,8 @@ const serializeSingleTask = (task: Task) => {
   return {
     _id: task.id,
     id: task.no,
-    title: task.title,
-    description: task.description,
+    title: task.title.toPrimitive(),
+    description: task.description.toPrimitive(),
     detail: task.detail,
     area: task.area,
     status: task.status,

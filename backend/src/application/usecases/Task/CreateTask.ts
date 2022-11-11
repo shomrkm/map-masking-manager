@@ -1,5 +1,5 @@
 import { Polygon } from 'geojson';
-import { Task } from '@/domain/Task';
+import { Task, Title, Description } from '@/domain/Task';
 import { ErrorResponse } from '@/interface/controller/errorResponse';
 import { ITaskRepository } from '../../repositories/ITaskRepository';
 
@@ -26,8 +26,8 @@ export class CreateTask {
     assignedUsers: string[] = []
   ): Promise<Task> {
     const task = new Task({
-      title,
-      description,
+      title: new Title(title),
+      description: new Description(description),
       workflow,
       status,
       priority,
