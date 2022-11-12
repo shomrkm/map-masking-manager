@@ -5,7 +5,7 @@ const serializeSingleComment = (comment: Comment) => {
     _id: comment.id,
     task: comment.task,
     user: comment.user,
-    text: comment.text,
+    text: comment.text.toPrimitive(),
     createdAt: comment.createdAt,
   };
 };

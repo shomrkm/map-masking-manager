@@ -8,7 +8,7 @@ import {
   Targets,
   targetTypes,
 } from '@/domain/Task';
-import { Comment } from '@/domain/Comment';
+import { Comment, Text } from '@/domain/Comment';
 import { ITaskRepository } from '@/application/repositories/ITaskRepository';
 import { IDBConnection } from '../database/IDBConnection';
 import { CreateTaskDTO } from '../database/dto';
@@ -157,7 +157,7 @@ export class TaskRepository implements ITaskRepository {
         new Comment({
           task: comment.task,
           user: comment.user,
-          text: comment.text,
+          text: new Text(comment.text),
           id: comment._id,
           createdAt: comment.createdAt,
         })
@@ -170,7 +170,7 @@ export class TaskRepository implements ITaskRepository {
     const comment = new Comment({
       task: commentDto.task,
       user: commentDto.user,
-      text: commentDto.text,
+      text: new Text(commentDto.text),
       id: commentDto._id,
       createdAt: commentDto.createdAt,
     });
@@ -184,7 +184,7 @@ export class TaskRepository implements ITaskRepository {
         new Comment({
           task: comment.task,
           user: comment.user,
-          text: comment.text,
+          text: new Text(comment.text),
           id: comment._id,
           createdAt: comment.createdAt,
         })
@@ -192,21 +192,9 @@ export class TaskRepository implements ITaskRepository {
     return comments;
   }
 
-  public async addComment(taskId: string, comment: Comment): Promise<Comment> {
-    const commentDto = {
-      task: taskId,
-      user: comment.user,
-      text: comment.text,
-      createdAt: comment.createdAt.toDate(),
-    };
-    const newComment = await this.dbConnection.addComment(commentDto);
-    // TODO: Check if task exists.
-    return new Comment({
-      id: newComment._id,
-      task: newComment.task,
-      user: newComment.user,
-      text: newComment.text,
-      createdAt: comment.createdAt.toDate(),
-    });
+  public async addComment(comment: Comment): Promise<Comment> {
+    const { _id } = await this.dbConnection.addComment(comment.toPrimitive());
+    comment.id = _id;
+    return comment;
   }
 }

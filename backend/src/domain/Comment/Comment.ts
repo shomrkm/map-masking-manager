@@ -6,7 +6,7 @@ type Params = {
   id?: string | null;
   task: string;
   user: string;
-  text: string;
+  text: Text;
   createdAt?: Date | null;
 };
 
@@ -24,8 +24,23 @@ export class Comment {
     this._id = id;
     this._task = task;
     this._user = user;
-    this._text = new Text(text);
+    this._text = text;
     this._createdAt = createdAt ? moment(createdAt) : moment(new Date());
+  }
+
+  public isPersisted(): boolean {
+    return this._id !== null;
+  }
+
+  public toPrimitive() {
+    const primitives = {
+      task: this._task,
+      user: this._user,
+      text: this._text.toPrimitive(),
+      createdAt: this._createdAt.toDate(),
+    };
+    if (this.isPersisted()) return { _id: this._id, ...primitives };
+    return primitives;
   }
 
   get id(): string | null {
@@ -44,8 +59,8 @@ export class Comment {
     return this._user;
   }
 
-  get text(): string {
-    return this._text.toPrimitive();
+  get text(): Text {
+    return this._text;
   }
 
   get createdAt(): moment.Moment {
