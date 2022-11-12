@@ -1,4 +1,4 @@
-import { User } from '@/domain/User';
+import { User, Role, Level } from '@/domain/User';
 import { IUserRepository } from '@/application/repositories/IUserRepository';
 import { IDBConnection } from '../database/IDBConnection';
 
@@ -16,8 +16,8 @@ export class UserRepository implements IUserRepository {
           id: userDto._id,
           name: userDto.name,
           email: userDto.email,
-          role: userDto.role,
-          level: userDto.level,
+          role: new Role(userDto.role),
+          level: new Level(userDto.level),
           avatar: userDto.avatar,
           password: userDto.password,
           resetPasswordToken: userDto.resetPasswordToken ?? undefined,
@@ -33,8 +33,8 @@ export class UserRepository implements IUserRepository {
       id: userDto._id,
       name: userDto.name,
       email: userDto.email,
-      role: userDto.role,
-      level: userDto.level,
+      role: new Role(userDto.role),
+      level: new Level(userDto.level),
       avatar: userDto.avatar,
       password: userDto.password,
       resetPasswordToken: userDto.resetPasswordToken ?? undefined,

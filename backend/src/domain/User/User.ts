@@ -5,8 +5,8 @@ import { Role } from './entities/Role';
 type Params = {
   name: string;
   email: string;
-  role: string;
-  level: string;
+  role: Role;
+  level: Level;
   avatar: string;
   password: string;
   resetPasswordToken?: string;
@@ -42,8 +42,8 @@ export class User {
     this._id = id ?? null;
     this._name = name;
     this._email = email;
-    this._role = new Role(role);
-    this._level = new Level(level);
+    this._role = role;
+    this._level = level;
     this._avatar = avatar;
     this._password = password;
     this._resetPasswordToken = resetPasswordToken ?? null;
@@ -76,20 +76,20 @@ export class User {
     this._email = email;
   }
 
-  get role(): string {
-    return this._role.toPrimitive();
+  get role(): Role {
+    return this._role;
   }
 
-  set role(role: string) {
-    this._role = new Role(role);
+  set role(role: Role) {
+    this._role = role;
   }
 
-  get level(): string {
-    return this._level.toPrimitive();
+  get level(): Level {
+    return this._level;
   }
 
-  set level(level: string) {
-    this._level = new Level(level);
+  set level(level: Level) {
+    this._level = level;
   }
 
   get avatar(): string {

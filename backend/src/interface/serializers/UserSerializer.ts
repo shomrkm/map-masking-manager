@@ -5,8 +5,8 @@ const serializeSingleUser = (user: User) => {
     _id: user.id,
     name: user.name,
     email: user.email,
-    role: user.role,
-    level: user.level,
+    role: user.role.toPrimitive(),
+    level: user.level.toPrimitive(),
     avatar: user.avatar,
     createdAt: user.createdAt,
   };
