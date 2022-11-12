@@ -51,6 +51,10 @@ export class User {
     this._createdAt = createdAt ? moment(createdAt) : moment(new Date());
   }
 
+  public isPersisted(): boolean {
+    return this._id !== null;
+  }
+
   get id(): string | null {
     return this._id;
   }

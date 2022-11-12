@@ -79,8 +79,8 @@ export class Task {
     this._createdAt = createdAt ? moment(createdAt) : moment(new Date());
   }
 
-  public isPersisted() {
-    return this._id && this._no;
+  public isPersisted(): boolean {
+    return this._id !== null && this._no !== null;
   }
 
   public addPreviousTask(id: string) {
@@ -95,11 +95,11 @@ export class Task {
     this._previous = this.previous.filter((prevId) => prevId !== id);
   }
 
-  removeNextTask(id: string) {
+  public removeNextTask(id: string) {
     this._next = this.next.filter((nextId) => nextId !== id);
   }
 
-  toPrimitive() {
+  public toPrimitive() {
     const primitives = {
       title: this._title.toPrimitive(),
       description: this._description.toPrimitive(),

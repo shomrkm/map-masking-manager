@@ -42,8 +42,8 @@ export class Workflow {
     this._createdAt = createdAt ? moment(createdAt) : moment(new Date());
   }
 
-  public isPersisted() {
-    return this._id && this._no;
+  public isPersisted(): boolean {
+    return this._id !== null && this._no !== null;
   }
 
   public toPrimitive(): any {
