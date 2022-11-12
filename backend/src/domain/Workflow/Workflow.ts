@@ -1,11 +1,11 @@
 import moment, { Moment } from 'moment-timezone';
 
-import { Title, Description, Status, StatusType } from './entities';
+import { Title, Description, Status } from './entities';
 
 type Params = {
-  title: string;
-  description: string;
-  status: string;
+  title: Title;
+  description: Description;
+  status: Status;
   createUser: string;
   id?: string | null;
   no?: number | null;
@@ -35,11 +35,27 @@ export class Workflow {
   }: Params) {
     this._id = id;
     this._no = no;
-    this._title = new Title(title);
-    this._description = new Description(description);
-    this._status = new Status(status);
+    this._title = title;
+    this._description = description;
+    this._status = status;
     this._createUser = createUser;
     this._createdAt = createdAt ? moment(createdAt) : moment(new Date());
+  }
+
+  public isPersisted() {
+    return this._id && this._no;
+  }
+
+  public toPrimitive(): any {
+    const primitives = {
+      title: this._title.toPrimitive(),
+      description: this._description.toPrimitive(),
+      status: this._status.toPrimitive(),
+      createUser: this._createUser,
+      createdAt: this._createdAt.toDate(),
+    };
+    if (this.isPersisted()) return { _id: this._id, id: this._no, ...primitives };
+    return primitives;
   }
 
   get id(): string | null {
@@ -58,28 +74,28 @@ export class Workflow {
     if (no) this._no = no;
   }
 
-  get title(): string {
-    return this._title.toPrimitive();
+  get title(): Title {
+    return this._title;
   }
 
-  set title(title: string) {
-    this._title = new Title(title);
+  set title(title: Title) {
+    this._title = title;
   }
 
-  get description(): string {
-    return this._description.toPrimitive();
+  get description(): Description {
+    return this._description;
   }
 
-  set description(description: string) {
-    this._description = new Description(description);
+  set description(description: Description) {
+    this._description = description;
   }
 
-  get status(): StatusType {
-    return this._status.toPrimitive();
+  get status(): Status {
+    return this._status;
   }
 
-  set status(status: string) {
-    this._status = new Status(status);
+  set status(status: Status) {
+    this._status = status;
   }
 
   get createUser(): string {

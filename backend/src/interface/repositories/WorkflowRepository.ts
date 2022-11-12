@@ -1,4 +1,4 @@
-import { Workflow } from '@/domain/Workflow';
+import { Workflow, Title, Description, Status } from '@/domain/Workflow';
 import { IWorkflowRepository } from '@/application/repositories/IWorkflowRepository';
 import { IDBConnection } from '../database/IDBConnection';
 
@@ -13,9 +13,9 @@ export class WorkflowRepository implements IWorkflowRepository {
     const workflows = workflowDtos.map(
       (workflowDto) =>
         new Workflow({
-          title: workflowDto.title,
-          description: workflowDto.description,
-          status: workflowDto.status,
+          title: new Title(workflowDto.title),
+          description: new Description(workflowDto.description),
+          status: new Status(workflowDto.status),
           createUser: workflowDto.createUser,
           id: workflowDto._id,
           no: workflowDto.id,
@@ -29,9 +29,9 @@ export class WorkflowRepository implements IWorkflowRepository {
   public async find(id: string): Promise<Workflow> {
     const workflowDto = await this.dbConnection.findWorkflowById(id);
     const workflow = new Workflow({
-      title: workflowDto.title,
-      description: workflowDto.description,
-      status: workflowDto.status,
+      title: new Title(workflowDto.title),
+      description: new Description(workflowDto.description),
+      status: new Status(workflowDto.status),
       createUser: workflowDto.createUser,
       id: workflowDto._id,
       no: workflowDto.id,
@@ -42,13 +42,7 @@ export class WorkflowRepository implements IWorkflowRepository {
   }
 
   public async save(workflow: Workflow): Promise<Workflow> {
-    const workflowDto = {
-      title: workflow.title,
-      description: workflow.description,
-      status: workflow.status,
-      createUser: workflow.createUser,
-      createdAt: workflow.createdAt.toDate(),
-    };
+    const workflowDto = workflow.toPrimitive();
     if (!workflow.id) {
       const { _id, id } = await this.dbConnection.createWorkflow(workflowDto);
       workflow.id = _id;
@@ -58,9 +52,9 @@ export class WorkflowRepository implements IWorkflowRepository {
 
     const updatedWorkflow = await this.dbConnection.updateWorkflow(workflow.id, workflowDto);
     return new Workflow({
-      title: updatedWorkflow.title,
-      description: updatedWorkflow.description,
-      status: updatedWorkflow.status,
+      title: new Title(updatedWorkflow.title),
+      description: new Description(updatedWorkflow.description),
+      status: new Status(updatedWorkflow.status),
       createUser: updatedWorkflow.createUser,
       id: updatedWorkflow._id,
       no: updatedWorkflow.id,
@@ -71,9 +65,9 @@ export class WorkflowRepository implements IWorkflowRepository {
   public async delete(workflowId: string): Promise<Workflow> {
     const workflowDto = await this.dbConnection.deleteWorkflow(workflowId);
     const workflow = new Workflow({
-      title: workflowDto.title,
-      description: workflowDto.description,
-      status: workflowDto.status,
+      title: new Title(workflowDto.title),
+      description: new Description(workflowDto.description),
+      status: new Status(workflowDto.status),
       createUser: workflowDto.createUser,
       id: workflowDto._id,
       no: workflowDto.id,

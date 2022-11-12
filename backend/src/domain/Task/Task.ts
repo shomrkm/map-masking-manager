@@ -79,19 +79,19 @@ export class Task {
     this._createdAt = createdAt ? moment(createdAt) : moment(new Date());
   }
 
-  isPersisted() {
-    return this._id && this.id;
+  public isPersisted() {
+    return this._id && this._no;
   }
 
-  addPreviousTask(id: string) {
+  public addPreviousTask(id: string) {
     this._previous = [...this._previous, id];
   }
 
-  addNextTask(id: string) {
+  public addNextTask(id: string) {
     this._next = [...this._next, id];
   }
 
-  removePreviousTask(id: string) {
+  public removePreviousTask(id: string) {
     this._previous = this.previous.filter((prevId) => prevId !== id);
   }
 
@@ -100,7 +100,7 @@ export class Task {
   }
 
   toPrimitive() {
-    return {
+    const primitives = {
       title: this._title.toPrimitive(),
       description: this._description.toPrimitive(),
       detail: this._detail,
@@ -115,6 +115,8 @@ export class Task {
       createUser: this._createUser,
       createdAt: this._createdAt.toDate(),
     };
+    if (this.isPersisted()) return { _id: this._id, id: this._no, ...primitives };
+    return primitives;
   }
 
   get id(): string | null {

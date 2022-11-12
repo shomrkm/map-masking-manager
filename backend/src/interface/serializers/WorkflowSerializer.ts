@@ -4,9 +4,9 @@ const serializeSingleWorkflow = (workflow: Workflow) => {
   return {
     _id: workflow.id,
     id: workflow.no,
-    title: workflow.title,
-    description: workflow.description,
-    status: workflow.status,
+    title: workflow.title.toPrimitive(),
+    description: workflow.description.toPrimitive(),
+    status: workflow.status.toPrimitive(),
     createUser: workflow.createUser,
     createdAt: workflow.createdAt,
   };

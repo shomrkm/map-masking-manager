@@ -1,4 +1,4 @@
-import { Workflow } from '@/domain/Workflow';
+import { Workflow, Title, Description, Status } from '@/domain/Workflow';
 import { ErrorResponse } from '@/interface/controller/errorResponse';
 import { IWorkflowRepository } from '../../repositories/IWorkflowRepository';
 
@@ -16,9 +16,9 @@ export class UpdateWorkflow {
     }
 
     const { title, description, status } = values;
-    if (typeof title === 'string') workflow.title = title;
-    if (typeof description === 'string') workflow.description = description;
-    if (typeof status === 'string') workflow.status = status;
+    if (typeof title === 'string') workflow.title = new Title(title);
+    if (typeof description === 'string') workflow.description = new Description(description);
+    if (typeof status === 'string') workflow.status = new Status(status);
     return await this.workflowRepository.save(workflow);
   }
 }

@@ -1,4 +1,4 @@
-import { Workflow } from '@/domain/Workflow';
+import { Workflow, Title, Description, Status } from '@/domain/Workflow';
 
 import { IWorkflowRepository } from '../../repositories/IWorkflowRepository';
 
@@ -16,9 +16,9 @@ export class CreateWorkflow {
     createUser: string
   ): Promise<Workflow> {
     const workflow = new Workflow({
-      title,
-      description,
-      status,
+      title: new Title(title),
+      description: new Description(description),
+      status: new Status(status),
       createUser,
     });
 
