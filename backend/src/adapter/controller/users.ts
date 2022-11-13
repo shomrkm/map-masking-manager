@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import { User } from '@/infrastructure/database/models';
-import { ErrorResponse } from './errorResponse';
-import { asyncHandler } from './asyncHandler';
+import { User } from '@/infrastructure/mongoose/models';
+import { ErrorResponse } from '../../shared/core/utils/errorResponse';
+import { asyncHandler } from '../../shared/core/middleware/asyncHandler';
 
 // @desc      Create user
 // @route     POST /api/v1/users

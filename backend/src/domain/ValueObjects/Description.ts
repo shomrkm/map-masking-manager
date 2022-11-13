@@ -1,5 +1,5 @@
 import { StringValueObject } from '@/shared/domain/StringValueObject';
-import { ErrorResponse } from '@/interface/controller/errorResponse';
+import { ErrorResponse } from '@/shared/core/utils';
 
 export class Description extends StringValueObject {
   constructor(desc: string) {

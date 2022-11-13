@@ -1,4 +1,5 @@
-import { IDBConnection } from '@/interface/database/IDBConnection';
+import { ErrorResponse } from '@/shared/core/utils';
+import { IDBConnection } from '@/adapter/database/IDBConnection';
 import {
   TaskDTO,
   CreateTaskDTO,
@@ -9,10 +10,8 @@ import {
   UpdateWorkflowDTO,
   CommentDTO,
   CreateCommentDTO,
-} from '@/interface/database/dto';
-import { ErrorResponse } from '@/interface/controller/errorResponse';
-import { UserDTO } from '@/interface/database/dto/userDto';
-
+} from '@/adapter/database/dto';
+import { UserDTO } from '@/adapter/database/dto/userDto';
 import {
   Task as TaskModel,
   Workflow as WorkflowModel,

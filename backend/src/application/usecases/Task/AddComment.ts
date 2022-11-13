@@ -1,7 +1,6 @@
-import { Polygon } from 'geojson';
+import { ErrorResponse } from '@/shared/core/utils';
 import { Comment } from '@/domain/entities';
 import { Text } from '@/domain/ValueObjects';
-import { ErrorResponse } from '@/interface/controller/errorResponse';
 import { ITaskRepository } from '../../repositories/ITaskRepository';
 
 export class AddComment {

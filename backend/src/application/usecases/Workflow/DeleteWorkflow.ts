@@ -1,5 +1,5 @@
+import { ErrorResponse } from '@/shared/core/utils';
 import { Workflow } from '@/domain/entities';
-import { ErrorResponse } from '@/interface/controller/errorResponse';
 import { IWorkflowRepository } from '../../repositories/IWorkflowRepository';
 
 export class DeleteWorkflow {

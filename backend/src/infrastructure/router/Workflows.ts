@@ -1,8 +1,8 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { asyncHandler } from '@/interface/controller/asyncHandler';
-import { WorkflowController } from '@/interface/controller/WorkflowController';
-import { MongoDBConnection } from '../database/MongoDBConnection';
-import { protect, authorize } from '../middleware/authorization';
+import { asyncHandler } from '@/shared/core/middleware';
+import { WorkflowController } from '@/adapter/controller/WorkflowController';
+import { MongoDBConnection } from '../mongoose/MongoDBConnection';
+import { protect, authorize } from '../../shared/core/middleware/authorization';
 import { router as taskRouter } from './Tasks';
 
 export const router = express.Router();

@@ -11,7 +11,6 @@ import {
 } from '@/domain/ValueObjects';
 import { ITaskRepository } from '@/application/repositories/ITaskRepository';
 import { IDBConnection } from '../database/IDBConnection';
-import { CreateTaskDTO } from '../database/dto';
 
 export class TaskRepository implements ITaskRepository {
   private dbConnection: IDBConnection;

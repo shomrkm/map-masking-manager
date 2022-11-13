@@ -1,8 +1,8 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { asyncHandler } from '@/interface/controller/asyncHandler';
-import { TaskController } from '@/interface/controller/TaskController';
-import { protect, authorize } from '../middleware/authorization';
-import { MongoDBConnection } from '../database/MongoDBConnection';
+import { asyncHandler } from '@/shared/core/middleware';
+import { TaskController } from '@/adapter/controller/TaskController';
+import { protect, authorize } from '../../shared/core/middleware/authorization';
+import { MongoDBConnection } from '../mongoose/MongoDBConnection';
 import { router as commentRouter } from './Comments';
 
 const mongoDBConnection = new MongoDBConnection();

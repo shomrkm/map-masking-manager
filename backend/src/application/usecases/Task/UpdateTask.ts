@@ -1,3 +1,4 @@
+import { ErrorResponse } from '@/shared/core/utils';
 import { Task } from '@/domain/entities';
 import {
   Title,
@@ -8,7 +9,6 @@ import {
   Targets,
   targetTypes,
 } from '@/domain/ValueObjects';
-import { ErrorResponse } from '@/interface/controller/errorResponse';
 import { ITaskRepository } from '../../repositories/ITaskRepository';
 
 export class UpdateTask {

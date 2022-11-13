@@ -9,7 +9,7 @@ import {
 import { IDBConnection } from '../database/IDBConnection';
 import { WorkflowRepository } from '../repositories/WorkflowRepository';
 import { WorkflowSerializer } from '../serializers/WorkflowSerializer';
-import { buildPaginationData } from './buildPaginationData';
+import { buildPaginationData } from '../../shared/core/utils/buildPaginationData';
 
 export class WorkflowController {
   private workflowRepository: IWorkflowRepository;

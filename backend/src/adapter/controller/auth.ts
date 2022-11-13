@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express-serve-static-core';
-import { User, UserDoc } from '@/infrastructure/database/models';
-import { ErrorResponse } from './errorResponse';
-import { asyncHandler } from './asyncHandler';
+import { User, UserDoc } from '@/infrastructure/mongoose/models';
+import { ErrorResponse } from '../../shared/core/utils/errorResponse';
+import { asyncHandler } from '../../shared/core/middleware/asyncHandler';
 
 // Get token from model, create cookie and send response
 const sendTokenResponse = (user: UserDoc, statusCode: number, res: Response) => {

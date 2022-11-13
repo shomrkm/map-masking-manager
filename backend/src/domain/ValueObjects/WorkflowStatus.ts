@@ -1,5 +1,5 @@
 import { ValueObject } from '@/shared/domain/ValueObject';
-import { ErrorResponse } from '@/interface/controller/errorResponse';
+import { ErrorResponse } from '@/shared/core/utils';
 
 export const workflowStatusTypes = ['todo', 'inprogress', 'completed', 'closed'] as const;
 export type WorkflowStatusType = typeof workflowStatusTypes[number];

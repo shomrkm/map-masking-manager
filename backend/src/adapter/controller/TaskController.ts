@@ -10,7 +10,7 @@ import {
 import { IDBConnection } from '../database/IDBConnection';
 import { TaskRepository } from '../repositories/TaskRepository';
 import { TaskSerializer } from '../serializers/TaskSerializer';
-import { buildPaginationData } from './buildPaginationData';
+import { buildPaginationData } from '../../shared/core/utils/buildPaginationData';
 
 export class TaskController {
   private taskRepository: ITaskRepository;

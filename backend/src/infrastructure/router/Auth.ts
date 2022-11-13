@@ -6,8 +6,8 @@ import {
   getMe,
   updatePassword,
   updateDetails,
-} from '@/interface/controller/auth';
-import { protect } from '../middleware/authorization';
+} from '@/adapter/controller/auth';
+import { protect } from '@/shared/core/middleware/authorization';
 
 export const router = express.Router();
 

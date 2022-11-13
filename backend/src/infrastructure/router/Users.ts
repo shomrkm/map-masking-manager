@@ -1,12 +1,12 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { asyncHandler } from '@/interface/controller/asyncHandler';
-import { createUser, updateUser, deleteUser, updateAvator } from '@/interface/controller/users';
-import { UserController } from '@/interface/controller/UserController';
-import { advancedResults } from '@/interface/controller/advancedResults';
-import { upload } from '@/interface/controller/uploadImage';
-import { User } from '../database/models/Users';
-import { protect } from '../middleware/authorization';
-import { MongoDBConnection } from '../database/MongoDBConnection';
+import { asyncHandler } from '@/shared/core/middleware';
+import { createUser, updateUser, deleteUser, updateAvator } from '@/adapter/controller/users';
+import { UserController } from '@/adapter/controller/UserController';
+import { advancedResults } from '@/adapter/controller/advancedResults';
+import { upload } from '@/shared/core/utils';
+import { User } from '../mongoose/models/Users';
+import { protect } from '../../shared/core/middleware/authorization';
+import { MongoDBConnection } from '../mongoose/MongoDBConnection';
 
 export const router = express.Router();
 

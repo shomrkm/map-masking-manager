@@ -1,5 +1,5 @@
 import { EnumArrayValueObject } from '@/shared/domain/EnumArrayValueObject';
-import { ErrorResponse } from '@/interface/controller/errorResponse';
+import { ErrorResponse } from '@/shared/core/utils';
 
 export const targetTypes = ['road', 'map', 'poi'];
 export type TargetType = typeof targetTypes[number];

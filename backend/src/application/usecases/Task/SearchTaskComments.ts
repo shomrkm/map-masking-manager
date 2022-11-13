@@ -1,5 +1,5 @@
-import { Task, Comment } from '@/domain/entities';
-import { ErrorResponse } from '@/interface/controller/errorResponse';
+import { ErrorResponse } from '@/shared/core/utils';
+import { Comment } from '@/domain/entities';
 import { ITaskRepository } from '../../repositories/ITaskRepository';
 
 export class SearchTaskComments {

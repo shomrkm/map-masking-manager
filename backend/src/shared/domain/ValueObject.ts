@@ -1,4 +1,4 @@
-import { ErrorResponse } from '@/interface/controller/errorResponse';
+import { ErrorResponse } from '../core/utils';
 
 export type Primitives = String | string | number | Boolean | boolean | Date;
 

@@ -3,7 +3,7 @@ import { SearchAllUsers, SearchUser } from '@/application/usecases/User';
 import { IDBConnection } from '../database/IDBConnection';
 import { UserRepository } from '../repositories/UserRepository';
 import { UserSerializer } from '../serializers/UserSerializer';
-import { buildPaginationData } from './buildPaginationData';
+import { buildPaginationData } from '../../shared/core/utils/buildPaginationData';
 
 export class UserController {
   private userRepository: IUserRepository;

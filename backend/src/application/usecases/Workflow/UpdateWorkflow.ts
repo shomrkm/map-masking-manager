@@ -1,6 +1,6 @@
+import { ErrorResponse } from '@/shared/core/utils';
 import { Workflow } from '@/domain/entities';
 import { Title, Description, WorkflowStatus } from '@/domain/ValueObjects';
-import { ErrorResponse } from '@/interface/controller/errorResponse';
 import { IWorkflowRepository } from '../../repositories/IWorkflowRepository';
 
 export class UpdateWorkflow {
