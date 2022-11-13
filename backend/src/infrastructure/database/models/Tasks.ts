@@ -12,7 +12,7 @@ import {
   levelTypes,
   PriorityType,
   priorityTypes,
-} from '@/domain/Task';
+} from '@/domain/ValueObjects';
 
 // The @types/mongoose-sequence package is incorrect, and the dev doesn't care, so we ignore the error here. Follow docs here:
 // https://github.com/ramiel/mongoose-sequence

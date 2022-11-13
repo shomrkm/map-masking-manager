@@ -1,4 +1,13 @@
-import { Task, Title, Description, Status, Priority, Level, Targets, targetTypes } from '@/domain/Task';
+import { Task } from '@/domain/entities';
+import {
+  Title,
+  Description,
+  TaskStatus,
+  Priority,
+  Level,
+  Targets,
+  targetTypes,
+} from '@/domain/ValueObjects';
 import { ErrorResponse } from '@/interface/controller/errorResponse';
 import { ITaskRepository } from '../../repositories/ITaskRepository';
 
@@ -21,7 +30,7 @@ export class UpdateTask {
     if (Array.isArray(target)) task.target = new Targets(target, targetTypes);
     if (typeof level === 'string') task.level = new Level(level);
     if (typeof priority === 'string') task.priority = new Priority(priority);
-    if (typeof status === 'string') task.status = new Status(status);
+    if (typeof status === 'string') task.status = new TaskStatus(status);
     return await this.taskRepository.save(task);
   }
 }

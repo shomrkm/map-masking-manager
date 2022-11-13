@@ -1,4 +1,4 @@
-import { Task } from '@/domain/Task';
+import { Task } from '@/domain/entities';
 
 const serializeSingleTask = (task: Task) => {
   return {

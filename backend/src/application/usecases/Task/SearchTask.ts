@@ -1,4 +1,4 @@
-import { Task } from '@/domain/Task';
+import { Task } from '@/domain/entities';
 import { ITaskRepository } from '../../repositories/ITaskRepository';
 
 export class SearchTask {

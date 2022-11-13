@@ -1,13 +1,13 @@
+import { Task } from '@/domain/entities';
 import {
-  Task,
   Title,
   Description,
-  Status,
+  TaskStatus,
   Priority,
   Level,
   Targets,
   targetTypes,
-} from '@/domain/Task';
+} from '@/domain/ValueObjects';
 import { Comment, Text } from '@/domain/Comment';
 import { ITaskRepository } from '@/application/repositories/ITaskRepository';
 import { IDBConnection } from '../database/IDBConnection';
@@ -27,7 +27,7 @@ export class TaskRepository implements ITaskRepository {
           title: new Title(taskDto.title),
           description: new Description(taskDto.description),
           workflow: taskDto.workflow,
-          status: new Status(taskDto.status),
+          status: new TaskStatus(taskDto.status),
           priority: new Priority(taskDto.priority),
           target: new Targets(taskDto.target, targetTypes),
           level: new Level(taskDto.level),
@@ -52,7 +52,7 @@ export class TaskRepository implements ITaskRepository {
       title: new Title(taskDto.title),
       description: new Description(taskDto.description),
       workflow: taskDto.workflow,
-      status: new Status(taskDto.status),
+      status: new TaskStatus(taskDto.status),
       priority: new Priority(taskDto.priority),
       target: new Targets(taskDto.target, targetTypes),
       level: new Level(taskDto.level),
@@ -78,7 +78,7 @@ export class TaskRepository implements ITaskRepository {
           title: new Title(taskDto.title),
           description: new Description(taskDto.description),
           workflow: taskDto.workflow,
-          status: new Status(taskDto.status),
+          status: new TaskStatus(taskDto.status),
           priority: new Priority(taskDto.priority),
           target: new Targets(taskDto.target, targetTypes),
           level: new Level(taskDto.level),
@@ -110,7 +110,7 @@ export class TaskRepository implements ITaskRepository {
       title: new Title(updatedTask.title),
       description: new Description(updatedTask.description),
       workflow: updatedTask.workflow,
-      status: new Status(taskDto.status),
+      status: new TaskStatus(taskDto.status),
       priority: new Priority(updatedTask.priority),
       target: new Targets(taskDto.target, targetTypes),
       level: new Level(updatedTask.level),
@@ -132,7 +132,7 @@ export class TaskRepository implements ITaskRepository {
       title: new Title(taskDto.title),
       description: new Description(taskDto.description),
       workflow: taskDto.workflow,
-      status: new Status(taskDto.status),
+      status: new TaskStatus(taskDto.status),
       priority: new Priority(taskDto.priority),
       target: new Targets(taskDto.target, targetTypes),
       level: new Level(taskDto.level),

@@ -1,4 +1,5 @@
-import { User, Role, Level } from '@/domain/User';
+import { User, Role } from '@/domain/User';
+import { Level } from '@/domain/ValueObjects';
 import { IUserRepository } from '@/application/repositories/IUserRepository';
 import { IDBConnection } from '../database/IDBConnection';
 

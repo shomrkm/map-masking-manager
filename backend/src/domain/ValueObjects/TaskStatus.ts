@@ -8,7 +8,7 @@ function isStatus(status: string): status is StatusType {
   return statusTypes.includes(status as StatusType);
 }
 
-export class Status extends ValueObject<StatusType> {
+export class TaskStatus extends ValueObject<StatusType> {
   constructor(status: string) {
     if (!isStatus(status)) {
       throw new ErrorResponse(`Status must be ${statusTypes.join(',')}`, 400);

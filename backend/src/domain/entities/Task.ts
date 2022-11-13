@@ -1,13 +1,13 @@
 import moment from 'moment-timezone';
 import { Polygon } from 'geojson';
 
-import { Title, Description, Status, Targets, Level, Priority } from './entities';
+import { Title, Description, TaskStatus, Targets, Level, Priority } from '../ValueObjects';
 
 type Params = {
   title: Title;
   description: Description;
   workflow: string;
-  status: Status;
+  status: TaskStatus;
   priority: Priority;
   target: Targets;
   level: Level;
@@ -32,7 +32,7 @@ export class Task {
   private _description: Description;
   private _detail: string;
   private _area: Polygon | null;
-  private _status: Status;
+  private _status: TaskStatus;
   private _workflow: string;
   private _targets: Targets;
   private _level: Level;
@@ -163,11 +163,11 @@ export class Task {
     return this._area;
   }
 
-  get status(): Status {
+  get status(): TaskStatus {
     return this._status;
   }
 
-  set status(status: Status) {
+  set status(status: TaskStatus) {
     this._status = status;
   }
 

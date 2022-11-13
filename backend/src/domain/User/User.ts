@@ -1,5 +1,5 @@
 import moment from 'moment-timezone';
-import { Level } from '../Task/entities';
+import { Level } from '../ValueObjects';
 import { Role } from './entities/Role';
 
 type Params = {
