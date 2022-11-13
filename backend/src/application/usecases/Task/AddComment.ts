@@ -1,5 +1,6 @@
 import { Polygon } from 'geojson';
-import { Comment, Text } from '@/domain/Comment';
+import { Comment } from '@/domain/entities';
+import { Text } from '@/domain/ValueObjects';
 import { ErrorResponse } from '@/interface/controller/errorResponse';
 import { ITaskRepository } from '../../repositories/ITaskRepository';
 

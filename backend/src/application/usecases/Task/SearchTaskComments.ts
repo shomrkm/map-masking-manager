@@ -1,5 +1,4 @@
-import { Task } from '@/domain/entities';
-import { Comment } from '@/domain/Comment';
+import { Task, Comment } from '@/domain/entities';
 import { ErrorResponse } from '@/interface/controller/errorResponse';
 import { ITaskRepository } from '../../repositories/ITaskRepository';
 

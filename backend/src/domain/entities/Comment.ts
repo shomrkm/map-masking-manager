@@ -1,6 +1,5 @@
 import moment, { Moment } from 'moment-timezone';
-
-import { Text } from './entities';
+import { Text } from '../ValueObjects';
 
 type Params = {
   id?: string | null;

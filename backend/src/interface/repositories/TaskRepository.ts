@@ -1,4 +1,4 @@
-import { Task } from '@/domain/entities';
+import { Task, Comment } from '@/domain/entities';
 import {
   Title,
   Description,
@@ -7,8 +7,8 @@ import {
   Level,
   Targets,
   targetTypes,
+  Text,
 } from '@/domain/ValueObjects';
-import { Comment, Text } from '@/domain/Comment';
 import { ITaskRepository } from '@/application/repositories/ITaskRepository';
 import { IDBConnection } from '../database/IDBConnection';
 import { CreateTaskDTO } from '../database/dto';
