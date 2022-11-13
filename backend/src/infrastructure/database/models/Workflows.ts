@@ -1,7 +1,7 @@
 import mongoose, { Schema, SchemaDefinition, Document, Date, model, Model } from 'mongoose';
 import AutoIncrementFactory from 'mongoose-sequence';
 import slugify from 'slugify';
-import { StatusType, statusTypes } from '@/domain/Workflow';
+import { WorkflowStatusType, workflowStatusTypes } from '@/domain/ValueObjects';
 
 // The @types/mongoose-sequence package is incorrect, and the dev doesn't care, so we ignore the error here. Follow docs here:
 // https://github.com/ramiel/mongoose-sequence
@@ -14,7 +14,7 @@ type WorkflowSchemaFields = Document & {
   id: number;
   title: string;
   description: string;
-  status: StatusType;
+  status: WorkflowStatusType;
   createUser: Schema.Types.ObjectId;
   createdAt: Date;
   slug: string;
@@ -43,7 +43,7 @@ const workflowSchemaFields: SchemaDefinition<WorkflowSchemaFields> = {
   status: {
     type: String,
     required: true,
-    enum: statusTypes,
+    enum: workflowStatusTypes,
   },
   createUser: {
     type: Schema.Types.ObjectId,

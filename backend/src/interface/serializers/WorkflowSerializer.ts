@@ -1,4 +1,4 @@
-import { Workflow } from '@/domain/Workflow';
+import { Workflow } from '@/domain/entities';
 
 const serializeSingleWorkflow = (workflow: Workflow) => {
   return {

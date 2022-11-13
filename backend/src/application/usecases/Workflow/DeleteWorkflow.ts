@@ -1,4 +1,4 @@
-import { Workflow } from '@/domain/Workflow';
+import { Workflow } from '@/domain/entities';
 import { ErrorResponse } from '@/interface/controller/errorResponse';
 import { IWorkflowRepository } from '../../repositories/IWorkflowRepository';
 

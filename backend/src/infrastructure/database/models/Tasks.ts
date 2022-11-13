@@ -4,8 +4,8 @@ import slugify from 'slugify';
 import { Polygon } from 'geojson';
 
 import {
-  StatusType,
-  statusTypes,
+  WorkflowStatusType,
+  workflowStatusTypes,
   TargetTypes,
   targetTypes,
   LevelType,
@@ -27,7 +27,7 @@ type TaskSchemaFields = Document & {
   description: string;
   detail: string;
   area: Polygon;
-  status: StatusType;
+  status: WorkflowStatusType;
   workflow: Schema.Types.ObjectId;
   target: TargetTypes;
   previous: [Schema.Types.ObjectId];
@@ -76,7 +76,7 @@ const taskSchemaFields: SchemaDefinition<TaskSchemaFields> = {
   status: {
     type: String,
     required: true,
-    enum: statusTypes,
+    enum: workflowStatusTypes,
   },
   target: {
     type: [String],

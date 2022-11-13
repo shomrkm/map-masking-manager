@@ -1,4 +1,5 @@
-import { Workflow, Title, Description, Status } from '@/domain/Workflow';
+import { Workflow } from '@/domain/entities';
+import { Title, Description, WorkflowStatus } from '@/domain/ValueObjects';
 
 import { IWorkflowRepository } from '../../repositories/IWorkflowRepository';
 
@@ -18,7 +19,7 @@ export class CreateWorkflow {
     const workflow = new Workflow({
       title: new Title(title),
       description: new Description(description),
-      status: new Status(status),
+      status: new WorkflowStatus(status),
       createUser,
     });
 

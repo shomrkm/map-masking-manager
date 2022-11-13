@@ -1,4 +1,5 @@
-import { Workflow, Title, Description, Status } from '@/domain/Workflow';
+import { Workflow } from '@/domain/entities';
+import { Title, Description, WorkflowStatus } from '@/domain/ValueObjects';
 import { IWorkflowRepository } from '@/application/repositories/IWorkflowRepository';
 import { IDBConnection } from '../database/IDBConnection';
 
@@ -15,7 +16,7 @@ export class WorkflowRepository implements IWorkflowRepository {
         new Workflow({
           title: new Title(workflowDto.title),
           description: new Description(workflowDto.description),
-          status: new Status(workflowDto.status),
+          status: new WorkflowStatus(workflowDto.status),
           createUser: workflowDto.createUser,
           id: workflowDto._id,
           no: workflowDto.id,
@@ -31,7 +32,7 @@ export class WorkflowRepository implements IWorkflowRepository {
     const workflow = new Workflow({
       title: new Title(workflowDto.title),
       description: new Description(workflowDto.description),
-      status: new Status(workflowDto.status),
+      status: new WorkflowStatus(workflowDto.status),
       createUser: workflowDto.createUser,
       id: workflowDto._id,
       no: workflowDto.id,
@@ -54,7 +55,7 @@ export class WorkflowRepository implements IWorkflowRepository {
     return new Workflow({
       title: new Title(updatedWorkflow.title),
       description: new Description(updatedWorkflow.description),
-      status: new Status(updatedWorkflow.status),
+      status: new WorkflowStatus(updatedWorkflow.status),
       createUser: updatedWorkflow.createUser,
       id: updatedWorkflow._id,
       no: updatedWorkflow.id,
@@ -67,7 +68,7 @@ export class WorkflowRepository implements IWorkflowRepository {
     const workflow = new Workflow({
       title: new Title(workflowDto.title),
       description: new Description(workflowDto.description),
-      status: new Status(workflowDto.status),
+      status: new WorkflowStatus(workflowDto.status),
       createUser: workflowDto.createUser,
       id: workflowDto._id,
       no: workflowDto.id,

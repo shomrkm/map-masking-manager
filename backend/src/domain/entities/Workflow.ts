@@ -1,11 +1,11 @@
 import moment, { Moment } from 'moment-timezone';
 
-import { Title, Description, Status } from './entities';
+import { Title, Description, WorkflowStatus } from '../ValueObjects';
 
 type Params = {
   title: Title;
   description: Description;
-  status: Status;
+  status: WorkflowStatus;
   createUser: string;
   id?: string | null;
   no?: number | null;
@@ -20,7 +20,7 @@ export class Workflow {
   private _no: number | null;
   private _title: Title;
   private _description: Description;
-  private _status: Status;
+  private _status: WorkflowStatus;
   private _createUser: string;
   private _createdAt: moment.Moment;
 
@@ -90,11 +90,11 @@ export class Workflow {
     this._description = description;
   }
 
-  get status(): Status {
+  get status(): WorkflowStatus {
     return this._status;
   }
 
-  set status(status: Status) {
+  set status(status: WorkflowStatus) {
     this._status = status;
   }
 
