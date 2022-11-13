@@ -1,5 +1,5 @@
+import { ValueObject } from '@/shared/domain/ValueObject';
 import { ErrorResponse } from '@/interface/controller/errorResponse';
-import { ValueObject } from '../../ValueoObject/ValueObject';
 
 export class Text extends ValueObject<string> {
   constructor(text: string) {

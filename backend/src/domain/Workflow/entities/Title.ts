@@ -1,4 +1,4 @@
-import { StringValueObject } from '../../ValueoObject/StringValueObject';
+import { StringValueObject } from '@/shared/domain/StringValueObject';
 import { ErrorResponse } from '@/interface/controller/errorResponse';
 
 export class Title extends StringValueObject {

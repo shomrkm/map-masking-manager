@@ -1,5 +1,5 @@
+import { ValueObject } from '@/shared/domain/ValueObject';
 import { ErrorResponse } from '@/interface/controller/errorResponse';
-import { ValueObject } from '../../ValueoObject/ValueObject';
 
 export const priorityTypes = ['high', 'normal', 'low'] as const;
 export type PriorityType = typeof priorityTypes[number];

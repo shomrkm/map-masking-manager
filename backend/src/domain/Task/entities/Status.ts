@@ -1,5 +1,5 @@
+import { ValueObject } from '@/shared/domain/ValueObject';
 import { ErrorResponse } from '@/interface/controller/errorResponse';
-import { ValueObject } from '../../ValueoObject/ValueObject';
 
 export const statusTypes = ['todo', 'inprogress', 'inReview', 'completed'] as const;
 export type StatusType = typeof statusTypes[number];

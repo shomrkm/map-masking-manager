@@ -1,5 +1,5 @@
+import { ValueObject } from '@/shared/domain/ValueObject';
 import { ErrorResponse } from '@/interface/controller/errorResponse';
-import { ValueObject } from '../../ValueoObject/ValueObject';
 
 export const roleTypes = ['admin', 'publisher', 'mapper'] as const;
 export type RoleType = typeof roleTypes[number];
