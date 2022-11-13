@@ -1,5 +1,4 @@
-import { LevelType } from '@/domain/Task';
-import { RoleType } from '@/domain/User/entities/Role';
+import { LevelType, RoleType } from '@/domain/ValueObjects';
 
 export type UserDTO = {
   _id: string;

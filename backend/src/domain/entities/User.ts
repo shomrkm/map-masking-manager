@@ -1,6 +1,5 @@
 import moment from 'moment-timezone';
-import { Level } from '../ValueObjects';
-import { Role } from './entities/Role';
+import { Level, Role } from '../ValueObjects';
 
 type Params = {
   name: string;

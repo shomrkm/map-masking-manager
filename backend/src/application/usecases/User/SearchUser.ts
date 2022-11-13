@@ -1,4 +1,4 @@
-import { User } from '@/domain/User';
+import { User } from '@/domain/entities';
 import { IUserRepository } from '../../repositories/IUserRepository';
 
 export class SearchUser {

@@ -1,4 +1,4 @@
-import { User } from '@/domain/User';
+import { User } from '@/domain/entities';
 
 const serializeSingleUser = (user: User) => {
   return {
