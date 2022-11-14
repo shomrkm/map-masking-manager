@@ -15,8 +15,8 @@ export class WorkflowController {
   private workflowRepository: IWorkflowRepository;
   private workflowSerializer: WorkflowSerializer;
 
-  constructor(dbConnection: IDBConnection) {
-    this.workflowRepository = new WorkflowRepository(dbConnection);
+  constructor() {
+    this.workflowRepository = new WorkflowRepository();
     this.workflowSerializer = new WorkflowSerializer();
   }
 

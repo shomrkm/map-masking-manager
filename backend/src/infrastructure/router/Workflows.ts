@@ -1,14 +1,12 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { asyncHandler } from '@/shared/core/middleware';
 import { WorkflowController } from '../controller/WorkflowController';
-import { MongoDBConnection } from '../mongoose/MongoDBConnection';
 import { protect, authorize } from '../../shared/core/middleware/authorization';
 import { router as taskRouter } from './Tasks';
 
 export const router = express.Router();
 
-const mongoDBConnection = new MongoDBConnection();
-const workflowController = new WorkflowController(mongoDBConnection);
+const workflowController = new WorkflowController();
 
 router.use('/:workflowid/tasks', taskRouter);
 

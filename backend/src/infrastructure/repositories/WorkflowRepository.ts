@@ -1,17 +1,11 @@
 import { ErrorResponse } from '@/shared/core/utils';
 import { Workflow } from '@/domain/entities';
 import { Title, Description, WorkflowStatus } from '@/domain/ValueObjects';
-import { IDBConnection } from '../database/IDBConnection';
 import { IWorkflowRepository } from '@/application/repositories/IWorkflowRepository';
 import { Workflow as WorkflowModel } from '../mongoose/models';
 import { WorkflowDTO } from '../database/dto';
 
 export class WorkflowRepository implements IWorkflowRepository {
-  private dbConnection: IDBConnection;
-  constructor(dbConnection: IDBConnection) {
-    this.dbConnection = dbConnection;
-  }
-
   public async findAll(): Promise<Workflow[]> {
     const workflowDtos: WorkflowDTO[] = await WorkflowModel.find().populate({
       path: 'createUser',
@@ -89,17 +83,21 @@ export class WorkflowRepository implements IWorkflowRepository {
   }
 
   public async delete(workflowId: string): Promise<Workflow> {
-    const workflowDto = await this.dbConnection.deleteWorkflow(workflowId);
-    const workflow = new Workflow({
-      title: new Title(workflowDto.title),
-      description: new Description(workflowDto.description),
-      status: new WorkflowStatus(workflowDto.status),
-      createUser: workflowDto.createUser,
-      id: workflowDto._id,
-      no: workflowDto.id,
-      createdAt: workflowDto.createdAt,
+    const workflow = await WorkflowModel.findById(workflowId);
+    if (!workflow) {
+      throw new ErrorResponse(`Workflow was not found with id of ${workflowId}`, 404);
+    }
+    const deletedWorkflow = new Workflow({
+      title: new Title(workflow.title),
+      description: new Description(workflow.description),
+      status: new WorkflowStatus(workflow.status),
+      createUser: workflow.createUser,
+      id: workflow._id,
+      no: workflow.id,
+      createdAt: workflow.createdAt,
     });
+    workflow.remove();
 
-    return workflow;
+    return deletedWorkflow;
   }
 }

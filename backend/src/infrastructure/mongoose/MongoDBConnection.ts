@@ -5,33 +5,6 @@ import { UserDTO } from '../database/dto/userDto';
 import { Workflow as WorkflowModel, User as UserModel, UserDoc } from './models';
 
 export class MongoDBConnection implements IDBConnection {
-  public async deleteWorkflow(workflowId: string): Promise<WorkflowDTO> {
-    const workflow = await WorkflowModel.findById(workflowId);
-    if (!workflow) {
-      throw new ErrorResponse(`Workflow was not found with id of ${workflowId}`, 404);
-    }
-    workflow.remove();
-    return workflow as any;
-  }
-
-  public async findAllUsers(): Promise<UserDTO[]> {
-    const userDocs = await UserModel.find();
-    return userDocs.map((user) => ({
-      _id: user._id.toString(),
-      name: user.name,
-      email: user.email,
-      role: user.role,
-      level: user.level,
-      avatar: user.avatar,
-      password: user.password,
-      resetPasswordToken: user.resetPasswordToken ?? null,
-      resetPasswordExpire: user.resetPasswordExpire
-        ? new Date(user.resetPasswordExpire.toString())
-        : null,
-      createdAt: new Date(user.createdAt.toString()),
-    }));
-  }
-
   public async findUserById(userId: string): Promise<UserDTO> {
     const userDoc: UserDoc | null = await UserModel.findById(userId);
     if (!userDoc) {

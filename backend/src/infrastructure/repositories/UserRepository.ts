@@ -1,7 +1,9 @@
 import { User } from '@/domain/entities';
 import { Level, Role } from '@/domain/ValueObjects';
 import { IUserRepository } from '@/application/repositories/IUserRepository';
+import { User as UserModel, UserDoc } from '../mongoose/models';
 import { IDBConnection } from '../database/IDBConnection';
+import { ErrorResponse } from '@/shared/core/utils';
 
 export class UserRepository implements IUserRepository {
   private dbConnection: IDBConnection;
@@ -10,37 +12,44 @@ export class UserRepository implements IUserRepository {
   }
 
   public async findAll(): Promise<User[]> {
-    const userDtos = await this.dbConnection.findAllUsers();
-    return userDtos.map(
-      (userDto) =>
+    const userDocs: UserDoc[] = await UserModel.find();
+    return userDocs.map(
+      (userDoc) =>
         new User({
-          id: userDto._id,
-          name: userDto.name,
-          email: userDto.email,
-          role: new Role(userDto.role),
-          level: new Level(userDto.level),
-          avatar: userDto.avatar,
-          password: userDto.password,
-          resetPasswordToken: userDto.resetPasswordToken ?? undefined,
-          resetPasswordExpire: userDto.resetPasswordExpire ?? undefined,
-          createdAt: userDto.createdAt,
+          id: userDoc._id.toString(),
+          name: userDoc.name,
+          email: userDoc.email,
+          role: new Role(userDoc.role),
+          level: new Level(userDoc.level),
+          avatar: userDoc.avatar,
+          password: userDoc.password,
+          resetPasswordToken: userDoc.resetPasswordToken ?? undefined,
+          resetPasswordExpire: userDoc.resetPasswordExpire
+            ? new Date(userDoc.resetPasswordExpire.toString())
+            : undefined,
+          createdAt: new Date(userDoc.createdAt.toString()),
         })
     );
   }
 
   public async find(id: string): Promise<User> {
-    const userDto = await this.dbConnection.findUserById(id);
+    const userDoc: UserDoc | null = await UserModel.findById(id);
+    if (!userDoc) {
+      throw new ErrorResponse(`User was not found with id of ${id}`, 404);
+    }
     const user = new User({
-      id: userDto._id,
-      name: userDto.name,
-      email: userDto.email,
-      role: new Role(userDto.role),
-      level: new Level(userDto.level),
-      avatar: userDto.avatar,
-      password: userDto.password,
-      resetPasswordToken: userDto.resetPasswordToken ?? undefined,
-      resetPasswordExpire: userDto.resetPasswordExpire ?? undefined,
-      createdAt: userDto.createdAt,
+      id: userDoc._id.toString(),
+      name: userDoc.name,
+      email: userDoc.email,
+      role: new Role(userDoc.role),
+      level: new Level(userDoc.level),
+      avatar: userDoc.avatar,
+      password: userDoc.password,
+      resetPasswordToken: userDoc.resetPasswordToken ?? undefined,
+      resetPasswordExpire: userDoc.resetPasswordExpire
+        ? new Date(userDoc.resetPasswordExpire.toString())
+        : undefined,
+      createdAt: new Date(userDoc.createdAt.toString()),
     });
 
     return user;
