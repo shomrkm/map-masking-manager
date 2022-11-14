@@ -196,19 +196,32 @@ export class TaskRepository implements ITaskRepository {
   }
 
   public async findCommentById(id: string): Promise<Comment> {
-    const commentDto = await this.dbConnection.findCommentById(id);
-    const comment = new Comment({
+    const commentDto: CommentDTO | null = await CommentModel.findById(id).populate({
+      path: 'user',
+      select: 'name avatar',
+    });
+    if (!commentDto) {
+      throw new ErrorResponse(`Comment was not found with id of ${id}`, 404);
+    }
+
+    return new Comment({
       task: commentDto.task,
       user: commentDto.user,
       text: new Text(commentDto.text),
       id: commentDto._id,
       createdAt: commentDto.createdAt,
     });
-    return comment;
   }
 
   public async findComments(taskId: string): Promise<Comment[]> {
-    const commentDtos = await this.dbConnection.findCommentsByTaskId(taskId);
+    if (!(await TaskModel.findById(taskId))) {
+      throw new ErrorResponse(`Task was not found with id of ${taskId}`, 404);
+    }
+
+    const commentDtos: CommentDTO[] = await CommentModel.find({ task: taskId }).populate({
+      path: 'user',
+      select: 'name avatar',
+    });
     const comments = commentDtos.map(
       (comment) =>
         new Comment({

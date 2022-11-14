@@ -68,34 +68,12 @@ export class MongoDBConnection implements IDBConnection {
     return workflow as any;
   }
 
-  public async findCommentById(commentId: string): Promise<CommentDTO> {
-    const comment: CommentDTO | null = await CommentModel.findById(commentId).populate({
-      path: 'user',
-      select: 'name avatar',
-    });
-    if (!comment) {
-      throw new ErrorResponse(`Comment was not found with id of ${commentId}`, 404);
-    }
-    return comment;
-  }
-
   public async addComment(comment: CreateCommentDTO): Promise<CommentDTO> {
     const newComment = CommentModel.create(comment);
     if (!newComment) {
       throw new ErrorResponse('Creating Comment Failed', 400);
     }
     return newComment as any;
-  }
-
-  public async findCommentsByTaskId(taskId: string): Promise<CommentDTO[]> {
-    if (!(await TaskModel.findById(taskId))) {
-      throw new ErrorResponse(`Task was not found with id of ${taskId}`, 404);
-    }
-    const comments: CommentDTO[] = await CommentModel.find({ task: taskId }).populate({
-      path: 'user',
-      select: 'name avatar',
-    });
-    return comments;
   }
 
   public async findAllUsers(): Promise<UserDTO[]> {

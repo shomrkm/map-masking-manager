@@ -12,8 +12,6 @@ export interface IDBConnection {
   updateWorkflow(workflowId: string, values: UpdateWorkflowDTO): Promise<WorkflowDTO>;
 
   // Queries for Comment Models
-  findCommentById(commentId: string): Promise<CommentDTO>;
-  findCommentsByTaskId(taskId: string): Promise<CommentDTO[]>;
   addComment(comment: CreateCommentDTO): Promise<CommentDTO>;
 
   // Queries for User Models
