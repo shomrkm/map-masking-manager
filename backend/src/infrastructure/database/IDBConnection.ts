@@ -5,7 +5,6 @@ import { UserDTO } from './dto/userDto';
 
 export interface IDBConnection {
   // Queries for Task Models
-  findAllTasks(): Promise<TaskDTO[]>;
   findTaskById(taskId: string): Promise<TaskDTO>;
   findTasks(values: OptionalTaskDTO): Promise<TaskDTO[]>;
   createTask(task: CreateTaskDTO): Promise<TaskDTO>;

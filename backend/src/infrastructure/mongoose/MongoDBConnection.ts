@@ -21,13 +21,6 @@ import {
 } from './models';
 
 export class MongoDBConnection implements IDBConnection {
-  public async findAllTasks(): Promise<TaskDTO[]> {
-    const tasks: TaskDTO[] = await TaskModel.find()
-      .populate({ path: 'createUser', select: 'name avatar' })
-      .populate({ path: 'assignedUsers', select: 'name avatar' });
-    return tasks;
-  }
-
   public async findTaskById(taskId: string): Promise<TaskDTO> {
     const task: TaskDTO | null = await TaskModel.findById(taskId)
       .populate({ path: 'createUser', select: 'name avatar' })

@@ -10,6 +10,8 @@ import {
   Text,
 } from '@/domain/ValueObjects';
 import { ITaskRepository } from '@/application/repositories/ITaskRepository';
+import { Task as TaskModel } from '../mongoose/models';
+import { TaskDTO } from '../database/dto';
 import { IDBConnection } from '../database/IDBConnection';
 
 export class TaskRepository implements ITaskRepository {
@@ -19,7 +21,10 @@ export class TaskRepository implements ITaskRepository {
   }
 
   public async findAll(): Promise<Task[]> {
-    const taskDtos = await this.dbConnection.findAllTasks();
+    const taskDtos: TaskDTO[] = await TaskModel.find()
+      .populate({ path: 'createUser', select: 'name avatar' })
+      .populate({ path: 'assignedUsers', select: 'name avatar' });
+
     const tasks = taskDtos.map(
       (taskDto) =>
         new Task({
