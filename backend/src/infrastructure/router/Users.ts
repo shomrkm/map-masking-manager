@@ -1,8 +1,8 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { upload } from '@/shared/core/utils';
 import { asyncHandler, protect } from '@/shared/core/middleware';
-import { createUser, updateUser, deleteUser, updateAvator } from '@/adapter/controller/users';
-import { UserController } from '@/adapter/controller/UserController';
+import { createUser, updateUser, deleteUser, updateAvator } from '../controller/users';
+import { UserController } from '../controller/UserController';
 import { MongoDBConnection } from '../mongoose/MongoDBConnection';
 
 export const router = express.Router();

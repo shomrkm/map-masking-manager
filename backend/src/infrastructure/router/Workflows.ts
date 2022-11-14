@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { asyncHandler } from '@/shared/core/middleware';
-import { WorkflowController } from '@/adapter/controller/WorkflowController';
+import { WorkflowController } from '../controller/WorkflowController';
 import { MongoDBConnection } from '../mongoose/MongoDBConnection';
 import { protect, authorize } from '../../shared/core/middleware/authorization';
 import { router as taskRouter } from './Tasks';
