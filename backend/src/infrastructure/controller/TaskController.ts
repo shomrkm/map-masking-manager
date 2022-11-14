@@ -16,8 +16,8 @@ export class TaskController {
   private taskRepository: ITaskRepository;
   private taskSerializer: TaskSerializer;
 
-  constructor(dbConnection: IDBConnection) {
-    this.taskRepository = new TaskRepository(dbConnection);
+  constructor() {
+    this.taskRepository = new TaskRepository();
     this.taskSerializer = new TaskSerializer();
   }
 

@@ -5,8 +5,7 @@ import { TaskController } from '../controller/TaskController';
 import { MongoDBConnection } from '../mongoose/MongoDBConnection';
 import { router as commentRouter } from './Comments';
 
-const mongoDBConnection = new MongoDBConnection();
-const taskController = new TaskController(mongoDBConnection);
+const taskController = new TaskController();
 
 export const router = express.Router({ mergeParams: true });
 

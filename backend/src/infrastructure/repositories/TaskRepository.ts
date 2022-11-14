@@ -16,11 +16,6 @@ import { TaskDTO, CommentDTO } from '../database/dto';
 import { IDBConnection } from '../database/IDBConnection';
 
 export class TaskRepository implements ITaskRepository {
-  private dbConnection: IDBConnection;
-  constructor(dbConnection: IDBConnection) {
-    this.dbConnection = dbConnection;
-  }
-
   public async findAll(): Promise<Task[]> {
     const taskDtos: TaskDTO[] = await TaskModel.find()
       .populate({ path: 'createUser', select: 'name avatar' })
@@ -236,8 +231,11 @@ export class TaskRepository implements ITaskRepository {
   }
 
   public async addComment(comment: Comment): Promise<Comment> {
-    const { _id } = await this.dbConnection.addComment(comment.toPrimitive());
-    comment.id = _id;
+    const newComment: CommentDTO = await CommentModel.create(comment.toPrimitive());
+    if (!newComment) {
+      throw new ErrorResponse('Creating Comment Failed', 400);
+    }
+    comment.id = newComment._id;
     return comment;
   }
 }

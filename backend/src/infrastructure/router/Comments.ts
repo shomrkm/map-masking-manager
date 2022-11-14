@@ -5,7 +5,7 @@ import { CommentController } from '../controller/CommentController';
 import { MongoDBConnection } from '../mongoose/MongoDBConnection';
 
 const mongoDBConnection = new MongoDBConnection();
-const commentController = new CommentController(mongoDBConnection);
+const commentController = new CommentController();
 
 export const router = express.Router({ mergeParams: true });
 

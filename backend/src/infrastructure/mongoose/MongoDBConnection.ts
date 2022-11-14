@@ -1,24 +1,8 @@
 import { ErrorResponse } from '@/shared/core/utils';
 import { IDBConnection } from '../database/IDBConnection';
-import {
-  TaskDTO,
-  CreateTaskDTO,
-  UpdateTaskDTO,
-  OptionalTaskDTO,
-  WorkflowDTO,
-  CreateWorkflowDTO,
-  UpdateWorkflowDTO,
-  CommentDTO,
-  CreateCommentDTO,
-} from '../database/dto';
+import { WorkflowDTO, CreateWorkflowDTO, UpdateWorkflowDTO } from '../database/dto';
 import { UserDTO } from '../database/dto/userDto';
-import {
-  Task as TaskModel,
-  Workflow as WorkflowModel,
-  Comment as CommentModel,
-  User as UserModel,
-  UserDoc,
-} from './models';
+import { Workflow as WorkflowModel, User as UserModel, UserDoc } from './models';
 
 export class MongoDBConnection implements IDBConnection {
   public async findAllWorkflows(): Promise<WorkflowDTO[]> {
@@ -66,14 +50,6 @@ export class MongoDBConnection implements IDBConnection {
       runValidators: true,
     });
     return workflow as any;
-  }
-
-  public async addComment(comment: CreateCommentDTO): Promise<CommentDTO> {
-    const newComment = CommentModel.create(comment);
-    if (!newComment) {
-      throw new ErrorResponse('Creating Comment Failed', 400);
-    }
-    return newComment as any;
   }
 
   public async findAllUsers(): Promise<UserDTO[]> {
