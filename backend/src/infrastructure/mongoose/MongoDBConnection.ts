@@ -21,34 +21,6 @@ import {
 } from './models';
 
 export class MongoDBConnection implements IDBConnection {
-  public async createTask(task: CreateTaskDTO): Promise<TaskDTO> {
-    const newTask = await TaskModel.create(task);
-    if (!newTask) {
-      throw new ErrorResponse('CreatingTask Failed', 400);
-    }
-    return newTask as any;
-  }
-
-  public async deleteTask(taskId: string): Promise<TaskDTO> {
-    const task = await TaskModel.findById(taskId);
-    if (!task) {
-      throw new ErrorResponse(`Task was not found with id of ${taskId}`, 404);
-    }
-    task.remove();
-    return task as any;
-  }
-
-  public async updateTask(taskId: string, values: UpdateTaskDTO): Promise<TaskDTO> {
-    if (!(await TaskModel.findById(taskId))) {
-      throw new ErrorResponse(`Task was not found with id of ${taskId}`, 404);
-    }
-    const task = await TaskModel.findOneAndUpdate({ _id: taskId }, values, {
-      new: true,
-      runValidators: true,
-    });
-    return task as any;
-  }
-
   public async findAllWorkflows(): Promise<WorkflowDTO[]> {
     const workflows: WorkflowDTO[] = await WorkflowModel.find().populate({
       path: 'createUser',

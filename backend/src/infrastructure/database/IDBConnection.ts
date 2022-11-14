@@ -4,11 +4,6 @@ import { CommentDTO, CreateCommentDTO } from './dto/commentDto';
 import { UserDTO } from './dto/userDto';
 
 export interface IDBConnection {
-  // Queries for Task Models
-  createTask(task: CreateTaskDTO): Promise<TaskDTO>;
-  deleteTask(taskId: string): Promise<TaskDTO>;
-  updateTask(taskId: string, values: UpdateTaskDTO): Promise<TaskDTO>;
-
   // Queries for Workflow Models
   findAllWorkflows(): Promise<WorkflowDTO[]>;
   findWorkflowById(workflowId: string): Promise<WorkflowDTO>;
