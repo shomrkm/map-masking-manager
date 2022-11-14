@@ -7,11 +7,11 @@ import helmet from 'helmet';
 // import xss from 'xss-clean';
 import cors from 'cors';
 import { errorHandler } from '../shared/core/middleware/error';
-import { router as workflows } from './router//Workflows';
-import { router as tasks } from './router//Tasks';
-import { router as users } from './router//Users';
-import { router as auth } from './router//Auth';
-import { router as comments } from './router//Comments';
+import { router as workflows } from '../presentation/router/Workflows';
+import { router as tasks } from '../presentation/router/Tasks';
+import { router as users } from '../presentation/router/Users';
+import { router as auth } from '../presentation/router/Auth';
+import { router as comments } from '../presentation/router/Comments';
 import { connectDB } from './mongoose/db';
 
 dotenv.config({ path: './config/.env' });

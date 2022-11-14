@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { asyncHandler } from '@/shared/core/middleware';
-import { WorkflowController } from '../controller/WorkflowController';
-import { protect, authorize } from '../../shared/core/middleware/authorization';
+import { protect, authorize } from '@/shared/core/middleware/authorization';
+import { WorkflowController } from '@/presentation/controller/WorkflowController';
 import { router as taskRouter } from './Tasks';
 
 export const router = express.Router();

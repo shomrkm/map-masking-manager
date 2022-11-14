@@ -1,8 +1,8 @@
+import { buildPaginationData } from '@/shared/core/utils/buildPaginationData';
 import { IUserRepository } from '@/application/repositories/IUserRepository';
 import { SearchAllUsers, SearchUser } from '@/application/usecases/User';
-import { UserRepository } from '../repositories/UserRepository';
+import { UserRepository } from '@/infrastructure/repositories/UserRepository';
 import { UserSerializer } from '../serializers/UserSerializer';
-import { buildPaginationData } from '../../shared/core/utils/buildPaginationData';
 
 export class UserController {
   private userRepository: IUserRepository;

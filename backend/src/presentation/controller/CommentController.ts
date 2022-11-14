@@ -3,7 +3,7 @@ import { SearchTaskComments } from '@/application/usecases/Task';
 import { SearchAllComments } from '@/application/usecases/Task/SearchAllComments';
 import { SearchTaskComment } from '@/application/usecases/Task/SearchTaskComment';
 import { AddComment } from '@/application/usecases/Task/AddComment';
-import { TaskRepository } from '../repositories/TaskRepository';
+import { TaskRepository } from '@/infrastructure/repositories/TaskRepository';
 import { CommentSerializer } from '../serializers/CommentSerializer';
 
 export class CommentController {

@@ -1,3 +1,4 @@
+import { buildPaginationData } from '@/shared/core/utils/buildPaginationData';
 import { IWorkflowRepository } from '@/application/repositories/IWorkflowRepository';
 import {
   SearchAllWorkflows,
@@ -6,9 +7,8 @@ import {
   DeleteWorkflow,
   UpdateWorkflow,
 } from '@/application/usecases/Workflow';
-import { WorkflowRepository } from '../repositories/WorkflowRepository';
+import { WorkflowRepository } from '@/infrastructure/repositories/WorkflowRepository';
 import { WorkflowSerializer } from '../serializers/WorkflowSerializer';
-import { buildPaginationData } from '../../shared/core/utils/buildPaginationData';
 
 export class WorkflowController {
   private workflowRepository: IWorkflowRepository;

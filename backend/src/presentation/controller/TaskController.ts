@@ -1,3 +1,4 @@
+import { buildPaginationData } from '@/shared/core/utils/buildPaginationData';
 import { ITaskRepository } from '@/application/repositories/ITaskRepository';
 import {
   CreateTask,
@@ -7,9 +8,8 @@ import {
   SearchTasksInWorkflow,
   SearchTask,
 } from '@/application/usecases/Task';
-import { TaskRepository } from '../repositories/TaskRepository';
+import { TaskRepository } from '@/infrastructure/repositories/TaskRepository';
 import { TaskSerializer } from '../serializers/TaskSerializer';
-import { buildPaginationData } from '../../shared/core/utils/buildPaginationData';
 
 export class TaskController {
   private taskRepository: ITaskRepository;
