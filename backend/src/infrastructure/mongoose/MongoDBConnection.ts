@@ -68,14 +68,6 @@ export class MongoDBConnection implements IDBConnection {
     return workflow as any;
   }
 
-  public async findAllComments(): Promise<CommentDTO[]> {
-    const comments: CommentDTO[] = await CommentModel.find().populate({
-      path: 'user',
-      select: 'name avatar',
-    });
-    return comments;
-  }
-
   public async findCommentById(commentId: string): Promise<CommentDTO> {
     const comment: CommentDTO | null = await CommentModel.findById(commentId).populate({
       path: 'user',

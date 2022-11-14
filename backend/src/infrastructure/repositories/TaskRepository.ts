@@ -1,3 +1,4 @@
+import { ErrorResponse } from '@/shared/core/utils';
 import { Task, Comment } from '@/domain/entities';
 import {
   Title,
@@ -10,10 +11,9 @@ import {
   Text,
 } from '@/domain/ValueObjects';
 import { ITaskRepository } from '@/application/repositories/ITaskRepository';
-import { Task as TaskModel } from '../mongoose/models';
-import { TaskDTO } from '../database/dto';
+import { Task as TaskModel, Comment as CommentModel } from '../mongoose/models';
+import { TaskDTO, CommentDTO } from '../database/dto';
 import { IDBConnection } from '../database/IDBConnection';
-import { ErrorResponse } from '@/shared/core/utils';
 
 export class TaskRepository implements ITaskRepository {
   private dbConnection: IDBConnection;
@@ -177,7 +177,10 @@ export class TaskRepository implements ITaskRepository {
   }
 
   public async findAllComments(): Promise<Comment[]> {
-    const commentDtos = await this.dbConnection.findAllComments();
+    const commentDtos: CommentDTO[] = await CommentModel.find().populate({
+      path: 'user',
+      select: 'name avatar',
+    });
     const comments = commentDtos.map(
       (comment) =>
         new Comment({
@@ -188,6 +191,7 @@ export class TaskRepository implements ITaskRepository {
           createdAt: comment.createdAt,
         })
     );
+
     return comments;
   }
 
