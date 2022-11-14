@@ -1,7 +1,9 @@
 import { Workflow } from '@/domain/entities';
 import { Title, Description, WorkflowStatus } from '@/domain/ValueObjects';
-import { IWorkflowRepository } from '@/application/repositories/IWorkflowRepository';
 import { IDBConnection } from '../database/IDBConnection';
+import { IWorkflowRepository } from '@/application/repositories/IWorkflowRepository';
+import { Workflow as WorkflowModel } from '../mongoose/models';
+import { WorkflowDTO } from '../database/dto';
 
 export class WorkflowRepository implements IWorkflowRepository {
   private dbConnection: IDBConnection;
@@ -10,7 +12,10 @@ export class WorkflowRepository implements IWorkflowRepository {
   }
 
   public async findAll(): Promise<Workflow[]> {
-    const workflowDtos = await this.dbConnection.findAllWorkflows();
+    const workflowDtos: WorkflowDTO[] = await WorkflowModel.find().populate({
+      path: 'createUser',
+      select: 'name avatar',
+    });
     const workflows = workflowDtos.map(
       (workflowDto) =>
         new Workflow({

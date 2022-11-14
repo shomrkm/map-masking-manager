@@ -13,7 +13,6 @@ import {
 import { ITaskRepository } from '@/application/repositories/ITaskRepository';
 import { Task as TaskModel, Comment as CommentModel } from '../mongoose/models';
 import { TaskDTO, CommentDTO } from '../database/dto';
-import { IDBConnection } from '../database/IDBConnection';
 
 export class TaskRepository implements ITaskRepository {
   public async findAll(): Promise<Task[]> {
