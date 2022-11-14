@@ -13,6 +13,7 @@ import { ITaskRepository } from '@/application/repositories/ITaskRepository';
 import { Task as TaskModel } from '../mongoose/models';
 import { TaskDTO } from '../database/dto';
 import { IDBConnection } from '../database/IDBConnection';
+import { ErrorResponse } from '@/shared/core/utils';
 
 export class TaskRepository implements ITaskRepository {
   private dbConnection: IDBConnection;
@@ -51,7 +52,12 @@ export class TaskRepository implements ITaskRepository {
   }
 
   public async findById(id: string): Promise<Task> {
-    const taskDto = await this.dbConnection.findTaskById(id);
+    const taskDto: TaskDTO | null = await TaskModel.findById(id)
+      .populate({ path: 'createUser', select: 'name avatar' })
+      .populate({ path: 'assignedUsers', select: 'name avatar' });
+    if (!taskDto) {
+      throw new ErrorResponse(`Task was not found with id of ${id}`, 404);
+    }
     const task = new Task({
       title: new Title(taskDto.title),
       description: new Description(taskDto.description),
