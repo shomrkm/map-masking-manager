@@ -5,10 +5,7 @@ import { UserDTO } from './dto/userDto';
 
 export interface IDBConnection {
   // Queries for Workflow Models
-  findWorkflowById(workflowId: string): Promise<WorkflowDTO>;
-  createWorkflow(workflow: CreateWorkflowDTO): Promise<WorkflowDTO>;
   deleteWorkflow(workflowId: string): Promise<WorkflowDTO>;
-  updateWorkflow(workflowId: string, values: UpdateWorkflowDTO): Promise<WorkflowDTO>;
 
   // Queries for User Models
   findAllUsers(): Promise<UserDTO[]>;

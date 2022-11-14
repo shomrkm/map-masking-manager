@@ -1,3 +1,4 @@
+import { ErrorResponse } from '@/shared/core/utils';
 import { Workflow } from '@/domain/entities';
 import { Title, Description, WorkflowStatus } from '@/domain/ValueObjects';
 import { IDBConnection } from '../database/IDBConnection';
@@ -33,7 +34,13 @@ export class WorkflowRepository implements IWorkflowRepository {
   }
 
   public async find(id: string): Promise<Workflow> {
-    const workflowDto = await this.dbConnection.findWorkflowById(id);
+    const workflowDto: WorkflowDTO | null = await WorkflowModel.findById(id).populate({
+      path: 'createUser',
+      select: 'name avatar',
+    });
+    if (!workflowDto) {
+      throw new ErrorResponse(`Workflow was not found with id of ${id}`, 404);
+    }
     const workflow = new Workflow({
       title: new Title(workflowDto.title),
       description: new Description(workflowDto.description),
@@ -50,13 +57,26 @@ export class WorkflowRepository implements IWorkflowRepository {
   public async save(workflow: Workflow): Promise<Workflow> {
     const workflowDto = workflow.toPrimitive();
     if (!workflow.id) {
-      const { _id, id } = await this.dbConnection.createWorkflow(workflowDto);
-      workflow.id = _id;
-      workflow.no = id;
+      const newWorkflow = await WorkflowModel.create(workflowDto);
+      if (!newWorkflow) {
+        throw new ErrorResponse('Creating Workflow Failed', 400);
+      }
+      workflow.id = newWorkflow._id;
+      workflow.no = newWorkflow.id;
       return workflow;
     }
 
-    const updatedWorkflow = await this.dbConnection.updateWorkflow(workflow.id, workflowDto);
+    if (!(await WorkflowModel.findById(workflow.id))) {
+      throw new ErrorResponse(`Workflow was not found with id of ${workflow.id}`, 404);
+    }
+    const updatedWorkflow = await WorkflowModel.findOneAndUpdate(
+      { _id: workflow.id },
+      workflowDto,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
     return new Workflow({
       title: new Title(updatedWorkflow.title),
       description: new Description(updatedWorkflow.description),
