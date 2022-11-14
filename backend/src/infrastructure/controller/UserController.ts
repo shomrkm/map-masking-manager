@@ -1,6 +1,5 @@
 import { IUserRepository } from '@/application/repositories/IUserRepository';
 import { SearchAllUsers, SearchUser } from '@/application/usecases/User';
-import { IDBConnection } from '../database/IDBConnection';
 import { UserRepository } from '../repositories/UserRepository';
 import { UserSerializer } from '../serializers/UserSerializer';
 import { buildPaginationData } from '../../shared/core/utils/buildPaginationData';
@@ -9,8 +8,8 @@ export class UserController {
   private userRepository: IUserRepository;
   private userSerializer: UserSerializer;
 
-  constructor(dbConnection: IDBConnection) {
-    this.userRepository = new UserRepository(dbConnection);
+  constructor() {
+    this.userRepository = new UserRepository();
     this.userSerializer = new UserSerializer();
   }
 

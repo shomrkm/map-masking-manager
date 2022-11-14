@@ -12,7 +12,7 @@ import {
 } from '@/domain/ValueObjects';
 import { ITaskRepository } from '@/application/repositories/ITaskRepository';
 import { Task as TaskModel, Comment as CommentModel } from '../mongoose/models';
-import { TaskDTO, CommentDTO } from '../database/dto';
+import { TaskDTO, CommentDTO } from './dto';
 
 export class TaskRepository implements ITaskRepository {
   public async findAll(): Promise<Task[]> {

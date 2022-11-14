@@ -1,11 +1,11 @@
-import { StatusType } from '@/domain/Workflow';
+import { WorkflowStatusType } from '@/domain/ValueObjects';
 
 export type WorkflowDTO = {
   _id: string;
   id: number;
   title: string;
   description: string;
-  status: StatusType;
+  status: WorkflowStatusType;
   createUser: string;
   createdAt: Date;
 };

@@ -3,12 +3,10 @@ import { upload } from '@/shared/core/utils';
 import { asyncHandler, protect } from '@/shared/core/middleware';
 import { createUser, updateUser, deleteUser, updateAvator } from '../controller/users';
 import { UserController } from '../controller/UserController';
-import { MongoDBConnection } from '../mongoose/MongoDBConnection';
 
 export const router = express.Router();
 
-const mongoDBConnection = new MongoDBConnection();
-const userController = new UserController(mongoDBConnection);
+const userController = new UserController();
 
 // @desc      Get All users
 // @route     GET /api/v1/users

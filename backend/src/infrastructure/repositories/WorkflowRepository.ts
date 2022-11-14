@@ -3,7 +3,7 @@ import { Workflow } from '@/domain/entities';
 import { Title, Description, WorkflowStatus } from '@/domain/ValueObjects';
 import { IWorkflowRepository } from '@/application/repositories/IWorkflowRepository';
 import { Workflow as WorkflowModel } from '../mongoose/models';
-import { WorkflowDTO } from '../database/dto';
+import { WorkflowDTO } from './dto';
 
 export class WorkflowRepository implements IWorkflowRepository {
   public async findAll(): Promise<Workflow[]> {

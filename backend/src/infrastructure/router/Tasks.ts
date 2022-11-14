@@ -2,7 +2,6 @@ import express, { Request, Response, NextFunction } from 'express';
 import { asyncHandler } from '@/shared/core/middleware';
 import { protect, authorize } from '../../shared/core/middleware/authorization';
 import { TaskController } from '../controller/TaskController';
-import { MongoDBConnection } from '../mongoose/MongoDBConnection';
 import { router as commentRouter } from './Comments';
 
 const taskController = new TaskController();
