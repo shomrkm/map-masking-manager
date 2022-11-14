@@ -5,14 +5,6 @@ import { UserDTO } from '../database/dto/userDto';
 import { Workflow as WorkflowModel, User as UserModel, UserDoc } from './models';
 
 export class MongoDBConnection implements IDBConnection {
-  public async findAllWorkflows(): Promise<WorkflowDTO[]> {
-    const workflows: WorkflowDTO[] = await WorkflowModel.find().populate({
-      path: 'createUser',
-      select: 'name avatar',
-    });
-    return workflows;
-  }
-
   public async findWorkflowById(workflowId: string): Promise<WorkflowDTO> {
     const workflow: WorkflowDTO | null = await WorkflowModel.findById(workflowId).populate({
       path: 'createUser',
