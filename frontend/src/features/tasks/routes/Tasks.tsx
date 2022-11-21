@@ -7,6 +7,8 @@ import {
   LevelBadge,
 } from '@/components/Elements';
 import { ContentLayout } from '@/components/Layout';
+import { CreateTaskButton } from '@/features/tasks/components/CreateTaskButton';
+import { Authorization, ROLES } from '@/lib/authorization';
 
 import { useTasks } from '../api/getTasks';
 import { Task } from '../types';
@@ -29,50 +31,58 @@ export const Tasks = () => {
   return (
     <>
       <ContentLayout title="Tasks">
-        <Table<Task>
-          data={taskQuery.data}
-          columns={[
-            {
-              title: 'ID',
-              field: 'id',
-              Cell({ entry: { _id, id } }) {
-                return <Link to={`./${_id}`}>{id}</Link>;
+        <div className="flex-col">
+          <Authorization allowedRoles={[ROLES.admin]}>
+            <div className="flex pb-4">
+              {/* TODO: POST task request(/api/tasks) doesn't work so need to fix it. */}
+              <CreateTaskButton buttonTitle="Create" />
+            </div>
+          </Authorization>
+          <Table<Task>
+            data={taskQuery.data}
+            columns={[
+              {
+                title: 'ID',
+                field: 'id',
+                Cell({ entry: { _id, id } }) {
+                  return <Link to={`./${_id}`}>{id}</Link>;
+                },
               },
-            },
-            {
-              title: 'Status',
-              field: 'status',
-              Cell({ entry: { status } }) {
-                return <StatusBadge status={status} size="sm" />;
+              {
+                title: 'Status',
+                field: 'status',
+                Cell({ entry: { status } }) {
+                  return <StatusBadge status={status} size="sm" />;
+                },
               },
-            },
-            {
-              title: 'Title',
-              field: 'title',
-            },
-            {
-              title: 'Priority',
-              field: 'priority',
-              Cell({ entry: { priority } }) {
-                return <PriorityBadge priority={priority} size="sm" />;
+              {
+                title: 'Title',
+                field: 'title',
               },
-            },
-            {
-              title: 'Level',
-              field: 'level',
-              Cell({ entry: { level } }) {
-                return <LevelBadge level={level} size="sm" />;
+              {
+                title: 'Priority',
+                field: 'priority',
+                Cell({ entry: { priority } }) {
+                  return <PriorityBadge priority={priority} size="sm" />;
+                },
               },
-            },
-            {
-              title: 'Created by',
-              field: 'createUser',
-              Cell({ entry: { createUser } }) {
-                return <p>{createUser.name}</p>;
+              {
+                title: 'Level',
+                field: 'level',
+                Cell({ entry: { level } }) {
+                  return <LevelBadge level={level} size="sm" />;
+                },
               },
-            },
-          ]}
-        />
+              {
+                title: 'Created by',
+                field: 'createUser',
+                Cell({ entry: { createUser } }) {
+                  return <p>{createUser.name}</p>;
+                },
+              },
+            ]}
+          />
+        </div>
       </ContentLayout>
     </>
   );
