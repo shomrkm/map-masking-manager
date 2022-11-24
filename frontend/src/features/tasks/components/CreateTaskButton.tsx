@@ -54,7 +54,6 @@ export const CreateTaskButton = ({ buttonTitle, fixedValues }: CreateTaskButtonP
           id="create-task"
           onSubmit={async (values) => {
             const data = { ...values, ...fixedValues };
-            console.log('submit', data);
             await createTaskMutation.mutateAsync({ data });
           }}
           schema={schema}
