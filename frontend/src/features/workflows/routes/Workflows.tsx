@@ -1,9 +1,9 @@
 import { Spinner, Table, Link, StatusBadge } from '@/components/Elements';
 import { ContentLayout } from '@/components/Layout';
-import { CreateTaskButton } from '@/features/tasks/components/CreateTaskButton';
 import { Authorization, ROLES } from '@/lib/authorization';
 
 import { useWorkflows } from '../api/getWorkflows';
+import { CreateWorkflowButton } from '../components/CreateWorkflowButton';
 import { Workflow } from '../types';
 
 export const Workflows = () => {
@@ -27,8 +27,7 @@ export const Workflows = () => {
         <div className="flex-col">
           <Authorization allowedRoles={[ROLES.admin]}>
             <div className="flex pb-4">
-              {/* TODO: Change below to CreateWorkflowButton */}
-              <CreateTaskButton buttonTitle="Create" />
+              <CreateWorkflowButton buttonTitle="Create" />
             </div>
           </Authorization>
           <Table<Workflow>
