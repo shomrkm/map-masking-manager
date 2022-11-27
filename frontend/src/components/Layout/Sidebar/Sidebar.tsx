@@ -14,7 +14,7 @@ type SideNavigationItem = {
 
 const SideNavigation = () => {
   const navigation = [
-    { name: 'Dashbard', to: '/app/dashboard', icon: HomeIcon },
+    { name: 'Dashboard', to: '/app/dashboard', icon: HomeIcon },
     { name: 'Workflows', to: '/app/workflows', icon: ShareIcon },
     { name: 'Tasks', to: '/app/tasks', icon: DocumentTextIcon },
   ] as SideNavigationItem[];

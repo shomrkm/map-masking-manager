@@ -42,7 +42,7 @@ export const useCreateTask = ({ config }: UseCreateTaskOptions = {}) => {
       await queryClient.cancelQueries('tasks');
       // Get cache and optimistic update
       const previousTasks = queryClient.getQueryData<Task[]>('tasks');
-      queryClient.setQueryData('tasks', [...(previousTasks || []), newTask]);
+      queryClient.setQueryData('tasks', [...(previousTasks || []), { ...newTask, id: 'dummy' }]);
       // Send context to onError
       return { previousTasks };
     },

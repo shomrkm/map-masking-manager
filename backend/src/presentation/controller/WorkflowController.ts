@@ -45,6 +45,18 @@ export class WorkflowController {
 
     const useCase = new CreateWorkflow(this.workflowRepository);
     const newWorkflow = await useCase.execute(title, description, status, createUser);
+    // TODO: Return user in response data like below
+    // {
+    //   _id: "aaa",
+    //   id: 10,
+    //   title "title",
+    //   description: "desc",
+    //   user: {
+    //     _id: "abc",
+    //     name: "Shotaro Murakami",
+    //     avatar: "/image/avatar.png",
+    //   }
+    // }
     return {
       success: true,
       data: this.workflowSerializer.serializeWorkflow(newWorkflow),

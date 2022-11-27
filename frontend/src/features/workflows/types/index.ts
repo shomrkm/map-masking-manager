@@ -13,5 +13,4 @@ export type Workflow = {
     avatar: string;
   };
   createdAt: string;
-  slug: string;
 };
