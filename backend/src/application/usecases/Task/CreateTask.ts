@@ -34,6 +34,11 @@ export class CreateTask {
     next: string[] = [],
     assignedUsers: string[] = []
   ): Promise<Task> {
+    // TODO: Check authorization.
+
+    this.checkTaskExists(previous);
+    this.checkTaskExists(next);
+
     const task = new Task({
       title: new Title(title),
       description: new Description(description),
@@ -50,8 +55,6 @@ export class CreateTask {
       assignedUsers,
     });
 
-    // TODO: Check authorization.
-
     const newTask = await this.taskRepository.save(task);
     const newId = newTask.id;
     if (!newId) {
@@ -59,27 +62,25 @@ export class CreateTask {
     }
 
     // Add task id to previous/next tasks.
-    if (task.next.length) {
-      next.forEach(async (next) => {
-        const nextTask = await this.taskRepository.findById(next);
-        if (!nextTask) {
-          throw new ErrorResponse(`Task was not found with id of ${next}`, 404);
-        }
-        nextTask.previous.push(newId);
-        await this.taskRepository.save(nextTask);
-      });
-    }
-    if (task.previous.length) {
-      previous.forEach(async (prev) => {
-        const prevTask = await this.taskRepository.findById(prev);
-        if (!prevTask) {
-          throw new ErrorResponse(`Task was not found with id of ${prev}`, 404);
-        }
-        prevTask.next.push(newId);
-        await this.taskRepository.save(prevTask);
-      });
-    }
+    task.previous.forEach(async (id) => {
+      const prevTask = await this.taskRepository.findById(id);
+      prevTask.addNextTask(newId);
+      await this.taskRepository.save(prevTask);
+    });
+    task.next.forEach(async (id) => {
+      const nextTask = await this.taskRepository.findById(id);
+      nextTask.addPreviousTask(newId);
+      await this.taskRepository.save(nextTask);
+    });
 
     return newTask;
+  }
+
+  private checkTaskExists(ids: string[]) {
+    ids.forEach(async (id) => {
+      if (!(await this.taskRepository.findById(id))) {
+        throw new ErrorResponse(`Task was not found with id of ${id}`, 404);
+      }
+    });
   }
 }
