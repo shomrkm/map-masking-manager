@@ -48,4 +48,19 @@ export class UserRepository implements IUserRepository {
 
     return user;
   }
+
+  public async save(user: User): Promise<User> {
+    const userDto = user.toPrimitive();
+    if (!user.id) {
+      const newUser = await UserModel.create(userDto);
+      if (!newUser) {
+        throw new ErrorResponse('Creating New User Failed', 400);
+      }
+      user.id = newUser._id.toString();
+      return user;
+    }
+
+    // TODO: Update Task
+    return user;
+  }
 }
