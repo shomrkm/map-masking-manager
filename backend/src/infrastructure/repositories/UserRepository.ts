@@ -3,8 +3,6 @@ import { Level, Role } from '@/domain/ValueObjects';
 import { IUserRepository } from '@/application/repositories/IUserRepository';
 import { User as UserModel, UserDoc } from '../mongoose/models';
 import { ErrorResponse } from '@/shared/core/utils';
-import { AssertionError } from 'assert';
-import { assert } from 'console';
 
 export class UserRepository implements IUserRepository {
   public async findAll(): Promise<User[]> {
