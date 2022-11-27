@@ -54,6 +54,22 @@ export class User {
     return this._id !== null;
   }
 
+  public toPrimitive() {
+    const primitives = {
+      name: this._name,
+      email: this._email,
+      role: this._role.toPrimitive(),
+      level: this._level.toPrimitive(),
+      avatar: this._avatar,
+      passward: this.password,
+      resetPasswordToken: this._resetPasswordToken,
+      resetPawwsordExpire: this._resetPasswordExpire?.toDate(),
+      createdAt: this._createdAt.toDate(),
+    };
+    if (this.isPersisted()) return { _id: this._id, ...primitives };
+    return primitives;
+  }
+
   get id(): string | null {
     return this._id;
   }
