@@ -3,6 +3,8 @@ import { Level, Role } from '@/domain/ValueObjects';
 import { IUserRepository } from '@/application/repositories/IUserRepository';
 import { User as UserModel, UserDoc } from '../mongoose/models';
 import { ErrorResponse } from '@/shared/core/utils';
+import { AssertionError } from 'assert';
+import { assert } from 'console';
 
 export class UserRepository implements IUserRepository {
   public async findAll(): Promise<User[]> {
@@ -60,7 +62,24 @@ export class UserRepository implements IUserRepository {
       return user;
     }
 
-    // TODO: Update Task
-    return user;
+    const updatedUser = await UserModel.findOneAndUpdate({ _id: user.id }, userDto, {
+      new: true,
+      runValidators: true,
+    });
+    if (!updatedUser) {
+      throw new ErrorResponse(`User was not found with id of ${user.id}`, 404);
+    }
+
+    return new User({
+      name: updatedUser.name ?? '',
+      email: updatedUser.email ?? '',
+      role: new Role(updatedUser.role),
+      level: new Level(updatedUser.level),
+      avatar: updatedUser.avatar,
+      password: updatedUser.password,
+      resetPasswordToken: updatedUser.resetPasswordToken,
+      resetPasswordExpire: new Date(updatedUser.resetPasswordExpire.toString()),
+      createdAt: new Date(updatedUser.createdAt.toString()),
+    });
   }
 }
