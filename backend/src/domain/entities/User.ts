@@ -6,7 +6,7 @@ type Params = {
   email: string;
   role: Role;
   level: Level;
-  avatar: string;
+  avatar?: string;
   password: string;
   resetPasswordToken?: string;
   resetPasswordExpire?: Date;
@@ -31,8 +31,8 @@ export class User {
     email,
     role,
     level,
-    avatar,
     password,
+    avatar = undefined,
     resetPasswordToken = undefined,
     resetPasswordExpire = undefined,
     createdAt = undefined,
@@ -43,7 +43,7 @@ export class User {
     this._email = email;
     this._role = role;
     this._level = level;
-    this._avatar = avatar;
+    this._avatar = avatar ?? 'uploads/default_avatar.png';
     this._password = password;
     this._resetPasswordToken = resetPasswordToken ?? null;
     this._resetPasswordExpire = resetPasswordExpire ? moment(resetPasswordExpire) : null;
@@ -61,7 +61,7 @@ export class User {
       role: this._role.toPrimitive(),
       level: this._level.toPrimitive(),
       avatar: this._avatar,
-      passward: this.password,
+      password: this.password,
       resetPasswordToken: this._resetPasswordToken,
       resetPawwsordExpire: this._resetPasswordExpire?.toDate(),
       createdAt: this._createdAt.toDate(),
