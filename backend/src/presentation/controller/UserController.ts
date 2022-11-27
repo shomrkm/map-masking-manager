@@ -3,6 +3,7 @@ import { IUserRepository } from '@/application/repositories/IUserRepository';
 import { SearchAllUsers, SearchUser } from '@/application/usecases/User';
 import { UserRepository } from '@/infrastructure/repositories/UserRepository';
 import { UserSerializer } from '../serializers/UserSerializer';
+import { CreateUser } from '@/application/usecases/User/CreateUser';
 
 export class UserController {
   private userRepository: IUserRepository;
@@ -28,6 +29,16 @@ export class UserController {
   public async getUser(req: any) {
     const searchUser = new SearchUser(this.userRepository);
     const user = await searchUser.execute(req.params.id);
+    return {
+      success: true,
+      data: this.userSerializer.serializeUser(user),
+    };
+  }
+
+  public async createUser(req: any) {
+    const { name, email, role, level, password } = req.body;
+    const createUser = new CreateUser(this.userRepository);
+    const user = await createUser.execute(name, email, role, level, password);
     return {
       success: true,
       data: this.userSerializer.serializeUser(user),
