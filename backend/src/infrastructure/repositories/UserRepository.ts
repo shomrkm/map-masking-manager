@@ -71,8 +71,8 @@ export class UserRepository implements IUserRepository {
     }
 
     return new User({
-      name: updatedUser.name ?? '',
-      email: updatedUser.email ?? '',
+      name: updatedUser.name,
+      email: updatedUser.email,
       role: new Role(updatedUser.role),
       level: new Level(updatedUser.level),
       avatar: updatedUser.avatar,
