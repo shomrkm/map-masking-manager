@@ -34,7 +34,7 @@ export const getUser = asyncHandler(async (req: Request, res: Response, next: Ne
 
 // @desc Create new user
 // @route POST /api/v1/users
-// @access Private
+// @access Private/Admin
 export const createUser = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = await userController.createUser(req);
