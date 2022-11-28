@@ -3,18 +3,6 @@ import { User } from '@/infrastructure/mongoose/models';
 import { ErrorResponse } from '../../shared/core/utils/errorResponse';
 import { asyncHandler } from '../../shared/core/middleware/asyncHandler';
 
-// @desc      Create user
-// @route     POST /api/v1/users
-// @access    Private/Admin
-export const createUser = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-  const user = await User.create(req.body);
-
-  res.status(201).json({
-    success: true,
-    data: user,
-  });
-});
-
 // @desc      Update user
 // @route     PUT /api/v1/users/:id
 // @access    Private/Admin
