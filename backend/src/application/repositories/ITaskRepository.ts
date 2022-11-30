@@ -1,5 +1,4 @@
-import { Task } from '@/domain/Task';
-import { Comment } from '@/domain/Comment';
+import { Task, Comment } from '@/domain/entities';
 
 export interface ITaskRepository {
   findAll(): Promise<Task[]>;

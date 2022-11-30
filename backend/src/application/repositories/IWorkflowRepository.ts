@@ -1,4 +1,4 @@
-import { Workflow } from '@/domain/Workflow';
+import { Workflow } from '@/domain/entities';
 
 export interface IWorkflowRepository {
   findAll(): Promise<Workflow[]>;
