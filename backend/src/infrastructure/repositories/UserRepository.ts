@@ -80,4 +80,25 @@ export class UserRepository implements IUserRepository {
       createdAt: new Date(updatedUser.createdAt.toString()),
     });
   }
+
+  public async delete(id: string): Promise<User> {
+    const user = await UserModel.findById(id);
+    if (!user) {
+      throw new ErrorResponse(`User was not found with id of ${id}`, 404);
+    }
+    const deletedUser = new User({
+      name: user.name,
+      email: user.email,
+      role: new Role(user.role),
+      level: new Level(user.level),
+      avatar: user.avatar,
+      password: user.password,
+      resetPasswordToken: user.resetPasswordToken,
+      resetPasswordExpire: new Date(user.resetPasswordExpire.toString()),
+      createdAt: new Date(user.createdAt.toString()),
+    });
+    user.remove();
+
+    return deletedUser;
+  }
 }
