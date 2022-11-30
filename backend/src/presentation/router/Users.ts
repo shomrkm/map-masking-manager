@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { upload } from '@/shared/core/utils';
 import { asyncHandler, protect } from '@/shared/core/middleware';
-import { updateUser, deleteUser, updateAvator } from '../controller/users';
+import { deleteUser, updateAvator } from '../controller/users';
 import { UserController } from '../controller/UserController';
 
 export const router = express.Router();
@@ -38,6 +38,18 @@ export const getUser = asyncHandler(async (req: Request, res: Response, next: Ne
 export const createUser = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = await userController.createUser(req);
+    res.status(201).json(user);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// @desc Update user
+// @route PUT /api/v1/users
+// @access Private/Admin
+export const updateUser = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const user = await userController.updateUser(req);
     res.status(201).json(user);
   } catch (err) {
     next(err);

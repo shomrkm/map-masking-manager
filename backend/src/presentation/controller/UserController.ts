@@ -4,6 +4,7 @@ import { SearchAllUsers, SearchUser } from '@/application/usecases/User';
 import { UserRepository } from '@/infrastructure/repositories/UserRepository';
 import { UserSerializer } from '../serializers/UserSerializer';
 import { CreateUser } from '@/application/usecases/User/CreateUser';
+import { UpdateUser } from '@/application/usecases/User/UpdateUser';
 
 export class UserController {
   private userRepository: IUserRepository;
@@ -39,6 +40,15 @@ export class UserController {
     const { name, email, role, level, password } = req.body;
     const createUser = new CreateUser(this.userRepository);
     const user = await createUser.execute(name, email, role, level, password);
+    return {
+      success: true,
+      data: this.userSerializer.serializeUser(user),
+    };
+  }
+
+  public async updateUser(req: any) {
+    const updateUser = new UpdateUser(this.userRepository);
+    const user = await updateUser.execute(req.params.id, req.body);
     return {
       success: true,
       data: this.userSerializer.serializeUser(user),
