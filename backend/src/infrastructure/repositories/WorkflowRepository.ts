@@ -96,7 +96,7 @@ export class WorkflowRepository implements IWorkflowRepository {
       no: workflow.id,
       createdAt: workflow.createdAt,
     });
-    workflow.remove();
+    await workflow.remove();
 
     return deletedWorkflow;
   }

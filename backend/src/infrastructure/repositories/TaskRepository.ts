@@ -165,7 +165,7 @@ export class TaskRepository implements ITaskRepository {
       no: task.id,
       createdAt: task.createdAt,
     });
-    task.remove();
+    await task.remove();
 
     return deletedTask;
   }
