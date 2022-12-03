@@ -5,6 +5,7 @@ import { UserRepository } from '@/infrastructure/repositories/UserRepository';
 import { UserSerializer } from '../serializers/UserSerializer';
 import { CreateUser } from '@/application/usecases/User/CreateUser';
 import { UpdateUser } from '@/application/usecases/User/UpdateUser';
+import { DeleteUser } from '@/application/usecases/User/DeleteUser';
 
 export class UserController {
   private userRepository: IUserRepository;
@@ -49,6 +50,15 @@ export class UserController {
   public async updateUser(req: any) {
     const updateUser = new UpdateUser(this.userRepository);
     const user = await updateUser.execute(req.params.id, req.body);
+    return {
+      success: true,
+      data: this.userSerializer.serializeUser(user),
+    };
+  }
+
+  public async deleteUser(req: any) {
+    const deleteUser = new DeleteUser(this.userRepository);
+    const user = await deleteUser.execute(req.params.id);
     return {
       success: true,
       data: this.userSerializer.serializeUser(user),

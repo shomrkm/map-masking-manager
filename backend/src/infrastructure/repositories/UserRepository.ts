@@ -69,6 +69,7 @@ export class UserRepository implements IUserRepository {
     }
 
     return new User({
+      id: updatedUser._id.toString(),
       name: updatedUser.name,
       email: updatedUser.email,
       role: new Role(updatedUser.role),
@@ -76,7 +77,9 @@ export class UserRepository implements IUserRepository {
       avatar: updatedUser.avatar,
       password: updatedUser.password,
       resetPasswordToken: updatedUser.resetPasswordToken,
-      resetPasswordExpire: new Date(updatedUser.resetPasswordExpire.toString()),
+      resetPasswordExpire: updatedUser.resetPasswordExpire
+        ? new Date(updatedUser.resetPasswordExpire.toString())
+        : undefined,
       createdAt: new Date(updatedUser.createdAt.toString()),
     });
   }
@@ -87,6 +90,7 @@ export class UserRepository implements IUserRepository {
       throw new ErrorResponse(`User was not found with id of ${id}`, 404);
     }
     const deletedUser = new User({
+      id: user._id.toString(),
       name: user.name,
       email: user.email,
       role: new Role(user.role),
@@ -94,10 +98,12 @@ export class UserRepository implements IUserRepository {
       avatar: user.avatar,
       password: user.password,
       resetPasswordToken: user.resetPasswordToken,
-      resetPasswordExpire: new Date(user.resetPasswordExpire.toString()),
+      resetPasswordExpire: user.resetPasswordExpire
+        ? new Date(user.resetPasswordExpire.toString())
+        : undefined,
       createdAt: new Date(user.createdAt.toString()),
     });
-    user.remove();
+    await user.remove();
 
     return deletedUser;
   }
