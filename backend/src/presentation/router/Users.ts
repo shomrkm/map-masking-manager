@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { upload } from '@/shared/core/utils';
-import { asyncHandler, protect } from '@/shared/core/middleware';
+import { asyncHandler, authorize, protect } from '@/shared/core/middleware';
 import { updateAvator } from '../controller/users';
 import { UserController } from '../controller/UserController';
 
@@ -68,8 +68,12 @@ export const deleteUser = asyncHandler(async (req: Request, res: Response, next:
   }
 });
 
-router.route('/').get(getUsers).post(createUser);
+router.route('/').get(getUsers).post(protect, authorize('admin'), createUser);
 
-router.route('/:id').get(getUser).put(updateUser).delete(deleteUser);
+router
+  .route('/:id')
+  .get(getUser)
+  .put(protect, updateUser)
+  .delete(protect, authorize('admin'), deleteUser);
 
 router.route('/:id/avatar').post(protect, upload.single('file'), updateAvator);
