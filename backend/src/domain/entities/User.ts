@@ -1,6 +1,8 @@
 import moment from 'moment-timezone';
 import { Level, Role } from '../ValueObjects';
 
+const AVATAR_DIR = 'uploads/';
+
 type Params = {
   name: string;
   email: string;
@@ -43,7 +45,7 @@ export class User {
     this._email = email;
     this._role = role;
     this._level = level;
-    this._avatar = avatar ?? 'uploads/default_avatar.png';
+    this._avatar = avatar ?? AVATAR_DIR + 'default_avatar.png';
     this._password = password;
     this._resetPasswordToken = resetPasswordToken ?? null;
     this._resetPasswordExpire = resetPasswordExpire ? moment(resetPasswordExpire) : null;
@@ -68,6 +70,10 @@ export class User {
     };
     if (this.isPersisted()) return { _id: this._id, ...primitives };
     return primitives;
+  }
+
+  public updateAvatar(filename: string) {
+    this._avatar = AVATAR_DIR + filename;
   }
 
   get id(): string | null {
@@ -113,10 +119,6 @@ export class User {
 
   get avatar(): string {
     return this._avatar;
-  }
-
-  set avatar(avatar: string) {
-    this._avatar = avatar;
   }
 
   get password(): string {
