@@ -1,7 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { upload } from '@/shared/core/utils';
 import { asyncHandler, authorize, protect } from '@/shared/core/middleware';
-import { updateAvator } from '../controller/users';
 import { UserController } from '../controller/UserController';
 
 export const router = express.Router();
@@ -67,6 +66,20 @@ export const deleteUser = asyncHandler(async (req: Request, res: Response, next:
     next(err);
   }
 });
+
+// @desc Update avatar image
+// @route DELETE /api/v1/users/:id/avatar
+// @access Private
+export const updateAvator = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const user = await userController.updateAvatar(req);
+      res.status(200).json(user);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
 
 router.route('/').get(getUsers).post(protect, authorize('admin'), createUser);
 

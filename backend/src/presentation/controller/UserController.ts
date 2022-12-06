@@ -6,6 +6,7 @@ import { UserSerializer } from '../serializers/UserSerializer';
 import { CreateUser } from '@/application/usecases/User/CreateUser';
 import { UpdateUser } from '@/application/usecases/User/UpdateUser';
 import { DeleteUser } from '@/application/usecases/User/DeleteUser';
+import { UpdateAvatar } from '@/application/usecases/User/UpdateAvatar';
 
 export class UserController {
   private userRepository: IUserRepository;
@@ -63,5 +64,14 @@ export class UserController {
       success: true,
       data: this.userSerializer.serializeUser(user),
     };
+  }
+
+  public async updateAvatar(req: any) {
+    const updateAvatar = new UpdateAvatar(this.userRepository);
+    const user = await updateAvatar.execute(req.params.id, req.params.filename);
+    return {
+      success: true,
+      data: this.userSerializer.serializeUser(user),
+    }
   }
 }
