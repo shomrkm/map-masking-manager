@@ -26,7 +26,7 @@ type UseUpdateTaskOptions = {
   config?: MutationConfig<typeof updateTask>;
 };
 
-export const useCreateTask = ({ config }: UseUpdateTaskOptions = {}) => {
+export const useUpdateTask = ({ config }: UseUpdateTaskOptions = {}) => {
   const { addNotification } = useNotificationStore();
 
   return useMutation({
