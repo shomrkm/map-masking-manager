@@ -1,3 +1,4 @@
+import { Request } from 'express';
 import { buildPaginationData } from '@/shared/core/utils/buildPaginationData';
 import { IUserRepository } from '@/application/repositories/IUserRepository';
 import { SearchAllUsers, SearchUser } from '@/application/usecases/User';
@@ -17,7 +18,7 @@ export class UserController {
     this.userSerializer = new UserSerializer();
   }
 
-  public async getUsers(req: any) {
+  public async getUsers(req: Request) {
     const searchAllUsers = new SearchAllUsers(this.userRepository);
     const users = await searchAllUsers.execute();
     const { count, pagination, data } = buildPaginationData(req, users);
@@ -29,7 +30,7 @@ export class UserController {
     };
   }
 
-  public async getUser(req: any) {
+  public async getUser(req: Request) {
     const searchUser = new SearchUser(this.userRepository);
     const user = await searchUser.execute(req.params.id);
     return {
@@ -38,7 +39,7 @@ export class UserController {
     };
   }
 
-  public async createUser(req: any) {
+  public async createUser(req: Request) {
     const { name, email, role, level, password } = req.body;
     const createUser = new CreateUser(this.userRepository);
     const user = await createUser.execute(name, email, role, level, password);
@@ -48,7 +49,7 @@ export class UserController {
     };
   }
 
-  public async updateUser(req: any) {
+  public async updateUser(req: Request) {
     const updateUser = new UpdateUser(this.userRepository);
     const user = await updateUser.execute(req.params.id, req.body);
     return {
@@ -57,7 +58,7 @@ export class UserController {
     };
   }
 
-  public async deleteUser(req: any) {
+  public async deleteUser(req: Request) {
     const deleteUser = new DeleteUser(this.userRepository);
     const user = await deleteUser.execute(req.params.id);
     return {
@@ -66,12 +67,12 @@ export class UserController {
     };
   }
 
-  public async updateAvatar(req: any) {
+  public async updateAvatar(req: Request) {
     const updateAvatar = new UpdateAvatar(this.userRepository);
     const user = await updateAvatar.execute(req.params.id, req.params.filename);
     return {
       success: true,
       data: this.userSerializer.serializeUser(user),
-    }
+    };
   }
 }

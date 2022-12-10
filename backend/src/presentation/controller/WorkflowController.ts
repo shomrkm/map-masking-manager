@@ -1,3 +1,4 @@
+import { Request } from 'express';
 import { buildPaginationData } from '@/shared/core/utils/buildPaginationData';
 import { IWorkflowRepository } from '@/application/repositories/IWorkflowRepository';
 import {
@@ -19,7 +20,7 @@ export class WorkflowController {
     this.workflowSerializer = new WorkflowSerializer();
   }
 
-  public async getWorkflows(req: any) {
+  public async getWorkflows(req: Request) {
     const searchAllWorkflows = new SearchAllWorkflows(this.workflowRepository);
     const tasks = await searchAllWorkflows.execute();
     const { count, pagination, data } = buildPaginationData(req, tasks);
@@ -31,7 +32,7 @@ export class WorkflowController {
     };
   }
 
-  public async getWorkflow(req: any) {
+  public async getWorkflow(req: Request) {
     const searchWorkflow = new SearchWorkflow(this.workflowRepository);
     const workflow = await searchWorkflow.execute(req.params.id);
     return {
@@ -40,7 +41,7 @@ export class WorkflowController {
     };
   }
 
-  public async createWorkflow(req: any) {
+  public async createWorkflow(req: Request) {
     const { title, description, status, createUser } = req.body;
 
     const useCase = new CreateWorkflow(this.workflowRepository);
@@ -63,7 +64,7 @@ export class WorkflowController {
     };
   }
 
-  public async deleteWorkflow(req: any) {
+  public async deleteWorkflow(req: Request) {
     const useCase = new DeleteWorkflow(this.workflowRepository);
     const workflow = await useCase.execute(req.params.id);
     return {
@@ -72,7 +73,7 @@ export class WorkflowController {
     };
   }
 
-  public async updateWorkflow(req: any) {
+  public async updateWorkflow(req: Request) {
     const useCase = new UpdateWorkflow(this.workflowRepository);
     const workflow = await useCase.execute(req.params.id, req.body);
     return {

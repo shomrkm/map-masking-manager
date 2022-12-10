@@ -1,3 +1,4 @@
+import { Request } from 'express';
 import { buildPaginationData } from '@/shared/core/utils/buildPaginationData';
 import { ITaskRepository } from '@/application/repositories/ITaskRepository';
 import {
@@ -20,7 +21,7 @@ export class TaskController {
     this.taskSerializer = new TaskSerializer();
   }
 
-  public async getTasks(req: any) {
+  public async getTasks(req: Request) {
     if (req.params.workflowid) {
       const searchTasks = new SearchTasksInWorkflow(this.taskRepository);
       const tasks = await searchTasks.execute(req.params.workflowid);
@@ -43,7 +44,7 @@ export class TaskController {
     };
   }
 
-  public async getTask(req: any) {
+  public async getTask(req: Request) {
     const searchTask = new SearchTask(this.taskRepository);
     const task = await searchTask.execute(req.params.id);
     return {
@@ -52,7 +53,7 @@ export class TaskController {
     };
   }
 
-  public async createTask(req: any) {
+  public async createTask(req: Request) {
     const {
       title,
       description,
@@ -91,7 +92,7 @@ export class TaskController {
     };
   }
 
-  public async deleteTask(req: any) {
+  public async deleteTask(req: Request) {
     const useCase = new DeleteTask(this.taskRepository);
     const task = await useCase.execute(req.params.id);
     return {
@@ -100,7 +101,7 @@ export class TaskController {
     };
   }
 
-  public async updateTask(req: any) {
+  public async updateTask(req: Request) {
     const useCase = new UpdateTask(this.taskRepository);
     const task = await useCase.execute(req.params.id, req.body);
     return {

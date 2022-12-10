@@ -1,3 +1,4 @@
+import { Request } from 'express';
 import { ITaskRepository } from '@/application/repositories/ITaskRepository';
 import { SearchTaskComments } from '@/application/usecases/Task';
 import { SearchAllComments } from '@/application/usecases/Task/SearchAllComments';
@@ -15,7 +16,7 @@ export class CommentController {
     this.commentSerializer = new CommentSerializer();
   }
 
-  public async getComments(req: any) {
+  public async getComments(req: Request) {
     if (req.params.taskid) {
       const searchTaskComments = new SearchTaskComments(this.taskRepository);
       const comments = await searchTaskComments.execute(req.params.taskid);
@@ -35,7 +36,7 @@ export class CommentController {
     };
   }
 
-  public async getComment(req: any) {
+  public async getComment(req: Request) {
     const searchComment = new SearchTaskComment(this.taskRepository);
     const comment = await searchComment.execute(req.params.id);
     return {
@@ -44,7 +45,7 @@ export class CommentController {
     };
   }
 
-  public async addComment(req: any) {
+  public async addComment(req: Request) {
     const addComment = new AddComment(this.taskRepository);
     const comment = await addComment.execute(req.params.taskid, req.user, req.body.text);
 
