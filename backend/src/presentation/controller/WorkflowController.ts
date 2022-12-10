@@ -41,7 +41,8 @@ export class WorkflowController {
     });
   }
 
-  public async createWorkflow(req: Request) {
+  public async createWorkflow(req: Request, res: Response) {
+    req.body.createUser = req.user.id;
     const { title, description, status, createUser } = req.body;
 
     const useCase = new CreateWorkflow(this.workflowRepository);
@@ -58,27 +59,27 @@ export class WorkflowController {
     //     avatar: "/image/avatar.png",
     //   }
     // }
-    return {
+    res.status(201).json({
       success: true,
       data: this.workflowSerializer.serializeWorkflow(newWorkflow),
-    };
+    });
   }
 
-  public async deleteWorkflow(req: Request) {
+  public async deleteWorkflow(req: Request, res: Response) {
     const useCase = new DeleteWorkflow(this.workflowRepository);
     const workflow = await useCase.execute(req.params.id);
-    return {
+    res.status(200).json({
       success: true,
       data: this.workflowSerializer.serializeWorkflow(workflow),
-    };
+    });
   }
 
-  public async updateWorkflow(req: Request) {
+  public async updateWorkflow(req: Request, res: Response) {
     const useCase = new UpdateWorkflow(this.workflowRepository);
     const workflow = await useCase.execute(req.params.id, req.body);
-    return {
+    res.status(200).json({
       success: true,
       data: this.workflowSerializer.serializeWorkflow(workflow),
-    };
+    });
   }
 }
