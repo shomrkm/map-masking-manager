@@ -10,20 +10,6 @@ const workflowController = new WorkflowController();
 
 router.use('/:workflowid/tasks', taskRouter);
 
-// @desc Get all workflows
-// @route GET /api/v1/workflows
-// @access Public
-export const getWorkflows = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const workflows = await workflowController.getWorkflows(req);
-      res.status(200).json(workflows);
-    } catch (err) {
-      next(err);
-    }
-  }
-);
-
 // @desc Get single workflow
 // @route GET /api/v1/workflows/:id
 // @access Public
@@ -79,7 +65,10 @@ export const updateWorkflow = asyncHandler(
   }
 );
 
-router.route('/').get(getWorkflows).post(protect, authorize('publisher', 'admin'), createWorkflow);
+router
+  .route('/')
+  .get(asyncHandler(workflowController.getWorkflows.bind(workflowController)))
+  .post(protect, authorize('publisher', 'admin'), createWorkflow);
 
 router
   .route('/:id')

@@ -1,4 +1,4 @@
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import { buildPaginationData } from '@/shared/core/utils/buildPaginationData';
 import { IWorkflowRepository } from '@/application/repositories/IWorkflowRepository';
 import {
@@ -20,16 +20,16 @@ export class WorkflowController {
     this.workflowSerializer = new WorkflowSerializer();
   }
 
-  public async getWorkflows(req: Request) {
+  public async getWorkflows(req: Request, res: Response) {
     const searchAllWorkflows = new SearchAllWorkflows(this.workflowRepository);
     const tasks = await searchAllWorkflows.execute();
     const { count, pagination, data } = buildPaginationData(req, tasks);
-    return {
+    res.status(200).json({
       success: true,
       count,
       pagination,
       data: this.workflowSerializer.serializeWorkflows(data),
-    };
+    });
   }
 
   public async getWorkflow(req: Request) {
