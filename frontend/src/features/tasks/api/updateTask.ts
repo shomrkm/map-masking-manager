@@ -8,12 +8,14 @@ import { Task } from '../types';
 
 export type UpdateTaskDTO = {
   data: {
-    title: string;
-    description: string;
-    detail: string;
-    target: ('road' | 'map' | 'poi')[];
-    level: 'expert' | 'intermediate' | 'biginner';
-    priority: 'high' | 'normal' | 'low';
+    title?: string;
+    description?: string;
+    detail?: string;
+    target?: ('road' | 'map' | 'poi')[];
+    level?: 'expert' | 'intermediate' | 'biginner';
+    priority?: 'high' | 'normal' | 'low';
+    next?: string[];
+    previous?: string[];
   };
   taskId: string;
 };
@@ -26,7 +28,7 @@ type UseUpdateTaskOptions = {
   config?: MutationConfig<typeof updateTask>;
 };
 
-export const useCreateTask = ({ config }: UseUpdateTaskOptions = {}) => {
+export const useUpdateTask = ({ config }: UseUpdateTaskOptions = {}) => {
   const { addNotification } = useNotificationStore();
 
   return useMutation({
