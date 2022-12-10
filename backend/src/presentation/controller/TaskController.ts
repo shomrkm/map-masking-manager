@@ -32,6 +32,7 @@ export class TaskController {
         pagination,
         data: this.taskSerializer.serializeTasks(data),
       });
+      return;
     }
     const searchAllTasks = new SearchAllTasks(this.taskRepository);
     const tasks = await searchAllTasks.execute();
