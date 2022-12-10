@@ -1,4 +1,4 @@
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import { buildPaginationData } from '@/shared/core/utils/buildPaginationData';
 import { ITaskRepository } from '@/application/repositories/ITaskRepository';
 import {
@@ -21,39 +21,40 @@ export class TaskController {
     this.taskSerializer = new TaskSerializer();
   }
 
-  public async getTasks(req: Request) {
+  public async getTasks(req: Request, res: Response) {
     if (req.params.workflowid) {
       const searchTasks = new SearchTasksInWorkflow(this.taskRepository);
       const tasks = await searchTasks.execute(req.params.workflowid);
       const { count, pagination, data } = buildPaginationData(req, tasks);
-      return {
+      res.status(200).json({
         success: true,
         count,
         pagination,
         data: this.taskSerializer.serializeTasks(data),
-      };
+      });
     }
     const searchAllTasks = new SearchAllTasks(this.taskRepository);
     const tasks = await searchAllTasks.execute();
     const { count, pagination, data } = buildPaginationData(req, tasks);
-    return {
+    res.status(200).json({
       success: true,
       count,
       pagination,
       data: this.taskSerializer.serializeTasks(data),
-    };
+    });
   }
 
-  public async getTask(req: Request) {
+  public async getTask(req: Request, res: Response) {
     const searchTask = new SearchTask(this.taskRepository);
     const task = await searchTask.execute(req.params.id);
-    return {
+    res.status(200).json({
       success: true,
       data: this.taskSerializer.serializeTask(task),
-    };
+    });
   }
 
-  public async createTask(req: Request) {
+  public async createTask(req: Request, res: Response) {
+    req.body.createUser = req.user.id;
     const {
       title,
       description,
@@ -86,27 +87,27 @@ export class TaskController {
       next,
       assignedUsers
     );
-    return {
+    res.status(201).json({
       success: true,
       data: this.taskSerializer.serializeTask(newTask),
-    };
+    });
   }
 
-  public async deleteTask(req: Request) {
+  public async deleteTask(req: Request, res: Response) {
     const useCase = new DeleteTask(this.taskRepository);
     const task = await useCase.execute(req.params.id);
-    return {
+    res.status(200).json({
       success: true,
       data: this.taskSerializer.serializeTask(task),
-    };
+    });
   }
 
-  public async updateTask(req: Request) {
+  public async updateTask(req: Request, res: Response) {
     const useCase = new UpdateTask(this.taskRepository);
     const task = await useCase.execute(req.params.id, req.body);
-    return {
+    res.status(200).json({
       success: true,
       data: this.taskSerializer.serializeTask(task),
-    };
+    });
   }
 }

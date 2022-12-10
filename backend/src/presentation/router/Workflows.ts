@@ -10,6 +10,8 @@ const controller = new WorkflowController();
 
 router.use('/:workflowid/tasks', taskRouter);
 
+// @route GET /api/v1/workflows (Public)
+// @route POST /api/v1/workflows (Private/admin)
 router
   .route('/')
   .get(asyncHandler(controller.getWorkflows.bind(controller)))
@@ -19,6 +21,9 @@ router
     asyncHandler(controller.createWorkflow.bind(controller))
   );
 
+// @route GET /api/v1/workflows/:id (Public)
+// @route PUT /api/v1/workflows/:id (Private/adamin)
+// @route DELETE /api/v1/workflows/:id (Private/admin)
 router
   .route('/:id')
   .get(asyncHandler(controller.getWorkflow.bind(controller)))
