@@ -1,4 +1,4 @@
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import { ITaskRepository } from '@/application/repositories/ITaskRepository';
 import { SearchTaskComments } from '@/application/usecases/Task';
 import { SearchAllComments } from '@/application/usecases/Task/SearchAllComments';
@@ -16,42 +16,42 @@ export class CommentController {
     this.commentSerializer = new CommentSerializer();
   }
 
-  public async getComments(req: Request) {
+  public async getComments(req: Request, res: Response) {
     if (req.params.taskid) {
       const searchTaskComments = new SearchTaskComments(this.taskRepository);
       const comments = await searchTaskComments.execute(req.params.taskid);
-      return {
+      res.status(200).json({
         success: true,
         count: comments.length,
         data: this.commentSerializer.serializeComments(comments),
-      };
+      });
+      return;
     }
 
     const searchAllComments = new SearchAllComments(this.taskRepository);
     const comments = await searchAllComments.execute();
-    return {
+    res.status(200).json({
       success: true,
       count: comments.length,
       data: this.commentSerializer.serializeComments(comments),
-    };
+    });
   }
 
-  public async getComment(req: Request) {
+  public async getComment(req: Request, res: Response) {
     const searchComment = new SearchTaskComment(this.taskRepository);
     const comment = await searchComment.execute(req.params.id);
-    return {
+    res.status(200).json({
       success: true,
       data: this.commentSerializer.serializeComment(comment),
-    };
+    });
   }
 
-  public async addComment(req: Request) {
+  public async addComment(req: Request, res: Response) {
     const addComment = new AddComment(this.taskRepository);
     const comment = await addComment.execute(req.params.taskid, req.user, req.body.text);
-
-    return {
+    res.status(201).json({
       success: true,
       data: this.commentSerializer.serializeComment(comment),
-    };
+    });
   }
 }
