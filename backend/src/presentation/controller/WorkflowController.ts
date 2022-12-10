@@ -32,13 +32,13 @@ export class WorkflowController {
     });
   }
 
-  public async getWorkflow(req: Request) {
+  public async getWorkflow(req: Request, res: Response) {
     const searchWorkflow = new SearchWorkflow(this.workflowRepository);
     const workflow = await searchWorkflow.execute(req.params.id);
-    return {
+    res.status(200).json({
       success: true,
       data: this.workflowSerializer.serializeWorkflow(workflow),
-    };
+    });
   }
 
   public async createWorkflow(req: Request) {

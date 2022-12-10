@@ -10,18 +10,6 @@ const workflowController = new WorkflowController();
 
 router.use('/:workflowid/tasks', taskRouter);
 
-// @desc Get single workflow
-// @route GET /api/v1/workflows/:id
-// @access Public
-export const getWorkflow = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const workflow = await workflowController.getWorkflow(req);
-    res.status(200).json(workflow);
-  } catch (err) {
-    next(err);
-  }
-});
-
 // @desc Create new workflow
 // @route POST /api/v1/workflows
 // @access Private
@@ -72,6 +60,6 @@ router
 
 router
   .route('/:id')
-  .get(getWorkflow)
+  .get(asyncHandler(workflowController.getWorkflow.bind(workflowController)))
   .put(protect, authorize('publisher', 'admin'), updateWorkflow)
   .delete(protect, authorize('publisher', 'admin'), deleteWorkflow);
