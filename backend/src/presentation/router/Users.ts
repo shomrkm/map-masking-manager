@@ -7,86 +7,31 @@ export const router = express.Router();
 
 const userController = new UserController();
 
-// @desc      Get All users
-// @route     GET /api/v1/users
-// @access    Private/Admin
-export const getUsers = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const users = await userController.getUsers(req);
-    res.status(200).json(users);
-  } catch (err) {
-    next(err);
-  }
-});
+// @route GET /api/v1/users (Public)
+// @route POST /api/v1/users (Private/admin)
+router
+  .route('/')
+  .get(asyncHandler(userController.getUsers.bind(userController)))
+  .post(protect, authorize('admin'), asyncHandler(userController.createUser.bind(userController)));
 
-// @desc      Get single user
-// @route     GET /api/v1/users/:id
-// @access    Private/Admin
-export const getUser = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const user = await userController.getUser(req);
-    res.status(200).json(user);
-  } catch (err) {
-    next(err);
-  }
-});
-
-// @desc Create new user
-// @route POST /api/v1/users
-// @access Private/Admin
-export const createUser = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const user = await userController.createUser(req);
-    res.status(201).json(user);
-  } catch (err) {
-    next(err);
-  }
-});
-
-// @desc Update user
-// @route PUT /api/v1/users
-// @access Private/Admin
-export const updateUser = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const user = await userController.updateUser(req);
-    res.status(200).json(user);
-  } catch (err) {
-    next(err);
-  }
-});
-
-// @desc Delete user
-// @route DELETE /api/v1/users
-// @access Private/Admin
-export const deleteUser = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const user = await userController.deleteUser(req);
-    res.status(200).json(user);
-  } catch (err) {
-    next(err);
-  }
-});
-
-// @desc Update avatar image
-// @route DELETE /api/v1/users/:id/avatar
-// @access Private
-export const updateAvator = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const user = await userController.updateAvatar(req);
-      res.status(200).json(user);
-    } catch (err) {
-      next(err);
-    }
-  }
-);
-
-router.route('/').get(getUsers).post(protect, authorize('admin'), createUser);
-
+// @route GET /api/v1/users/:id (Public)
+// @route PUT /api/v1/users/:id (Private)
+// @route DELETE /api/v1/users/:id (Private/admin)
 router
   .route('/:id')
-  .get(getUser)
-  .put(protect, updateUser)
-  .delete(protect, authorize('admin'), deleteUser);
+  .get(asyncHandler(userController.getUser.bind(userController)))
+  .put(protect, asyncHandler(userController.updateUser.bind(userController)))
+  .delete(
+    protect,
+    authorize('admin'),
+    asyncHandler(userController.deleteUser.bind(userController))
+  );
 
-router.route('/:id/avatar').post(protect, upload.single('file'), updateAvator);
+// @route POST /api/v1/users/:id/avatar (Private)
+router
+  .route('/:id/avatar')
+  .post(
+    protect,
+    upload.single('file'),
+    asyncHandler(userController.updateAvatar.bind(userController))
+  );

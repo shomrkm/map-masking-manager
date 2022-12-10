@@ -1,4 +1,4 @@
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import { buildPaginationData } from '@/shared/core/utils/buildPaginationData';
 import { IUserRepository } from '@/application/repositories/IUserRepository';
 import { SearchAllUsers, SearchUser } from '@/application/usecases/User';
@@ -18,61 +18,61 @@ export class UserController {
     this.userSerializer = new UserSerializer();
   }
 
-  public async getUsers(req: Request) {
+  public async getUsers(req: Request, res: Response) {
     const searchAllUsers = new SearchAllUsers(this.userRepository);
     const users = await searchAllUsers.execute();
     const { count, pagination, data } = buildPaginationData(req, users);
-    return {
+    res.status(200).json({
       success: true,
       count,
       pagination,
       data: this.userSerializer.serializeUsers(data),
-    };
+    });
   }
 
-  public async getUser(req: Request) {
+  public async getUser(req: Request, res: Response) {
     const searchUser = new SearchUser(this.userRepository);
     const user = await searchUser.execute(req.params.id);
-    return {
+    res.status(200).json({
       success: true,
       data: this.userSerializer.serializeUser(user),
-    };
+    });
   }
 
-  public async createUser(req: Request) {
+  public async createUser(req: Request, res: Response) {
     const { name, email, role, level, password } = req.body;
     const createUser = new CreateUser(this.userRepository);
     const user = await createUser.execute(name, email, role, level, password);
-    return {
+    res.status(201).json({
       success: true,
       data: this.userSerializer.serializeUser(user),
-    };
+    });
   }
 
-  public async updateUser(req: Request) {
+  public async updateUser(req: Request, res: Response) {
     const updateUser = new UpdateUser(this.userRepository);
     const user = await updateUser.execute(req.params.id, req.body);
-    return {
+    res.status(200).json({
       success: true,
       data: this.userSerializer.serializeUser(user),
-    };
+    });
   }
 
-  public async deleteUser(req: Request) {
+  public async deleteUser(req: Request, res: Response) {
     const deleteUser = new DeleteUser(this.userRepository);
     const user = await deleteUser.execute(req.params.id);
-    return {
+    res.status(200).json({
       success: true,
       data: this.userSerializer.serializeUser(user),
-    };
+    });
   }
 
-  public async updateAvatar(req: Request) {
+  public async updateAvatar(req: Request, res: Response) {
     const updateAvatar = new UpdateAvatar(this.userRepository);
     const user = await updateAvatar.execute(req.params.id, req.params.filename);
-    return {
+    res.status(200).json({
       success: true,
       data: this.userSerializer.serializeUser(user),
-    };
+    });
   }
 }
