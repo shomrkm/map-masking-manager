@@ -10,13 +10,10 @@ import { DeleteUser } from '@/application/usecases/User/DeleteUser';
 import { UpdateAvatar } from '@/application/usecases/User/UpdateAvatar';
 
 export class UserController {
-  private userRepository: IUserRepository;
-  private userSerializer: UserSerializer;
-
-  constructor() {
-    this.userRepository = new UserRepository();
-    this.userSerializer = new UserSerializer();
-  }
+  constructor(
+    private readonly userRepository = new UserRepository(),
+    private readonly userSerializer = new UserSerializer()
+  ) {}
 
   public async getUsers(req: Request, res: Response) {
     const searchAllUsers = new SearchAllUsers(this.userRepository);

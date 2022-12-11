@@ -12,13 +12,10 @@ import { WorkflowRepository } from '@/infrastructure/repositories/WorkflowReposi
 import { WorkflowSerializer } from '../serializers/WorkflowSerializer';
 
 export class WorkflowController {
-  private workflowRepository: IWorkflowRepository;
-  private workflowSerializer: WorkflowSerializer;
-
-  constructor() {
-    this.workflowRepository = new WorkflowRepository();
-    this.workflowSerializer = new WorkflowSerializer();
-  }
+  constructor(
+    private readonly workflowRepository = new WorkflowRepository(),
+    private readonly workflowSerializer = new WorkflowSerializer()
+  ) {}
 
   public async getWorkflows(req: Request, res: Response) {
     const searchAllWorkflows = new SearchAllWorkflows(this.workflowRepository);

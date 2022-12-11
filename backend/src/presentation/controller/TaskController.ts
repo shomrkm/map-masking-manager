@@ -13,13 +13,10 @@ import { TaskRepository } from '@/infrastructure/repositories/TaskRepository';
 import { TaskSerializer } from '../serializers/TaskSerializer';
 
 export class TaskController {
-  private taskRepository: ITaskRepository;
-  private taskSerializer: TaskSerializer;
-
-  constructor() {
-    this.taskRepository = new TaskRepository();
-    this.taskSerializer = new TaskSerializer();
-  }
+  constructor(
+    private readonly taskRepository = new TaskRepository(),
+    private readonly taskSerializer = new TaskSerializer()
+  ) {}
 
   public async getTasks(req: Request, res: Response) {
     if (req.params.workflowid) {

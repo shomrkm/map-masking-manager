@@ -8,13 +8,10 @@ import { TaskRepository } from '@/infrastructure/repositories/TaskRepository';
 import { CommentSerializer } from '../serializers/CommentSerializer';
 
 export class CommentController {
-  private taskRepository: ITaskRepository;
-  private commentSerializer: CommentSerializer;
-
-  constructor() {
-    this.taskRepository = new TaskRepository();
-    this.commentSerializer = new CommentSerializer();
-  }
+  constructor(
+    private readonly taskRepository = new TaskRepository(),
+    private readonly commentSerializer = new CommentSerializer()
+  ) {}
 
   public async getComments(req: Request, res: Response) {
     if (req.params.taskid) {
