@@ -73,7 +73,6 @@ export const TaskWorkflow: VFC<TaskWorkflowProps> = ({ nodes, edges, className =
       // TODO: [WARNING] "next"/"previous" won't be updated until backend is supported.
       const sourceTask: any = nodes.find((nd) => nd.id === source)?.data;
       const targetTask: any = nodes.find((nd) => nd.id === target)?.data;
-      console.log(sourceTask);
       if (sourceTask && targetTask) {
         updateTaskMutation.mutateAsync({
           data: { next: [...sourceTask.task.next, target] },
