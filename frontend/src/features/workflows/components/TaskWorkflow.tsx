@@ -16,6 +16,8 @@ import ReactFlow, {
   MarkerType,
 } from 'react-flow-renderer';
 
+import { useUpdateTask } from '@/features/tasks/api/updateTask';
+
 import { ConnectionLine } from '../utils/connectionLine';
 import { getLayoutedElements } from '../utils/getLayoutedElement';
 
@@ -43,6 +45,8 @@ export const TaskWorkflow: VFC<TaskWorkflowProps> = ({ nodes, edges, className =
   const [taskNodes, setTaskNodes] = useState<TaskNode[]>(layoutedNodes);
   const [taskEdges, setTaskEdges] = useState<Edge[]>(layoutedEdges);
 
+  const updateTaskMutation = useUpdateTask();
+
   const onEdgeUpdate = useCallback(
     (oldEdge, newConnection) => setTaskEdges((els) => updateEdge(oldEdge, newConnection, els)),
     []
@@ -62,13 +66,29 @@ export const TaskWorkflow: VFC<TaskWorkflowProps> = ({ nodes, edges, className =
   );
   const onConnect = useCallback(
     (connection: Connection) => {
-      // TODO: Update prev/next for each node.
-      console.log(connection);
+      const { source, target } = connection;
+      if (!source || !target) return;
+
+      // TODO: Remove "any" type for TaskNode.
+      // TODO: [WARNING] "next"/"previous" won't be updated until backend is supported.
+      const sourceTask: any = nodes.find((nd) => nd.id === source)?.data;
+      const targetTask: any = nodes.find((nd) => nd.id === target)?.data;
+      console.log(sourceTask);
+      if (sourceTask && targetTask) {
+        updateTaskMutation.mutateAsync({
+          data: { next: [...sourceTask.task.next, target] },
+          taskId: sourceTask.task._id,
+        });
+        updateTaskMutation.mutateAsync({
+          data: { previous: [...targetTask.task.previous, source] },
+          taskId: targetTask.task._id,
+        });
+      }
       setTaskEdges((eds) =>
         addEdge({ ...connection, markerEnd: { type: MarkerType.ArrowClosed } }, eds)
       );
     },
-    [setTaskEdges]
+    [setTaskEdges, nodes, updateTaskMutation]
   );
 
   const onLayout = useCallback(
