@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { buildPaginationData } from '@/shared/core/utils/buildPaginationData';
-import { IWorkflowRepository } from '@/application/repositories/IWorkflowRepository';
 import {
   SearchAllWorkflows,
   SearchWorkflow,

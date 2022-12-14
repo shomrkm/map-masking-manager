@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { buildPaginationData } from '@/shared/core/utils/buildPaginationData';
-import { ITaskRepository } from '@/application/repositories/ITaskRepository';
 import {
   CreateTask,
   DeleteTask,
