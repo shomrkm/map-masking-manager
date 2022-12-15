@@ -14,13 +14,7 @@ import { RadialProgress } from '../../../components/Elements/RadialProgress/Radi
 
 import { ModifyTaskNodeMenu } from './ModifyTaskNodeMenu';
 
-export type TaskData = {
-  data: {
-    task: Task;
-  };
-};
-
-export type TaskNode = Node<TaskData>;
+export type TaskNode = Node<Task>;
 
 const handleStyle: CSSProperties = {
   width: 40,
@@ -30,8 +24,10 @@ const handleStyle: CSSProperties = {
   opacity: '50%',
 };
 
-export const TaskCustomNode = ({ data }: TaskData) => {
-  const { _id, id, title, status, level, workflow } = data.task;
+// TODO: Define specific type for params(not any)
+export const TaskCustomNode = (task: any) => {
+  console.log(task);
+  const { _id, id, title, status, level, workflow } = task.data;
 
   const [fixedValues, setFixedValues] = useState({});
   const { open, close, isOpen } = useDisclosure();
