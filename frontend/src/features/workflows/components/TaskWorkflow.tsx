@@ -61,7 +61,6 @@ export const TaskWorkflow: VFC<TaskWorkflowProps> = ({ nodes, edges, className =
   const onEdgesChange = useCallback(
     (changes: EdgeChange[]) => {
       // TODO: Delete prev/next when the change type is 'delete'.
-      console.log(changes);
       setTaskEdges((eds) => applyEdgeChanges(changes, eds));
     },
     [setTaskEdges]
