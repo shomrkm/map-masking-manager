@@ -1,7 +1,7 @@
 import { PencilAltIcon, PlusCircleIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import { useState, CSSProperties } from 'react';
-import { Node, Handle, Position } from 'react-flow-renderer';
+import { Handle, Position } from 'react-flow-renderer';
 import { Link } from 'react-router-dom';
 
 import { LevelBadge, StatusBadge } from '@/components/Elements';
@@ -14,7 +14,9 @@ import { RadialProgress } from '../../../components/Elements/RadialProgress/Radi
 
 import { ModifyTaskNodeMenu } from './ModifyTaskNodeMenu';
 
-export type TaskNode = Node<Task>;
+type TaskNodeProps = {
+  data: Task;
+};
 
 const handleStyle: CSSProperties = {
   width: 40,
@@ -24,9 +26,7 @@ const handleStyle: CSSProperties = {
   opacity: '50%',
 };
 
-// TODO: Define specific type for params(not any)
-export const TaskCustomNode = (task: any) => {
-  console.log(task);
+export const TaskCustomNode = (task: TaskNodeProps) => {
   const { _id, id, title, status, level, workflow } = task.data;
 
   const [fixedValues, setFixedValues] = useState({});

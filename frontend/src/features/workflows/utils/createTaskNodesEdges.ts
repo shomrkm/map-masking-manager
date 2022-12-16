@@ -1,10 +1,8 @@
-import { Edge, MarkerType } from 'react-flow-renderer';
+import { Edge, MarkerType, Node } from 'react-flow-renderer';
 
 import { Task } from '@/features/tasks/types';
 
-import { TaskNode } from '../components/TaskCustomNode';
-
-export const createTaskNodes = (tasks: Task[]): TaskNode[] => {
+export const createTaskNodes = (tasks: Task[]): Node<Task>[] => {
   return tasks.map((task) => ({
     id: task._id,
     type: 'task',

@@ -14,15 +14,17 @@ import ReactFlow, {
   Controls,
   ControlButton,
   MarkerType,
+  Node,
 } from 'react-flow-renderer';
 
 import { useUpdateTask } from '@/features/tasks/api/updateTask';
+import { Task } from '@/features/tasks/types';
 
 import { ConnectionLine } from '../utils/connectionLine';
 import { getLayoutedElements } from '../utils/getLayoutedElement';
 
 import { TaskCustomEdge } from './TaskCustomEdge';
-import { TaskCustomNode, TaskNode } from './TaskCustomNode';
+import { TaskCustomNode } from './TaskCustomNode';
 
 const nodeTypes: NodeTypes = { task: TaskCustomNode };
 const edgeTypes: EdgeTypes = { task: TaskCustomEdge };
@@ -32,7 +34,7 @@ const fitViewOptions: FitViewOptions = {
 };
 
 type TaskWorkflowProps = {
-  nodes: TaskNode[];
+  nodes: Node<Task>[];
   edges: Edge[];
   className?: string;
 };
@@ -42,7 +44,7 @@ export const TaskWorkflow: VFC<TaskWorkflowProps> = ({ nodes, edges, className =
     () => getLayoutedElements(nodes, edges),
     [nodes, edges]
   );
-  const [taskNodes, setTaskNodes] = useState<TaskNode[]>(layoutedNodes);
+  const [taskNodes, setTaskNodes] = useState<Node<Task>[]>(layoutedNodes);
   const [taskEdges, setTaskEdges] = useState<Edge[]>(layoutedEdges);
 
   const updateTaskMutation = useUpdateTask();
@@ -69,18 +71,17 @@ export const TaskWorkflow: VFC<TaskWorkflowProps> = ({ nodes, edges, className =
       const { source, target } = connection;
       if (!source || !target) return;
 
-      // TODO: Remove "any" type for TaskNode.
       // TODO: [WARNING] "next"/"previous" won't be updated until backend is supported.
-      const sourceTask: any = nodes.find((nd) => nd.id === source)?.data;
-      const targetTask: any = nodes.find((nd) => nd.id === target)?.data;
+      const sourceTask = nodes.find((nd) => nd.id === source)?.data;
+      const targetTask = nodes.find((nd) => nd.id === target)?.data;
       if (sourceTask && targetTask) {
         updateTaskMutation.mutateAsync({
-          data: { next: [...sourceTask.task.next, target] },
-          taskId: sourceTask.task._id,
+          data: { next: [...sourceTask.next, target] },
+          taskId: sourceTask._id,
         });
         updateTaskMutation.mutateAsync({
-          data: { previous: [...targetTask.task.previous, source] },
-          taskId: targetTask.task._id,
+          data: { previous: [...targetTask.previous, source] },
+          taskId: targetTask._id,
         });
       }
       setTaskEdges((eds) =>
