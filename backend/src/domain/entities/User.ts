@@ -1,4 +1,6 @@
 import moment from 'moment-timezone';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 import { Level, Role } from '../ValueObjects';
 
 const AVATAR_DIR = 'uploads/';
@@ -74,6 +76,25 @@ export class User {
 
   public updateAvatar(filename: string) {
     this._avatar = AVATAR_DIR + filename;
+  }
+
+  /**
+   * Sign JWT and return token.
+   * @returns jwt token
+   */
+  public getSignedJwtToken() {
+    return jwt.sign({ id: this._id }, process.env.JWT_SECRET as string, {
+      expiresIn: process.env.JWT_EXPIRE,
+    });
+  }
+
+  /**
+   * Check password
+   * @param password input password
+   * @returns return true a the password is valid.
+   */
+  public async matchPassword(password: string) {
+    return await bcrypt.compare(password, this.password);
   }
 
   get id(): string | null {
