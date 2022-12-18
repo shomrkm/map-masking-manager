@@ -52,7 +52,6 @@ export const CreateTaskDrawer = ({ isOpen, close, fixedValues }: CreateTaskDrawe
           id="create-task"
           onSubmit={async (values) => {
             const data = { ...values, ...fixedValues };
-            console.log('submit', data);
             await createTaskMutation.mutateAsync({ data });
             close();
           }}
