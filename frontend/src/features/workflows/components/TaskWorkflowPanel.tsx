@@ -36,7 +36,7 @@ export const TaskWorkflowPanel: React.VFC<Props> = ({ workflowId }) => {
   return (
     <div className="flex-col justify-start w-full h-full">
       <div className="flex justify-start m-1">
-        <CreateTaskButton buttonTitle="Create Task" fixedValues={{ workflow: workflowId }} />
+        <CreateTaskButton buttonTitle="Add Task" fixedValues={{ workflow: workflowId }} />
       </div>
       <TaskWorkflow
         nodes={createTaskNodes(data)}
