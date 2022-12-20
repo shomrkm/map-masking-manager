@@ -90,11 +90,17 @@ export class User {
 
   /**
    * Check password
-   * @param password input password
+   * @param password input password (plain text)
    * @returns return true a the password is valid.
    */
-  public async matchPassword(password: string) {
+  public async matchPassword(password: string): Promise<boolean> {
+    if (!this.isPersisted()) return false;
     return await bcrypt.compare(password, this.password);
+  }
+
+  public async setNewPassword(password: string) {
+    const salt = await bcrypt.genSalt(10);
+    this._password = await bcrypt.hash(password, salt);
   }
 
   get id(): string | null {
@@ -144,10 +150,6 @@ export class User {
 
   get password(): string {
     return this._password;
-  }
-
-  set password(password: string) {
-    this._password = password;
   }
 
   get resetPasswordToken(): string | null {
