@@ -1,13 +1,13 @@
 import { User } from '@/domain/entities';
 
-export type FindByEmailOption = {
+export type FindOptions = {
   selectPassword?: boolean;
 };
 
 export interface IUserRepository {
   findAll(): Promise<User[]>;
-  find(id: string): Promise<User>;
-  findByEmail(email: string, option?: FindByEmailOption): Promise<User>;
+  find(id: string, option?: FindOptions): Promise<User>;
+  findByEmail(email: string, option?: FindOptions): Promise<User>;
   save(user: User): Promise<User>;
   delete(id: string): Promise<User>;
 }

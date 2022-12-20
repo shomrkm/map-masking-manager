@@ -1,6 +1,6 @@
 import { User } from '@/domain/entities';
 import { Level, Role } from '@/domain/ValueObjects';
-import { FindByEmailOption, IUserRepository } from '@/application/repositories/IUserRepository';
+import { FindOptions, IUserRepository } from '@/application/repositories/IUserRepository';
 import { User as UserModel, UserDoc } from '../mongoose/models';
 import { ErrorResponse } from '@/shared/core/utils';
 
@@ -26,8 +26,10 @@ export class UserRepository implements IUserRepository {
     );
   }
 
-  public async find(id: string): Promise<User> {
-    const userDoc: UserDoc | null = await UserModel.findById(id);
+  public async find(id: string, { selectPassword = false }: FindOptions): Promise<User> {
+    const userDoc: UserDoc | null = selectPassword
+      ? await UserModel.findById(id).select('+password')
+      : await UserModel.findById(id);
     if (!userDoc) {
       throw new ErrorResponse(`User was not found with id of ${id}`, 404);
     }
@@ -49,10 +51,7 @@ export class UserRepository implements IUserRepository {
     return user;
   }
 
-  public async findByEmail(
-    email: string,
-    { selectPassword = false }: FindByEmailOption
-  ): Promise<User> {
+  public async findByEmail(email: string, { selectPassword = false }: FindOptions): Promise<User> {
     const userDoc: UserDoc | null = selectPassword
       ? await UserModel.findOne({ email }, '+password')
       : await UserModel.findOne({ email });
@@ -79,7 +78,7 @@ export class UserRepository implements IUserRepository {
 
   public async save(user: User): Promise<User> {
     const userDto = user.toPrimitive();
-    if (!user.id) {
+    if (!user.isPersisted()) {
       const newUser = await UserModel.create(userDto);
       if (!newUser) {
         throw new ErrorResponse('Creating New User Failed', 400);
@@ -88,6 +87,7 @@ export class UserRepository implements IUserRepository {
       return user;
     }
 
+    console.log(userDto);
     const updatedUser = await UserModel.findOneAndUpdate({ _id: user.id }, userDto, {
       new: true,
       runValidators: true,
@@ -95,6 +95,8 @@ export class UserRepository implements IUserRepository {
     if (!updatedUser) {
       throw new ErrorResponse(`User was not found with id of ${user.id}`, 404);
     }
+    updatedUser.password = userDto.password;
+    await updatedUser.save();
 
     return new User({
       id: updatedUser._id.toString(),
