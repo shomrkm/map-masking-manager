@@ -15,7 +15,8 @@ export class Login {
 
   public async execute(email: string, password: string): Promise<ReturnType> {
     const user = await this.userRepository.findByEmail(email, { selectPassword: true });
-    if (!user.matchPassword(password)) {
+    const isMatch = await user.matchPassword(password);
+    if (!isMatch) {
       throw new ErrorResponse('Invalid credentials', 401);
     }
 
