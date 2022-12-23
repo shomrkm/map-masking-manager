@@ -26,6 +26,7 @@ export class CreateUser {
       level: new Level(level),
       password,
     });
+    await user.setNewPassword(password);
 
     return await this.userRepository.save(user);
   }
