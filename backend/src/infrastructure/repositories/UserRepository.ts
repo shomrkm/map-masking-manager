@@ -26,8 +26,8 @@ export class UserRepository implements IUserRepository {
     );
   }
 
-  public async find(id: string, { selectPassword = false }: FindOptions): Promise<User> {
-    const userDoc: UserDoc | null = selectPassword
+  public async find(id: string, options: FindOptions): Promise<User> {
+    const userDoc: UserDoc | null = options?.selectPassword
       ? await UserModel.findById(id).select('+password')
       : await UserModel.findById(id);
     if (!userDoc) {
@@ -51,8 +51,8 @@ export class UserRepository implements IUserRepository {
     return user;
   }
 
-  public async findByEmail(email: string, { selectPassword = false }: FindOptions): Promise<User> {
-    const userDoc: UserDoc | null = selectPassword
+  public async findByEmail(email: string, options: FindOptions): Promise<User> {
+    const userDoc: UserDoc | null = options?.selectPassword
       ? await UserModel.findOne({ email }, '+password')
       : await UserModel.findOne({ email });
     if (!userDoc) {
