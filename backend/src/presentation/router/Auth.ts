@@ -12,8 +12,8 @@ export const router = express.Router();
 router.post('/register', asyncHandler(authController.register.bind(authController)));
 // @route POST /api/v1/auth/login (Public)
 router.post('/login', asyncHandler(authController.login.bind(authController)));
-
-router.post('/logout', logout);
+// @route POST /api/v1/auth/logout (Public)
+router.post('/logout', asyncHandler(authController.logout.bind(authController)));
 router.get('/me', protect, getMe);
 
 // @route POST /api/v1/auth/updatePassword (Private)

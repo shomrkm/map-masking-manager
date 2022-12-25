@@ -52,6 +52,18 @@ export class AuthController {
       });
   }
 
+  public async logout(req: Request, res: Response) {
+    res.cookie('token', 'none', {
+      expires: new Date(Date.now() + 10 * 1000),
+      httpOnly: true,
+    });
+
+    res.status(200).json({
+      success: true,
+      data: {},
+    });
+  }
+
   public async updatePassword(req: Request, res: Response) {
     const id = req.user.id;
     const { currentPassword, newPassword } = req.body;
