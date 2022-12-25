@@ -27,6 +27,7 @@ export class Register {
       level: new Level(level),
       password,
     });
+    await user.setNewPassword(password);
 
     const createdUser = await this.userRepository.save(user);
     const token = user.getSignedJwtToken();

@@ -2,8 +2,7 @@ import { Request, Response } from 'express';
 import { UserRepository } from '@/infrastructure/repositories/UserRepository';
 import { UserSerializer } from '../serializers/UserSerializer';
 import { ErrorResponse } from '@/shared/core/utils';
-import { Login } from '@/application/usecases/Auth/login';
-import { Register } from '@/application/usecases/Auth/register';
+import { Login, Register, UpdatePassword } from '@/application/usecases/Auth';
 
 export class AuthController {
   constructor(
@@ -43,6 +42,30 @@ export class AuthController {
 
     const loginUsecase = new Login(this.userRepository);
     const { user, token, cookieOptions } = await loginUsecase.execute(email, password);
+    res
+      .status(200)
+      .cookie('token', token, cookieOptions)
+      .json({
+        success: true,
+        data: this.userSerializer.serializeUser(user),
+        token,
+      });
+  }
+
+  public async updatePassword(req: Request, res: Response) {
+    const id = req.user.id;
+    const { currentPassword, newPassword } = req.body;
+    if (!currentPassword || !newPassword) {
+      throw new ErrorResponse('Please provide a currentPassword and newPassword', 400);
+    }
+
+    const updatePasswordUsecase = new UpdatePassword(this.userRepository);
+    const { user, token, cookieOptions } = await updatePasswordUsecase.execute(
+      id,
+      currentPassword,
+      newPassword
+    );
+
     res
       .status(200)
       .cookie('token', token, cookieOptions)
