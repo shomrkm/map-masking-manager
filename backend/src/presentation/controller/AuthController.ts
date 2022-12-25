@@ -3,6 +3,7 @@ import { UserRepository } from '@/infrastructure/repositories/UserRepository';
 import { UserSerializer } from '../serializers/UserSerializer';
 import { ErrorResponse } from '@/shared/core/utils';
 import { Login, Register, UpdatePassword } from '@/application/usecases/Auth';
+import { UpdateUser } from '@/application/usecases/User/UpdateUser';
 
 export class AuthController {
   constructor(
@@ -52,6 +53,16 @@ export class AuthController {
       });
   }
 
+  public async getMe(req: Request, res: Response) {
+    // user is already available in req due to the protect middleware (middleware/auth)
+    const user = req.user;
+
+    res.status(200).json({
+      success: true,
+      data: user,
+    });
+  }
+
   public async logout(req: Request, res: Response) {
     res.cookie('token', 'none', {
       expires: new Date(Date.now() + 10 * 1000),
@@ -86,5 +97,15 @@ export class AuthController {
         data: this.userSerializer.serializeUser(user),
         token,
       });
+  }
+
+  public async updateDetails(req: Request, res: Response) {
+    const updateUser = new UpdateUser(this.userRepository);
+    const user = await updateUser.execute(req.user.id, req.body);
+
+    res.status(200).json({
+      success: true,
+      data: user,
+    });
   }
 }

@@ -1,8 +1,10 @@
 import express from 'express';
+
 import { protect } from '@/shared/core/middleware/authorization';
-import { logout, getMe, updatePassword, updateDetails } from '../controller/auth';
-import { AuthController } from '../controller/AuthController';
 import { asyncHandler } from '@/shared/core/middleware';
+
+import { getMe, updateDetails } from '../controller/auth';
+import { AuthController } from '../controller/AuthController';
 
 const authController = new AuthController();
 
@@ -14,8 +16,8 @@ router.post('/register', asyncHandler(authController.register.bind(authControlle
 router.post('/login', asyncHandler(authController.login.bind(authController)));
 // @route POST /api/v1/auth/logout (Public)
 router.post('/logout', asyncHandler(authController.logout.bind(authController)));
-router.get('/me', protect, getMe);
-
+// @route POST /api/v1/auth/me (Private)
+router.get('/me', protect, asyncHandler(authController.getMe.bind(authController)));
 // @route POST /api/v1/auth/updatePassword (Private)
 router.put(
   '/updatepassword',
