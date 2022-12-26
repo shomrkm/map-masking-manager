@@ -105,7 +105,7 @@ export class AuthController {
 
     res.status(200).json({
       success: true,
-      data: user,
+      data: this.userSerializer.serializeUser(user),
     });
   }
 }
