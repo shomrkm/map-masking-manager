@@ -87,15 +87,13 @@ export class UserRepository implements IUserRepository {
       return user;
     }
 
-    console.log(userDto);
     const updatedUser = await UserModel.findOneAndUpdate({ _id: user.id }, userDto, {
       new: true,
       runValidators: true,
-    });
+    }).select('+password');
     if (!updatedUser) {
       throw new ErrorResponse(`User was not found with id of ${user.id}`, 404);
     }
-    updatedUser.password = userDto.password;
     await updatedUser.save();
 
     return new User({
