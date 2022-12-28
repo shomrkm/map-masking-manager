@@ -3,7 +3,6 @@ import express from 'express';
 import { protect } from '@/shared/core/middleware/authorization';
 import { asyncHandler } from '@/shared/core/middleware';
 
-import { getMe, updateDetails } from '../controller/auth';
 import { AuthController } from '../controller/AuthController';
 
 const authController = new AuthController();
@@ -24,4 +23,9 @@ router.put(
   protect,
   asyncHandler(authController.updatePassword.bind(authController))
 );
-router.put('/updatedetails', protect, updateDetails);
+// @route POST /api/v1/auth/updateDetails(Private)
+router.put(
+  '/updatedetails',
+  protect,
+  asyncHandler(authController.updateDetails.bind(authController))
+);
