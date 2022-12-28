@@ -12,16 +12,15 @@ import {
 } from '@/domain/ValueObjects';
 import { ITaskRepository } from '@/application/repositories/ITaskRepository';
 import { Task as TaskModel, Comment as CommentModel, UserFields } from '../mongoose/models';
-import { CommentDTO } from './dto';
 
 export class TaskRepository implements ITaskRepository {
   public async findAll(): Promise<Task[]> {
     // TODO: Modify generics for populate.
-    const taskDtos = await TaskModel.find()
+    const taskDocs = await TaskModel.find()
       .populate<{ createUser: string }>({ path: 'createUser', select: 'name avatar' })
       .populate<{ assignedUsers: string[] }>({ path: 'assignedUsers', select: 'name avatar' });
 
-    const tasks = taskDtos.map(
+    const tasks = taskDocs.map(
       (taskDto) =>
         new Task({
           title: new Title(taskDto.title),
@@ -48,58 +47,58 @@ export class TaskRepository implements ITaskRepository {
 
   public async findById(id: string): Promise<Task> {
     // TODO: Modify generics for populate.
-    const taskDto = await TaskModel.findById(id)
+    const taskDoc = await TaskModel.findById(id)
       .populate<{ createUser: string }>({ path: 'createUser', select: 'name avatar' })
       .populate<{ assignedUsers: string[] }>({ path: 'assignedUsers', select: 'name avatar' });
-    if (!taskDto) {
+    if (!taskDoc) {
       throw new ErrorResponse(`Task was not found with id of ${id}`, 404);
     }
     const task = new Task({
-      title: new Title(taskDto.title),
-      description: new Description(taskDto.description),
-      workflow: taskDto.workflow.toString(),
-      status: new TaskStatus(taskDto.status),
-      priority: new Priority(taskDto.priority),
-      target: new Targets(taskDto.target, targetTypes),
-      level: new Level(taskDto.level),
-      createUser: taskDto.createUser as any,
-      detail: taskDto.detail,
-      area: taskDto.area,
-      previous: taskDto.previous.map((t) => t.toString()),
-      next: taskDto.next.map((t) => t.toString()),
-      assignedUsers: taskDto.assignedUsers,
-      id: taskDto._id.toString(),
-      no: taskDto.id,
-      createdAt: new Date(taskDto.createdAt.toString()),
+      title: new Title(taskDoc.title),
+      description: new Description(taskDoc.description),
+      workflow: taskDoc.workflow.toString(),
+      status: new TaskStatus(taskDoc.status),
+      priority: new Priority(taskDoc.priority),
+      target: new Targets(taskDoc.target, targetTypes),
+      level: new Level(taskDoc.level),
+      createUser: taskDoc.createUser as any,
+      detail: taskDoc.detail,
+      area: taskDoc.area,
+      previous: taskDoc.previous.map((t) => t.toString()),
+      next: taskDoc.next.map((t) => t.toString()),
+      assignedUsers: taskDoc.assignedUsers,
+      id: taskDoc._id.toString(),
+      no: taskDoc.id,
+      createdAt: new Date(taskDoc.createdAt.toString()),
     });
 
     return task;
   }
 
   public async findByWorkflowId(workflowId: string): Promise<Task[]> {
-    const taskDtos = await TaskModel.find({ workflow: workflowId })
+    const taskDocs = await TaskModel.find({ workflow: workflowId })
       .populate<{ createUser: string }>({ path: 'createUser', select: 'name avatar' })
       .populate<{ assignedUsers: string[] }>({ path: 'assignedUsers', select: 'name avatar' });
 
-    const tasks = taskDtos.map(
-      (taskDto) =>
+    const tasks = taskDocs.map(
+      (task) =>
         new Task({
-          title: new Title(taskDto.title),
-          description: new Description(taskDto.description),
-          workflow: taskDto.workflow.toString(),
-          status: new TaskStatus(taskDto.status),
-          priority: new Priority(taskDto.priority),
-          target: new Targets(taskDto.target, targetTypes),
-          level: new Level(taskDto.level),
-          createUser: taskDto.createUser,
-          detail: taskDto.detail,
-          area: taskDto.area,
-          previous: taskDto.previous.map((t) => t.toString()),
-          next: taskDto.next.map((t) => t.toString()),
-          assignedUsers: taskDto.assignedUsers,
-          id: taskDto._id.toString(),
-          no: taskDto.id,
-          createdAt: new Date(taskDto.createdAt.toString()),
+          title: new Title(task.title),
+          description: new Description(task.description),
+          workflow: task.workflow.toString(),
+          status: new TaskStatus(task.status),
+          priority: new Priority(task.priority),
+          target: new Targets(task.target, targetTypes),
+          level: new Level(task.level),
+          createUser: task.createUser,
+          detail: task.detail,
+          area: task.area,
+          previous: task.previous.map((t) => t.toString()),
+          next: task.next.map((t) => t.toString()),
+          assignedUsers: task.assignedUsers,
+          id: task._id.toString(),
+          no: task.id,
+          createdAt: new Date(task.createdAt.toString()),
         })
     );
     return tasks;
@@ -177,18 +176,19 @@ export class TaskRepository implements ITaskRepository {
   }
 
   public async findAllComments(): Promise<Comment[]> {
-    const commentDtos: CommentDTO[] = await CommentModel.find().populate({
+    // TODO: Modify generics for populate.
+    const commentDocs = await CommentModel.find().populate<{ user: string }>({
       path: 'user',
       select: 'name avatar',
     });
-    const comments = commentDtos.map(
+    const comments = commentDocs.map(
       (comment) =>
         new Comment({
-          task: comment.task,
+          task: comment.task.toString(),
           user: comment.user,
           text: new Text(comment.text),
-          id: comment._id,
-          createdAt: comment.createdAt,
+          id: comment._id.toString(),
+          createdAt: new Date(comment.createdAt.toString()),
         })
     );
 
@@ -196,20 +196,21 @@ export class TaskRepository implements ITaskRepository {
   }
 
   public async findCommentById(id: string): Promise<Comment> {
-    const commentDto: CommentDTO | null = await CommentModel.findById(id).populate({
+    // TODO: Modify generics for populate.
+    const commentDoc = await CommentModel.findById(id).populate<{ user: string }>({
       path: 'user',
       select: 'name avatar',
     });
-    if (!commentDto) {
+    if (!commentDoc) {
       throw new ErrorResponse(`Comment was not found with id of ${id}`, 404);
     }
 
     return new Comment({
-      task: commentDto.task,
-      user: commentDto.user,
-      text: new Text(commentDto.text),
-      id: commentDto._id,
-      createdAt: commentDto.createdAt,
+      task: commentDoc.task.toString(),
+      user: commentDoc.user,
+      text: new Text(commentDoc.text),
+      id: commentDoc._id.toString(),
+      createdAt: new Date(commentDoc.createdAt.toString()),
     });
   }
 
@@ -218,29 +219,30 @@ export class TaskRepository implements ITaskRepository {
       throw new ErrorResponse(`Task was not found with id of ${taskId}`, 404);
     }
 
-    const commentDtos: CommentDTO[] = await CommentModel.find({ task: taskId }).populate({
+    // TODO: Modify generics for populate.
+    const commentDocs = await CommentModel.find({ task: taskId }).populate<{ user: string }>({
       path: 'user',
       select: 'name avatar',
     });
-    const comments = commentDtos.map(
+    const comments = commentDocs.map(
       (comment) =>
         new Comment({
-          task: comment.task,
+          task: comment.task.toString(),
           user: comment.user,
           text: new Text(comment.text),
-          id: comment._id,
-          createdAt: comment.createdAt,
+          id: comment._id.toString(),
+          createdAt: new Date(comment.createdAt.toString()),
         })
     );
     return comments;
   }
 
   public async addComment(comment: Comment): Promise<Comment> {
-    const newComment: CommentDTO = await CommentModel.create(comment.toPrimitive());
+    const newComment = await CommentModel.create(comment.toPrimitive());
     if (!newComment) {
       throw new ErrorResponse('Creating Comment Failed', 400);
     }
-    comment.id = newComment._id;
+    comment.id = newComment._id.toString();
     return comment;
   }
 }

@@ -1,13 +1,13 @@
 import { Schema, SchemaDefinition, Date, model } from 'mongoose';
 
-type CommentSchemaFields = {
+type CommentFields = {
   task: Schema.Types.ObjectId;
   user: Schema.Types.ObjectId;
   text: string;
   createdAt: Date;
 };
 
-const commentSchemaFields: SchemaDefinition<CommentSchemaFields> = {
+const commentSchemaFields: SchemaDefinition<CommentFields> = {
   task: {
     type: Schema.Types.ObjectId,
     ref: 'Task',
@@ -30,10 +30,6 @@ const commentSchemaFields: SchemaDefinition<CommentSchemaFields> = {
   },
 };
 
-export type CommentSchemaProperties = CommentSchemaFields & {
-  foo: () => void;
-};
+const CommentSchema = new Schema<CommentFields>(commentSchemaFields);
 
-const CommentSchema: Schema<CommentSchemaProperties> = new Schema(commentSchemaFields);
-
-export const Comment = model('Comment', CommentSchema);
+export const Comment = model<CommentFields>('Comment', CommentSchema);
