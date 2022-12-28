@@ -68,16 +68,4 @@ UserSchema.pre('save', async function (next) {
   // this.password = await bcrypt.hash(this.password, salt);
 });
 
-// Sign JWT and return token.
-UserSchema.method('getSignedJwtToken', function () {
-  return jwt.sign({ id: this._id }, process.env.JWT_SECRET as string, {
-    expiresIn: process.env.JWT_EXPIRE,
-  });
-});
-
-// Match user entered password to hashed password in database
-UserSchema.method('matchPassword', async function (password: string) {
-  return await bcrypt.compare(password, this.password);
-});
-
 export const User = model<UserFields>('User', UserSchema);
