@@ -1,4 +1,4 @@
-import mongoose, { Schema, SchemaDefinition, Document, Date, model, Model } from 'mongoose';
+import mongoose, { Schema, SchemaDefinition, Document, Date, model, Model, Types } from 'mongoose';
 import AutoIncrementFactory from 'mongoose-sequence';
 import slugify from 'slugify';
 import { Polygon } from 'geojson';
@@ -21,7 +21,7 @@ import {
 // @ts-expect-error
 const AutoIncrement = AutoIncrementFactory(mongoose);
 
-type TaskSchemaFields = Document & {
+type TaskFields = {
   id: number;
   title: string;
   description: string;
@@ -40,11 +40,7 @@ type TaskSchemaFields = Document & {
   slug: string;
 };
 
-type TaskMethod = {};
-
-type TaskModel = Model<TaskSchemaFields, {}, TaskMethod>;
-
-const taskSchemaFields: SchemaDefinition<TaskSchemaFields> = {
+const taskSchemaFields: SchemaDefinition<TaskFields> = {
   id: Number,
   title: {
     type: String,
@@ -126,9 +122,7 @@ const taskSchemaFields: SchemaDefinition<TaskSchemaFields> = {
   },
 };
 
-const TaskSchema = new Schema<TaskSchemaFields & TaskMethod, TaskModel, TaskMethod>(
-  taskSchemaFields
-);
+const TaskSchema = new Schema<TaskFields>(taskSchemaFields);
 
 TaskSchema.pre('save', function (next) {
   this.slug = slugify(this.title, { lower: true });
@@ -155,4 +149,4 @@ TaskSchema.virtual('comments', {
 // @ts-expect-error
 TaskSchema.plugin(AutoIncrement, { id: 'task_counter', inc_field: 'id' });
 
-export const Task = model('Task', TaskSchema);
+export const Task = model<TaskFields>('Task', TaskSchema);
