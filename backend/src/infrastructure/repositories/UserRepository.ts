@@ -1,12 +1,12 @@
 import { User } from '@/domain/entities';
 import { Level, Role } from '@/domain/ValueObjects';
 import { FindOptions, IUserRepository } from '@/application/repositories/IUserRepository';
-import { User as UserModel, UserDoc } from '../mongoose/models';
+import { User as UserModel } from '../mongoose/models';
 import { ErrorResponse } from '@/shared/core/utils';
 
 export class UserRepository implements IUserRepository {
   public async findAll(): Promise<User[]> {
-    const userDocs: UserDoc[] = await UserModel.find();
+    const userDocs = await UserModel.find();
     return userDocs.map(
       (userDoc) =>
         new User({
@@ -27,7 +27,7 @@ export class UserRepository implements IUserRepository {
   }
 
   public async find(id: string, options: FindOptions): Promise<User> {
-    const userDoc: UserDoc | null = options?.selectPassword
+    const userDoc = options?.selectPassword
       ? await UserModel.findById(id).select('+password')
       : await UserModel.findById(id);
     if (!userDoc) {
@@ -52,7 +52,7 @@ export class UserRepository implements IUserRepository {
   }
 
   public async findByEmail(email: string, options: FindOptions): Promise<User> {
-    const userDoc: UserDoc | null = options?.selectPassword
+    const userDoc = options?.selectPassword
       ? await UserModel.findOne({ email }, '+password')
       : await UserModel.findOne({ email });
     if (!userDoc) {

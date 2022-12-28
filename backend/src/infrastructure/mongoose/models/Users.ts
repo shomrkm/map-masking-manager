@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { Schema, SchemaDefinition, Date, model, Model, Document, Types } from 'mongoose';
 
-type UserSchemaFields = {
+export type UserFields = {
   name: string;
   email: string;
   role: 'admin' | 'publisher' | 'mapper';
@@ -15,14 +15,7 @@ type UserSchemaFields = {
   createdAt: Date;
 };
 
-type UserMethod = {
-  getSignedJwtToken(): string;
-  matchPassword(password: string): boolean;
-};
-
-type UserModel = Model<UserSchemaFields, {}, UserMethod>;
-
-const userSchemaFields: SchemaDefinition<UserSchemaFields> = {
+const userSchemaFields: SchemaDefinition<UserFields> = {
   name: {
     type: String,
     required: [true, 'Please add a name'],
@@ -64,15 +57,7 @@ const userSchemaFields: SchemaDefinition<UserSchemaFields> = {
   },
 };
 
-export type UserDoc = Document<unknown, any, UserSchemaFields & UserMethod> &
-  UserSchemaFields &
-  UserMethod & {
-    _id: Types.ObjectId;
-  };
-
-const UserSchema = new Schema<UserSchemaFields & UserMethod, UserModel, UserMethod>(
-  userSchemaFields
-);
+const UserSchema = new Schema<UserFields>(userSchemaFields);
 
 // Encrypt password using bcypt
 UserSchema.pre('save', async function (next) {
@@ -95,4 +80,4 @@ UserSchema.method('matchPassword', async function (password: string) {
   return await bcrypt.compare(password, this.password);
 });
 
-export const User = model<UserSchemaFields & UserMethod>('User', UserSchema);
+export const User = model<UserFields>('User', UserSchema);
