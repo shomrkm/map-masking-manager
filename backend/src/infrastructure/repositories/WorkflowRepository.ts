@@ -3,24 +3,23 @@ import { Workflow } from '@/domain/entities';
 import { Title, Description, WorkflowStatus } from '@/domain/ValueObjects';
 import { IWorkflowRepository } from '@/application/repositories/IWorkflowRepository';
 import { Workflow as WorkflowModel } from '../mongoose/models';
-import { WorkflowDTO } from './dto';
 
 export class WorkflowRepository implements IWorkflowRepository {
   public async findAll(): Promise<Workflow[]> {
-    const workflowDtos: WorkflowDTO[] = await WorkflowModel.find().populate({
+    const workflowDocs = await WorkflowModel.find().populate<{ createUser: string }>({
       path: 'createUser',
       select: 'name avatar',
     });
-    const workflows = workflowDtos.map(
+    const workflows = workflowDocs.map(
       (workflowDto) =>
         new Workflow({
           title: new Title(workflowDto.title),
           description: new Description(workflowDto.description),
           status: new WorkflowStatus(workflowDto.status),
           createUser: workflowDto.createUser,
-          id: workflowDto._id,
+          id: workflowDto._id.toString(),
           no: workflowDto.id,
-          createdAt: workflowDto.createdAt,
+          createdAt: new Date(workflowDto.createdAt.toString()),
         })
     );
 
@@ -28,21 +27,21 @@ export class WorkflowRepository implements IWorkflowRepository {
   }
 
   public async find(id: string): Promise<Workflow> {
-    const workflowDto: WorkflowDTO | null = await WorkflowModel.findById(id).populate({
+    const workflowDoc = await WorkflowModel.findById(id).populate<{ createUser: string }>({
       path: 'createUser',
       select: 'name avatar',
     });
-    if (!workflowDto) {
+    if (!workflowDoc) {
       throw new ErrorResponse(`Workflow was not found with id of ${id}`, 404);
     }
     const workflow = new Workflow({
-      title: new Title(workflowDto.title),
-      description: new Description(workflowDto.description),
-      status: new WorkflowStatus(workflowDto.status),
-      createUser: workflowDto.createUser,
-      id: workflowDto._id,
-      no: workflowDto.id,
-      createdAt: workflowDto.createdAt,
+      title: new Title(workflowDoc.title),
+      description: new Description(workflowDoc.description),
+      status: new WorkflowStatus(workflowDoc.status),
+      createUser: workflowDoc.createUser,
+      id: workflowDoc._id.toString(),
+      no: workflowDoc.id,
+      createdAt: new Date(workflowDoc.createdAt.toString()),
     });
 
     return workflow;
@@ -55,7 +54,7 @@ export class WorkflowRepository implements IWorkflowRepository {
       if (!newWorkflow) {
         throw new ErrorResponse('Creating Workflow Failed', 400);
       }
-      workflow.id = newWorkflow._id;
+      workflow.id = newWorkflow._id.toString();
       workflow.no = newWorkflow.id;
       return workflow;
     }
@@ -71,14 +70,17 @@ export class WorkflowRepository implements IWorkflowRepository {
         runValidators: true,
       }
     );
+    if (!updatedWorkflow) {
+      throw new ErrorResponse(`Failed to update task with id of ${workflow.id}`, 400);
+    }
     return new Workflow({
       title: new Title(updatedWorkflow.title),
       description: new Description(updatedWorkflow.description),
       status: new WorkflowStatus(updatedWorkflow.status),
-      createUser: updatedWorkflow.createUser,
-      id: updatedWorkflow._id,
+      createUser: updatedWorkflow.createUser.toString(),
+      id: updatedWorkflow._id.toString(),
       no: updatedWorkflow.id,
-      createdAt: updatedWorkflow.createdAt,
+      createdAt: new Date(updatedWorkflow.createdAt.toString()),
     });
   }
 
@@ -91,10 +93,10 @@ export class WorkflowRepository implements IWorkflowRepository {
       title: new Title(workflow.title),
       description: new Description(workflow.description),
       status: new WorkflowStatus(workflow.status),
-      createUser: workflow.createUser,
-      id: workflow._id,
+      createUser: workflow.createUser.toString(),
+      id: workflow._id.toString(),
       no: workflow.id,
-      createdAt: workflow.createdAt,
+      createdAt: new Date(workflow.createdAt.toString()),
     });
     await workflow.remove();
 

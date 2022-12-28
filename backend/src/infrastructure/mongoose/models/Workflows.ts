@@ -10,7 +10,7 @@ import { WorkflowStatusType, workflowStatusTypes } from '@/domain/ValueObjects';
 // @ts-expect-error
 const AutoIncrement = AutoIncrementFactory(mongoose);
 
-type WorkflowSchemaFields = Document & {
+type WorkflowFields = {
   id: number;
   title: string;
   description: string;
@@ -20,11 +20,7 @@ type WorkflowSchemaFields = Document & {
   slug: string;
 };
 
-type WorkflowMethod = {};
-
-type WorkflowModel = Model<WorkflowSchemaFields, {}, WorkflowMethod>;
-
-const workflowSchemaFields: SchemaDefinition<WorkflowSchemaFields> = {
+const workflowSchemaFields: SchemaDefinition<WorkflowFields> = {
   id: Number,
   title: {
     type: String,
@@ -56,18 +52,14 @@ const workflowSchemaFields: SchemaDefinition<WorkflowSchemaFields> = {
   },
 };
 
-const WorkflowSchema = new Schema<
-  WorkflowSchemaFields & WorkflowMethod,
-  WorkflowModel,
-  WorkflowMethod
->(workflowSchemaFields);
+const workflowSchema = new Schema<WorkflowFields>(workflowSchemaFields);
 
-WorkflowSchema.pre('save', function (next) {
+workflowSchema.pre('save', function (next) {
   this.slug = slugify(this.title, { lower: true });
   next();
 });
 
 // @ts-expect-error
-WorkflowSchema.plugin(AutoIncrement, { id: 'workflow_counter', inc_field: 'id' });
+workflowSchema.plugin(AutoIncrement, { id: 'workflow_counter', inc_field: 'id' });
 
-export const Workflow = model('Workflow', WorkflowSchema);
+export const Workflow = model<WorkflowFields>('Workflow', workflowSchema);
