@@ -11,15 +11,15 @@ export class WorkflowRepository implements IWorkflowRepository {
       select: 'name avatar',
     });
     const workflows = workflowDocs.map(
-      (workflowDto) =>
+      (workflow) =>
         new Workflow({
-          title: new Title(workflowDto.title),
-          description: new Description(workflowDto.description),
-          status: new WorkflowStatus(workflowDto.status),
-          createUser: workflowDto.createUser,
-          id: workflowDto._id.toString(),
-          no: workflowDto.id,
-          createdAt: new Date(workflowDto.createdAt.toString()),
+          title: new Title(workflow.title),
+          description: new Description(workflow.description),
+          status: new WorkflowStatus(workflow.status),
+          createUser: workflow.createUser,
+          id: workflow._id.toString(),
+          no: workflow.id,
+          createdAt: new Date(workflow.createdAt.toString()),
         })
     );
 
@@ -85,20 +85,20 @@ export class WorkflowRepository implements IWorkflowRepository {
   }
 
   public async delete(workflowId: string): Promise<Workflow> {
-    const workflow = await WorkflowModel.findById(workflowId);
-    if (!workflow) {
+    const workflowDto = await WorkflowModel.findById(workflowId);
+    if (!workflowDto) {
       throw new ErrorResponse(`Workflow was not found with id of ${workflowId}`, 404);
     }
     const deletedWorkflow = new Workflow({
-      title: new Title(workflow.title),
-      description: new Description(workflow.description),
-      status: new WorkflowStatus(workflow.status),
-      createUser: workflow.createUser.toString(),
-      id: workflow._id.toString(),
-      no: workflow.id,
-      createdAt: new Date(workflow.createdAt.toString()),
+      title: new Title(workflowDto.title),
+      description: new Description(workflowDto.description),
+      status: new WorkflowStatus(workflowDto.status),
+      createUser: workflowDto.createUser.toString(),
+      id: workflowDto._id.toString(),
+      no: workflowDto.id,
+      createdAt: new Date(workflowDto.createdAt.toString()),
     });
-    await workflow.remove();
+    await workflowDto.remove();
 
     return deletedWorkflow;
   }
