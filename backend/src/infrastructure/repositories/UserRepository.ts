@@ -26,7 +26,7 @@ export class UserRepository implements IUserRepository {
     );
   }
 
-  public async find(id: string, options: FindOptions): Promise<User> {
+  public async find(id: string, options?: FindOptions): Promise<User> {
     const userDoc = options?.selectPassword
       ? await UserModel.findById(id).select('+password')
       : await UserModel.findById(id);
@@ -51,7 +51,7 @@ export class UserRepository implements IUserRepository {
     return user;
   }
 
-  public async findByEmail(email: string, options: FindOptions): Promise<User> {
+  public async findByEmail(email: string, options?: FindOptions): Promise<User> {
     const userDoc = options?.selectPassword
       ? await UserModel.findOne({ email }, '+password')
       : await UserModel.findOne({ email });

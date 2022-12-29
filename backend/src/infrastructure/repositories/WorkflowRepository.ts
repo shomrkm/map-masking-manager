@@ -6,17 +6,14 @@ import { Workflow as WorkflowModel } from '../mongoose/models';
 
 export class WorkflowRepository implements IWorkflowRepository {
   public async findAll(): Promise<Workflow[]> {
-    const workflowDocs = await WorkflowModel.find().populate<{ createUser: string }>({
-      path: 'createUser',
-      select: 'name avatar',
-    });
+    const workflowDocs = await WorkflowModel.find();
     const workflows = workflowDocs.map(
       (workflow) =>
         new Workflow({
           title: new Title(workflow.title),
           description: new Description(workflow.description),
           status: new WorkflowStatus(workflow.status),
-          createUser: workflow.createUser,
+          createUser: workflow.createUser.toString(),
           id: workflow._id.toString(),
           no: workflow.id,
           createdAt: new Date(workflow.createdAt.toString()),
@@ -27,10 +24,7 @@ export class WorkflowRepository implements IWorkflowRepository {
   }
 
   public async find(id: string): Promise<Workflow> {
-    const workflowDoc = await WorkflowModel.findById(id).populate<{ createUser: string }>({
-      path: 'createUser',
-      select: 'name avatar',
-    });
+    const workflowDoc = await WorkflowModel.findById(id);
     if (!workflowDoc) {
       throw new ErrorResponse(`Workflow was not found with id of ${id}`, 404);
     }
@@ -38,7 +32,7 @@ export class WorkflowRepository implements IWorkflowRepository {
       title: new Title(workflowDoc.title),
       description: new Description(workflowDoc.description),
       status: new WorkflowStatus(workflowDoc.status),
-      createUser: workflowDoc.createUser,
+      createUser: workflowDoc.createUser.toString(),
       id: workflowDoc._id.toString(),
       no: workflowDoc.id,
       createdAt: new Date(workflowDoc.createdAt.toString()),

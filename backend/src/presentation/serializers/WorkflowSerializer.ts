@@ -1,4 +1,5 @@
 import { Workflow } from '@/domain/entities';
+import { UserRepository } from '@/infrastructure/repositories/UserRepository';
 
 const serializeSingleWorkflow = (workflow: Workflow) => {
   return {
@@ -13,10 +14,22 @@ const serializeSingleWorkflow = (workflow: Workflow) => {
 };
 
 export class WorkflowSerializer {
-  public serializeWorkflow(workflow: Workflow) {
-    return serializeSingleWorkflow(workflow);
+  constructor(private readonly userRepository: UserRepository) {}
+
+  public async serializeWorkflow(workflow: Workflow) {
+    const wf = serializeSingleWorkflow(workflow);
+    const user = await this.userRepository.find(workflow.createUser);
+    return {
+      ...wf,
+      createUser: {
+        _id: user.id,
+        name: user.name,
+        avatar: user.avatar,
+      },
+    };
   }
-  public serializeWorkflows(workflows: Workflow[]) {
-    return workflows.map(serializeSingleWorkflow);
+
+  public async serializeWorkflows(workflows: Workflow[]) {
+    return await Promise.all(workflows.map(async (w) => await this.serializeWorkflow(w)));
   }
 }

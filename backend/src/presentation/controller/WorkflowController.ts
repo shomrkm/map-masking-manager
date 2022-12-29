@@ -9,22 +9,23 @@ import {
 } from '@/application/usecases/Workflow';
 import { WorkflowRepository } from '@/infrastructure/repositories/WorkflowRepository';
 import { WorkflowSerializer } from '../serializers/WorkflowSerializer';
+import { UserRepository } from '@/infrastructure/repositories/UserRepository';
 
 export class WorkflowController {
   constructor(
     private readonly workflowRepository = new WorkflowRepository(),
-    private readonly workflowSerializer = new WorkflowSerializer()
+    private readonly workflowSerializer = new WorkflowSerializer(new UserRepository())
   ) {}
 
   public async getWorkflows(req: Request, res: Response) {
     const searchAllWorkflows = new SearchAllWorkflows(this.workflowRepository);
-    const tasks = await searchAllWorkflows.execute();
-    const { count, pagination, data } = buildPaginationData(req, tasks);
+    const workflows = await searchAllWorkflows.execute();
+    const { count, pagination, data } = buildPaginationData(req, workflows);
     res.status(200).json({
       success: true,
       count,
       pagination,
-      data: this.workflowSerializer.serializeWorkflows(data),
+      data: await this.workflowSerializer.serializeWorkflows(data),
     });
   }
 
@@ -33,7 +34,7 @@ export class WorkflowController {
     const workflow = await searchWorkflow.execute(req.params.id);
     res.status(200).json({
       success: true,
-      data: this.workflowSerializer.serializeWorkflow(workflow),
+      data: await this.workflowSerializer.serializeWorkflow(workflow),
     });
   }
 
@@ -43,21 +44,9 @@ export class WorkflowController {
 
     const useCase = new CreateWorkflow(this.workflowRepository);
     const newWorkflow = await useCase.execute(title, description, status, createUser);
-    // TODO: Return user in response data like below
-    // {
-    //   _id: "aaa",
-    //   id: 10,
-    //   title "title",
-    //   description: "desc",
-    //   user: {
-    //     _id: "abc",
-    //     name: "Shotaro Murakami",
-    //     avatar: "/image/avatar.png",
-    //   }
-    // }
     res.status(201).json({
       success: true,
-      data: this.workflowSerializer.serializeWorkflow(newWorkflow),
+      data: await this.workflowSerializer.serializeWorkflow(newWorkflow),
     });
   }
 
@@ -66,7 +55,7 @@ export class WorkflowController {
     const workflow = await useCase.execute(req.params.id);
     res.status(200).json({
       success: true,
-      data: this.workflowSerializer.serializeWorkflow(workflow),
+      data: await this.workflowSerializer.serializeWorkflow(workflow),
     });
   }
 
@@ -75,7 +64,7 @@ export class WorkflowController {
     const workflow = await useCase.execute(req.params.id, req.body);
     res.status(200).json({
       success: true,
-      data: this.workflowSerializer.serializeWorkflow(workflow),
+      data: await this.workflowSerializer.serializeWorkflow(workflow),
     });
   }
 }
