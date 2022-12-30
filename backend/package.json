@@ -5,6 +5,8 @@
   "scripts": {
     "start": "ts-node -r tsconfig-paths/register ./src/infrastructure/server.ts",
     "dev": "nodemon -L",
+    "test": "jest --watch",
+    "test:all": "jest --watchAll",
     "seeder-i": "ts-node -r tsconfig-paths/register ./seeder.ts -i",
     "seeder-d": "ts-node -r tsconfig-paths/register ./seeder.ts -d"
   },
@@ -12,13 +14,16 @@
     "@types/bcryptjs": "^2.4.2",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
+    "@types/jest": "^29.2.4",
     "@types/jsonwebtoken": "^8.5.8",
     "@types/mongoose-sequence": "^3.0.7",
     "@types/morgan": "^1.9.3",
     "@types/multer": "^1.4.7",
     "@types/node": "^18.0.0",
+    "jest": "^29.3.1",
     "nodemon": "^2.0.16",
     "prettier": "^2.6.2",
+    "ts-jest": "^29.0.3",
     "ts-node": "^10.8.1",
     "tsconfig-paths": "^4.1.0",
     "typescript": "^4.7.3"
