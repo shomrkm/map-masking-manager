@@ -51,7 +51,7 @@ export class TaskController {
   }
 
   public async createTask(req: Request, res: Response) {
-    req.body.createUser = req.user.id;
+    req.body.createUser = req.user._id;
     const {
       title,
       description,

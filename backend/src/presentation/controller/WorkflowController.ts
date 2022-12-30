@@ -39,7 +39,7 @@ export class WorkflowController {
   }
 
   public async createWorkflow(req: Request, res: Response) {
-    req.body.createUser = req.user.id;
+    req.body.createUser = req.user._id;
     const { title, description, status, createUser } = req.body;
 
     const useCase = new CreateWorkflow(this.workflowRepository);

@@ -1,9 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
+
+import { UserRepository } from '@/infrastructure/repositories/UserRepository';
+
 import { ErrorResponse } from '../utils/errorResponse';
 import { asyncHandler } from './';
-// TODO: Remove dependency to User model.
-import { User } from '@/infrastructure/mongoose/models/Users';
+
+const userRepository = new UserRepository();
 
 // Protect routes
 export const protect = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
@@ -26,7 +29,9 @@ export const protect = asyncHandler(async (req: Request, res: Response, next: Ne
   try {
     // Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET ?? '') as jwt.JwtPayload;
-    req.user = (await User.findById(decoded.id)) as string;
+    const user = await userRepository.find(decoded.id);
+    req.user = user.toPrimitive();
+    console.log(req.user);
     next();
   } catch (err) {
     return next(new ErrorResponse('Not authorized to access this route', 401));
