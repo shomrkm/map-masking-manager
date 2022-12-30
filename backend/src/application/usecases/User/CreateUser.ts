@@ -1,5 +1,5 @@
 import { User } from '@/domain/entities';
-import { Role, Level } from '@/domain/ValueObjects';
+import { Email, Role, Level } from '@/domain/ValueObjects';
 
 import { IUserRepository } from '../../repositories/IUserRepository';
 
@@ -21,7 +21,7 @@ export class CreateUser {
 
     const user = new User({
       name,
-      email,
+      email: new Email(email),
       role: new Role(role),
       level: new Level(level),
       password,

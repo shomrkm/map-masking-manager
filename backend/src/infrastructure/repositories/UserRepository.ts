@@ -1,5 +1,5 @@
 import { User } from '@/domain/entities';
-import { Level, Role } from '@/domain/ValueObjects';
+import { Email, Level, Role } from '@/domain/ValueObjects';
 import { FindOptions, IUserRepository } from '@/application/repositories/IUserRepository';
 import { User as UserModel } from '../mongoose/models';
 import { ErrorResponse } from '@/shared/core/utils';
@@ -12,7 +12,7 @@ export class UserRepository implements IUserRepository {
         new User({
           id: userDoc._id.toString(),
           name: userDoc.name,
-          email: userDoc.email,
+          email: new Email(userDoc.email),
           role: new Role(userDoc.role),
           level: new Level(userDoc.level),
           avatar: userDoc.avatar,
@@ -36,7 +36,7 @@ export class UserRepository implements IUserRepository {
     const user = new User({
       id: userDoc._id.toString(),
       name: userDoc.name,
-      email: userDoc.email,
+      email: new Email(userDoc.email),
       role: new Role(userDoc.role),
       level: new Level(userDoc.level),
       avatar: userDoc.avatar,
@@ -61,7 +61,7 @@ export class UserRepository implements IUserRepository {
     const user = new User({
       id: userDoc._id.toString(),
       name: userDoc.name,
-      email: userDoc.email,
+      email: new Email(userDoc.email),
       role: new Role(userDoc.role),
       level: new Level(userDoc.level),
       avatar: userDoc.avatar,
@@ -99,7 +99,7 @@ export class UserRepository implements IUserRepository {
     return new User({
       id: updatedUser._id.toString(),
       name: updatedUser.name,
-      email: updatedUser.email,
+      email: new Email(updatedUser.email),
       role: new Role(updatedUser.role),
       level: new Level(updatedUser.level),
       avatar: updatedUser.avatar,
@@ -120,7 +120,7 @@ export class UserRepository implements IUserRepository {
     const deletedUser = new User({
       id: user._id.toString(),
       name: user.name,
-      email: user.email,
+      email: new Email(user.email),
       role: new Role(user.role),
       level: new Level(user.level),
       avatar: user.avatar,

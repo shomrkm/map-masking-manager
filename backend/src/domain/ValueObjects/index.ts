@@ -1,4 +1,5 @@
 export * from './Description';
+export * from './Email';
 export * from './Level';
 export * from './Priority';
 export * from './Role';

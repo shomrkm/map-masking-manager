@@ -4,7 +4,7 @@ const serializeSingleUser = (user: User) => {
   return {
     _id: user.id,
     name: user.name,
-    email: user.email,
+    email: user.email.toPrimitive(),
     role: user.role.toPrimitive(),
     level: user.level.toPrimitive(),
     avatar: user.avatar,

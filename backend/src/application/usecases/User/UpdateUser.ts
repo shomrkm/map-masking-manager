@@ -1,6 +1,6 @@
 import { ErrorResponse } from '@/shared/core/utils';
 import { User } from '@/domain/entities';
-import { Level, Role } from '@/domain/ValueObjects';
+import { Email, Level, Role } from '@/domain/ValueObjects';
 import { IUserRepository } from '../../repositories/IUserRepository';
 
 export class UpdateUser {
@@ -18,7 +18,7 @@ export class UpdateUser {
 
     const { name, email, role, level } = values;
     if (typeof name === 'string') user.name = name;
-    if (typeof email === 'string') user.email = email;
+    if (typeof email === 'string') user.email = new Email(email);
     if (typeof role === 'string') user.role = new Role(role);
     if (typeof level === 'string') user.level = new Level(level);
     return await this.userRepository.save(user);

@@ -1,13 +1,13 @@
 import moment from 'moment-timezone';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { Level, Role } from '../ValueObjects';
+import { Email, Level, Role } from '../ValueObjects';
 
 const AVATAR_DIR = 'uploads/';
 
 type Params = {
   name: string;
-  email: string;
+  email: Email;
   role: Role;
   level: Level;
   avatar?: string;
@@ -21,7 +21,7 @@ type Params = {
 export class User {
   private _id: string | null;
   private _name: string;
-  private _email: string;
+  private _email: Email;
   private _role: Role;
   private _level: Level;
   private _avatar: string;
@@ -61,7 +61,7 @@ export class User {
   public toPrimitive() {
     const primitives = {
       name: this._name,
-      email: this._email,
+      email: this._email.toPrimitive(),
       role: this._role.toPrimitive(),
       level: this._level.toPrimitive(),
       avatar: this._avatar,
@@ -119,12 +119,11 @@ export class User {
     this._name = name;
   }
 
-  // TODO: Create ValueObject for validate email
-  get email(): string {
+  get email(): Email {
     return this._email;
   }
 
-  set email(email: string) {
+  set email(email: Email) {
     this._email = email;
   }
 
