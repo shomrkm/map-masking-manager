@@ -3,7 +3,7 @@ import { polygon } from '@turf/helpers';
 import { useParams } from 'react-router-dom';
 
 import { Avatar } from '@/components/Avatar';
-import { Spinner, StatusBadge, LevelBadge, PriorityBadge } from '@/components/Elements';
+import { Spinner, StatusBadge, LevelBadge, PriorityBadge, MDPreview } from '@/components/Elements';
 import { ContentLayout } from '@/components/Layout';
 import { Map } from '@/components/Map';
 import { Comments } from '@/features/comments/';
@@ -67,10 +67,10 @@ export const Task = () => {
               </div>
             </div>
             <h2 className="text-xl font-bold text-gray-700 prose">Description</h2>
-            <p className="text-base">{taskQuery.data.description}</p>
+            <MDPreview value={taskQuery.data.description} />
             <h2 className="text-xl font-bold text-gray-700 prose">Detail</h2>
             <div className="overflow-hidden">
-              <p className="text-base">{taskQuery.data.detail}</p>
+              <MDPreview value={taskQuery.data.detail} />
             </div>
           </div>
           <Map
