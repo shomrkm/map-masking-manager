@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 
-import { LevelBadge, Link, Spinner, StatusBadge, Table } from '@/components/Elements';
+import { LevelBadge, Link, MDPreview, Spinner, StatusBadge, Table } from '@/components/Elements';
 import { ContentLayout } from '@/components/Layout';
 import { useTasksForWorkflow } from '@/features/tasks/api/getTasksForWorkFlow';
 import { Task } from '@/features/tasks/types';
@@ -32,7 +32,7 @@ export const Workflow = () => {
         <div className="flex m-4">
           <div className="flex-1 space-y-4">
             <h2 className="text-xl font-bold text-gray-700 prose">Description</h2>
-            <p className="text-base">{workflowQuery.data.description}</p>
+            <MDPreview value={workflowQuery.data.description} />
             <h2 className="text-xl font-bold text-gray-700 prose">Tasks</h2>
             <div className="mr-4">
               {taskQuery.data && (
