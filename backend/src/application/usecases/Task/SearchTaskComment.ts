@@ -1,4 +1,5 @@
 import { Comment } from '@/domain/entities';
+
 import { ITaskRepository } from '../../repositories/ITaskRepository';
 
 export class SearchTaskComment {

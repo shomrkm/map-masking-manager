@@ -1,9 +1,11 @@
 import { Request, Response } from 'express';
-import { UserRepository } from '@/infrastructure/repositories/UserRepository';
-import { UserSerializer } from '../serializers/UserSerializer';
+
 import { ErrorResponse } from '@/shared/core/utils';
 import { Login, Register, UpdatePassword } from '@/application/usecases/Auth';
 import { UpdateUser } from '@/application/usecases/User/UpdateUser';
+import { UserRepository } from '@/infrastructure/repositories/UserRepository';
+
+import { UserSerializer } from '../serializers/UserSerializer';
 
 export class AuthController {
   constructor(

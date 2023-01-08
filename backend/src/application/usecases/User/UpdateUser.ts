@@ -1,6 +1,7 @@
 import { ErrorResponse } from '@/shared/core/utils';
 import { User } from '@/domain/entities';
 import { Email, Level, Role } from '@/domain/ValueObjects';
+
 import { IUserRepository } from '../../repositories/IUserRepository';
 
 export class UpdateUser {

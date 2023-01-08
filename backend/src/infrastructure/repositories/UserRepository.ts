@@ -1,8 +1,9 @@
+import { ErrorResponse } from '@/shared/core/utils';
 import { User } from '@/domain/entities';
 import { Email, Level, Role } from '@/domain/ValueObjects';
 import { FindOptions, IUserRepository } from '@/application/repositories/IUserRepository';
+
 import { User as UserModel } from '../mongoose/models';
-import { ErrorResponse } from '@/shared/core/utils';
 
 export class UserRepository implements IUserRepository {
   public async findAll(): Promise<User[]> {

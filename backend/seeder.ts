@@ -2,9 +2,9 @@ import fs from 'fs';
 import { connect, Schema } from 'mongoose';
 import colors from 'colors';
 import dotenv from 'dotenv';
-dotenv.config({ path: './config/.env' });
-
 import { Workflow, Task, User, Comment } from './src/infrastructure/mongoose/models';
+
+dotenv.config({ path: './config/.env' });
 
 // Usage
 // npx ts-node seeder <option>

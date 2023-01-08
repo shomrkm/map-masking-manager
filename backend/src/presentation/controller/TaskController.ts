@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+
 import { buildPaginationData } from '@/shared/core/utils/buildPaginationData';
 import {
   CreateTask,
@@ -9,6 +10,7 @@ import {
   SearchTask,
 } from '@/application/usecases/Task';
 import { TaskRepository } from '@/infrastructure/repositories/TaskRepository';
+
 import { TaskSerializer } from '../serializers/TaskSerializer';
 
 export class TaskController {

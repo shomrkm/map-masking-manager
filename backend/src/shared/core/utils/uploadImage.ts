@@ -1,5 +1,5 @@
-import multer, { FileFilterCallback } from 'multer';
 import path from 'path';
+import multer, { FileFilterCallback } from 'multer';
 import { Request } from 'express';
 
 const MAX_FILE_SIZE: number = 1024 * 1024;

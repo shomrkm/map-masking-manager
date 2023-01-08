@@ -1,4 +1,5 @@
 import { ErrorResponse } from '@/shared/core/utils';
+
 import { Email } from '../Email';
 
 describe('Email ValueObject test', () => {

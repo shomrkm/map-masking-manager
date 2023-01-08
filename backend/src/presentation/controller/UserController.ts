@@ -1,12 +1,14 @@
 import { Request, Response } from 'express';
+
 import { buildPaginationData } from '@/shared/core/utils/buildPaginationData';
 import { SearchAllUsers, SearchUser } from '@/application/usecases/User';
-import { UserRepository } from '@/infrastructure/repositories/UserRepository';
-import { UserSerializer } from '../serializers/UserSerializer';
 import { CreateUser } from '@/application/usecases/User/CreateUser';
 import { UpdateUser } from '@/application/usecases/User/UpdateUser';
 import { DeleteUser } from '@/application/usecases/User/DeleteUser';
 import { UpdateAvatar } from '@/application/usecases/User/UpdateAvatar';
+import { UserRepository } from '@/infrastructure/repositories/UserRepository';
+
+import { UserSerializer } from '../serializers/UserSerializer';
 
 export class UserController {
   constructor(

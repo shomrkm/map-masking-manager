@@ -1,5 +1,6 @@
 import { ErrorResponse } from '@/shared/core/utils';
 import { Comment } from '@/domain/entities';
+
 import { ITaskRepository } from '../../repositories/ITaskRepository';
 
 export class SearchTaskComments {

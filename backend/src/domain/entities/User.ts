@@ -1,6 +1,7 @@
 import moment from 'moment-timezone';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+
 import { Email, Level, Role } from '../ValueObjects';
 
 const AVATAR_DIR = 'uploads/';

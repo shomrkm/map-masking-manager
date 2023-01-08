@@ -1,6 +1,8 @@
 import { CookieOptions } from 'express';
+
 import { User } from '@/domain/entities';
 import { Role, Level, Email } from '@/domain/ValueObjects';
+
 import { IUserRepository } from '../../repositories/IUserRepository';
 import { createCookieOptions } from './utils/createCookieOptions';
 

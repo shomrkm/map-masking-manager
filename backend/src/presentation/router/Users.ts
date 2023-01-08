@@ -1,6 +1,8 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express from 'express';
+
 import { upload } from '@/shared/core/utils';
 import { asyncHandler, authorize, protect } from '@/shared/core/middleware';
+
 import { UserController } from '../controller/UserController';
 
 export const router = express.Router();

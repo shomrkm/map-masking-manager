@@ -1,4 +1,5 @@
 import { Workflow } from '@/domain/entities';
+
 import { IWorkflowRepository } from '../../repositories/IWorkflowRepository';
 
 export class SearchWorkflow {

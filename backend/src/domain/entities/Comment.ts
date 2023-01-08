@@ -1,4 +1,5 @@
-import moment, { Moment } from 'moment-timezone';
+import moment from 'moment-timezone';
+
 import { Text } from '../ValueObjects';
 
 type Params = {

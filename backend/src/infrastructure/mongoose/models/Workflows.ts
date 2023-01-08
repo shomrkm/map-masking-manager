@@ -1,6 +1,7 @@
 import mongoose, { Schema, SchemaDefinition, Document, Date, model, Model } from 'mongoose';
 import AutoIncrementFactory from 'mongoose-sequence';
 import slugify from 'slugify';
+
 import { WorkflowStatusType, workflowStatusTypes } from '@/domain/ValueObjects';
 
 // The @types/mongoose-sequence package is incorrect, and the dev doesn't care, so we ignore the error here. Follow docs here:

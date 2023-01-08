@@ -1,8 +1,9 @@
 import { ErrorResponse } from '@/shared/core/utils';
 import { User } from '@/domain/entities';
+
 import { IUserRepository } from '../../repositories/IUserRepository';
 
-export class DeleteUser{
+export class DeleteUser {
   private userRepository: IUserRepository;
 
   constructor(userRepository: IUserRepository) {

@@ -1,6 +1,8 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express from 'express';
+
 import { asyncHandler } from '@/shared/core/middleware';
 import { protect, authorize } from '@/shared/core/middleware/authorization';
+
 import { CommentController } from '../controller/CommentController';
 
 const commentController = new CommentController();

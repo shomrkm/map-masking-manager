@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+
 import { buildPaginationData } from '@/shared/core/utils/buildPaginationData';
 import {
   SearchAllWorkflows,
@@ -8,8 +9,9 @@ import {
   UpdateWorkflow,
 } from '@/application/usecases/Workflow';
 import { WorkflowRepository } from '@/infrastructure/repositories/WorkflowRepository';
-import { WorkflowSerializer } from '../serializers/WorkflowSerializer';
 import { UserRepository } from '@/infrastructure/repositories/UserRepository';
+
+import { WorkflowSerializer } from '../serializers/WorkflowSerializer';
 
 export class WorkflowController {
   constructor(

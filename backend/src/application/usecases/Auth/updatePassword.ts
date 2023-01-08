@@ -1,6 +1,8 @@
 import { CookieOptions } from 'express';
+
 import { User } from '@/domain/entities';
 import { ErrorResponse } from '@/shared/core/utils';
+
 import { IUserRepository } from '../../repositories/IUserRepository';
 import { createCookieOptions } from './utils/createCookieOptions';
 
