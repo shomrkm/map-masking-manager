@@ -36,7 +36,6 @@ export class CreateTask {
     next: string[] = [],
     assignedUsers: string[] = []
   ): Promise<Task> {
-    // TODO: Check authorization.
 
     this.checkTaskExists(previous);
     this.checkTaskExists(next);

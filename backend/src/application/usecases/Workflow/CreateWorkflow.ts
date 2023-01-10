@@ -23,7 +23,6 @@ export class CreateWorkflow {
       createUser,
     });
 
-    // TODO: Check authorization.
     return await this.workflowRepository.save(workflow);
   }
 }

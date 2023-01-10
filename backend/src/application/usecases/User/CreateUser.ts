@@ -17,7 +17,6 @@ export class CreateUser {
     level: string,
     password: string
   ): Promise<User> {
-    // TODO: Check authorization.
 
     const user = new User({
       name,
