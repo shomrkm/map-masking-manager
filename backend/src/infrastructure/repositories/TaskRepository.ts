@@ -16,11 +16,7 @@ import { Task as TaskModel, Comment as CommentModel, UserFields } from '../mongo
 
 export class TaskRepository implements ITaskRepository {
   public async findAll(): Promise<Task[]> {
-    // TODO: Modify generics for populate.
-    const taskDocs = await TaskModel.find()
-      .populate<{ createUser: string }>({ path: 'createUser', select: 'name avatar' })
-      .populate<{ assignedUsers: string[] }>({ path: 'assignedUsers', select: 'name avatar' });
-
+    const taskDocs = await TaskModel.find();
     const tasks = taskDocs.map(
       (taskDto) =>
         new Task({
@@ -31,12 +27,12 @@ export class TaskRepository implements ITaskRepository {
           priority: new Priority(taskDto.priority),
           target: new Targets(taskDto.target, targetTypes),
           level: new Level(taskDto.level),
-          createUser: taskDto.createUser,
+          createUser: taskDto.createUser.toString(),
           detail: taskDto.detail,
           area: taskDto.area,
           previous: taskDto.previous.map((t) => t.toString()),
           next: taskDto.next.map((t) => t.toString()),
-          assignedUsers: taskDto.assignedUsers,
+          assignedUsers: taskDto.assignedUsers.map((user) => user.toString()),
           id: taskDto._id.toString(),
           no: taskDto.id,
           createdAt: new Date(taskDto.createdAt.toString()),
@@ -47,10 +43,7 @@ export class TaskRepository implements ITaskRepository {
   }
 
   public async findById(id: string): Promise<Task> {
-    // TODO: Modify generics for populate.
-    const taskDoc = await TaskModel.findById(id)
-      .populate<{ createUser: string }>({ path: 'createUser', select: 'name avatar' })
-      .populate<{ assignedUsers: string[] }>({ path: 'assignedUsers', select: 'name avatar' });
+    const taskDoc = await TaskModel.findById(id);
     if (!taskDoc) {
       throw new ErrorResponse(`Task was not found with id of ${id}`, 404);
     }
@@ -62,12 +55,12 @@ export class TaskRepository implements ITaskRepository {
       priority: new Priority(taskDoc.priority),
       target: new Targets(taskDoc.target, targetTypes),
       level: new Level(taskDoc.level),
-      createUser: taskDoc.createUser as any,
+      createUser: taskDoc.createUser.toString(),
       detail: taskDoc.detail,
       area: taskDoc.area,
       previous: taskDoc.previous.map((t) => t.toString()),
       next: taskDoc.next.map((t) => t.toString()),
-      assignedUsers: taskDoc.assignedUsers,
+      assignedUsers: taskDoc.assignedUsers.map((user) => user.toString()),
       id: taskDoc._id.toString(),
       no: taskDoc.id,
       createdAt: new Date(taskDoc.createdAt.toString()),
@@ -77,10 +70,7 @@ export class TaskRepository implements ITaskRepository {
   }
 
   public async findByWorkflowId(workflowId: string): Promise<Task[]> {
-    const taskDocs = await TaskModel.find({ workflow: workflowId })
-      .populate<{ createUser: string }>({ path: 'createUser', select: 'name avatar' })
-      .populate<{ assignedUsers: string[] }>({ path: 'assignedUsers', select: 'name avatar' });
-
+    const taskDocs = await TaskModel.find({ workflow: workflowId });
     const tasks = taskDocs.map(
       (task) =>
         new Task({
@@ -91,12 +81,12 @@ export class TaskRepository implements ITaskRepository {
           priority: new Priority(task.priority),
           target: new Targets(task.target, targetTypes),
           level: new Level(task.level),
-          createUser: task.createUser,
+          createUser: task.createUser.toString(),
           detail: task.detail,
           area: task.area,
           previous: task.previous.map((t) => t.toString()),
           next: task.next.map((t) => t.toString()),
-          assignedUsers: task.assignedUsers,
+          assignedUsers: task.assignedUsers.map((user) => user.toString()),
           id: task._id.toString(),
           no: task.id,
           createdAt: new Date(task.createdAt.toString()),
@@ -108,7 +98,6 @@ export class TaskRepository implements ITaskRepository {
   public async save(task: Task): Promise<Task> {
     const taskDto = task.toPrimitive();
     if (!task.id) {
-      // TODO: populate user.
       const newTask = await TaskModel.create(taskDto);
       if (!newTask) {
         throw new ErrorResponse('CreatingTask Failed', 400);

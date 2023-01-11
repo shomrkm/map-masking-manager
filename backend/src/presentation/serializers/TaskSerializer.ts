@@ -1,4 +1,5 @@
 import { Task } from '@/domain/entities';
+import { UserRepository } from '@/infrastructure/repositories/UserRepository';
 
 const serializeSingleTask = (task: Task) => {
   return {
@@ -22,10 +23,29 @@ const serializeSingleTask = (task: Task) => {
 };
 
 export class TaskSerializer {
-  public serializeTask(task: Task) {
-    return serializeSingleTask(task);
+  constructor(private readonly userRepository: UserRepository) {}
+
+  public async serializeTask(task: Task) {
+    const t = serializeSingleTask(task);
+    const createUser = await this.userRepository.find(t.createUser);
+    const assignedUsers = await Promise.all(
+      t.assignedUsers.map(async (u) => await this.userRepository.find(u))
+    );
+    return {
+      ...t,
+      createUser: {
+        _id: createUser.id,
+        name: createUser.name,
+        avatar: createUser.avatar,
+      },
+      assignedUsers: assignedUsers.map((u) => ({
+        _id: u.id,
+        name: u.name,
+        avatar: u.avatar,
+      })),
+    };
   }
-  public serializeTasks(tasks: Task[]) {
-    return tasks.map(serializeSingleTask);
+  public async serializeTasks(tasks: Task[]) {
+    return await Promise.all(tasks.map(async (t) => await this.serializeTask(t)));
   }
 }

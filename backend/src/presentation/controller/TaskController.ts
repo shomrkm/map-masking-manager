@@ -10,13 +10,14 @@ import {
   SearchTask,
 } from '@/application/usecases/Task';
 import { TaskRepository } from '@/infrastructure/repositories/TaskRepository';
+import { UserRepository } from '@/infrastructure/repositories/UserRepository';
 
 import { TaskSerializer } from '../serializers/TaskSerializer';
 
 export class TaskController {
   constructor(
     private readonly taskRepository = new TaskRepository(),
-    private readonly taskSerializer = new TaskSerializer()
+    private readonly taskSerializer = new TaskSerializer(new UserRepository())
   ) {}
 
   public async getTasks(req: Request, res: Response) {
@@ -28,7 +29,7 @@ export class TaskController {
         success: true,
         count,
         pagination,
-        data: this.taskSerializer.serializeTasks(data),
+        data: await this.taskSerializer.serializeTasks(data),
       });
       return;
     }
@@ -39,7 +40,7 @@ export class TaskController {
       success: true,
       count,
       pagination,
-      data: this.taskSerializer.serializeTasks(data),
+      data: await this.taskSerializer.serializeTasks(data),
     });
   }
 
@@ -48,7 +49,7 @@ export class TaskController {
     const task = await searchTask.execute(req.params.id);
     res.status(200).json({
       success: true,
-      data: this.taskSerializer.serializeTask(task),
+      data: await this.taskSerializer.serializeTask(task),
     });
   }
 
@@ -88,7 +89,7 @@ export class TaskController {
     );
     res.status(201).json({
       success: true,
-      data: this.taskSerializer.serializeTask(newTask),
+      data: await this.taskSerializer.serializeTask(newTask),
     });
   }
 
@@ -97,7 +98,7 @@ export class TaskController {
     const task = await useCase.execute(req.params.id);
     res.status(200).json({
       success: true,
-      data: this.taskSerializer.serializeTask(task),
+      data: await this.taskSerializer.serializeTask(task),
     });
   }
 
@@ -106,7 +107,7 @@ export class TaskController {
     const task = await useCase.execute(req.params.id, req.body);
     res.status(200).json({
       success: true,
-      data: this.taskSerializer.serializeTask(task),
+      data: await this.taskSerializer.serializeTask(task),
     });
   }
 }
