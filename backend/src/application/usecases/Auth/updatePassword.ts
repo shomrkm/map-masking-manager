@@ -21,7 +21,6 @@ export class UpdatePassword {
     newPassword: string
   ): Promise<ReturnType> {
     const user = await this.userRepository.find(id, { selectPassword: true });
-    console.log(user);
     const isMatch = await user.matchPassword(currentPassword);
     if (!isMatch) {
       throw new ErrorResponse('Invalid credentials', 401);
