@@ -7,11 +7,12 @@ import { AddComment } from '@/application/usecases/Task/AddComment';
 import { TaskRepository } from '@/infrastructure/repositories/TaskRepository';
 
 import { CommentSerializer } from '../serializers/CommentSerializer';
+import { UserRepository } from '@/infrastructure/repositories/UserRepository';
 
 export class CommentController {
   constructor(
     private readonly taskRepository = new TaskRepository(),
-    private readonly commentSerializer = new CommentSerializer()
+    private readonly commentSerializer = new CommentSerializer(new UserRepository())
   ) {}
 
   public async getComments(req: Request, res: Response) {
@@ -21,7 +22,7 @@ export class CommentController {
       res.status(200).json({
         success: true,
         count: comments.length,
-        data: this.commentSerializer.serializeComments(comments),
+        data: await this.commentSerializer.serializeComments(comments),
       });
       return;
     }
@@ -31,7 +32,7 @@ export class CommentController {
     res.status(200).json({
       success: true,
       count: comments.length,
-      data: this.commentSerializer.serializeComments(comments),
+      data: await this.commentSerializer.serializeComments(comments),
     });
   }
 
@@ -40,7 +41,7 @@ export class CommentController {
     const comment = await searchComment.execute(req.params.id);
     res.status(200).json({
       success: true,
-      data: this.commentSerializer.serializeComment(comment),
+      data: await this.commentSerializer.serializeComment(comment),
     });
   }
 
@@ -49,7 +50,7 @@ export class CommentController {
     const comment = await addComment.execute(req.params.taskid, req.user, req.body.text);
     res.status(201).json({
       success: true,
-      data: this.commentSerializer.serializeComment(comment),
+      data: await this.commentSerializer.serializeComment(comment),
     });
   }
 }

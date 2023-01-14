@@ -1,4 +1,5 @@
 import { Comment } from '@/domain/entities';
+import { UserRepository } from '@/infrastructure/repositories/UserRepository';
 
 const serializeSingleComment = (comment: Comment) => {
   return {
@@ -11,10 +12,21 @@ const serializeSingleComment = (comment: Comment) => {
 };
 
 export class CommentSerializer {
-  public serializeComment(comment: Comment) {
-    return serializeSingleComment(comment);
+  constructor(private readonly userRepository: UserRepository) {}
+
+  public async serializeComment(comment: Comment) {
+    const c = serializeSingleComment(comment);
+    const user = await this.userRepository.find(c.user);
+    return {
+      ...c,
+      user: {
+        _id: user.id,
+        name: user.name,
+        avatar: user.avatar,
+      },
+    };
   }
-  public serializeComments(comments: Comment[]) {
-    return comments.map(serializeSingleComment);
+  public async serializeComments(comments: Comment[]) {
+    return await Promise.all(comments.map(async (c) => await this.serializeComment(c)));
   }
 }
