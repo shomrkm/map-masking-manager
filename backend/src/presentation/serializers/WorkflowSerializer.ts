@@ -30,6 +30,6 @@ export class WorkflowSerializer {
   }
 
   public async serializeWorkflows(workflows: Workflow[]) {
-    return await Promise.all(workflows.map(async (w) => await this.serializeWorkflow(w)));
+    return await Promise.all(workflows.map((w) => this.serializeWorkflow(w)));
   }
 }

@@ -46,6 +46,6 @@ export class TaskSerializer {
     };
   }
   public async serializeTasks(tasks: Task[]) {
-    return await Promise.all(tasks.map(async (t) => await this.serializeTask(t)));
+    return await Promise.all(tasks.map((t) => this.serializeTask(t)));
   }
 }

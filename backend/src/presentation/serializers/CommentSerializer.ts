@@ -27,6 +27,6 @@ export class CommentSerializer {
     };
   }
   public async serializeComments(comments: Comment[]) {
-    return await Promise.all(comments.map(async (c) => await this.serializeComment(c)));
+    return await Promise.all(comments.map((c) => this.serializeComment(c)));
   }
 }
