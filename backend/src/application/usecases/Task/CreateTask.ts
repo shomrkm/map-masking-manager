@@ -36,7 +36,6 @@ export class CreateTask {
     next: string[] = [],
     assignedUsers: string[] = []
   ): Promise<Task> {
-
     this.checkTaskExists(previous);
     this.checkTaskExists(next);
 
@@ -46,7 +45,7 @@ export class CreateTask {
       workflow,
       status: new TaskStatus(status),
       priority: new Priority(priority),
-      target: new Targets(target, targetTypes),
+      targets: new Targets(target, targetTypes),
       level: new Level(level),
       createUser,
       detail,

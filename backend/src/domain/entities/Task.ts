@@ -9,7 +9,7 @@ type Params = {
   workflow: string;
   status: TaskStatus;
   priority: Priority;
-  target: Targets;
+  targets: Targets;
   level: Level;
   createUser: string;
   detail?: string;
@@ -49,7 +49,7 @@ export class Task {
     workflow,
     status,
     priority,
-    target: targets,
+    targets,
     level,
     createUser,
     detail = '',
@@ -107,12 +107,13 @@ export class Task {
       area: this._area ?? undefined,
       status: this._status.toPrimitive(),
       workflow: this._workflow,
-      target: this._targets.toPrimitive(),
+      targets: this._targets.toPrimitive(),
       previous: this._previous,
       next: this._next,
       level: this._level.toPrimitive(),
       priority: this._priority.toPrimitive(),
       createUser: this._createUser,
+      assignedUsers: this.assignedUsers,
       createdAt: this._createdAt.toDate(),
     };
     if (this.isPersisted()) return { _id: this._id, id: this._no, ...primitives };
