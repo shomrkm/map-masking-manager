@@ -11,7 +11,7 @@ export type UpdateTaskDTO = {
     title?: string;
     description?: string;
     detail?: string;
-    target?: ('road' | 'map' | 'poi')[];
+    targets?: ('road' | 'map' | 'poi')[];
     level?: 'expert' | 'intermediate' | 'biginner';
     priority?: 'high' | 'normal' | 'low';
     next?: string[];

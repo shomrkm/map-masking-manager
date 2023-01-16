@@ -1,7 +1,7 @@
 export const statusTypes = ['todo', 'inprogress', 'inReview', 'completed'] as const;
 export type Status = typeof statusTypes[number];
 export const targetTypes = ['road', 'map', 'poi'] as const;
-export type Target = typeof targetTypes[number];
+export type Targets = typeof targetTypes[number];
 export const levelTypes = ['expert', 'intermediate', 'beginner'] as const;
 export type Level = typeof levelTypes[number];
 export const priorityTypes = ['high', 'normal', 'low'] as const;
@@ -19,7 +19,7 @@ export type Task = {
   };
   status: Status;
   workflow: string;
-  target: Target[];
+  targets: Targets[];
   level: Level;
   previous: string[];
   next: string[];

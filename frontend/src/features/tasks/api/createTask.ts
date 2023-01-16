@@ -4,7 +4,7 @@ import { axios } from '@/lib/axios';
 import { MutationConfig, queryClient } from '@/lib/react-query';
 import { useNotificationStore } from '@/stores/notifications';
 
-import { Level, Priority, Status, Target, Task } from '../types';
+import { Level, Priority, Status, Targets, Task } from '../types';
 
 export type CreateTaskDTO = {
   data: {
@@ -17,7 +17,7 @@ export type CreateTaskDTO = {
     };
     workflow: string;
     status: Status;
-    target: Target[];
+    targets: Targets[];
     level: Level;
     priority: Priority;
     previous: string[];

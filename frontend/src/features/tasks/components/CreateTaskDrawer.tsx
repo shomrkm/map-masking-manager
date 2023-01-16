@@ -13,7 +13,7 @@ const schema = z.object({
   description: z.string().min(1, 'Required').max(500),
   detail: z.string(),
   status: z.enum(statusTypes),
-  target: z.array(z.enum(targetTypes)).min(1, 'More than 1 target required'),
+  targets: z.array(z.enum(targetTypes)).min(1, 'More than 1 target required'),
   level: z.enum(levelTypes),
   priority: z.enum(priorityTypes),
 });
@@ -84,9 +84,9 @@ export const CreateTaskDrawer = ({ isOpen, close, fixedValues }: CreateTaskDrawe
                 }))}
               />
               <MultiSelectField
-                label="Target"
-                error={formState.errors['target']}
-                registration={register('target')}
+                label="Targets"
+                error={formState.errors['targets']}
+                registration={register('targets')}
                 options={targetTypes.map((target) => ({
                   label: target,
                   value: target,

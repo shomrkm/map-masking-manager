@@ -55,7 +55,7 @@ export const Task = () => {
               </div>
               <h3 className="col-span-1 text-base text-gray-700">Target</h3>
               <div className="col-span-2">
-                <MapTargets targets={taskQuery.data.target} />
+                <MapTargets targets={taskQuery.data.targets} />
               </div>
               <h3 className="col-span-1 text-base text-gray-700">Assigned User</h3>
               <div className="col-span-2 justify-items-center items-center">
