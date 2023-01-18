@@ -85,4 +85,66 @@ describe('domain/entities/Task', () => {
       });
     });
   });
+
+  describe('isPersisted', () => {
+    test('should return true if the Task has _id/no',()=>{
+      const task = new Task({
+        id: 'test-id',
+        no: 100,
+        title: new Title('test-title'),
+        description: new Description('test-description'),
+        detail: 'test-detail',
+        workflow: 'test-workflow',
+        status: new TaskStatus('todo'),
+        targets: new Targets(['road', 'map'], targetTypes),
+        level: new Level('expert'),
+        priority: new Priority('normal'),
+        previous: ['pre-task-1', 'pre-task-2'],
+        next: ['next-task-1', 'next-task-2'],
+        createUser: 'test-user1',
+        assignedUsers: ['test-user2', 'test-user3'],
+        createdAt: new Date('2022-12-19T11:20:53.000Z'),
+      });
+      expect(task.isPersisted()).toBeTruthy();
+    })
+    test("should return false if the Task has't id",()=>{
+      const task = new Task({
+        no: 100,
+        title: new Title('test-title'),
+        description: new Description('test-description'),
+        detail: 'test-detail',
+        workflow: 'test-workflow',
+        status: new TaskStatus('todo'),
+        targets: new Targets(['road', 'map'], targetTypes),
+        level: new Level('expert'),
+        priority: new Priority('normal'),
+        previous: ['pre-task-1', 'pre-task-2'],
+        next: ['next-task-1', 'next-task-2'],
+        createUser: 'test-user1',
+        assignedUsers: ['test-user2', 'test-user3'],
+        createdAt: new Date('2022-12-19T11:20:53.000Z'),
+      });
+      expect(task.isPersisted()).toBeFalsy();
+    })
+    test("should return false if the Task has't no",()=>{
+      const task = new Task({
+        id: 'test-id',
+        title: new Title('test-title'),
+        description: new Description('test-description'),
+        detail: 'test-detail',
+        workflow: 'test-workflow',
+        status: new TaskStatus('todo'),
+        targets: new Targets(['road', 'map'], targetTypes),
+        level: new Level('expert'),
+        priority: new Priority('normal'),
+        previous: ['pre-task-1', 'pre-task-2'],
+        next: ['next-task-1', 'next-task-2'],
+        createUser: 'test-user1',
+        assignedUsers: ['test-user2', 'test-user3'],
+        createdAt: new Date('2022-12-19T11:20:53.000Z'),
+      });
+      expect(task.isPersisted()).toBeFalsy();
+    })
+  })
 });
+
