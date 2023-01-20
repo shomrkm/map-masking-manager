@@ -210,4 +210,30 @@ describe('domain/entities/Task', () => {
       expect(task.previous).toStrictEqual(['pre-task-1', 'pre-task-2', 'pre-task-3', 'pre-task-4']);
     });
   });
+
+  describe('addNextTask', () => {
+    test('should add task to nextTasks', () => {
+      const task = new Task({
+        id: 'test-id',
+        title: new Title('test-title'),
+        description: new Description('test-description'),
+        detail: 'test-detail',
+        workflow: 'test-workflow',
+        status: new TaskStatus('todo'),
+        targets: new Targets(['road', 'map'], targetTypes),
+        level: new Level('expert'),
+        priority: new Priority('normal'),
+        previous: ['pre-task-1', 'pre-task-2'],
+        next: ['next-task-1', 'next-task-2'],
+        createUser: 'test-user1',
+        assignedUsers: ['test-user2', 'test-user3'],
+        createdAt: new Date('2022-12-19T11:20:53.000Z'),
+      });
+
+      task.addNextTask('next-task-3');
+      expect(task.next).toStrictEqual(['next-task-1', 'next-task-2', 'next-task-3']);
+      task.addNextTask('next-task-4');
+      expect(task.next).toStrictEqual(['next-task-1', 'next-task-2', 'next-task-3', 'next-task-4']);
+    });
+  });
 });
