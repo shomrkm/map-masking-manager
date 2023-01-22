@@ -47,7 +47,23 @@ describe('domain/entities/Workflow', () => {
       });
     });
 
-    test('should return primitive values when ids do not exits', () => {});
+    test('should return primitive values when ids do not exits', () => {
+      const workflow = new Workflow({
+        title: new Title('test-title'),
+        description: new Description('test-description'),
+        status: new WorkflowStatus('todo'),
+        createUser: 'test-user',
+        createdAt: new Date('2022-12-19T11:20:53.000Z'),
+      });
+
+      expect(workflow.toPrimitive()).toStrictEqual({
+        title: 'test-title',
+        description: 'test-description',
+        status: 'todo',
+        createUser: 'test-user',
+        createdAt: new Date('2022-12-19T11:20:53.000Z'),
+      });
+    });
   });
 
   describe('isPersisted', () => {
