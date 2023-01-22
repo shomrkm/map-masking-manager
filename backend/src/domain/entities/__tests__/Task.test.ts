@@ -40,7 +40,7 @@ describe('domain/entities/Task', () => {
       expect(task.detail).toStrictEqual('test-detail');
       expect(task.workflow).toBe('test-workflow');
       expect(task.status).toStrictEqual(new TaskStatus('todo'));
-      expect(task.target).toStrictEqual(new Targets(['road', 'map'], targetTypes));
+      expect(task.targets).toStrictEqual(new Targets(['road', 'map'], targetTypes));
       expect(task.level).toStrictEqual(new Level('expert'));
       expect(task.priority).toStrictEqual(new Priority('normal'));
       expect(task.previous).toStrictEqual(['pre-task-1', 'pre-task-2']);

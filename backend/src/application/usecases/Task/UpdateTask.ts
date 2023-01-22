@@ -24,11 +24,11 @@ export class UpdateTask {
     if (!task) {
       throw new ErrorResponse(`Task was not found with id of ${taskId}`, 404);
     }
-    const { title, description, detail, target, level, priority, status } = values;
+    const { title, description, detail, targets, level, priority, status } = values;
     if (typeof title === 'string') task.title = new Title(title);
     if (typeof description === 'string') task.description = new Description(description);
     if (typeof detail === 'string') task.detail = detail;
-    if (Array.isArray(target)) task.target = new Targets(target, targetTypes);
+    if (Array.isArray(targets)) task.targets = new Targets(targets, targetTypes);
     if (typeof level === 'string') task.level = new Level(level);
     if (typeof priority === 'string') task.priority = new Priority(priority);
     if (typeof status === 'string') task.status = new TaskStatus(status);

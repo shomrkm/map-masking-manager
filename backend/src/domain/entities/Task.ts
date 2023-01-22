@@ -176,11 +176,11 @@ export class Task {
     return this._workflow;
   }
 
-  get target(): Targets {
+  get targets(): Targets {
     return this._targets;
   }
 
-  set target(targets: Targets) {
+  set targets(targets: Targets) {
     this._targets = targets;
   }
 

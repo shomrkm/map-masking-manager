@@ -10,7 +10,7 @@ const serializeSingleTask = (task: Task) => {
     detail: task.detail,
     area: task.area,
     status: task.status.toPrimitive(),
-    targets: task.target.toPrimitive(),
+    targets: task.targets.toPrimitive(),
     previous: task.previous,
     next: task.next,
     workflow: task.workflow,

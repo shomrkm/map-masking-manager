@@ -29,7 +29,7 @@ type TaskFields = {
   area: Polygon;
   status: WorkflowStatusType;
   workflow: Schema.Types.ObjectId;
-  target: TargetTypes;
+  targets: TargetTypes;
   previous: [Schema.Types.ObjectId];
   next: [Schema.Types.ObjectId];
   level: LevelType;
@@ -74,7 +74,7 @@ const taskSchemaFields: SchemaDefinition<TaskFields> = {
     required: true,
     enum: workflowStatusTypes,
   },
-  target: {
+  targets: {
     type: [String],
     enum: targetTypes,
   },
