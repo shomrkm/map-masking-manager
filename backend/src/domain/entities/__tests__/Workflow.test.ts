@@ -25,7 +25,27 @@ describe('domain/entities/Workflow', () => {
       expect(workflow.createdAt).toStrictEqual(moment(new Date('2022-12-19T11:20:53.000Z')));
     });
 
-    test('should return primitive values when ids exits', () => {});
+    test('should return primitive values when ids exits', () => {
+      const workflow = new Workflow({
+        id: 'test-id',
+        no: 100,
+        title: new Title('test-title'),
+        description: new Description('test-description'),
+        status: new WorkflowStatus('todo'),
+        createUser: 'test-user',
+        createdAt: new Date('2022-12-19T11:20:53.000Z'),
+      });
+
+      expect(workflow.toPrimitive()).toStrictEqual({
+        _id: 'test-id',
+        id: 100,
+        title: 'test-title',
+        description: 'test-description',
+        status: 'todo',
+        createUser: 'test-user',
+        createdAt: new Date('2022-12-19T11:20:53.000Z'),
+      });
+    });
 
     test('should return primitive values when ids do not exits', () => {});
   });
