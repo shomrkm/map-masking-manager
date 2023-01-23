@@ -1,6 +1,6 @@
 import moment from 'moment-timezone';
 
-import { Description, Priority, Title, WorkflowStatus } from '@/domain/ValueObjects';
+import { Description, Title, WorkflowStatus } from '@/domain/ValueObjects';
 
 import { Workflow } from '../Workflow';
 
@@ -67,8 +67,44 @@ describe('domain/entities/Workflow', () => {
   });
 
   describe('isPersisted', () => {
-    test('should return true if the Task has _id/no', () => {});
-    test("should return false if the Task has't id", () => {});
-    test("should return false if the Task has't no", () => {});
+    test('should return true if the Task has _id/no', () => {
+      const workflow = new Workflow({
+        id: 'test-id',
+        no: 100,
+        title: new Title('test-title'),
+        description: new Description('test-description'),
+        status: new WorkflowStatus('todo'),
+        createUser: 'test-user',
+        createdAt: new Date('2022-12-19T11:20:53.000Z'),
+      });
+
+      expect(workflow.isPersisted()).toBeTruthy();
+    });
+
+    test("should return false if the Task has't id", () => {
+      const workflow = new Workflow({
+        no: 100,
+        title: new Title('test-title'),
+        description: new Description('test-description'),
+        status: new WorkflowStatus('todo'),
+        createUser: 'test-user',
+        createdAt: new Date('2022-12-19T11:20:53.000Z'),
+      });
+
+      expect(workflow.isPersisted()).toBeFalsy();
+    });
+
+    test("should return false if the Task has't no", () => {
+      const workflow = new Workflow({
+        no: 100,
+        title: new Title('test-title'),
+        description: new Description('test-description'),
+        status: new WorkflowStatus('todo'),
+        createUser: 'test-user',
+        createdAt: new Date('2022-12-19T11:20:53.000Z'),
+      });
+
+      expect(workflow.isPersisted()).toBeFalsy();
+    });
   });
 });
