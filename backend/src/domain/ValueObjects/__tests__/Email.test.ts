@@ -2,7 +2,7 @@ import { ErrorResponse } from '@/shared/core/utils';
 
 import { Email } from '../Email';
 
-describe('Email ValueObject test', () => {
+describe('domain/ValueObjects/Email', () => {
   test('should not throw error if email is valid', () => {
     expect(() => new Email('shomrkm@test.com')).not.toThrowError();
   });
