@@ -22,8 +22,15 @@ const handleStyle: CSSProperties = {
   width: 40,
   height: 10,
   borderRadius: 5,
-  backgroundColor: 'gray',
+  backgroundColor: 'lightgray',
   opacity: '50%',
+};
+
+const color = {
+  todo: 'bg-gray-100',
+  inprogress: 'bg-blue-100',
+  inReview: 'bg-green-100',
+  completed: 'bg-gray-300',
 };
 
 export const TaskCustomNode = (task: TaskNodeProps) => {
@@ -58,7 +65,7 @@ export const TaskCustomNode = (task: TaskNodeProps) => {
       </Authorization>
       <div
         className={clsx(
-          status === 'inprogress' && 'bg-blue-100',
+          color[status],
           'flex-col justify-center items-center bg-gray-100 rounded-md border border-gray-400 border-solid shadow-sm'
         )}
       >
