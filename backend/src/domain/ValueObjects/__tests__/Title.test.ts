@@ -11,7 +11,7 @@ describe('domain/ValueObjects/Title', () => {
     expect(() => new Title(Length50String)).not.toThrowError();
   });
 
-  test('should throw error if description is invalid', () => {
+  test('should throw error if title is invalid', () => {
     const Length51String = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
 
     expect(() => new Title(Length51String)).toThrowError(
