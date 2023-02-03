@@ -1,4 +1,4 @@
-import { PencilAltIcon, PlusCircleIcon } from '@heroicons/react/outline';
+import { PlusCircleIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import { useState, CSSProperties } from 'react';
 import { Handle, Position } from 'react-flow-renderer';
@@ -66,11 +66,10 @@ export const TaskCustomNode = (task: TaskNodeProps) => {
       <div
         className={clsx(
           color[status],
-          'flex-col justify-center items-center bg-gray-100 rounded-md border border-gray-400 border-solid shadow-sm'
+          'flex-col justify-center items-center w-80 bg-gray-100 rounded-md border border-gray-400 border-solid shadow-sm'
         )}
       >
         <div className="flex justify-center items-center px-3 pt-2 pb-1 font-bold">
-          <PencilAltIcon className="p-1 mr-2 w-6 h-6 text-gray-800 bg-gray-300 rounded-full" />
           <Link to={`../../tasks/${_id}`} className="pr-2 text-sm text-blue-700">{`#${id}`}</Link>
           <p className="flex-1 text-sm text-gray-700">{title}</p>
           <Authorization allowedRoles={[ROLES.admin]}>
@@ -78,7 +77,7 @@ export const TaskCustomNode = (task: TaskNodeProps) => {
           </Authorization>
         </div>
         <div className="border-b border-gray-400 border-solid" />
-        <div className="flex">
+        <div className="flex justify-center">
           <div className="flex justify-center items-center p-3 space-x-2">
             <div className="flex-col space-y-2 text-sm">
               <div className="flex items-center space-x-2">
@@ -90,7 +89,9 @@ export const TaskCustomNode = (task: TaskNodeProps) => {
                 <LevelBadge level={level} size="sm" />
               </div>
             </div>
-            <RadialProgress progress={40} size="sm" />
+            <div className="flex justify-center">
+              <RadialProgress progress={40} size="sm" />
+            </div>
           </div>
         </div>
       </div>
