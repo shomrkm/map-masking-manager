@@ -42,8 +42,8 @@
   },
   {
     "_id": "5d713a66ec8f2b88b8f830b8",
-    "title": "Delete Chinen's home",
-    "description": "Delete the building, poi and annotation features relevant to Chinen's home.",
+    "title": "Delete a unexist house",
+    "description": "Delete the building, poi and annotation features relevant to a unexist house.",
     "detail": "Please refer to procedure manual for details.",
     "area": {
       "type": "Polygon",
