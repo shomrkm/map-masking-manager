@@ -1,3 +1,16 @@
-# map-tasking-manager
+# Map Tasking Manager #
+This is a sample application I created for my personal study. It primarily uses the following technology stacks:
 
-Sample Application for managing mapping tasks.
+Frontend:
+
+- React 
+- TypeScript
+- React Query
+- Tailwind CSS
+- Leaflet
+
+Backend:
+
+- Express
+- MongoDB
+- Turf

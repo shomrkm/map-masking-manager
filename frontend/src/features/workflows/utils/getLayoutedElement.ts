@@ -1,8 +1,8 @@
 import dagre from 'dagre';
 import { Node, Edge, Position } from 'react-flow-renderer';
 
-const NODE_WIDTH = 270;
-const NODE_HEIGHT = 150;
+const NODE_WIDTH = 320;
+const NODE_HEIGHT = 180;
 
 const dagreGraph = new dagre.graphlib.Graph();
 dagreGraph.setDefaultEdgeLabel(() => ({}));
