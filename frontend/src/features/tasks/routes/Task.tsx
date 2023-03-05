@@ -3,7 +3,14 @@ import { polygon } from '@turf/helpers';
 import { useParams } from 'react-router-dom';
 
 import { Avatar } from '@/components/Avatar';
-import { Spinner, StatusBadge, LevelBadge, PriorityBadge, MDPreview } from '@/components/Elements';
+import {
+  Spinner,
+  StatusBadge,
+  LevelBadge,
+  PriorityBadge,
+  MDPreview,
+  Tooltip,
+} from '@/components/Elements';
 import { ContentLayout } from '@/components/Layout';
 import { Map } from '@/components/Map';
 import { Comments } from '@/features/comments/';
@@ -61,7 +68,9 @@ export const Task = () => {
               <div className="col-span-2 justify-items-center items-center">
                 <div className="flex gap-2 justify-start">
                   {taskQuery.data.assignedUsers.map((user) => (
-                    <Avatar key={user._id} name={user.name} avatar={user.avatar} />
+                    <Tooltip key={user._id} text={user.name}>
+                      <Avatar key={user._id} name={user.name} avatar={user.avatar} />
+                    </Tooltip>
                   ))}
                 </div>
               </div>
