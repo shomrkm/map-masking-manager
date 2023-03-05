@@ -1,23 +1,29 @@
 import clsx from 'clsx';
-import React, { ReactNode } from 'react';
+import React from 'react';
 
-type TooltipProps = {
-  children: ReactNode;
+const Direction = {
+  top: '-top-full left-1/2 -translate-x-1/2 -translate-y-1/2',
+  bottom: 'top-1/2 left-1/2 -translate-x-1/2 translate-y-1/2',
 };
 
-export const Tooltip: React.FC<TooltipProps> = ({ children }) => {
+export type TooltipProps = {
+  text: string;
+  direction?: keyof typeof Direction;
+  children: React.ReactNode;
+};
+
+export const Tooltip: React.FC<TooltipProps> = ({ text, direction = 'bottom', children }) => {
   return (
-    <span className="relative">
+    <div className="group inline-block relative">
+      {children}
       <span
-        // eslint-disable-next-line tailwindcss/no-custom-classname
         className={clsx(
-          'absolute -top-12 left-1/2 py-1 px-2 text-white whitespace-nowrap bg-black rounded translate-x-1/2',
-          "before:absolute before:top-full before:border-4 before:border-transparent before:border-t-black before:-translate-x-1/2 before:content-['']",
-          'opacity-0 group-hover:opacity-100 transition pointer-events-none'
+          'absolute visible group-hover:visible py-1 px-2 m-1 text-white whitespace-nowrap bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition',
+          `${Direction[direction]}`
         )}
       >
-        {children}
+        {text}
       </span>
-    </span>
+    </div>
   );
 };
