@@ -109,3 +109,6 @@ dist
 # Drawio file
 doc/.drawio-chrome/
 backend/config/.env
+
+# meta data file
+.DS_Store
