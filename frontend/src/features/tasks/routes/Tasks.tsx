@@ -5,6 +5,7 @@ import {
   StatusBadge,
   PriorityBadge,
   LevelBadge,
+  Tooltip,
 } from '@/components/Elements';
 import { ContentLayout } from '@/components/Layout';
 import { CreateTaskButton } from '@/features/tasks/components/CreateTaskButton';
@@ -31,7 +32,7 @@ export const Tasks = () => {
   return (
     <>
       <ContentLayout title="Tasks">
-        <div className="flex-col">
+        <div className="z-10 flex-col">
           <Authorization allowedRoles={[ROLES.admin]}>
             <div className="flex pb-4">
               {/* TODO: POST task request(/api/tasks) doesn't work so need to fix it. */}
@@ -58,6 +59,9 @@ export const Tasks = () => {
               {
                 title: 'Title',
                 field: 'title',
+                Cell({ entry: { title } }) {
+                  return <Tooltip text={title}>{title}</Tooltip>;
+                },
               },
               {
                 title: 'Priority',
