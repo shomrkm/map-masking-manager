@@ -26,7 +26,7 @@ export const Table = <Entry extends { _id: string }>({ data, columns }: TablePro
     <div className="flex flex-col">
       <div className="overflow-x-auto -my-2 sm:-mx-6 lg:-mx-8">
         <div className="inline-block py-2 sm:px-6 lg:px-8 min-w-full align-middle">
-          <div className="overflow-hidden sm:rounded-lg border-b border-gray-200 shadow">
+          <div className="overflow-hidden pb-5 sm:rounded-lg border-b border-gray-200 shadow">
             <table className="min-w-full divide-y divide-gray-200">
               <thead>
                 <tr>
