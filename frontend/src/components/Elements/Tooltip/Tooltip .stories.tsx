@@ -13,11 +13,15 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<TooltipProps> = (props) => <Tooltip {...props} />;
+const Template: Story<TooltipProps> = (props) => (
+  <div className="flex justify-center items-center w-32 h-20">
+    <Tooltip {...props} />
+  </div>
+);
 
 export const Top = Template.bind({});
 Top.args = {
-  children: <div className="bg-red-600">Tooltip</div>,
+  children: <div>Tooltip</div>,
   text: 'This is a Tooltip',
   direction: 'top',
 };
