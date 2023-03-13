@@ -26,6 +26,15 @@
     "password": "123456"
   },
   {
+    "_id": "5d7a514b5d2c12c7449be045",
+    "name": "Read Only Account",
+    "email": "ronly@test.com",
+    "role": "mapper",
+    "level": "expert",
+    "avatar": "uploads/5d7a514b5d2c12c7449be044.jpg",
+    "password": "123456"
+  },
+  {
     "_id": "5c8a1d5b0190b214360dc031",
     "name": "Mats Fummels",
     "email": "mats@gmail.com",
