@@ -11,6 +11,9 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story = () => <MyInputForm />;
+const Template: Story = (props) => <MyInputForm {...props} />;
 
 export const Default = Template.bind({});
+Default.args = {
+  defaultValue: 'test',
+};

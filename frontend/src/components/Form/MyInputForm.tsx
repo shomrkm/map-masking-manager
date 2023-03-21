@@ -1,9 +1,14 @@
+import { CheckIcon } from '@heroicons/react/outline';
 import React, { useState, FC } from 'react';
 
-export const MyInputForm: FC = () => {
+type Props = {
+  defaultValue?: string;
+};
+
+export const MyInputForm: FC<Props> = ({ defaultValue = '' }: Props) => {
   const [isClicked, setIsClicked] = useState(false);
 
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(defaultValue);
 
   const handleInputClick = () => {
     setIsClicked(true);
@@ -24,20 +29,32 @@ export const MyInputForm: FC = () => {
     <div>
       {isClicked ? (
         <form onSubmit={handleSubmit}>
-          <div className="flex flex-row justify-start items-center">
+          <div className="flex items-center">
             <input
               type="text"
               defaultValue={value}
               onChange={handleChange}
-              className="border border-gray-200 border-solid"
+              className="block border border-gray-200 border-solid"
             />
-            <button type="submit" value="Submit" className="bg-gray-200">
-              ✔
+            <button
+              type="submit"
+              value="Submit"
+              className="flex justify-center items-center bg-gray-200"
+            >
+              <CheckIcon className="w-5 h-auto text-gray-400" />
             </button>
           </div>
         </form>
       ) : (
-        <input type="text" defaultValue={value} onClick={handleInputClick} />
+        <div className="flex items-center">
+          <input
+            type="text"
+            defaultValue={value}
+            onClick={handleInputClick}
+            className="pointer-events-none: block bg-white hover:bg-gray-500 hover:pointer-events-auto"
+            readOnly
+          />
+        </div>
       )}
     </div>
   );
