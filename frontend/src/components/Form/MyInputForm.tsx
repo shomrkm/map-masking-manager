@@ -25,37 +25,38 @@ export const MyInputForm: FC<Props> = ({ defaultValue = '' }: Props) => {
     setIsClicked(false);
   };
 
+  // TODO: https://play.tailwindcss.com/vPP44iui1K
   return (
     <div>
-      {isClicked ? (
-        <form onSubmit={handleSubmit}>
-          <div className="flex items-center">
+      <form onSubmit={handleSubmit}>
+        {isClicked ? (
+          <div className="flex relative items-center">
             <input
               type="text"
               defaultValue={value}
               onChange={handleChange}
-              className="block border border-gray-200 border-solid"
+              className="block py-2 px-3 w-full sm:text-sm placeholder-gray-400 rounded-md border border-gray-300 focus:border-blue-500 focus:ring-blue-500 shadow-sm appearance-none focus:outline-none"
             />
             <button
               type="submit"
               value="Submit"
-              className="flex justify-center items-center bg-gray-200"
+              className="flex absolute right-3 justify-center items-center bg-gray-200 rounded-full"
             >
-              <CheckIcon className="w-5 h-auto text-gray-400" />
+              <CheckIcon className="w-5 h-5 text-gray-400" />
             </button>
           </div>
-        </form>
-      ) : (
-        <div className="flex items-center">
-          <input
-            type="text"
-            defaultValue={value}
-            onClick={handleInputClick}
-            className="pointer-events-none: block bg-white hover:bg-gray-500 hover:pointer-events-auto"
-            readOnly
-          />
-        </div>
-      )}
+        ) : (
+          <div className="flex items-center">
+            <input
+              type="text"
+              defaultValue={value}
+              onClick={handleInputClick}
+              className="block py-2 px-3 w-full sm:text-sm rounded-md hover:border hover:border-gray-300 hover:shadow-sm appearance-none"
+              readOnly
+            />
+          </div>
+        )}
+      </form>
     </div>
   );
 };
