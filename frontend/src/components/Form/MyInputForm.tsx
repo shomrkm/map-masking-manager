@@ -6,7 +6,10 @@ export type MyInputFormProps = {
   onSubmit: (value: string) => void;
 };
 
-export const MyInputForm: FC<MyInputFormProps> = ({ defaultValue = '', onSubmit }: Props) => {
+export const MyInputForm: FC<MyInputFormProps> = ({
+  defaultValue = '',
+  onSubmit,
+}: MyInputFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const [value, setValue] = useState(defaultValue);
