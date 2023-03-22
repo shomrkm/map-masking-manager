@@ -1,15 +1,15 @@
 import { CheckIcon } from '@heroicons/react/outline';
 import React, { useState, FC, useCallback } from 'react';
 
-export type MyInputFormProps = {
+export type ToggleableInputFormProps = {
   defaultValue?: string;
   onSubmit: (value: string) => void;
 };
 
-export const MyInputForm: FC<MyInputFormProps> = ({
+export const ToggleableInputForm: FC<ToggleableInputFormProps> = ({
   defaultValue = '',
   onSubmit,
-}: MyInputFormProps) => {
+}: ToggleableInputFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const [value, setValue] = useState(defaultValue);
