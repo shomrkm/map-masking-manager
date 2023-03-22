@@ -1,35 +1,37 @@
 import { CheckIcon } from '@heroicons/react/outline';
-import React, { useState, FC } from 'react';
+import React, { useState, FC, useCallback } from 'react';
 
-type Props = {
+export type MyInputFormProps = {
   defaultValue?: string;
+  onSubmit: (value: string) => void;
 };
 
-export const MyInputForm: FC<Props> = ({ defaultValue = '' }: Props) => {
-  const [isClicked, setIsClicked] = useState(false);
+export const MyInputForm: FC<MyInputFormProps> = ({ defaultValue = '', onSubmit }: Props) => {
+  const [isEditing, setIsEditing] = useState(false);
 
   const [value, setValue] = useState(defaultValue);
 
   const handleInputClick = () => {
-    setIsClicked(true);
+    setIsEditing(true);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
 
-  const handleSubmit = (e: React.SyntheticEvent) => {
-    e.preventDefault();
-    // submit form data
-    console.log(e);
-    setIsClicked(false);
-  };
+  const handleSubmit = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      onSubmit(value);
+      setIsEditing(false);
+    },
+    [value, onSubmit]
+  );
 
-  // TODO: https://play.tailwindcss.com/vPP44iui1K
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        {isClicked ? (
+        {isEditing ? (
           <div className="flex relative items-center">
             <input
               type="text"
