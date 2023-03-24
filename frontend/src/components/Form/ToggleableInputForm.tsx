@@ -45,9 +45,9 @@ export const ToggleableInputForm: FC<ToggleableInputFormProps> = ({
             <button
               type="submit"
               value="Submit"
-              className="flex absolute right-3 justify-center items-center bg-gray-200 rounded-full"
+              className="flex absolute right-3 justify-center items-center bg-gray-200 hover:bg-blue-200 rounded-full"
             >
-              <CheckIcon className="w-5 h-5 text-gray-400" />
+              <CheckIcon className="w-5 h-5 text-gray-400 hover:text-blue-400" />
             </button>
           </div>
         ) : (
