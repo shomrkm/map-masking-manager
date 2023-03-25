@@ -2,11 +2,13 @@ import { CheckIcon } from '@heroicons/react/outline';
 import React, { useState, FC, useCallback } from 'react';
 
 export type ToggleableInputFormProps = {
+  size?: 'sm' | 'base' | 'lg' | 'xl';
   defaultValue?: string;
   onSubmit: (value: string) => void;
 };
 
 export const ToggleableInputForm: FC<ToggleableInputFormProps> = ({
+  size = 'sm',
   defaultValue = '',
   onSubmit,
 }: ToggleableInputFormProps) => {
@@ -40,7 +42,7 @@ export const ToggleableInputForm: FC<ToggleableInputFormProps> = ({
               type="text"
               defaultValue={value}
               onChange={handleChange}
-              className="block py-2 px-3 w-full sm:text-sm placeholder-gray-400 rounded-md border border-gray-300 focus:border-blue-500 focus:ring-blue-500 shadow-sm appearance-none focus:outline-none"
+              className={`block py-2 px-3 w-full text-${size} placeholder-gray-400 rounded-md border border-gray-300 focus:border-blue-500 focus:ring-blue-500 shadow-sm appearance-none focus:outline-none`}
             />
             <button
               type="submit"
@@ -56,7 +58,7 @@ export const ToggleableInputForm: FC<ToggleableInputFormProps> = ({
               type="text"
               defaultValue={value}
               onClick={handleInputClick}
-              className="block py-2 px-3 w-full sm:text-sm rounded-md hover:border hover:border-gray-300 hover:shadow-sm appearance-none"
+              className={`block py-2 px-3 w-full text-${size} rounded-md hover:border hover:border-gray-300 hover:shadow-sm appearance-none`}
               readOnly
             />
           </div>
