@@ -1,14 +1,24 @@
 import { CheckIcon } from '@heroicons/react/outline';
+import clsx from 'clsx';
 import React, { useState, FC, useCallback } from 'react';
 
+const FontSize = {
+  sm: 'text-sm',
+  md: 'text-base',
+  lg: 'text-lg',
+  xl: 'text-xl',
+};
+
 export type ToggleableInputFormProps = {
-  size?: 'sm' | 'base' | 'lg' | 'xl';
+  size?: keyof typeof FontSize;
+  bold?: boolean;
   defaultValue?: string;
   onSubmit: (value: string) => void;
 };
 
 export const ToggleableInputForm: FC<ToggleableInputFormProps> = ({
   size = 'sm',
+  bold = false,
   defaultValue = '',
   onSubmit,
 }: ToggleableInputFormProps) => {
@@ -58,7 +68,11 @@ export const ToggleableInputForm: FC<ToggleableInputFormProps> = ({
               type="text"
               defaultValue={value}
               onClick={handleInputClick}
-              className={`block py-2 px-3 w-full text-${size} rounded-md hover:border hover:border-gray-300 hover:shadow-sm appearance-none`}
+              className={clsx(
+                'block py-2 px-3 w-full rounded-md hover:border hover:border-gray-300 hover:shadow-sm appearance-none',
+                FontSize[size],
+                bold && 'font-bold'
+              )}
               readOnly
             />
           </div>
