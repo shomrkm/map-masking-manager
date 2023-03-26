@@ -14,6 +14,7 @@ export type ToggleableInputFormProps = {
   bold?: boolean;
   defaultValue?: string;
   onSubmit: (value: string) => void;
+  className?: string;
 };
 
 export const ToggleableInputForm: FC<ToggleableInputFormProps> = ({
@@ -21,6 +22,7 @@ export const ToggleableInputForm: FC<ToggleableInputFormProps> = ({
   bold = false,
   defaultValue = '',
   onSubmit,
+  className,
 }: ToggleableInputFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
@@ -71,7 +73,8 @@ export const ToggleableInputForm: FC<ToggleableInputFormProps> = ({
               className={clsx(
                 'block py-2 px-3 w-full rounded-md hover:border hover:border-gray-300 hover:shadow-sm appearance-none',
                 FontSize[size],
-                bold && 'font-bold'
+                bold && 'font-bold',
+                className
               )}
               readOnly
             />
