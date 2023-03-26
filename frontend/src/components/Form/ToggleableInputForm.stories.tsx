@@ -28,14 +28,16 @@ Small.args = {
 
 export const Base = Template.bind({});
 Base.args = {
-  size: 'base',
-  defaultValue: 'Base Text',
+  size: 'md',
+  bold: false,
+  defaultValue: 'Middle Text',
   onSubmit: (value: string) => console.log(value),
 };
 
 export const Large = Template.bind({});
 Large.args = {
   size: 'lg',
+  bold: false,
   defaultValue: 'Large Text',
   onSubmit: (value: string) => console.log(value),
 };
@@ -43,6 +45,15 @@ Large.args = {
 export const XLarge = Template.bind({});
 XLarge.args = {
   size: 'xl',
+  bold: false,
   defaultValue: 'XLarge Text',
+  onSubmit: (value: string) => console.log(value),
+};
+
+export const Bold = Template.bind({});
+Bold.args = {
+  size: 'md',
+  bold: true,
+  defaultValue: 'Middle Text',
   onSubmit: (value: string) => console.log(value),
 };
