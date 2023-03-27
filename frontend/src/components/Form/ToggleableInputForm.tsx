@@ -10,6 +10,7 @@ const FontSize = {
 };
 
 export type ToggleableInputFormProps = {
+  type?: 'text' | 'number' | 'email';
   size?: keyof typeof FontSize;
   bold?: boolean;
   defaultValue?: string;
@@ -18,6 +19,7 @@ export type ToggleableInputFormProps = {
 };
 
 export const ToggleableInputForm: FC<ToggleableInputFormProps> = ({
+  type = 'text',
   size = 'sm',
   bold = false,
   defaultValue = '',
@@ -51,7 +53,7 @@ export const ToggleableInputForm: FC<ToggleableInputFormProps> = ({
         {isEditing ? (
           <div className="flex relative items-center">
             <input
-              type="text"
+              type={type}
               defaultValue={value}
               onChange={handleChange}
               className={`block py-2 px-3 w-full text-${size} placeholder-gray-400 rounded-md border border-gray-300 focus:border-blue-500 focus:ring-blue-500 shadow-sm appearance-none focus:outline-none`}
