@@ -10,7 +10,7 @@ const FontSize = {
 };
 
 export type ToggleableInputFormProps = {
-  type?: 'text' | 'number' | 'email';
+  type?: 'text' | 'email';
   size?: keyof typeof FontSize;
   bold?: boolean;
   defaultValue?: string;
