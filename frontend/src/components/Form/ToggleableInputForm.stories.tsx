@@ -21,6 +21,7 @@ const Template: Story<ToggleableInputFormProps> = (props) => <MyToggleableInputF
 
 export const Small = Template.bind({});
 Small.args = {
+  type: 'text',
   size: 'sm',
   defaultValue: 'Small Text',
   onSubmit: (value: string) => console.log(value),
@@ -28,6 +29,7 @@ Small.args = {
 
 export const Base = Template.bind({});
 Base.args = {
+  type: 'text',
   size: 'md',
   bold: false,
   defaultValue: 'Middle Text',
@@ -36,6 +38,7 @@ Base.args = {
 
 export const Large = Template.bind({});
 Large.args = {
+  type: 'text',
   size: 'lg',
   bold: false,
   defaultValue: 'Large Text',
@@ -44,6 +47,7 @@ Large.args = {
 
 export const XLarge = Template.bind({});
 XLarge.args = {
+  type: 'text',
   size: 'xl',
   bold: false,
   defaultValue: 'XLarge Text',
@@ -52,6 +56,7 @@ XLarge.args = {
 
 export const Bold = Template.bind({});
 Bold.args = {
+  type: 'text',
   size: 'md',
   bold: true,
   defaultValue: 'Middle Text',
