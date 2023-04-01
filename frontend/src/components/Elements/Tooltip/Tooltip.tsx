@@ -24,7 +24,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
       {children}
       <span
         className={clsx(
-          'absolute visible group-hover:visible py-1 px-2 m-1 text-sm text-white whitespace-nowrap bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition',
+          'absolute visible group-hover:visible z-10 py-1 px-2 m-1 text-sm text-white whitespace-nowrap bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition',
           `${Direction[direction]}`,
           `${className}`
         )}
