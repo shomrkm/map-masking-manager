@@ -5,6 +5,8 @@ import {
 } from '@heroicons/react/outline';
 import React from 'react';
 
+import { Tooltip } from '@/components/Elements';
+
 const sizes = {
   sm: 'w-6 h-6',
   md: 'w-8 h-8',
@@ -37,9 +39,15 @@ export const MapTargets: React.VFC<MapTargetsProps> = ({ targets, size = 'sm' })
 
   return (
     <div className="flex space-x-2">
-      <MapIcon Icon={SwitchVerticalIcon} activate={activateRoad} size={size} />
-      <MapIcon Icon={LocationMarkerIcon} activate={activatePoi} size={size} />
-      <MapIcon Icon={OfficeBuildingIcon} activate={activateMap} size={size} />
+      <Tooltip text="Road">
+        <MapIcon Icon={SwitchVerticalIcon} activate={activateRoad} size={size} />
+      </Tooltip>
+      <Tooltip text="Poi">
+        <MapIcon Icon={LocationMarkerIcon} activate={activatePoi} size={size} />
+      </Tooltip>
+      <Tooltip text="Map">
+        <MapIcon Icon={OfficeBuildingIcon} activate={activateMap} size={size} />
+      </Tooltip>
     </div>
   );
 };
