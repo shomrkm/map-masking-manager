@@ -1,6 +1,7 @@
-import { CheckIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import React, { useState, FC, useCallback } from 'react';
+
+import { Button } from '../Elements';
 
 const FontSize = {
   sm: 'text-sm',
@@ -11,7 +12,6 @@ const FontSize = {
 
 export type ToggleableTextAreaFormProps = {
   size?: keyof typeof FontSize;
-  bold?: boolean;
   defaultValue?: string;
   onSubmit: (value: string) => void;
   className?: string;
@@ -19,7 +19,6 @@ export type ToggleableTextAreaFormProps = {
 
 export const ToggleableTextAreaForm: FC<ToggleableTextAreaFormProps> = ({
   size = 'sm',
-  bold = false,
   defaultValue = '',
   onSubmit,
   className,
@@ -30,6 +29,11 @@ export const ToggleableTextAreaForm: FC<ToggleableTextAreaFormProps> = ({
 
   const handleInputClick = () => {
     setIsEditing(true);
+  };
+
+  const hadleCancelClick = () => {
+    setValue(defaultValue);
+    setIsEditing(false);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -49,19 +53,20 @@ export const ToggleableTextAreaForm: FC<ToggleableTextAreaFormProps> = ({
     <div>
       <form onSubmit={handleSubmit}>
         {isEditing ? (
-          <div className="flex relative items-center">
+          <div className="flex-col items-center">
             <textarea
               defaultValue={value}
               onChange={handleChange}
               className={`block py-2 px-3 w-full text-${size} placeholder-gray-400 rounded-md border border-gray-300 focus:border-blue-500 focus:ring-blue-500 shadow-sm appearance-none focus:outline-none`}
             />
-            <button
-              type="submit"
-              value="Submit"
-              className="flex absolute right-3 justify-center items-center bg-gray-200 hover:bg-blue-200 rounded-full"
-            >
-              <CheckIcon className="w-5 h-5 text-gray-400 hover:text-blue-400" />
-            </button>
+            <div className="flex gap-2 mt-2">
+              <Button type="submit" variant="primary" size="xs">
+                Save
+              </Button>
+              <Button variant="inverse" size="xs" onClick={hadleCancelClick}>
+                Cancel
+              </Button>
+            </div>
           </div>
         ) : (
           <div className="flex items-center">
@@ -72,7 +77,6 @@ export const ToggleableTextAreaForm: FC<ToggleableTextAreaFormProps> = ({
               className={clsx(
                 'block py-2 px-3 w-full rounded-md hover:border hover:border-gray-300 hover:shadow-sm appearance-none',
                 FontSize[size],
-                bold && 'font-bold',
                 className
               )}
               readOnly
