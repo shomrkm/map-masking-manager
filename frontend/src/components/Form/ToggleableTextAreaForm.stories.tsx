@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react';
 import { ToggleableTextAreaForm, ToggleableTextAreaFormProps } from './ToggleableITextAreaForm';
 
 const MyToggleableTextAreaForm = (props: ToggleableTextAreaFormProps) => (
-  <div className="w-48">
+  <div className="w-56">
     <ToggleableTextAreaForm {...props} />
   </div>
 );
@@ -21,30 +21,20 @@ const Template: Story<ToggleableTextAreaFormProps> = (props) => (
   <MyToggleableTextAreaForm {...props} />
 );
 
-export const Small = Template.bind({});
-Small.args = {
-  size: 'sm',
-  defaultValue: 'Small Text',
+export const Default = Template.bind({});
+Default.args = {
+  defaultValue: 'This is the text.',
   onSubmit: (value: string) => console.log(value),
 };
 
-export const Base = Template.bind({});
-Base.args = {
-  size: 'md',
-  defaultValue: 'Middle Text',
-  onSubmit: (value: string) => console.log(value),
-};
+export const Markdown = Template.bind({});
+Markdown.args = {
+  defaultValue: `## Header
+   - list1
+   - list2
 
-export const Large = Template.bind({});
-Large.args = {
-  size: 'lg',
-  defaultValue: 'Large Text',
+   This is the [link](https://www.google.com/) to google.
+  `,
   onSubmit: (value: string) => console.log(value),
-};
-
-export const XLarge = Template.bind({});
-XLarge.args = {
-  size: 'xl',
-  defaultValue: 'XLarge Text',
-  onSubmit: (value: string) => console.log(value),
+  className: 'h-20',
 };

@@ -1,24 +1,15 @@
 import clsx from 'clsx';
 import React, { useState, FC, useCallback } from 'react';
 
-import { Button } from '../Elements';
-
-const FontSize = {
-  sm: 'text-sm',
-  md: 'text-base',
-  lg: 'text-lg',
-  xl: 'text-xl',
-};
+import { Button, MDPreview } from '../Elements';
 
 export type ToggleableTextAreaFormProps = {
-  size?: keyof typeof FontSize;
   defaultValue?: string;
   onSubmit: (value: string) => void;
   className?: string;
 };
 
 export const ToggleableTextAreaForm: FC<ToggleableTextAreaFormProps> = ({
-  size = 'sm',
   defaultValue = '',
   onSubmit,
   className,
@@ -27,7 +18,8 @@ export const ToggleableTextAreaForm: FC<ToggleableTextAreaFormProps> = ({
 
   const [value, setValue] = useState(defaultValue);
 
-  const handleInputClick = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleInputClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     setIsEditing(true);
   };
 
@@ -57,7 +49,10 @@ export const ToggleableTextAreaForm: FC<ToggleableTextAreaFormProps> = ({
             <textarea
               defaultValue={value}
               onChange={handleChange}
-              className={`block py-2 px-3 w-full text-${size} placeholder-gray-400 rounded-md border border-gray-300 focus:border-blue-500 focus:ring-blue-500 shadow-sm appearance-none focus:outline-none`}
+              className={clsx(
+                `block py-2 px-3 w-full placeholder-gray-400 rounded-md border border-gray-300 focus:border-blue-500 focus:ring-blue-500 shadow-sm appearance-none focus:outline-none`,
+                className
+              )}
             />
             <div className="flex gap-2 mt-2">
               <Button type="submit" variant="primary" size="xs">
@@ -69,18 +64,13 @@ export const ToggleableTextAreaForm: FC<ToggleableTextAreaFormProps> = ({
             </div>
           </div>
         ) : (
-          <div className="flex items-center">
-            <input
-              type="text"
-              defaultValue={value}
-              onClick={handleInputClick}
-              className={clsx(
-                'block py-2 px-3 w-full rounded-md hover:border hover:border-gray-300 hover:shadow-sm appearance-none',
-                FontSize[size],
-                className
-              )}
-              readOnly
-            />
+          <div
+            className={clsx('items-center', className)}
+            onClick={handleInputClick}
+            role="button"
+            aria-hidden="true"
+          >
+            <MDPreview value={value} />
           </div>
         )}
       </form>
