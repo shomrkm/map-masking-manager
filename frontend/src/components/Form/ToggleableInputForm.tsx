@@ -1,4 +1,4 @@
-import { CheckIcon } from '@heroicons/react/outline';
+import { CheckIcon, XIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import React, { useState, FC, useCallback } from 'react';
 
@@ -51,7 +51,7 @@ export const ToggleableInputForm: FC<ToggleableInputFormProps> = ({
     <div>
       <form onSubmit={handleSubmit}>
         {isEditing ? (
-          <div className="flex relative items-center">
+          <div className="flex relative gap-2 items-center">
             <input
               type={type}
               defaultValue={value}
@@ -61,9 +61,16 @@ export const ToggleableInputForm: FC<ToggleableInputFormProps> = ({
             <button
               type="submit"
               value="Submit"
-              className="flex absolute right-3 justify-center items-center bg-gray-200 hover:bg-blue-200 rounded-full"
+              className="flex absolute right-3 -bottom-7 justify-center items-center bg-gray-200 hover:bg-blue-200 rounded-sm"
             >
-              <CheckIcon className="w-5 h-5 text-gray-400 hover:text-blue-400" />
+              <CheckIcon className="w-5 h-5 text-gray-400 hover:text-gray-600" />
+            </button>
+            <button
+              type="button"
+              value="Cancel"
+              className="flex absolute right-3 -bottom-7 justify-center items-center bg-gray-200 hover:bg-blue-200 rounded-sm"
+            >
+              <XIcon className="w-5 h-5 text-gray-400 hover:text-gray-600" />
             </button>
           </div>
         ) : (
