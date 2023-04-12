@@ -58,20 +58,22 @@ export const ToggleableInputForm: FC<ToggleableInputFormProps> = ({
               onChange={handleChange}
               className={`block py-2 px-3 w-full text-${size} placeholder-gray-400 rounded-md border border-gray-300 focus:border-blue-500 focus:ring-blue-500 shadow-sm appearance-none focus:outline-none`}
             />
+            <div className="flex absolute right-3 -bottom-7 gap-2">
             <button
               type="submit"
               value="Submit"
-              className="flex absolute right-3 -bottom-7 justify-center items-center bg-gray-200 hover:bg-blue-200 rounded-sm"
-            >
+              className="flex ustify-center items-center bg-gray-200 hover:bg-blue-200 rounded-sm"
+              >
               <CheckIcon className="w-5 h-5 text-gray-400 hover:text-gray-600" />
             </button>
             <button
               type="button"
               value="Cancel"
-              className="flex absolute right-3 -bottom-7 justify-center items-center bg-gray-200 hover:bg-blue-200 rounded-sm"
-            >
+              className="flex justify-center items-center bg-gray-200 hover:bg-blue-200 rounded-sm"
+              >
               <XIcon className="w-5 h-5 text-gray-400 hover:text-gray-600" />
             </button>
+            </div>
           </div>
         ) : (
           <div className="flex items-center">
